@@ -71,6 +71,13 @@ window.onload = function() {
   
   headerShown = true;
   
+  // If page is loaded with a hash, load the correct tab:
+  if (window.location.hash) {
+    console.log("Page loaded with hash: " + window.location.hash);
+    toggleHeader();
+    changeTab(window.location.hash);
+  }
+  
   websiteName.onclick = function() {
     // If it's not on the homepage:
     if (window.location.hash !== '') {

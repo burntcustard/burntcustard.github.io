@@ -20,6 +20,7 @@ header {
 header.collapsed {
   height: auto;
   flex-direction: row;
+  margin-bottom: 25px;
 }
 
 h1 {
@@ -121,7 +122,6 @@ nav a.selected:hover {
   margin: 20px;
   border-radius: 5px;
 }
-
 
 .category .item img {
   height: auto;
