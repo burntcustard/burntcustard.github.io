@@ -1,6 +1,6 @@
 body {
   text-align: center;
-  background-color: #2d2d2d;
+  background-color: #2e2e2e;
   width: 100%;
   margin: 0;
 }
@@ -117,6 +117,49 @@ nav a.selected:hover {
   display: block;
 }
 
-p {
-  color: white;
+.category .item {
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.category .item img {
+  height: auto;
+  width: 300px;
+  background-color: #222;
+  padding: 7px;
+  border-radius: 6px;
+  border: 1px solid #333;
+}
+
+.category .about img {
+  width: 150px;
+}
+
+
+.category .item img.round {
+  border-radius: 50%;
+}
+
+.category p {
+  margin: 20px auto;
+  color: #ddd;
+  text-align: left;
+  font-family: Rubik;
+  font-size: 18px;
+  line-height: 18pt;
+  text-shadow: 0 1px 4px #111;
+  max-width: 600px;
+}
+
+.category .item a {
+  color: #fff400;
+  text-decoration: none;
+}
+
+.category .item a:hover {
+  text-decoration: underline;
+}
+
+.category .about p {
+  
 }
