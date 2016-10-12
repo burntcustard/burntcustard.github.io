@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Canvasnake 2</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="16x16 32x32 64x64" href="canvasnake/favicon.ico">
+    <link rel="icon" sizes="192x192" href="canvasnake/favicon192.png" />
+    <meta name="viewport" content="width=480, user-scalable=no">
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="canvasnake/game2WIP.js" async></script>
+    <style>
+      /* Thank you Jason Kottke for free font! */
+      /* http://www.kottke.org/plus/type/silkscreen/index.html */
+      /* Grabbing it from my dropbox rather than hosting on burnt.io cos errors */
+      @font-face {
+          font-family: 'silkscreen';
+          src: url('https://dl.dropboxusercontent.com/u/28565393/Canvasnake/slkscr-webfont.ttf') format('truetype');
+      }
+
+      body {
+        /* Remove margins on the sides (where do they come from?!) */
+        margin: 8px 0 0 0;
+      }
+
+      a:link {
+        color: DimGray;
+        text-decoration: none;
+      }
+
+      a:visited {
+        color: DimGray;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      #mainContainer {
+        text-align: center;
+      }
+
+      #canvasContainer {
+        position: absolute;
+        width: 100%;
+        z-index: 1;
+      }
+
+      #canvasnake, .snakeInfo {
+        border: 1px solid white;
+        background-color: white; /*Stop weird popping though of elements behind*/
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.46), 0px 2px 10px rgba(0, 0, 0, 0.36);
+        border-radius: 1px;
+  
+      }
+      
+      .snakeInfo {
+        font-family: "Lucida Console", Monaco, monospace;
+        font-size: 13px;
+        text-align: left;
+        height: 430px;
+        width: 200px;
+        display: none;
+        margin: 0px 10px;
+        padding: 10px;
+      }
+      
+      #snakeInfoLeft {
+        float: left;
+      }
+      
+      #snakeInfoRight {
+        float: right;
+      }
+
+      #qrContainer, #qrContainerHid {
+        position: absolute;
+        width: 100%;
+        transition: all 2s;
+        opacity: 1;
+        z-index: 2;
+      }
+
+      #qrContainer {
+        cursor:pointer;
+      }
+
+      #qrContainerHid {
+        opacity: 0.08;
+      }
+
+      #qrCode {
+        background-color: white;
+        padding: 40px;
+      }
+
+      #sliderContainer {
+        padding-top: 450px;
+      }
+
+      #sliderMobile, #sliderTwitter, #sliderInfo, #sliderInfoBox, #sliderInfoBoxShow {
+        padding-top: 20px;
+        transition-duration: 0.5s;
+        display: inline-block;
+        vertical-align: top;
+        color: white;
+        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.46), 0px 2px 10px 0px rgba(0, 0, 0, 0.36);
+      }
+
+      #sliderTwitter {
+        background-color: #55ACEE;
+        margin: -45px 10px;
+        cursor: pointer;
+      }
+
+      #sliderMobile {
+        background-color: #A4C739;
+        margin: -88px 10px;
+      }
+
+      #sliderInfo {
+        background-color: orangered;
+        margin: -30px 10px;
+        cursor: pointer;
+      }
+
+      #sliderInfoBox, #sliderInfoBoxShow {
+        position: absolute;
+        margin: -180px auto;
+        left: 0px;
+        right: 0px;
+        width: 400px;
+        background-color: white;
+        color: black;
+        text-shadow: 0px 2px 7px rgba(0,0,0,0.4)
+      }
+
+      #sliderInfoBox a:link, #sliderInfoBoxShow a:link,
+      #sliderInfoBox a:visited, #sliderInfoBoxShow a:visited {
+        color: orangered;
+      }
+
+      #sliderMobileInner, #sliderTwitterInner, #sliderInfoInner, #sliderInfoBoxInner {
+        font-family: 'silkscreen';
+        font-size: small;
+        transition-duration: 0.5s;
+      }
+
+      #sliderTwitterInner {
+        width: 95px;
+        height: 45px;
+        margin-bottom: -15px;
+      }
+
+      #sliderMobileInner {
+        width: 142px;
+        height: 83px;
+        margin-bottom: -10px
+      }
+
+      #sliderInfoInner {
+        height: 45px;
+        margin-bottom: -30px;
+      }
+
+      #sliderMobile:hover, #sliderTwitter:hover, #sliderInfo:hover {
+        margin-top: 0px;
+      }
+
+      #sliderInfoBoxShow {
+        margin: 0px auto;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="mainContainer">
+      <div class="snakeInfo" id="snakeInfoLeft">Beep</div>
+      <div id="canvasContainer">
+        <!-- Width and height doesn't work in CSS for canvas? -->
+        <canvas id="canvasnake" width="450" height="450">Error loading canvasnake :(</canvas>
+      </div>
+      <div class="snakeInfo" id="snakeInfoRight">Boop</div>
+      <div id="qrContainer">
+         <img src="https://i.imgur.com/WereCeb.png" id="qrCode" alt="QR code" height="auto" width="auto">
+      </div>
+      <div id="sliderContainer">
+        <div id="sliderMobile">
+          <div id="sliderMobileInner">
+            Scan the QR code with an app like
+            <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.unveil"
+              title="Google Goggles Play store link (sorry iOS!)" target="_blank">
+            Google Goggles</a> to play on mobile.
+            <a id="showQRLink" title="Not working? Instead, go to: www.tiny.cc/canvasnake"
+              href="#" onclick="init(); return false;">Show QR</a>
+          </div>
+          <img src="https://i.imgur.com/PZkYSs8.png" id="mobile" alt="mobile" />
+        </div>
+        <div id="sliderTwitter" onclick="shareScore(); return false">
+          <div id="sliderTwitterInner">Tweet your highscore!</div>
+          <img src="https://i.imgur.com/oza6X7T.png" id="twitter" alt="twitter" />
+        </div>
+        <div id="sliderInfo" onclick="toggleInfo(); return false">
+          <div id="sliderInfoInner">About</div>
+          <img src="https://i.imgur.com/juYVi27.png" id="info" alt="twitter" />
+        </div>
+        <div id="sliderInfoBox">
+          <div id="sliderInfoBoxInner">
+            <span>Want to complain about bugs? Ideas for new foods? Give me free web hosting so I
+              don't keep using an unholy combination of dropbox + imgur? Contact me
+              <a href="https://twitter.com/burntcustard" target="_blank">@burntcustard</a> on
+              twitter, or at <a href="mailto:burntcustard@gmail.com?Subject=canvasnake"
+               target="_top">burntcustard@gmail.com</a>
+            </span>
+            <p>
+              <a href="http://tiny.cc/canvasnake" title="Don't click this, you're already here!">
+                canvasnake</a> is licensed under a
+              <a href="http://creativecommons.org/licenses/by-nc/4.0" target="_blank">
+              Creative Commons Attribution-NonCommercial 4.0 License.</a>
+            </p>
+            <p>
+              <a href="#" onclick="toggleInfo(); return false">&Delta; Hide &Delta;</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
