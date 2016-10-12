@@ -109,11 +109,11 @@ nav a.selected:hover {
   color: #fff;
 }
 
-.category:not(:target) {
+.category {
   display: none;
 }
 
-.category:target {
+.category.visible {
   display: block;
 }
 
@@ -121,6 +121,7 @@ nav a.selected:hover {
   margin: 20px;
   border-radius: 5px;
 }
+
 
 .category .item img {
   height: auto;
@@ -134,7 +135,6 @@ nav a.selected:hover {
 .category .about img {
   width: 150px;
 }
-
 
 .category .item img.round {
   border-radius: 50%;

@@ -5,16 +5,29 @@ var headerShown; // I.e. whether the full screen banner is up
  * @param {string} navName The name of the nav
  * element to select. All others are unselected.
  */
-function changeNav(navName) {
+function changeTab(navName) {
+  
   var navs = document.getElementById("mainNav");
+  var selectedCategory = document.getElementById(navName+"-tab");
+  
+  // Buttons:
   [].forEach.call(navs.getElementsByTagName("a"), function (nav) {
-    //console.log("Hash is: " + hash + ", nav is: " + nav);
     if (navName === nav.getAttribute("href")) {
       nav.classList.add("selected");
     } else {
       nav.classList.remove("selected");
     }
   });
+  
+  // Content:
+  [].forEach.call(document.getElementsByClassName("category"), function (cat) {
+    if ((navName+"-tab") === cat.id) {
+      cat.classList.add("visible");
+    } else {
+      cat.classList.remove("visible");
+    }
+  });
+  
 }
 
 function toggleHeader() {
@@ -23,7 +36,7 @@ function toggleHeader() {
   var websiteDesc = document.getElementById("websiteDesc");
   
   if (header.classList.contains("collapsed")) {
-    changeNav();
+    changeTab();
     header.classList.remove("collapsed");
     websiteDesc.classList.remove("hidden");
     headerShown = true;
@@ -39,13 +52,14 @@ function toggleHeader() {
 // then toggle header and/or change highlighted navigation
 window.addEventListener('popstate', function(event) {
   var hash = window.location.hash;
+  console.log("popstate triggered with hash: " + hash)
   if (hash === '' || hash ==='#') {
     toggleHeader();
   } else {
     if (headerShown) {
       toggleHeader();
     }
-    changeNav(hash);
+    changeTab(hash);
   }
 });
 
