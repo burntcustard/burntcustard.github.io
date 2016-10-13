@@ -1,17 +1,20 @@
-var headerShown; // I.e. whether the full screen banner is up
+/*jslint browser:true */
+
+var headerShown = true; // I.e. whether the full screen banner is up
 
 /**
- * Changes which navigation buttons are selected.
- * @param {string} navName The name of the nav
+ * Changes which "tab" is selected.
+ * @param {string} navName The (optional) name of the nav
  * element to select. All others are unselected.
  */
 function changeTab(navName) {
   
   var navs = document.getElementById("mainNav");
-  var selectedCategory = document.getElementById(navName+"-tab");
+  var navAnchors = navs.getElementsByTagName("a");
+  var categories = document.getElementsByClassName("category");
   
   // Buttons:
-  [].forEach.call(navs.getElementsByTagName("a"), function (nav) {
+  [].forEach.call(navAnchors, function (nav) {
     if (navName === nav.getAttribute("href")) {
       nav.classList.add("selected");
     } else {
@@ -20,8 +23,8 @@ function changeTab(navName) {
   });
   
   // Content:
-  [].forEach.call(document.getElementsByClassName("category"), function (cat) {
-    if ((navName+"-tab") === cat.id) {
+  [].forEach.call(categories, function (cat) {
+    if ((navName + "-tab") === cat.id) {
       cat.classList.add("visible");
     } else {
       cat.classList.remove("visible");
@@ -52,8 +55,7 @@ function toggleHeader() {
 // then toggle header and/or change highlighted navigation
 window.addEventListener('popstate', function(event) {
   var hash = window.location.hash;
-  console.log("popstate triggered with hash: " + hash)
-  if (hash === '' || hash ==='#') {
+  if (hash === '' || hash === '#') {
     toggleHeader();
   } else {
     if (headerShown) {
@@ -69,27 +71,20 @@ window.onload = function() {
   var hash = window.location.hash.substr(1);
   var websiteName = document.getElementsByTagName("h1")[0];
   
-  headerShown = true;
-  
   // If page is loaded with a hash, load the correct tab:
   if (window.location.hash) {
-    console.log("Page loaded with hash: " + window.location.hash);
     toggleHeader();
     changeTab(window.location.hash);
   }
   
   websiteName.onclick = function() {
-    // If it's not on the homepage:
-    if (window.location.hash !== '') {
-      window.location.hash = '';
-    }
+    window.location.hash = '';
   };
-  
-  // Crazy scrolling experiment:
+
+  // Scrolling down on homepage goes to first tab
   window.addEventListener("mousewheel", function (e) {
-    hash = window.location.hash.substr(1);
-    if (e.wheelDeltaY < 0 && hash === '') {
-      navs.getElementsByTagName("a")[0].click();
+    if (e.wheelDeltaY < 0 && window.location.hash === '') {
+      window.location.hash = "#about";
     }
   }, false);
 

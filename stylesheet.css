@@ -14,7 +14,7 @@ header {
   justify-content: center;
   flex-direction: column;
   box-shadow: 0 0 8px black;
-  transition: 0.3s all;
+  transition: 0.3s height;
 }
 
 header.collapsed {
@@ -30,6 +30,7 @@ h1 {
   color: #fc1;
   margin: 8px;
   transition: all 0.3s;
+  cursor: default;
 }
 
 header.collapsed > h1 {
@@ -121,33 +122,32 @@ nav a.selected:hover {
 .category .item {
   margin: 20px;
   border-radius: 5px;
+  color: #ddd;
+   text-shadow: 0 1px 4px #111;
 }
 
 .category .item img {
   height: auto;
-  width: 300px;
   background-color: #222;
   padding: 7px;
   border-radius: 6px;
   border: 1px solid #333;
 }
 
-.category .about img {
-  width: 150px;
-}
-
 .category .item img.round {
   border-radius: 50%;
 }
 
+.category .item h2 {
+
+}
+
 .category p {
   margin: 20px auto;
-  color: #ddd;
   text-align: left;
   font-family: Rubik;
   font-size: 18px;
   line-height: 18pt;
-  text-shadow: 0 1px 4px #111;
   max-width: 600px;
 }
 
@@ -162,4 +162,11 @@ nav a.selected:hover {
 
 .category .about p {
   
+}
+
+.noSelect {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
