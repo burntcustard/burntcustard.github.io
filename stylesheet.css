@@ -113,6 +113,7 @@ nav a.selected:hover {
 
 .category {
   display: none;
+  margin: 0 20px;
 }
 
 .category.visible {
@@ -120,10 +121,11 @@ nav a.selected:hover {
 }
 
 .category .item {
-  margin: 20px;
+  margin: 20px auto;
   border-radius: 5px;
-  color: #ddd;
-   text-shadow: 0 1px 4px #111;
+  color: #eee;
+  text-shadow: 0 1px 4px #111;
+  max-width: 600px;
 }
 
 .category .item img {
@@ -139,7 +141,14 @@ nav a.selected:hover {
 }
 
 .category .item h2 {
+  font-family: 'Righteous', sans-serif;
+  text-transform: uppercase;
+  display: inline;
+}
 
+.category .item h2:before {
+  content: '';
+  display: block;
 }
 
 .category p {
@@ -148,10 +157,14 @@ nav a.selected:hover {
   font-family: Rubik;
   font-size: 18px;
   line-height: 18pt;
-  max-width: 600px;
 }
 
 .category .item a {
+  color: #eee;
+  text-decoration: none;
+}
+
+.category .item p a {
   color: #fff400;
   text-decoration: none;
 }

@@ -39,7 +39,7 @@ function toggleHeader() {
   var websiteDesc = document.getElementById("websiteDesc");
   
   if (header.classList.contains("collapsed")) {
-    changeTab();
+    changeTab(); // Removes the selections on the tabs
     header.classList.remove("collapsed");
     websiteDesc.classList.remove("hidden");
     headerShown = true;
@@ -67,8 +67,6 @@ window.addEventListener('popstate', function(event) {
 
 window.onload = function() {
 
-  var navs = document.getElementById("mainNav");
-  var hash = window.location.hash.substr(1);
   var websiteName = document.getElementsByTagName("h1")[0];
   
   // If page is loaded with a hash, load the correct tab:
