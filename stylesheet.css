@@ -43,16 +43,24 @@ header.collapsed > h1:hover {
 }
 
 @media (max-width: 360px) {
+  
   header.collapsed { 
     flex-direction: column;
   }
+  
   header.collapsed > nav > a {
     flex: 0 0 25%;
   }
+  
   header.collapsed > h1 {
     margin: 15px 0 0 0;
     font-size: 38px;
   }
+  
+  .category {
+    margin: 0;
+  }
+  
 }
 
 #websiteDesc {
