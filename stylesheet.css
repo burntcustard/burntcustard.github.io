@@ -125,7 +125,7 @@ nav a.selected:hover {
   border-radius: 5px;
   color: #eee;
   text-shadow: 0 1px 4px #111;
-  max-width: 600px;
+  max-width: 550px;
   display: inline-block;
   vertical-align: top;
 }
