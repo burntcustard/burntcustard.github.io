@@ -113,7 +113,7 @@ nav a.selected:hover {
 
 .category {
   display: none;
-  margin: 0 20px;
+  margin: 0 10px;
 }
 
 .category.visible {
