@@ -121,11 +121,19 @@ nav a.selected:hover {
 }
 
 .category .item {
-  margin: 20px auto;
+  margin: 0 30px;
   border-radius: 5px;
   color: #eee;
   text-shadow: 0 1px 4px #111;
   max-width: 600px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.category .item:after {
+  content: '';
+  display: block;
+  margin: 40px;
 }
 
 .category .item img {
@@ -144,16 +152,16 @@ nav a.selected:hover {
   font-family: 'Righteous', sans-serif;
   text-transform: uppercase;
   display: inline;
+  line-height: 36px;
 }
 
 .category .item h2:before {
   content: '';
   display: block;
-  margin: 10px;
 }
 
 .category p {
-  margin: 20px auto;
+  margin: 10px auto;
   text-align: left;
   font-family: Rubik;
   font-size: 18px;
