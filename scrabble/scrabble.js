@@ -23,7 +23,7 @@ if( window.addEventListener ){
 
 
 function loadWordList(letter) {
-  var filename = ("scrabble/words/" + letter.toUpperCase() + " Words.txt"),
+  var filename = ("words/" + letter.toUpperCase() + " Words.txt"),
       xmlhttp = new XMLHttpRequest(),
       fileContents;
   
