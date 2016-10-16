@@ -115,10 +115,6 @@ nav a.selected {
   box-shadow: 0 0 0 0 #fff inset;
 }
 
-nav a.selected:hover {
-  color: #fff;
-}
-
 .category {
   display: none;
   margin: 0 10px;
@@ -154,6 +150,7 @@ nav a.selected:hover {
 
 .category .item img.round {
   border-radius: 50%;
+  padding: 6px;
 }
 
 .category .item h2 {
@@ -188,10 +185,6 @@ nav a.selected:hover {
 
 .category .item a:hover {
   text-decoration: underline;
-}
-
-.category .about p {
-  
 }
 
 .noSelect {
