@@ -84,10 +84,18 @@ header.collapsed > h1:hover {
 
 nav {
   margin: 4px;
+  padding: 0 3px;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
+  border-bottom: 5px solid #fc1;
+  border-radius: 9px;
+  transition: 0.3s all;
+}
+
+header.collapsed > nav {
+  border: 0px solid #fc1;
 }
 
 nav > a {
@@ -179,12 +187,18 @@ nav a.selected {
 }
 
 .category .item p a {
-  color: #fff400;
+  color: #fc1;
   text-decoration: none;
 }
 
 .category .item a:hover {
-  text-decoration: underline;
+  border-bottom: 3px solid #eee;
+  border-radius: 4px;
+}
+
+.category .item p a:hover {
+  border-bottom: 3px solid #fc1;
+  border-radius: 4px;
 }
 
 .noSelect {
