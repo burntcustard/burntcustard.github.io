@@ -114,9 +114,15 @@ Phaser.Sprite.prototype.move = function (game, accelerate, relation, target) {
   
   "use strict";
   
-  var acceleration = 1400;
+  var acceleration;
   
-  // Reset sprite's acceleration (left over from previous changes?):
+  if (this.lastAte && game.time.elapsedSecondsSince(this.lastAte) < 2) {
+    acceleration = 120;
+  } else {
+    acceleration = 1400;
+  }
+  
+  // Reset sprite's acceleration (left over from previous moves?):
   this.body.acceleration.set(0);
   
   if (game && relation && target) {
