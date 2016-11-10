@@ -89,7 +89,6 @@ nav {
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
-  border-bottom: 5px solid #fc1;
   border-radius: 9px;
   transition: 0.3s all;
 }
@@ -102,22 +101,26 @@ nav > a {
   font-family: 'Rubik', sans-serif;
   text-decoration: none;
   font-size: 19px;
-  padding: 3px 5px;
+  padding: 3px 6px;
   margin: 2px 4px;
   display: inline-block;
-  color: #2e2e2e;
+  color: #333;
   text-transform: uppercase;
   font-weight: 400;
-  border-radius: 6px;
   transition: 0.2s all;
   box-shadow: 0 0 0 99px #fff inset;
+  border: 2px solid #fc1;
+  transform: skewX(-20deg);
+  border-top-left-radius: 6px;
 }
 
 nav > a:hover {
   color: #000;
+  box-shadow:  0 0 0 99px #fff inset,
+               1px 1px 3px rgba(0,0,0,0.3);
 }
 
-nav a.selected {
+nav a.selected, nav > a:active {
   background-color: #fc1;
   color: #fff;
   box-shadow: 0 0 0 0 #fff inset;
@@ -191,14 +194,13 @@ nav a.selected {
   text-decoration: none;
 }
 
-.category .item a:hover {
-  border-bottom: 3px solid #eee;
-  border-radius: 4px;
+.category .item a:hover > h2 {
+  border-bottom: 2px solid #eee;
 }
 
 .category .item p a:hover {
-  border-bottom: 3px solid #fc1;
-  border-radius: 4px;
+  border-bottom: 2px solid #fc1;
+  box-sizing: border-box;
 }
 
 .noSelect {
