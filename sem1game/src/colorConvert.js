@@ -1,4 +1,11 @@
 /*jslint white: true, devel: true*/
+
+
+
+// It looks like non of this is needed now that I've moved away from Phaser,
+// Unless I really want to keep being able to do shorthand hex colors...
+
+
   
 "use strict";
 

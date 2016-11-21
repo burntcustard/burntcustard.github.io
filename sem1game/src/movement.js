@@ -1,107 +1,168 @@
-/*jslint vars: true*/
+/*jslint vars: true, white: true, plusplus: true*/
 
-/*global Phaser: false*/
+/*global Organism, angleBetween, rotationTo*/
 
-// Stops the swinging back and forth, and slows the creatures
-// down a little bit more than just the standard Phaser drag.
-Phaser.Sprite.prototype.applyExtraDrag = function () {
+
+
+Organism.prototype.applyDrag = function (updateAmount) {
   
   "use strict";
   
-  var decelerationPercent = 5;
+  var decelerationPercent = 1.1 * updateAmount;
   
   var decelerationMultiplier = (1 - (decelerationPercent / 100));
   
-  this.body.velocity.x *= decelerationMultiplier;
-  this.body.velocity.y *= decelerationMultiplier;
+  this.velocity.x *= (decelerationMultiplier);
+  this.velocity.y *= (decelerationMultiplier);
+  
+  // If the organism is nearly not moving, make it not moving.
+  if (Math.abs(this.velocity.x) < 0.01) {
+    this.velocity.x = 0;
+  }
+  if (Math.abs(this.velocity.y) < 0.01) {
+    this.velocity.y = 0;
+  }
   
 };
 
 
 
-Phaser.Sprite.prototype.applyExtraAngularDrag = function () {
+Organism.prototype.applyAngularDrag = function (updateAmount) {
  
   "use strict";
   
-  var decelerationPercent = 10;
+  var decelerationPercent = 9 * updateAmount;
   
   var decelerationMultiplier = (1 - (decelerationPercent / 100));
   
-  this.body.angularVelocity *= decelerationMultiplier;
+  this.angularVelocity *= (decelerationMultiplier);
+  
+  if (Math.abs(this.angularVelocity) < 0.01) {
+    this.angularVelocity = 0;
+  }
   
 };
 
 
 
-Phaser.Sprite.prototype.rotateTowards = function (game, relation, target) {
- 
+// There is a silly amount of duplicate code here still
+Organism.prototype.rotate = function (deg, everything) {
+  
   "use strict";
   
-  var deltaMouseRad = this.rotation;
-  var semicircle = Math.PI; // π radians is a semicircle!
-
-  // Based off http://jsfiddle.net/wvaJ3/1/
-
-  // TODO: Figure out what causes the crazy wiggling away
-  // from pointer sometimes when pointer is almost exactly behind.
-
-  // TODO: Make this work with any variable, not just
-  // pointer - e.g. turning enemy x/y to player x/y.
-
-  // The difference between the rotation of the sprite
-  // and the pointer location / target, in radians.
-  if (target === "pointer") {
-    deltaMouseRad -= game.physics.arcade.angleToPointer(this);
-  } else {
-    // Better hope the target is a sprite! TODO: Handle errors.
-    deltaMouseRad -= this.game.math.angleBetween(this.x, this.y, target.x, target.y);
+  this.rotation += deg;
+  
+  if (this.rotation > 180) {
+    this.rotation -= 360;
   }
-
-  // This fixes "weird" deltaMouseRad values that get spat out
-  // sometimes. These weird values are abnormally high (~5rad ~340deg)
-  // and are converted to their "opposite", e.g. 340eg -> -20deg.
-  if (deltaMouseRad > (semicircle)) {
-    deltaMouseRad -= semicircle * 2;
-  } else if (deltaMouseRad < -(semicircle)) {
-    deltaMouseRad += semicircle * 2;
+  
+  if (this.rotation < -180) {
+    this.rotation += 360;
   }
-
-  // Point away rather than to the target:
-  if (relation === "away") {
-    if (deltaMouseRad > 0) {
-      deltaMouseRad -= semicircle;
-    } else {
-      deltaMouseRad += semicircle;
+  
+  var i, j, body, speedLine, v, hp, mouth, newX, newY, randomRotation = 0;
+  
+  for (i = 0; i < this.body.length; i++) {
+    body = this.body[i];
+    if (body.rotating) {
+      // Add a bit of variance to the body rotation:
+      randomRotation = (body.rotating / 4) + (Math.random() * (body.rotating / 2));
+    }
+    for (j = 0; j < body.vertices.length; j++) {
+      rotate(body.vertices[j], deg + randomRotation);
     }
   }
-
-  // Make the sprite turn around:
-  this.body.angularVelocity = -this.body.maxAngular * deltaMouseRad;
-
+  
+  // If the thing doesn't have a tail
+  if (this.tail === undefined || everything) {
+    for (i = 0; i < this.hpPoints.length; i++) {
+      rotate(this.hpPoints[i], deg);
+    }
+  }
+  /*
+  if (this.tail || everything) {
+    for (i = 0; i < this.hpPoints.length; i++) {
+      rotate(this.hpPoints[i], deg);
+    }   
+  }
+  */
+  for (i = 0; i < this.mouth.length; i++) {
+    mouth = this.mouth[i];
+    mouth.x = 0;
+    mouth.y = 0;
+    for (j = 0; j < mouth.vertices.length; j++) {
+      rotate(mouth.vertices[j], deg);
+      mouth.x += mouth.vertices[j].x;
+      mouth.y += mouth.vertices[j].y;
+    }
+    mouth.x /= mouth.vertices.length;
+    mouth.y /= mouth.vertices.length;
+  }
+  
+  // TODO: Tidy this for loop.
+  for (i = 0; (this.speedLines) &&
+              (i < this.speedLines.length); i++) {
+    speedLine = this.speedLines[i];
+    speedLine.x = 0;
+    speedLine.y = 0;
+    for (j = 0; j < speedLine.length; j++) {
+      rotate(speedLine[j], deg);
+      speedLine.x += speedLine[j].x;
+      speedLine.y += speedLine[j].y;
+    }
+    speedLine.x /= speedLine.length;
+    speedLine.y /= speedLine.length;
+  }
+  
 };
 
 
 
-Phaser.Sprite.prototype.applySpeedLimit = function () {
+Organism.prototype.rotateToFace = function (relation, target, extraRotation) {
+ 
+  "use strict";
+  
+  var deltaRad = rotationTo(this, target);
+  
+  // Point away rather than to the target?
+  if (relation === "away") {
+    if (deltaRad > 0) {
+      deltaRad -= Math.PI;
+    } else {
+      deltaRad += Math.PI;
+    }
+  }
+  
+  if (extraRotation) {
+    deltaRad += toRadians(extraRotation);
+  }
+  
+  // Make the sprite turn around:
+  this.angularVelocity = -this.maxAngular * deltaRad;
+  
+};
+
+
+
+Organism.prototype.applySpeedLimit = function () {
   
   "use strict";
   
   // Super fun diagonal-shouldn't-be-faster-than-X/Y movement:
   // TODO: Improve performance (parsing floats to ints?)
  
-  if (this.body.velocity.x !== 0 || this.body.velocity.y !== 0) {
+  if (this.velocity.x !== 0 || this.velocity.y !== 0) {
     
     // a^2 + b^2 = c^2. TODO: Test if Math.pow() is actually slower
-    var pyth = ((this.body.velocity.x * this.body.velocity.x) +
-               (this.body.velocity.y * this.body.velocity.y));
+    var pyth = (this.velocity.x * this.velocity.x) +
+               (this.velocity.y * this.velocity.y);
     
-    //var magnitude = (pyth > 0 ? Math.sqrt(pyth) : -Math.sqrt(pyth));
-    var magnitude = Math.sqrt(pyth);
+    this.speed = Math.sqrt(pyth);
     
-    if (magnitude > this.body.maxVelocity.x) {
-      var multiplier = (this.body.maxVelocity.x / magnitude); // x = y
-      this.body.velocity.x *= multiplier;
-      this.body.velocity.y *= multiplier;
+    if (this.speed > this.maxVelocity) {
+      var multiplier = (this.maxVelocity / this.speed);
+      this.velocity.x *= multiplier;
+      this.velocity.y *= multiplier;
     }
     
   }
@@ -110,35 +171,118 @@ Phaser.Sprite.prototype.applySpeedLimit = function () {
 
 
 
-Phaser.Sprite.prototype.move = function (game, accelerate, relation, target) {
+Organism.prototype.accelerate = function (updateAmount) {
   
   "use strict";
   
-  var acceleration;
+  // The speed of acceleration. I.e. how fast does it 0-60mph? Should be between 0 and 1.
+  var accelerationAmount = 0.1;
   
+  var rad = (this.rotation-90) * Math.PI / 180;
+  
+  this.acceleration.x += accelerationAmount * updateAmount * Math.cos(rad);
+  this.acceleration.y += accelerationAmount * updateAmount * Math.sin(rad);
+  
+};
+
+
+
+Organism.prototype.move = function (updateAmount) {
+  
+  "use strict";
+  
+  //console.log(deltaTime);
+  
+  /* Moving slowly after eating is temporarily disabled!
+  // If the creature at recently, it can only move slowly!
   if (this.lastAte && game.time.elapsedSecondsSince(this.lastAte) < 2) {
     acceleration = 120;
   } else {
     acceleration = 1400;
   }
+  */
   
-  // Reset sprite's acceleration (left over from previous moves?):
-  this.body.acceleration.set(0);
+  /*
+  if (relation && target) {
+    this.rotateTowards(relation, target);
+  }
+  */
   
-  if (game && relation && target) {
-    this.rotateTowards(game, relation, target);
+  if (this.angularVelocity > this.maxAngular) {
+    this.angularVelocity = this.maxAngular;
+  }
+  if (this.angularVelocity < -this.maxAngular) {
+    this.angularVelocity = -this.maxAngular;
   }
   
-  if (accelerate) {
-    game.physics.arcade.accelerationFromRotation(
-      this.rotation,         // In the direction the sprite's facing.
-      acceleration,          // This amount of acceleration.
-      this.body.acceleration // Applied to the sprite's acceleration.
-    );
+  this.applyAngularDrag(updateAmount);
+  
+  //console.log("this.angularVelocity " + this.angularVelocity);
+  
+  //this.angularVelocity += this.angularAcceleration;
+  if (this.angularVelocity !== 0) {
+    this.rotate(this.angularVelocity * updateAmount);
   }
+  
+  
+  this.velocity.x += this.acceleration.x;
+  this.velocity.y += this.acceleration.y;
   
   this.applySpeedLimit();
-  this.applyExtraDrag();
-  this.applyExtraAngularDrag();
   
+  this.x += (this.velocity.x * updateAmount);
+  this.y += (this.velocity.y * updateAmount);
+  
+  this.applyDrag(updateAmount);
+  
+  
+  // Snakey stuff:
+  
+  var rotationFromBodyToHp = 0,
+      rotationFromHpToBody = 0,
+      organismJustRotation;
+  
+  if (this.tail) {
+    for (var i = 1; i < this.hpPoints.length; i++) {
+      
+      organismJustRotation = {
+        x: 0,
+        y: 0,
+        rotation: this.rotation
+      }
+      
+      rotationFromBodyToHp = rotationTo(organismJustRotation, this.hpPoints[i]);
+      
+      if (rotationFromBodyToHp > Math.PI * 2) {
+        rotationFromBodyToHp -= Math.PI * 2;
+      } 
+      
+      if (rotationFromBodyToHp < -Math.PI * 2) {
+        rotationFromBodyToHp += Math.PI * 2;
+      } 
+      
+      rotationFromHpToBody = rotationFromBodyToHp + Math.PI;
+      
+      if (rotationFromHpToBody > Math.PI) {
+        rotationFromHpToBody -= Math.PI * 2;
+      }
+
+      if (Math.abs(rotationFromHpToBody) > 0.1) {
+        
+        // TODO: Un-witchcraft this
+        // Aim to divide by 1 MAXIMUM
+        //var multiplier
+        rotate(this.hpPoints[i], (rotationFromHpToBody / ((i + 1) / 2)) * ((1 + this.speed / 2) * (1 + Math.abs(this.angularVelocity))));
+      }
+      
+    }   
+  }
+  
+  
+  
+  // Reset sprite's acceleration (left over from previous moves?):
+  this.acceleration.x = 0;
+  this.acceleration.y = 0;
+  this.angularAcceleration = 0;
+
 };
