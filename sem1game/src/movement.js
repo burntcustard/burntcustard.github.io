@@ -72,6 +72,14 @@ Organism.prototype.rotate = function (deg, everything) {
       rotate(body.vertices[j], deg + randomRotation);
     }
   }
+  // Rotate the hpPoints too if the body has been rotated:
+  // Note: This will be based purely on the last bodies
+  // rotation, NOT an average of all bodies etc.
+  if (randomRotation) {
+    for (i = 0; i < this.hpPoints.length; i++) {
+      rotate(this.hpPoints[i], randomRotation);
+    }
+  }
   
   // If the thing doesn't have a tail
   if (this.tail === undefined || everything) {
@@ -86,7 +94,7 @@ Organism.prototype.rotate = function (deg, everything) {
     }   
   }
   */
-  for (i = 0; i < this.mouth.length; i++) {
+  for (i = 0; (this.mouth) && (i < this.mouth.length); i++) {
     mouth = this.mouth[i];
     mouth.x = 0;
     mouth.y = 0;

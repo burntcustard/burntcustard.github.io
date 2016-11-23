@@ -300,6 +300,66 @@ function renderMapLines(ctx, camera, lineColor) {
 
 
 
+function renderParticles(ctx, particles, camera) {
+  
+  "use strict";
+  
+  var i, j, particle, xDiff, yDiff, colorAlreadyAdded, coloredParticles = [];
+  
+  // Make color lists, i.e. lists of particles with different colors.
+  // Like... a white particle list, an orange particle list, etc.
+  
+  for (i = 0; i < particles.length; i++) {
+    colorAlreadyAdded = false;
+    for (j = 0; j < coloredParticles.length; j++) {
+      if (particles[i].color === coloredParticles[j].color) {
+        colorAlreadyAdded = true;
+        coloredParticles[j].particles.push(particles[i]);
+      }
+    }
+    if (colorAlreadyAdded === false) {
+      coloredParticles.push({
+        color: particles[i].color,
+        particles: [particles[i]]
+      });
+    }
+  }
+  
+  ctx.lineWidth = 2;
+  
+  
+  for (i = coloredParticles.length - 1; i >= 0; i--) {
+  
+    ctx.strokeStyle = coloredParticles[i].color;
+
+    ctx.beginPath();
+  
+    for (j = coloredParticles[i].particles.length - 1; j >= 0; j--) {
+
+      particle = coloredParticles[i].particles[j];
+
+      xDiff = particle.x - particle.xOld;
+      yDiff = particle.y - particle.yOld;
+
+      ctx.moveTo(
+        particle.parent.x + particle.offset.x + particle.xOld - game.camera.x,
+        particle.parent.y + particle.offset.y + particle.yOld - game.camera.y
+      );
+      ctx.lineTo(
+        particle.parent.x + particle.offset.x + particle.x + xDiff * 2 - game.camera.x,
+        particle.parent.y + particle.offset.y + particle.y + yDiff * 2 - game.camera.y
+      );
+
+    }
+    
+    ctx.stroke();
+    
+  }
+  
+}
+
+
+
 function render(tFrame, ctx, game, time, deltaTime) {
   
   "use strict";
@@ -324,6 +384,9 @@ function render(tFrame, ctx, game, time, deltaTime) {
   // Draw organisms on this level (including the player):
   renderOrganisms(ctx, game.levels[game.currentLevel].organisms, game.camera);
 
+  // Draw particles
+  renderParticles(ctx, game.levels[game.currentLevel].particles, game.camera);
+  
   if (settings.webGL.value) {
     renderShader(game.camera);
   }

@@ -8,7 +8,7 @@
 
 // "variable: true" here indicates that the variable is writable (i.e. NOT read only).
 // TODO: Remove some of these. Too many! Some could be passed as parameters!
-/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera*/
+/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings*/
 
 
 
@@ -55,12 +55,16 @@ function checkForNoms(organism, player) {
       y: organism.y + organism.hpPoints[i].y
     };
 
-    if (distanceBetweenAbs(playerMouth, organismHP) < player.mouth[0].size) {
+    if ((distanceBetweenAbs(playerMouth, organismHP) < player.mouth[0].size) &&
+        (organism.hpPoints[i].value > 0) &&
+        (player.lastAte <= 0)) {
 
+      //console.log(player.lastAte);
+      //console.log("Nomming");
       player.lastAte = 40;
       
       //console.log("Trying to close a mouth?")
-      player.moveMouth(-25);
+      player.moveMouth(-26);
       
       switch (organism.type) {
           
@@ -72,21 +76,33 @@ function checkForNoms(organism, player) {
         case "levelDown" : changeLevel(game, -1); break;
           
         default :
-          
-          if (organism.hpPoints[i].value > 0) {
             
+          if (organism.tail && i === organism.hpPoints.length) {
+            organism.hpPoints.pop();
+          } else {
             organism.hpPoints[i].value--;
-            
-            if (organism.getCurrentHP() === 0) {
-              organism.alive = false;
-            }
-            
-            if (player.getCurrentHP() < player.maxHP) {
-              player.addHP();
-            } else {
-              player.evolve();
-            }
-            
+          }
+
+          if (organism.getCurrentHP() === 0) {
+            organism.alive = false;
+          }
+
+          if (player.getCurrentHP() < player.maxHP) {
+            // Top up the players HP
+            player.addHP();
+          } else if (player.levelCap < game.currentLevel) {
+            // No HP dots to upgrade... evolve!
+            player.evolve();
+          } else {
+            // Can't evolve? Poop out the HP!
+            game.levels[game.currentLevel].organisms.push(
+              new Organism(
+                "food-xxs",
+                organism.x + organism.hpPoints[i].x,
+                organism.y + organism.hpPoints[i].y)
+            );
+            game.levels[game.currentLevel].organisms.last().velocity.x = organism.velocity.x;
+            game.levels[game.currentLevel].organisms.last().velocity.y = organism.velocity.y;
           }
           
           break;
@@ -99,7 +115,8 @@ function checkForNoms(organism, player) {
 
   // Do the organism nomming the player's HP second:
     
-  for (i = 0; i < player.hpPoints.length && organism.mouth[0] && organism.lastAte <= 0; i++) {
+  for (i = 0; (i < player.hpPoints.length) &&
+              (organism.mouth[0] && organism.lastAte <= 0); i++) {
 
     organismMouth = {
       x: organism.x + organism.mouth[0].x,
@@ -116,7 +133,7 @@ function checkForNoms(organism, player) {
 
       organism.lastAte = 40; // This value could be per-organism, letting some eat quicker.
       
-      organism.moveMouth(-25);
+      organism.moveMouth(-26);
 
       if (organism.getCurrentHP() < organism.maxHP) {
         organism.addHP();
@@ -230,6 +247,35 @@ function updateOrganisms(game, updateAmount) {
 
 
 
+function updateParticles(game, updateAmount) {
+  
+  "use strict";
+  
+  var i, particle;
+  
+  for (i = game.levels[game.currentLevel].particles.length - 1; i >= 0 ; i--) {
+    
+    particle = game.levels[game.currentLevel].particles[i];
+    
+    particle.xOld = particle.x;
+    particle.yOld = particle.y;
+    
+    particle.x += particle.velocity.x * updateAmount;
+    particle.y += particle.velocity.y * updateAmount;
+    
+    particle.lifeTime -= updateAmount;
+    
+    // Remove particle if too old:
+    if (particle.lifeTime <= 0) {
+      game.levels[game.currentLevel].particles.splice(i, 1);
+    }
+    
+  }
+  
+}
+
+
+
 function update(game, tFrame) {
   
   "use strict";
@@ -277,8 +323,11 @@ function update(game, tFrame) {
     // Space key for debugging.. or if I want to add an ability thing:
     if (game.keys.indexOf('␣') >=0) {
       game.keys.splice(game.keys.indexOf('␣'), 1);
-      game.player.moveMouth(-25);
-      console.log("space pressed");
+      //game.player.moveMouth(-26);
+      //settings.glowy.value = !settings.glowy.value;
+      //settings.webGL.value = false;
+      //console.log("space pressed");
+      createParticleBurst(game.levels[game.currentLevel], game.player, game.player.color, 2, 29);
     }
   
     if (debug) {
@@ -296,6 +345,8 @@ function update(game, tFrame) {
     }
 
   updateOrganisms(game, updateAmount);
+  
+  updateParticles(game, updateAmount);
   
   // Make the camera follow the player:
   cameraFollow(game.camera, game.player);

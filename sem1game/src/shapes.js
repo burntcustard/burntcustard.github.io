@@ -15,10 +15,24 @@ function vertexLookup(shape) {
     ];
       
   // |
-  case "line":
+  case "lineV":
     return [
       0, 0,
       0, 1
+    ];
+      
+  // ─
+  case "lineH":
+    return [
+      0, 0,
+      1, 0
+    ];
+      
+  // /
+  case "lineD":
+    return [
+      0, 0,
+      1, 1
     ];
 
   //   /\ 
@@ -50,6 +64,43 @@ function vertexLookup(shape) {
       4, 7,
       0, 8,
       1, 4
+    ];
+      
+  // <••>
+  //  \/
+  case "banana-s":
+    return [
+      2, 0,
+      4, 1,
+      3, 2,
+      2, 5,
+      1, 2,
+      0, 1
+    ];
+  
+  //   /\ 
+  // <•  •>
+  //  \  /
+  //   \/
+  case "banana-l": // WIP
+    return [
+      8, 3,
+      12, 1,
+      16, 3,
+      10, 5,
+      8, 12,
+      6, 5,
+      0, 3,
+      4, 1
+    ];
+      
+  // <>
+  case "diamond":
+    return [
+      2, 0,
+      4, 1,
+      2, 2,
+      0, 1
     ];
       
   // Rocket shaped. Kinda.

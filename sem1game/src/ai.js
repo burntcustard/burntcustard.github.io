@@ -46,7 +46,7 @@ function doAI(gameWidth, gameHeight, organism, updateAmount, player) {
       
       organism.rotateToFace("towards", organism.ai.target);
 
-      if (organism.charges && Math.abs(rotationTo(organism, organism.ai.target)) < 0.1) {
+      if (organism.charges && Math.abs(rotationTo(organism, organism.ai.target)) < 0.05) {
         organism.maxVelocity = getOrganismProperties(organism.type).chargeSpeed / 10 || organism.maxVelocity;
         organism.maxAngular = getOrganismProperties(organism.type).chargeTurnRate / 10 || organism.maxAngular;
       }
@@ -83,10 +83,10 @@ function doAI(gameWidth, gameHeight, organism, updateAmount, player) {
   // Slowly give an organism it's normal stats back after "charging"
   if (organism.charges) {
     if (organism.maxVelocity > getOrganismProperties(organism.type).speed / 10) {
-      organism.maxVelocity -= 0.01;
+      organism.maxVelocity -= 0.01 * updateAmount;
     }
     if (organism.maxAngular < getOrganismProperties(organism.type).turnRate / 10) {
-      organism.maxAngular += 0.004;
+      organism.maxAngular += 0.004 * updateAmount;
     }
   }
   

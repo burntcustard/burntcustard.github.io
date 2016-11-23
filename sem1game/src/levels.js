@@ -57,8 +57,14 @@ function generateOrganisms(organismTypes, difficulty, levelSize) {
            (overflowCount < 999)) {
       coords = randomCoords(levelSize, levelSize);
       newOrganism = new Organism(organismTypes[i], coords.x, coords.y);
-      organisms.push(newOrganism);
-      difficultyCount += organisms.last().difficulty;
+      
+      // The new organism has health, add it to the list! Why might an organism
+      // not have health? It might be a food randomly generated without it!
+      if (newOrganism.getCurrentHP()) {
+        organisms.push(newOrganism);
+        difficultyCount += organisms.last().difficulty;
+      }
+      
       overflowCount++;
       //console.log("Added a new " + organisms.last().type + " which has a difficulty of " + organisms.last().difficulty);
       //console.log("So now difficultyCount is " + difficultyCount + " and overflowCount is " + overflowCount);
@@ -84,7 +90,7 @@ function getOrganismsFor(levelNumber, levelSize) {
       i,
       difficultyMultiplier,
       difficulty,
-      numberOfLevelUpOrganisms = 20,   // These last two can be modified per level for special reasons.
+      numberOfLevelUpOrganisms = 22,   // These last two can be modified per level for special reasons.
       numberOfLevelDownOrganisms = 16; // Also... these variable names... so long.
   
   // The number defines the difficulty curve. I.e. the lower
@@ -102,19 +108,21 @@ function getOrganismsFor(levelNumber, levelSize) {
     case 1:
       
       // 1st list of organisms that can be randomly selected from:
-      potentialOrganismTypes.push("kite-xs");
-      potentialOrganismTypes.push("kite-xs");
+      potentialOrganismTypes.push("food-s");
       
+      // Pick something from the 1st list:
       actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
       
-      // Clear the potential organisms list.
-      // This might need to be changed to .length = 0 to clear properly.
+      // Clear the potential organisms list:
       potentialOrganismTypes = [];
       
       // 2nd list of organisms that can be ranomly selected from:
-      potentialOrganismTypes.push("kite-xs");
-      potentialOrganismTypes.push("kite-xs");
+      potentialOrganismTypes.push("food-xs");
       
+      // And the rest:
+      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
+      potentialOrganismTypes = [];
+      potentialOrganismTypes.push("kite-xs");
       actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
       
       break;
@@ -122,11 +130,10 @@ function getOrganismsFor(levelNumber, levelSize) {
     case 2:
       
       potentialOrganismTypes.push("vortexHowler-s");
-      potentialOrganismTypes.push("snake-s");
       actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
       potentialOrganismTypes = [];
       potentialOrganismTypes.push("kite-s");
-      potentialOrganismTypes.push("snake-s");
+      potentialOrganismTypes.push("banana-xs");
       actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
       
       break;
@@ -198,6 +205,10 @@ function getOrganismsFor(levelNumber, levelSize) {
       coords.y
     ));
   }
+  
+  for (i = 0; i < organisms.length; i++) {
+    organisms[i].rotate(Math.floor(Math.random() * 360));
+  }
       
   return organisms;
   
@@ -218,6 +229,8 @@ function generateLevelProperties(levelNumber, oldLevel) {
   // TODO: Modify these a bit so different levels have different colors
   newLevel.bgColor = oldLevel.bgColor;
   newLevel.lineColor = oldLevel.lineColor;
+  
+  newLevel.particles = [];
   
   // The levels get bigger! I think this is a good idea!
   //newLevel.size = oldLevel.size + levelNumber * 10;
@@ -240,9 +253,10 @@ function generateLevels() {
   newLevel.bgColor   = "rgb( 36,  36,  36)";
   newLevel.lineColor = "rgb( 96, 255, 255)";
   newLevel.size = 2000;
+  newLevel.particles = [];
   newLevel.organisms = [];
   
-  for (i = 0; i < 35; i++) {
+  for (i = 0; i < 40; i++) {
     coords = randomCoords(newLevel.size, newLevel.size);
     newLevel.organisms.push(new Organism(
       "levelUp",

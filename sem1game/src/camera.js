@@ -22,7 +22,7 @@ function initCamera(camera, followee) {
   // E.g. a border of 10% of a 200px x 50px camera, will be:
   // Avg of 200 and 50 = 125. 10% of 125 = 12.5, rounded to an int is
   // 13px, so there will be a 13px deadzone on the edges of the camera.
-  camera.deadzone = 25;//%
+  camera.deadzone = 30;//%
   
   // The smoothness of the camera in "pixels to jump". I.e if set to 2,
   // the camera will pan in 2px increments, if set to lower, the camera

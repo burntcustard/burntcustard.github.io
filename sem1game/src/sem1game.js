@@ -67,7 +67,7 @@ function create() {
   // Get/generate info about all the levels:
   game.levels = generateLevels();
   
-  game.player = new Organism("kite-m", 0, 0);
+  game.player = new Organism("kite-s", 0, 0);
   
   game.player.assignPlayerProperties();
     

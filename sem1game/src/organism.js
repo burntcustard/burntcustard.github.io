@@ -8,7 +8,7 @@ var Organism = function (organismType, x, y) {
   
   "use strict";
   
-  var organism, i, j, k, m, tmpVertex, body, largestVertex = 0;
+  var organism, i, j, k, m, tmpVertex, bodyOffset;
   
   // If coordinates aren't supplied, get random ones:
   // disabled because this is a bad idea without knowing how big the level is?
@@ -25,6 +25,7 @@ var Organism = function (organismType, x, y) {
   this.y = y;
   
   this.maxHP = organism.maxHP;
+  this.size = 0;
   
   this.hpPoints = organism.hpPoints;
   for (i = 0; i < this.hpPoints.length; i++) {
@@ -55,8 +56,6 @@ var Organism = function (organismType, x, y) {
         this.body[j].rotating = oppositeTo(organism.body[j].rotating, this.body[j - 1].rotating);
       }
     }
-    
-    body = organism.body[j];
    
     for (i = 0; i < organism.body[j].vertices.length; i++) {
       switch (i % 2) {
@@ -65,22 +64,24 @@ var Organism = function (organismType, x, y) {
           break;
         case 1:
           this.body[j].vertices.push({
-            x: tmpVertex * organism.body[j].scale,
-            y: organism.body[j].vertices[i] * body.scale
+            x: tmpVertex * this.body[j].scale,
+            y: (organism.body[j].vertices[i]) * this.body[j].scale
           });
           break;
       }
-      if (body.vertices[i] > largestVertex) {
-        largestVertex = organism.body[j].vertices[i];
+      if (organism.body[j].vertices[i] > this.size) {
+        this.size = organism.body[j].vertices[i] * organism.body[j].scale;
       }
     }
-    this.size = largestVertex * organism.body[j].scale;
 
-    this.body[j].center = {x: 0, y: 0};
+    this.body[j].center = {
+      x: -organism.body[j].x || 0,
+      y: -organism.body[j].y || 0
+    };
     
     // The body of the organism is like a real body and not just a line
     // (lines only have two vertices):
-    if (this.body[j].vertices.length > 2) {
+    if (!organism.tail) {
       for (i = 0; i < this.body[j].vertices.length; i++) {
         this.body[j].center.x += this.body[j].vertices[i].x;
         this.body[j].center.y += this.body[j].vertices[i].y;
@@ -97,7 +98,7 @@ var Organism = function (organismType, x, y) {
     // If the body is literally just a line, set the
     // center of the body to the second point in the line:
     // Does this even need to be done?... TODO: Figure out.
-    if (this.body[j].vertices.length === 2) {
+    if (organism.tail) {
       for (i = 0; i < this.body[j].vertices.length; i++) {
         // Moving it a few extra pixels to be out of the hpPoint is
         // hacky and not exact right now.
@@ -133,12 +134,13 @@ var Organism = function (organismType, x, y) {
     this.ai.viewDistance = organism.ai.viewDistance * 10;
     this.ai.wiggleCounter = 0;
   }
+  this.levelCap = organism.levelCap || 0;
   this.maxVelocity = organism.speed / 10;
   this.maxAngular = organism.turnRate / 10;
   if (organism.chargeSpeed || organism.chargeTurnRate) {
     this.charges = true;
   }
-  
+
   this.initMouth();
   
   this.alive = true;
@@ -190,7 +192,7 @@ Organism.prototype.initMouth = function() {
   
   this.mouth = [];
   
-  for (m = 0; m < organism.mouth.length; m++) {
+  for (m = 0; (organism.mouth) && (m < organism.mouth.length); m++) {
   
     this.mouth.push({});
     this.mouth[m].vertices = [];
@@ -386,7 +388,8 @@ Organism.prototype.addHP = function () {
   
   "use strict";
   
-  var i, 
+  var i,
+      j,
       added = false,
       rotation = this.rotation;
   
@@ -399,32 +402,27 @@ Organism.prototype.addHP = function () {
     added = true;
   }
   
-  // These are done separately so that you don't end up with
-  // one big HP and lots of "empties".
-  
-  for (i = 0; i < this.hpPoints.length; i++) {
-    if (!added && this.hpPoints[i].value === 0) {
-      this.hpPoints[i].value++;
-      added = true;
-    }
-  }
-  
-  if (!added) {
-    for (i = 0; i < this.hpPoints.length; i++) {
-      if (!added && this.hpPoints[i].value === 1) {
-        this.hpPoints[i].value++;
+
+  for (i = 0; (!added) && i < 3; i++) {
+    
+    // These are done separately so that you don't end up with
+    // one big HP and lots of "empties".
+    
+    for (j = 0; (!added) && (j < this.hpPoints.length); j++) {
+      if (this.hpPoints[j].value === i) {
+        this.hpPoints[j].value++;
+        createParticleBurst(
+          game.levels[game.currentLevel],
+          this,
+          this.hpPoints[j],
+          '',
+          2,
+          11 + i * 4 // Magic sizing of the particle effect based on HP level
+        );
         added = true;
       }
     }
-  }
-  
-  if (!added) {
-    for (i = 0; i < this.hpPoints.length; i++) {
-      if (!added && this.hpPoints[i].value === 2) {
-        this.hpPoints[i].value++;
-        added = true;
-      }
-    }
+    
   }
   
 };
@@ -455,6 +453,7 @@ Organism.prototype.evolve = function () {
     newOrganism.velocity.x = this.velocity.x;
     newOrganism.velocity.y = this.velocity.y;
     newOrganism.angularVelocity = this.angularVelocity;
+    newOrganism.lastAte = this.lastAte;
 
     // Replace the current organisms properties with those from the new (evolved) organism:
     for (var i in this) {
@@ -473,6 +472,9 @@ Organism.prototype.evolve = function () {
     if (this === game.player) {
       this.assignPlayerProperties();
     }
+    
+    // Fancy particles:
+    createParticleBurst(game.levels[game.currentLevel], this, false, this.color, 2, 2 * this.size);
     
   }
   
@@ -513,6 +515,7 @@ Organism.prototype.devolve = function () {
     newOrganism.velocity.x = this.velocity.x;
     newOrganism.velocity.y = this.velocity.y;
     newOrganism.angularVelocity = this.angularVelocity;
+    newOrganism.lastAte = this.lastAte;
 
     // Replace the current organisms properties with those from the new (evolved) organism:
     for (var i in this) {
