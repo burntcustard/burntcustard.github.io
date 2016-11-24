@@ -147,6 +147,15 @@ function vertexLookup(shape) {
       0, 7,
       8, 7
     ]; // Close enough (<1% away from being equilateral)
+      
+  // △ - But in "mouth form", i.e. with an extra verticey to complete the shape.
+  case "equilateralTriangleMouth":
+    return [
+      4, 0,
+      0, 7,
+      8, 7,
+      4, 0
+    ];
 
   // ◺
   case "rightAngledTriangleShort":
@@ -180,12 +189,12 @@ function vertexLookup(shape) {
       0, 2
     ];
 
-  // \_,_/ kinda shape
+  // \_,_/ kinda shape - argh this is >10 pixels wide so formatting is wonky :(
   case "bucketMouth":
     return [
-       0, 0,
-       2, 3,
-       7, 5,
+      0, 0,
+      2, 3,
+      7, 5,
       12, 3,
       14, 0
     ];

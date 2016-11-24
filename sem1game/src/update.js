@@ -37,82 +37,84 @@ function checkForNoms(organism, player) {
   
   "use strict";
   
-  var i, playerMouth, organismHP, organismMouth, playerHP;
+  var i, m, playerMouth, organismHP, organismMouth, playerHP;
 
   // Both checks could be combined... maybe. But for now we're doing them sepatately:
   
   // Do the player eating the organism's HP check first:
 
-  for (i = 0; i < organism.hpPoints.length && player.mouth[0] && player.lastAte <= 0; i++) {
+  for (m = 0; m < player.mouth.length; m++) {
 
-    playerMouth = {
-      x: player.x + player.mouth[0].x,
-      y: player.y + player.mouth[0].y
-    };
+    for (i = 0; i < organism.hpPoints.length && player.lastAte <= 0; i++) {
 
-    organismHP = {
-      x: organism.x + organism.hpPoints[i].x,
-      y: organism.y + organism.hpPoints[i].y
-    };
+      playerMouth = {
+        x: player.x + player.mouth[m].x,
+        y: player.y + player.mouth[m].y
+      };
 
-    if ((distanceBetweenAbs(playerMouth, organismHP) < player.mouth[0].size) &&
-        (organism.hpPoints[i].value > 0) &&
-        (player.lastAte <= 0)) {
+      organismHP = {
+        x: organism.x + organism.hpPoints[i].x,
+        y: organism.y + organism.hpPoints[i].y
+      };
 
-      //console.log(player.lastAte);
-      //console.log("Nomming");
-      player.lastAte = 40;
+      if (player.lastAte <= 0 &&
+          organism.hpPoints[i].value > 0 &&
+          distanceBetweenAbs(playerMouth, organismHP) < player.mouth[0].size) {
+
+        player.lastAte = 40;
+
+        player.moveMouth(-30, m);
+
+        switch (organism.type) {
+
+          // Be careful with the level ups and downs. If a level down is eaten
+          // on level 0, bad things could happen...
+
+          case "levelUp"   : changeLevel(game, +1); break;
+
+          case "levelDown" : changeLevel(game, -1); break;
+
+          default :
+
+            if (organism.tail && i === organism.hpPoints.length) {
+              organism.hpPoints.pop();
+            } else {
+              organism.hpPoints[i].value--;
+            }
+
+            if (organism.getCurrentHP() === 0) {
+              organism.alive = false;
+            }
+
+            if (player.getCurrentHP() < player.maxHP) {
+              // Top up the players HP
+              player.addHP();
+            } else if (player.levelCap < game.currentLevel && player.evolvesTo) {
+              // No HP dots to upgrade... evolve!
+              player.evolve();
+            } else {
+              // Can't evolve? Poop out the HP!
+              game.levels[game.currentLevel].organisms.push(
+                new Organism(
+                  "food-xxs",
+                  organism.x + organism.hpPoints[i].x,
+                  organism.y + organism.hpPoints[i].y)
+              );
+              game.levels[game.currentLevel].organisms.last().velocity.x = organism.velocity.x;
+              game.levels[game.currentLevel].organisms.last().velocity.y = organism.velocity.y;
+            }
+
+            break;
+
+        }
+
+      } 
       
-      //console.log("Trying to close a mouth?")
-      player.moveMouth(-26);
-      
-      switch (organism.type) {
-          
-        // Be careful with the level ups and downs. If a level down is eaten
-        // on level 0, bad things could happen...
-          
-        case "levelUp"   : changeLevel(game, +1); break;
-          
-        case "levelDown" : changeLevel(game, -1); break;
-          
-        default :
-            
-          if (organism.tail && i === organism.hpPoints.length) {
-            organism.hpPoints.pop();
-          } else {
-            organism.hpPoints[i].value--;
-          }
+    } // Finished going through all organism's HP points.
+    
+  } // Finished going through all the player's mouths.
 
-          if (organism.getCurrentHP() === 0) {
-            organism.alive = false;
-          }
-
-          if (player.getCurrentHP() < player.maxHP) {
-            // Top up the players HP
-            player.addHP();
-          } else if (player.levelCap < game.currentLevel) {
-            // No HP dots to upgrade... evolve!
-            player.evolve();
-          } else {
-            // Can't evolve? Poop out the HP!
-            game.levels[game.currentLevel].organisms.push(
-              new Organism(
-                "food-xxs",
-                organism.x + organism.hpPoints[i].x,
-                organism.y + organism.hpPoints[i].y)
-            );
-            game.levels[game.currentLevel].organisms.last().velocity.x = organism.velocity.x;
-            game.levels[game.currentLevel].organisms.last().velocity.y = organism.velocity.y;
-          }
-          
-          break;
-          
-      }
-
-    }
-
-  }
-
+  
   // Do the organism nomming the player's HP second:
     
   for (i = 0; (i < player.hpPoints.length) &&
@@ -133,7 +135,7 @@ function checkForNoms(organism, player) {
 
       organism.lastAte = 40; // This value could be per-organism, letting some eat quicker.
       
-      organism.moveMouth(-26);
+      organism.moveMouth(-30);
 
       if (organism.getCurrentHP() < organism.maxHP) {
         organism.addHP();
@@ -193,11 +195,11 @@ function updateOrganisms(game, updateAmount) {
       
     }
       
-    if (organism.lastAte && organism.lastAte >= 0) {
+    if (organism.lastAte && organism.lastAte > 0) {
       organism.lastAte -= updateAmount;
       // Check if it can eat again:
-      if (organism.lastAte && organism.lastAte < 0) {
-        organism.moveMouth(26);
+      if (organism.lastAte !== undefined && organism.lastAte <= 0) {
+        organism.moveMouth(30);
       }
     }
     
@@ -225,11 +227,11 @@ function updateOrganisms(game, updateAmount) {
       
     }
     
-    if (organism.lastAte && organism.lastAte >= 0) {
+    if (organism.lastAte && organism.lastAte > 0) {
       organism.lastAte -= updateAmount;
       // Check if it can eat again:
-      if (organism.lastAte && organism.lastAte < 0) {
-        organism.moveMouth(26);
+      if (organism.lastAte !== undefined && organism.lastAte <= 0) {
+        organism.moveMouth(30);
       }
     }
 
@@ -284,7 +286,7 @@ function update(game, tFrame) {
   oldTime = tFrame;
   
   var i,
-      updateAmount = parseFloat(deltaTime) / (1/60 * 1000),
+      updateAmount = parseFloat(deltaTime) / (1/60 * 1000), // Because deltaTime was time not float.
       organism;
   
   // This is a magic line of code which neither JSLint, nor myself understand anymore:

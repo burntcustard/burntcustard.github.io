@@ -71,8 +71,9 @@ Organism.prototype.rotate = function (deg, everything) {
     for (j = 0; j < body.vertices.length; j++) {
       rotate(body.vertices[j], deg + randomRotation);
     }
+    
   }
-  // Rotate the hpPoints too if the body has been rotated:
+  // Rotate the hpPoints and mouth too if the body has been rotated:
   // Note: This will be based purely on the last bodies
   // rotation, NOT an average of all bodies etc.
   if (randomRotation) {
@@ -99,7 +100,7 @@ Organism.prototype.rotate = function (deg, everything) {
     mouth.x = 0;
     mouth.y = 0;
     for (j = 0; j < mouth.vertices.length; j++) {
-      rotate(mouth.vertices[j], deg);
+      rotate(mouth.vertices[j], deg + randomRotation);
       mouth.x += mouth.vertices[j].x;
       mouth.y += mouth.vertices[j].y;
     }

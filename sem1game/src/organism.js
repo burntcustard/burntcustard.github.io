@@ -145,6 +145,7 @@ var Organism = function (organismType, x, y) {
   
   this.alive = true;
   this.visible = true;
+  this.evolvesTo = organism.evolvesTo || false;
   
 };
 Organism.prototype.constructor = Organism;
@@ -180,7 +181,7 @@ Organism.prototype.initTail = function() {
   }
 
   
-}
+};
   
 
 // Mouthy stuff (this is gonna be crazy for now):
@@ -197,6 +198,8 @@ Organism.prototype.initMouth = function() {
     this.mouth.push({});
     this.mouth[m].vertices = [];
     largestVertex = 0;
+    organism.mouth.x = organism.mouth.x || 0;
+    organism.mouth.y = organism.mouth.y || 0;
   
     for (i = 0; i < organism.mouth[m].vertices.length; i++) {
       switch (i % 2) {
@@ -264,55 +267,63 @@ Organism.prototype.getCurrentHP = function() {
 /**
  * How many degrees open do you want to close the mouth (each side)? Minus means close, plus means open.
  */
-Organism.prototype.moveMouth = function(deg) {
+Organism.prototype.moveMouth = function(deg, mouthIndex) {
   
   "use strict";
   
-  var m, i, xy;
+  var i, m;
+  
+  mouthIndex = mouthIndex || 0;
   
   // We're cheating and just re-initialising the mouth if it's supposed to be re-opening.
   // I think rounding errors are screwing up doing it "properly" :(
   if (deg > 0) {
     this.initMouth();
-    for (i = 0; i < this.mouth[0].vertices.length; i++) {
-      rotate(this.mouth[0].vertices[i], +this.rotation);
+    for (m = 0; m < this.mouth.length; m++) {
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        rotate(this.mouth[m].vertices[i], +this.rotation);
+      }
     }
     return;
   }
   
   for (m = 0; m < this.mouth.length; m++) {
     
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      rotate(this.mouth[m].vertices[i], -this.rotation);
-    }
-    
-    rotate(this.mouth[m], -this.rotation); // Rotate the mouth's x and y;
-    
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      this.mouth[m].vertices[i].y -= -Math.abs(this.mouth[m].y) + (this.mouth[m].size / 2);
-    }
-    
-    // Rotate 1st half (not including middle point) clockwise:
-    for (i = 0; i < Math.floor((this.mouth[m].vertices.length) / 2); i++) {
-      rotate(this.mouth[m].vertices[i], -deg);
-    }
+    if (m === mouthIndex) {
 
-    // Rotate 2nd half (not including middle point) anticlockwise:
-    for (i = this.mouth[m].vertices.length - 1; i >= Math.ceil(this.mouth[m].vertices.length / 2); i--) {
-      rotate(this.mouth[m].vertices[i], +deg);
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        rotate(this.mouth[m].vertices[i], -this.rotation);
+      }
+
+      rotate(this.mouth[m], -this.rotation); // Rotate the mouth's x and y;
+
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        this.mouth[m].vertices[i].x -= this.mouth[m].x;
+        this.mouth[m].vertices[i].y -= this.mouth[m].y;
+      }
+
+      // Rotate 1st half (not including middle point) clockwise:
+      for (i = 0; i < Math.floor((this.mouth[m].vertices.length) / 2); i++) {
+        rotate(this.mouth[m].vertices[i], -deg);
+      }
+
+      // Rotate 2nd half (not including middle point) anticlockwise:
+      for (i = this.mouth[m].vertices.length - 1; i >= Math.ceil(this.mouth[m].vertices.length / 2); i--) {
+        rotate(this.mouth[m].vertices[i], +deg);
+      }
+
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        this.mouth[m].vertices[i].x += this.mouth[m].x;
+        this.mouth[m].vertices[i].y += this.mouth[m].y;
+      }
+
+      rotate(this.mouth[m], +this.rotation); // Rotate the mouth's x and y;
+
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        rotate(this.mouth[m].vertices[i], +this.rotation);
+      }
+
     }
-    
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      //this.mouth[m].vertices[i].x += organism.mouth[m].x;
-      this.mouth[m].vertices[i].y += -Math.abs(this.mouth[m].y) + (this.mouth[m].size / 2);
-    }
-    
-    rotate(this.mouth[m], +this.rotation); // Rotate the mouth's x and y;
-    
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      rotate(this.mouth[m].vertices[i], +this.rotation);
-    }
-    //*/
     
   }
 

@@ -190,11 +190,11 @@ function getOrganismProperties(organism) {
           {x:  0, y:  -1, value: 1}
         ],
         maxHP: 1,
-        speed: 13,
+        speed: 12,
         turnRate: 25,
         ai: {
           behaviour: "flee",
-          viewDistance: 25
+          viewDistance: 20
         },
         difficulty: 2
       };
@@ -223,7 +223,7 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 1,
-        speed: 16,
+        speed: 15,
         maxSpeed: 20,
         turnRate: 25,
         mouth: [{
@@ -235,7 +235,7 @@ function getOrganismProperties(organism) {
         }],
         ai: {
           behaviour: "aggressive",
-          viewDistance: 30
+          viewDistance: 25
         },
         difficulty: 2,
         evolvesTo: "kite-sm"
@@ -470,6 +470,51 @@ function getOrganismProperties(organism) {
         speed: 6
       };
       
+    case "triangle":
+      return {
+        body: [
+          {
+            vertices: vertexLookup("equilateralTriangle"),
+            scale: 9,
+            x: 0,
+            y: 0,
+            rotating: 0
+          },
+          {
+            vertices: vertexLookup("equilateralTriangle"),
+            scale: 10,
+            x: 0,
+            y: 0,
+            rotating: -3
+          },
+          {
+            vertices: vertexLookup("equilateralTriangle"),
+            scale: 8,
+            rotating: 3
+          }
+        ],
+        hpPoints: [
+          {x: 0, y: -14, value: 1},
+          {x: -13, y: 7, value: 1},
+          {x:  13, y: 7, value: 1}
+        ],
+        maxHP: 3,
+        speed: 6,
+        turnRate: 9,
+        mouth: [{
+          vertices: vertexLookup("equilateralTriangleMouth"),
+          scale: 2,
+          rotation: 60,
+          x: 2,
+          y: -1
+        }],
+        ai: {
+          behaviour: "neutral-aggressive",
+          viewDistance: 30
+        },
+        difficulty: 3
+      };
+      
     case "banana-xxs":
       return {
         body: [{
@@ -674,12 +719,28 @@ function getOrganismProperties(organism) {
         maxHP: 24,
         speed: 24,
         turnRate: 16,
-        mouth: [{
-          vertices: vertexLookup("bucketMouth"),
-          scale: 5,
-          x: 0,
-          y: -60
-        }],
+        mouth: [
+          {
+            vertices: vertexLookup("bucketMouth"),
+            scale: 5,
+            x: 0,
+            y: -60
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleMouth"),
+            scale: 9,
+            rotation: -45,
+            x: -56,
+            y: -49
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleMouth"),
+            scale: 9,
+            rotation: -45,
+            x: 56,
+            y: -49
+          }
+        ],
         ai: {
           behaviour: "aggressive",
           viewDistance: 30

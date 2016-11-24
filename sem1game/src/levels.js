@@ -4,6 +4,34 @@
 
 
 
+/************************/
+/*      LEVEL PLAN      */
+/************************/
+/* 
+ *     │ Food /  │ 
+ *  ## │ Enemies │ Notes
+ *  ───┼─────────┼──────────────────────────
+ *   0 │   N/A   │ Intro level. Only nextLevels, & maybe a friend to show how to eat 'em.
+ *   1 │ F F     │ One static food, one that flees from player.
+ *   2 │ E E     │ Two basic enemies
+ *   3 │ E F     │ One basic static food type, one basic enemy type.
+ *   4 │ E E+    │ One basic enemy, one a bit more advanced.
+ *   5 │ F F F+  │ Two basic foods, one a bit more advanced.
+ *   6 │ E E E+  │ Three enemy types, but not too much of a clusterfuck.
+ *   7 │ E E+ F  │ One basic enemy, one advanced, one food.
+ *   8 │ E E E+  │ Two basic enemies, one that's very advanced.
+ *   9 │ F F F*  │ Two basic foods, one special weird one.
+ *  10 │ E E E   │ Three enemies. Craziness.
+ *  11 │ E E F   │ Two enemies and one food.
+ *  12 │ E E E   │ Three large / "mini boss" enemies.
+ *  13 │ F F F+  │ Lots of delicious, tiny, swimming around food that makes it obvious a boss is coming.
+ *  14 │ BOSS    │ Stupidly large enemy creature.
+ *  15 │   N/A   │ Credits? Something special?
+ *
+ */
+
+
+
 function generateOrganisms(organismTypes, difficulty, levelSize) {
   
   "use strict";
@@ -121,9 +149,7 @@ function getOrganismsFor(levelNumber, levelSize) {
       
       // And the rest:
       actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
-      potentialOrganismTypes = [];
-      potentialOrganismTypes.push("kite-xs");
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
+
       
       break;
       
