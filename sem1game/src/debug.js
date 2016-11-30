@@ -62,3 +62,19 @@ function drawDebug(game, time, deltaTime) {
   document.getElementById("debug").innerHTML = debugInfo;
   
 }
+
+
+
+function toggleDebug() {
+  
+  "use strict";
+
+  if (debug) {
+    debug = false;
+    document.getElementById("debug").style.display = "none";
+  } else {
+    debug = true;
+    document.getElementById("debug").style.display = "block";
+  }
+
+}

@@ -27,7 +27,7 @@ function initCamera(camera, followee) {
   // The smoothness of the camera in "pixels to jump". I.e if set to 2,
   // the camera will pan in 2px increments, if set to lower, the camera
   // will move more smoothly, but the performance cost will be higher.
-  camera.smoothness = 0.5;
+  camera.smoothness = 0.125; //px
   
 }
 
@@ -45,9 +45,8 @@ function cameraFollow(camera, followee) {
   
   // Border/deadzone size is calculated here rather than when the camera
   // is initialized, just in case the camera width or height have changed:
-  var border = parseInt(
-    camera.deadzone * 0.01 * ((camera.width + camera.height) / 2),
-    10
+  var border = Math.round(
+    camera.deadzone / 100 * ((camera.width + camera.height) / 2)
   );
   
   // 🍳 - Not actually number of frying pans, but size of the steps the camera
@@ -103,9 +102,8 @@ function infiniteCamera(game, followee) {
   
   "use strict";
   
-  var border = parseInt(
-    game.camera.deadzone * 0.01 * ((game.camera.width + game.camera.height) / 2),
-    10
+  var border = Math.round(
+    game.camera.deadzone / 100 * ((game.camera.width + game.camera.height) / 2)
   );
   
   var i, organism;

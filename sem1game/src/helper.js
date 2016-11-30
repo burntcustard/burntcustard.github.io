@@ -255,6 +255,7 @@ function oppositeTo(inputNumber, numberToBeOppositeTo) {
 }
 
 
+
 /**
  * Feed me the thing to rotate (any object with x & y coords), and the degrees to rotate it by.
  */
@@ -297,10 +298,116 @@ function toRadians(degrees) {
 
 
 
-function toDegrees (radians) {
+function toDegrees(radians) {
   
   "use strict";
   
   return radians * (180 / Math.PI);
+  
+}
+
+
+
+function to360(angle) {
+  
+  "use strict";
+  
+  if (angle < 0) {
+    angle += 360;
+  }
+  
+  return angle;
+  
+}
+
+
+
+function to180(angle) {
+  
+  "use strict";
+  
+  if (angle > 180) {
+    angle -= 360;
+  }
+  
+  else if (angle < -180) {
+    angle += 360;
+  }
+  
+  return angle;
+  
+}
+
+
+
+function angleDiff(angle1, angle2) {
+  
+   "use strict";
+  
+  angle1 = to360(angle1);
+  angle2 = to360(angle2);
+  
+  return to180(angle2 - angle1);
+  
+}
+
+
+
+/**
+ * Transition from one color to another, by the intendedChange amount.
+ * E.g: colorTransition("rgb(250,15,40)", "rgb(255,10,10)", 10)
+ * Will return: "rgb(255,10,30)"
+ * The initial color is "pushed through grey" to reach the target color.
+ * This is okay-ish for us, as it'll make the middle levels a bit
+ * "boring", but the start and end will be exciting / vibrant.
+ */
+function colorTransition(initialColor, targetColor, intendedChange) {
+  
+  "use strict";
+  
+  // Currently assuming that the color string is rgb().
+  initialColor = initialColor.replace(/\s+/g, '');
+  targetColor = targetColor.replace(/\s+/g, '');
+  
+  // Turn color strings into RGB arrays.
+  // .match() returns all the numbers as the first
+  // element in the array, so we splice that out.
+  // Splice is fast. https://jsperf.com/splice-vs-splice
+  initialColor = initialColor.match(/(\d+),(\d+),(\d+)/).splice(1,4);
+  targetColor = targetColor.match(/(\d+),(\d+),(\d+)/).splice(1,4);
+  
+  var i,
+      difference,
+      actualChange,
+      output = [
+        parseInt(initialColor[0], 10),
+        parseInt(initialColor[1], 10),
+        parseInt(initialColor[2], 10)
+      ];
+  
+  // Cycle through 0/1/2, i.e. r/g/b:
+  for (i = 0; i < 3; i++) {
+    
+    // Get the difference between the initial colour and target color:
+    difference = Math.abs(targetColor[i] - output[i]);
+    
+    // If the difference is < the intended change, then only change by that amount:
+    actualChange = difference < intendedChange ? difference : intendedChange;
+    
+    // Right hand side is integer, so string on left is converted for comparison:
+    if (targetColor[i] > output[i]) {
+      output[i] += actualChange;
+    } 
+    else if (targetColor[i] < output[i]) {
+      output[i] -= actualChange;
+    }
+    
+    // Keep the values between 0-255:
+    output[i] = output[i] > 255 ? 255 : output[i];
+    output[i] = output[i] <   0 ?   0 : output[i];
+    
+  }
+  
+  return ("rgb(" + output[0] + "," + output[1] + "," + output[2] + ")");
   
 }

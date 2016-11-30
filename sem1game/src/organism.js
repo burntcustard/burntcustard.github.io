@@ -24,10 +24,10 @@ var Organism = function (organismType, x, y) {
   this.x = x;
   this.y = y;
   
-  this.maxHP = organism.maxHP;
+  this.maxHP = organism.maxHP || 0;
   this.size = 0;
   
-  this.hpPoints = organism.hpPoints;
+  this.hpPoints = organism.hpPoints || [];
   for (i = 0; i < this.hpPoints.length; i++) {
     this.hpPoints[i].x = organism.hpPoints[i].x || 0;
     this.hpPoints[i].y = organism.hpPoints[i].y || 0;
@@ -73,6 +73,12 @@ var Organism = function (organismType, x, y) {
         this.size = organism.body[j].vertices[i] * organism.body[j].scale;
       }
     }
+    
+    if (organism.body[j].rotation) {
+      for (i = 0; i < this.body[j].vertices.length; i++) {
+        rotate(this.body[j].vertices[i], organism.body[j].rotation);
+      }
+    }
 
     this.body[j].center = {
       x: -organism.body[j].x || 0,
@@ -107,6 +113,8 @@ var Organism = function (organismType, x, y) {
 
     }
     
+    
+    
   }
   
   this.type = organismType; // "type" is NOT a reserved word. Don't panic.
@@ -123,12 +131,12 @@ var Organism = function (organismType, x, y) {
   this.difficulty = organism.difficulty || 0;
   this.color = organism.color || "rgb(255,255,255)";
   this.speed = 0;
-  this.lastAte = 0;
   this.acceleration = {x: 0, y: 0};
   this.velocity = {x: 0, y: 0}; // Velocity (X & Y speeds, actually);
   this.angularAcceleration = 0;
   this.angularVelocity = 0;
   this.rotation = 0;           // Rotation from upwards, going clockwise, in degrees.
+  this.visibleRotation = 0;
   this.ai = organism.ai || false;
   if (this.ai) {
     this.ai.viewDistance = organism.ai.viewDistance * 10;
@@ -137,14 +145,18 @@ var Organism = function (organismType, x, y) {
   this.levelCap = organism.levelCap || 0;
   this.maxVelocity = organism.speed / 10;
   this.maxAngular = organism.turnRate / 10;
+  this.drag = organism.drag || 11;
   if (organism.chargeSpeed || organism.chargeTurnRate) {
     this.charges = true;
   }
 
-  this.initMouth();
+  if (organism.mouth) {
+    this.initMouth(organism);
+  }
   
   this.alive = true;
   this.visible = true;
+  this.evolvesTo = organism.evolvesTo || false;
   
 };
 Organism.prototype.constructor = Organism;
@@ -180,15 +192,15 @@ Organism.prototype.initTail = function() {
   }
 
   
-}
+};
   
 
 // Mouthy stuff (this is gonna be crazy for now):
-Organism.prototype.initMouth = function() {
+Organism.prototype.initMouth = function(organism) {
   
   "use strict";
   
-  var m, i, j, tmpVertex, largestVertex, organism = getOrganismProperties(this.type);
+  var m, i, j, tmpVertex, largestVertex;
   
   this.mouth = [];
   
@@ -196,7 +208,10 @@ Organism.prototype.initMouth = function() {
   
     this.mouth.push({});
     this.mouth[m].vertices = [];
+    this.mouth[m].lastAte = 0;
     largestVertex = 0;
+    organism.mouth[m].x = organism.mouth[m].x || 0;
+    organism.mouth[m].y = organism.mouth[m].y || 0;
   
     for (i = 0; i < organism.mouth[m].vertices.length; i++) {
       switch (i % 2) {
@@ -264,55 +279,63 @@ Organism.prototype.getCurrentHP = function() {
 /**
  * How many degrees open do you want to close the mouth (each side)? Minus means close, plus means open.
  */
-Organism.prototype.moveMouth = function(deg) {
+Organism.prototype.moveMouth = function(deg, mouthIndex) {
   
   "use strict";
   
-  var m, i, xy;
+  var i, m;
+  
+  mouthIndex = mouthIndex || 0;
   
   // We're cheating and just re-initialising the mouth if it's supposed to be re-opening.
   // I think rounding errors are screwing up doing it "properly" :(
   if (deg > 0) {
-    this.initMouth();
-    for (i = 0; i < this.mouth[0].vertices.length; i++) {
-      rotate(this.mouth[0].vertices[i], +this.rotation);
+    this.initMouth(getOrganismProperties(this.type));
+    for (m = 0; m < this.mouth.length; m++) {
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        rotate(this.mouth[m].vertices[i], +this.rotation);
+      }
     }
     return;
   }
   
   for (m = 0; m < this.mouth.length; m++) {
     
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      rotate(this.mouth[m].vertices[i], -this.rotation);
-    }
-    
-    rotate(this.mouth[m], -this.rotation); // Rotate the mouth's x and y;
-    
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      this.mouth[m].vertices[i].y -= -Math.abs(this.mouth[m].y) + (this.mouth[m].size / 2);
-    }
-    
-    // Rotate 1st half (not including middle point) clockwise:
-    for (i = 0; i < Math.floor((this.mouth[m].vertices.length) / 2); i++) {
-      rotate(this.mouth[m].vertices[i], -deg);
-    }
+    if (m === mouthIndex) {
 
-    // Rotate 2nd half (not including middle point) anticlockwise:
-    for (i = this.mouth[m].vertices.length - 1; i >= Math.ceil(this.mouth[m].vertices.length / 2); i--) {
-      rotate(this.mouth[m].vertices[i], +deg);
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        rotate(this.mouth[m].vertices[i], -this.rotation);
+      }
+
+      rotate(this.mouth[m], -this.rotation); // Rotate the mouth's x and y;
+
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        this.mouth[m].vertices[i].x -= this.mouth[m].x;
+        this.mouth[m].vertices[i].y -= this.mouth[m].y;
+      }
+
+      // Rotate 1st half (not including middle point) clockwise:
+      for (i = 0; i < Math.floor((this.mouth[m].vertices.length) / 2); i++) {
+        rotate(this.mouth[m].vertices[i], -deg);
+      }
+
+      // Rotate 2nd half (not including middle point) anticlockwise:
+      for (i = this.mouth[m].vertices.length - 1; i >= Math.ceil(this.mouth[m].vertices.length / 2); i--) {
+        rotate(this.mouth[m].vertices[i], +deg);
+      }
+
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        this.mouth[m].vertices[i].x += this.mouth[m].x;
+        this.mouth[m].vertices[i].y += this.mouth[m].y;
+      }
+
+      rotate(this.mouth[m], +this.rotation); // Rotate the mouth's x and y;
+
+      for (i = 0; i < this.mouth[m].vertices.length; i++) {
+        rotate(this.mouth[m].vertices[i], +this.rotation);
+      }
+
     }
-    
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      //this.mouth[m].vertices[i].x += organism.mouth[m].x;
-      this.mouth[m].vertices[i].y += -Math.abs(this.mouth[m].y) + (this.mouth[m].size / 2);
-    }
-    
-    rotate(this.mouth[m], +this.rotation); // Rotate the mouth's x and y;
-    
-    for (i = 0; i < this.mouth[m].vertices.length; i++) {
-      rotate(this.mouth[m].vertices[i], +this.rotation);
-    }
-    //*/
     
   }
 
@@ -337,13 +360,13 @@ Organism.prototype.cull = function(camera) {
         this.x > camera.x + camera.width + s ||
         this.y > camera.y + camera.height + s) {
       this.visible = false;
-    } 
+    }
   } else if (this.alive &&
              this.x > camera.x - s &&
              this.y > camera.y - s &&
              this.x < camera.x + camera.width + s &&
              this.y < camera.y + camera.height + s) {
-    this.visible = true;  
+    this.visible = true;
   }
   
 };
@@ -379,11 +402,6 @@ Organism.prototype.teleportIfOverEdge = function(gameWidth, gameHeight) {
 
 
 
-// This is currently only designed to work with the "kite" organism.
-// HP gained is always added to the hpPoint with the lowest value,
-// starting at the beginning of the hpPoints list. Snake and other
-// organisms HP will probably have to work differently.
-// TODO: Check if the max HP value is reached and evolve organism.
 Organism.prototype.addHP = function () {
   
   "use strict";

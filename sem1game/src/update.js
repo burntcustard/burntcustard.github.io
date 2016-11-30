@@ -8,7 +8,7 @@
 
 // "variable: true" here indicates that the variable is writable (i.e. NOT read only).
 // TODO: Remove some of these. Too many! Some could be passed as parameters!
-/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings*/
+/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings, createParticleBurst, Organism, game, evenFrame: true, deltaTime: true, oldTime: true*/
 
 
 
@@ -37,124 +37,134 @@ function checkForNoms(organism, player) {
   
   "use strict";
   
-  var i, playerMouth, organismHP, organismMouth, playerHP;
+  var i, m, playerMouth, organismHP, organismMouth, playerHP, stopEating = false;
 
   // Both checks could be combined... maybe. But for now we're doing them sepatately:
   
   // Do the player eating the organism's HP check first:
 
-  for (i = 0; i < organism.hpPoints.length && player.mouth[0] && player.lastAte <= 0; i++) {
+  for (m = 0; m < player.mouth.length && !stopEating; m++) {
 
-    playerMouth = {
-      x: player.x + player.mouth[0].x,
-      y: player.y + player.mouth[0].y
-    };
+    for (i = 0; i < organism.hpPoints.length && player.mouth[m].lastAte <= 0; i++) {
 
-    organismHP = {
-      x: organism.x + organism.hpPoints[i].x,
-      y: organism.y + organism.hpPoints[i].y
-    };
+      playerMouth = {
+        x: player.x + player.mouth[m].x,
+        y: player.y + player.mouth[m].y
+      };
 
-    if ((distanceBetweenAbs(playerMouth, organismHP) < player.mouth[0].size) &&
-        (organism.hpPoints[i].value > 0) &&
-        (player.lastAte <= 0)) {
+      organismHP = {
+        x: organism.x + organism.hpPoints[i].x,
+        y: organism.y + organism.hpPoints[i].y
+      };
 
-      //console.log(player.lastAte);
-      //console.log("Nomming");
-      player.lastAte = 40;
-      
-      //console.log("Trying to close a mouth?")
-      player.moveMouth(-26);
-      
-      switch (organism.type) {
-          
-        // Be careful with the level ups and downs. If a level down is eaten
-        // on level 0, bad things could happen...
-          
-        case "levelUp"   : changeLevel(game, +1); break;
-          
-        case "levelDown" : changeLevel(game, -1); break;
-          
-        default :
+      if (player.mouth[m].lastAte <= 0 &&
+          organism.hpPoints[i].value > 0 &&
+          distanceBetweenAbs(playerMouth, organismHP) < player.mouth[m].size * 1.3) {
+        
+        // Yep, we're cheating slightly & pretending the players mouth is 1.3 times it's actual size.
+
+        player.mouth[m].lastAte = 40;
+
+        player.moveMouth(-40, m);
+
+        switch (organism.type) {
+
+          // Be careful with the level ups and downs. If a level down is eaten
+          // on level 0, bad things could happen...
+
+          case "levelUp"   : changeLevel(game, +1); stopEating = true; break;
+
+          case "levelDown" : changeLevel(game, -1); stopEating = true; break;
+
+          default :
+
+            if (player.getCurrentHP() < player.maxHP) {
+              // Top up the players HP
+              player.addHP();
+            } else if (player.levelCap < game.currentLevel && player.evolvesTo) {
+              // No HP dots to upgrade... evolve!
+              player.evolve();
+            } else {
+              // Can't evolve? Poop out the HP!
+              game.levels[game.currentLevel].organisms.push(
+                new Organism(
+                  "food-xxs",
+                  organism.x + organism.hpPoints[i].x,
+                  organism.y + organism.hpPoints[i].y)
+              );
+              game.levels[game.currentLevel].organisms.last().velocity.x = organism.velocity.x;
+              game.levels[game.currentLevel].organisms.last().velocity.y = organism.velocity.y;
+            }
             
-          if (organism.tail && i === organism.hpPoints.length) {
-            organism.hpPoints.pop();
-          } else {
-            organism.hpPoints[i].value--;
-          }
+            if (organism.tail && i === organism.hpPoints.length - 1) {
+              organism.hpPoints.pop();
+            } else {
+              organism.hpPoints[i].value--;
+            }
 
-          if (organism.getCurrentHP() === 0) {
-            organism.alive = false;
-          }
+            // If it has no HP and it's not the tiny kite:
+            if (organism.getCurrentHP() === 0) {
+              organism.alive = false;
+            }
 
-          if (player.getCurrentHP() < player.maxHP) {
-            // Top up the players HP
-            player.addHP();
-          } else if (player.levelCap < game.currentLevel) {
-            // No HP dots to upgrade... evolve!
-            player.evolve();
-          } else {
-            // Can't evolve? Poop out the HP!
-            game.levels[game.currentLevel].organisms.push(
-              new Organism(
-                "food-xxs",
-                organism.x + organism.hpPoints[i].x,
-                organism.y + organism.hpPoints[i].y)
-            );
-            game.levels[game.currentLevel].organisms.last().velocity.x = organism.velocity.x;
-            game.levels[game.currentLevel].organisms.last().velocity.y = organism.velocity.y;
-          }
-          
-          break;
-          
-      }
+            break;
 
-    }
+        }
 
-  }
-
-  // Do the organism nomming the player's HP second:
+      } 
+      
+    } // Finished going through all organism's HP points.
     
-  for (i = 0; (i < player.hpPoints.length) &&
-              (organism.mouth[0] && organism.lastAte <= 0); i++) {
+  } // Finished going through all the player's mouths.
 
-    organismMouth = {
-      x: organism.x + organism.mouth[0].x,
-      y: organism.y + organism.mouth[0].y
-    };
+  
+  // Do the organism nomming the player's HP second:
+  
+  for (m = 0; (organism.mouth) && m < organism.mouth.length; m++) {
 
-    playerHP = {
-      x: player.x + player.hpPoints[i].x,
-      y: player.y + player.hpPoints[i].y
-    };
+    for (i = 0; (i < player.hpPoints.length) &&
+                (organism.mouth[m] && organism.mouth[m].lastAte <= 0); i++) {
 
-    if (player.hpPoints[i].value > 0 &&
-        distanceBetweenAbs(organismMouth, playerHP) < player.mouth[0].size) {
+      organismMouth = {
+        x: organism.x + organism.mouth[m].x,
+        y: organism.y + organism.mouth[m].y
+      };
 
-      organism.lastAte = 40; // This value could be per-organism, letting some eat quicker.
-      
-      organism.moveMouth(-26);
+      playerHP = {
+        x: player.x + player.hpPoints[i].x,
+        y: player.y + player.hpPoints[i].y
+      };
 
-      if (organism.getCurrentHP() < organism.maxHP) {
-        organism.addHP();
-      }
+      if (player.hpPoints[i].value > 0 &&
+          distanceBetweenAbs(organismMouth, playerHP) < organism.mouth[m].size) {
 
-      player.hpPoints[i].value--;
-      
-      //console.log(player.hpPoints);
-      //console.log(player.getCurrentHP());
-      
-      if (player.getCurrentHP() === 0) {
-        // You dead. Well not really.
-        //console.log("Trying to devolve");
-        player.devolve();
-        changeLevel(game, -1);
+        // This value could be per-organism, letting some eat quicker.
+        organism.mouth[m].lastAte = 40;
+
+        organism.moveMouth(-40, m);
+
+        if (organism.getCurrentHP() < organism.maxHP) {
+          organism.addHP();
+        }
+
+        player.hpPoints[i].value--;
+
+        //console.log(player.hpPoints);
+        //console.log(player.getCurrentHP());
+
+        if (player.getCurrentHP() === 0) {
+          // You dead. Well not really.
+          //console.log("Trying to devolve");
+          player.devolve();
+          changeLevel(game, -1);
+        }
+
       }
 
     }
 
   }
-
+  
 }
 
 
@@ -167,7 +177,7 @@ function updateOrganisms(game, updateAmount) {
   
   "use strict";
   
-  var i, organism, distanceToPlayer;
+  var i, m, organism, distanceToPlayer;
   
   // Update everthing on the current game level:
   
@@ -175,10 +185,14 @@ function updateOrganisms(game, updateAmount) {
     
     organism = game.levels[game.currentLevel].organisms[i];
     
-    // If not the player, and the organism is alive, and organism has AI of some sort:
-    if (i !== 0 && organism.alive && organism.ai) {
+    // If:
+    //  - Even frame (AI is updated ever other update frame)
+    //  - and the organism isn't the player
+    //  - and the organism is alive
+    //  - and organism has AI of some sort:
+    if (evenFrame && i !== 0 && organism.alive && organism.ai) {
       
-      doAI(game.width, game.height, organism, updateAmount, game.player); // TODO: This needs a better name!
+      doAI(game.width, game.height, organism, updateAmount * 2, game.player); // TODO: This needs a better name!
       
     }
   
@@ -193,11 +207,13 @@ function updateOrganisms(game, updateAmount) {
       
     }
       
-    if (organism.lastAte && organism.lastAte >= 0) {
-      organism.lastAte -= updateAmount;
-      // Check if it can eat again:
-      if (organism.lastAte && organism.lastAte < 0) {
-        organism.moveMouth(26);
+    for (m = 0; (organism.mouth) && (m < organism.mouth.length); m++) {
+      if (organism.mouth[m].lastAte && organism.mouth[m].lastAte > 0) {
+        organism.mouth[m].lastAte -= updateAmount;
+        // Check if it can eat again:
+        if (organism.mouth[m].lastAte !== undefined && organism.mouth[m].lastAte <= 0) {
+          organism.moveMouth(40, m);
+        }
       }
     }
     
@@ -210,7 +226,7 @@ function updateOrganisms(game, updateAmount) {
     organism.teleportIfOverEdge(game.width, game.height);
  
   }
-  
+    
   // Update everything on the next game level:
   // - But try to do less work here, because it can't be interacted with!
   
@@ -218,18 +234,23 @@ function updateOrganisms(game, updateAmount) {
     
     organism = game.levels[game.currentLevel+1].organisms[i];
     
-    // If not the player, and the organism is alive, and organism has AI of some sort:
-    if (i !== 0 && organism.alive && organism.ai) {
+    // If:
+    //  - Odd frame (AI is updated ever other update frame)
+    //  - and the organism is alive
+    //  - and organism has AI of some sort:
+    if (!evenFrame && organism.alive && organism.ai) {
       
-      doAI(game.width, game.height, organism, updateAmount); // TODO: This needs a better name!
+      doAI(game.width, game.height, organism, updateAmount * 2); // TODO: This needs a better name!
       
     }
     
-    if (organism.lastAte && organism.lastAte >= 0) {
-      organism.lastAte -= updateAmount;
-      // Check if it can eat again:
-      if (organism.lastAte && organism.lastAte < 0) {
-        organism.moveMouth(26);
+    for (m = 0; (organism.mouth) && (m < organism.mouth.length); m++) {
+      if (organism.mouth[m].lastAte && organism.mouth[m].lastAte > 0) {
+        organism.mouth[m].lastAte -= updateAmount;
+        // Check if it can eat again:
+        if (organism.mouth[m].lastAte !== undefined && organism.mouth[m].lastAte <= 0) {
+          organism.moveMouth(40, m);
+        }
       }
     }
 
@@ -284,8 +305,10 @@ function update(game, tFrame) {
   oldTime = tFrame;
   
   var i,
-      updateAmount = parseFloat(deltaTime) / (1/60 * 1000),
+      updateAmount = parseFloat(deltaTime) / (1/60 * 1000), // Because deltaTime was time not float.
       organism;
+  
+  evenFrame = evenFrame ? false : true;
   
   // This is a magic line of code which neither JSLint, nor myself understand anymore:
   if (!(updateAmount > 0) || updateAmount < 1) { updateAmount = 1; }
@@ -323,25 +346,10 @@ function update(game, tFrame) {
     // Space key for debugging.. or if I want to add an ability thing:
     if (game.keys.indexOf('␣') >=0) {
       game.keys.splice(game.keys.indexOf('␣'), 1);
-      //game.player.moveMouth(-26);
       //settings.glowy.value = !settings.glowy.value;
       //settings.webGL.value = false;
       //console.log("space pressed");
       createParticleBurst(game.levels[game.currentLevel], game.player, game.player.color, 2, 29);
-    }
-  
-    if (debug) {
-      if (game.keys.indexOf('?') >= 0) {
-        debug = false;
-        document.getElementById("debug").style.display = "none";
-        game.keys.splice(game.keys.indexOf('?'), 1);
-      }
-    } else {
-      if (game.keys.indexOf('?') >= 0) {
-        debug = true;
-        document.getElementById("debug").style.display = "block";
-        game.keys.splice(game.keys.indexOf('?'), 1);
-      }
     }
 
   updateOrganisms(game, updateAmount);

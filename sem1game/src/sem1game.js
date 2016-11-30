@@ -1,29 +1,6 @@
 /*jslint debug: true, white: true*/
 
-var game = {
-  
-  // Width and height (more like radius actually) of the "game board":
-  width: 2000,
-  height: 2000,
-  
-  // Width, height, & coords of the top-left corner of the "camera":
-  camera: {
-    width: 300,
-    height: 533,
-    x: 0,
-    y: 0
-  },
-  
-  // An array of strings defining which keyboard keys are pressed:
-  keys: [],
-  
-  // A bunch of levels:
-  levels: [],
-  
-  // The level the player is currently on:
-  currentLevel: 0
-  
-};
+var game = {};
 
 var cursors;
 var debug = false;
@@ -38,65 +15,142 @@ var texture;
 
 var time, oldTime, deltaTime = 0;
 
-window.onload = function () {
-
-canvas = document.getElementById('canvas');
-ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  
-  // Set the size of the canvas:
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  
-  // Set the size of the "camera":
-  // TODO: Think about zooming.
-  game.camera.width = canvas.width;
-  game.camera.height = canvas.height;
-  
-}
-  
-window.addEventListener('resize', resizeCanvas, false);
-
-resizeCanvas();
-
+var evenFrame;
 
 
 function create() {
   
+  var coords;
+
+  game = {
+  
+    // Width and height (more like radius actually) of the "game board":
+    width: 2000,
+    height: 2000,
+
+    // Width, height, & coords of the top-left corner of the "camera":
+    camera: {
+      width: canvas.width,
+      height: canvas.height,
+      x: 0,
+      y: 0
+    },
+
+    // An array of strings defining which keyboard keys are pressed:
+    keys: [],
+
+    // A bunch of levels:
+    levels: [],
+
+    // The level the player is currently on:
+    currentLevel: 0,
+
+    paused: false
+  
+  };
+  
+  // Line width for EVERYTHING is 2. Apart from the map lines,
+  // but gets reset to 2 after those are drawn anyway:
+  ctx.lineWidth = 2;
+
   // Get/generate info about all the levels:
   game.levels = generateLevels();
-  
+
+  // Make a player:
   game.player = new Organism("kite-s", 0, 0);
-  
   game.player.assignPlayerProperties();
-    
+
   // Player is now organism[0]. The original and the best.
   game.levels[0].organisms.unshift(game.player);
-  
+
+  // Initialise the camera and make it follow the player:
   initCamera(game.camera, game.player);
   
+  // Make sure there's a levelUp on the screen when the game starts.
+  // This is done here because it needs to be done after
+  // everything else has already been set up (mainly the camera).
+  coords = randomCoords(
+    (game.camera.width  / 2) - game.camera.deadzone,
+    (game.camera.height / 2) - game.camera.deadzone
+  );
+  console.log(coords.x + ", " + coords.y);
+  game.levels[0].organisms.push(new Organism(
+    "levelUp",
+    coords.x,
+    coords.y
+  ));
+
 }
 
 
 
-function startGame() {
-  // Game should start when the page loads automagically,
-  // and may not need restarting...
-} 
-  
-addWebGLCanvas();
-  
-create();
-  
 function main(tFrame) {
-  game.stopMain = window.requestAnimationFrame( main );
+  
+  // If the game was paused):
+  if (game.paused) {
+    oldTime = tFrame;
+    game.paused = false;
+  }
+  
+  game.stopMain = window.requestAnimationFrame(main);
 
   update(game, tFrame);
   render(tFrame, ctx, game, time, deltaTime);
+  
 }
 
-main();
 
+
+function pause() {
   
+  if (game.paused) {
+    // Start looping again:
+    main();
+  } else {
+    // Cancel the game loop:
+    window.cancelAnimationFrame(game.stopMain);
+    // Game was running, now it's paused:
+    game.paused = true;
+  }
+  
+}
+
+
+
+function resizeCanvas() {
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  
+  if (game && game.camera) {
+    game.camera.width = canvas.width;
+    game.camera.height = canvas.height
+  }
+
+}
+
+
+
+window.onload = function () {
+
+  // Set up canvas(es):
+  canvas = document.getElementById("canvas");
+  ctx = canvas.getContext("2d");
+  resizeCanvas();
+
+  // Set up WebGL (if supported):
+  if (settings.webGL.value) {
+    addWebGLCanvas();
+  }
+  
+  // Add event listeners (not including input, that's in the input file!):
+  window.addEventListener('resize', resizeCanvas, false);
+
+  // Create a new game:
+  create();
+
+  // Start the game:
+  main();
+
 };
+

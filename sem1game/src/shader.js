@@ -24,6 +24,7 @@ function addWebGLCanvas() {
     for (i = 0; i < settings.length; i++) {
       settings[i].value = settings[i].low;
     }
+    return false;
   }
 
   // Tell glfx to use the original canvas as a source image:

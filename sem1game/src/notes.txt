@@ -1,0 +1,5 @@
+
+
+JavaScript performance article. A little out of date, as modern browsers will peform some if these actions already. However, some things such as local function variables, and avoiding object creation, and avoiding creating references to objects have helped.
+
+http://www.webreference.com/programming/javascript/jkm3/index.html

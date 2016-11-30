@@ -77,6 +77,39 @@ function vertexLookup(shape) {
       1, 2,
       0, 1
     ];
+      
+  // It's not a penis FFS.
+  // <••>
+  //  ||
+  //  \/
+  case "longBanana-s":
+    return [
+      2, 0,
+      4, 1,
+      3, 2,
+      2, 7,
+      1, 2,
+      0, 1
+    ];
+      
+  //   /\ 
+  // <•  •>
+  //  \  /
+  //   ||
+  //   \/
+  case "longBanana-l":
+    return [
+      3, 0,
+      4, 1,
+      6, 2,
+      5, 3,
+      4, 5,
+      3, 10,
+      2, 5,
+      1, 3,
+      0, 2,
+      2, 1
+    ];
   
   //   /\ 
   // <•  •>
@@ -147,11 +180,28 @@ function vertexLookup(shape) {
       0, 7,
       8, 7
     ]; // Close enough (<1% away from being equilateral)
+      
+  // △ - But in "mouth form", i.e. with an extra verticey to complete the shape.
+  case "equilateralTriangleMouth":
+    return [
+      4, 0,
+      0, 7,
+      8, 7,
+      4, 0
+    ];
 
   // ◺
   case "rightAngledTriangleShort":
     return [
       0, 0,
+      1, 1,
+      0, 1
+    ];
+      
+  // ◺
+  case "rightAngledTriangleShortInverted":
+    return [
+      1, 0,
       1, 1,
       0, 1
     ];
@@ -180,12 +230,12 @@ function vertexLookup(shape) {
       0, 2
     ];
 
-  // \_,_/ kinda shape
+  // \_,_/ kinda shape - argh this is >10 pixels wide so formatting is wonky :(
   case "bucketMouth":
     return [
-       0, 0,
-       2, 3,
-       7, 5,
+      0, 0,
+      2, 3,
+      7, 5,
       12, 3,
       14, 0
     ];
