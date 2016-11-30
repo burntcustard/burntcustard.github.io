@@ -38,6 +38,9 @@ function create() {
 
     // An array of strings defining which keyboard keys are pressed:
     keys: [],
+    
+    // A touch object with (I think) x and y coords:
+    touch: {},
 
     // A bunch of levels:
     levels: [],

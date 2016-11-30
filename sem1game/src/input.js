@@ -8,17 +8,36 @@
 /* TOUCH INPUT */
 /***************/
 
-canvas.addEventListener('touchstart' , touchInput(), false);
-canvas.addEventListener('touchmove'  , touchInput(), false);
-canvas.addEventListener('touchcancel', touchStop() , false);
-canvas.addEventListener('touchend'   , touchStop() , false);
-
-
-
 function touchInput(event) {
+  
+  "use strict";
+  
   event.preventDefault();
-  alert("beep");
+  
+    game.touch = {
+      x: event.targetTouches[0].pageX,
+      y: event.targetTouches[0].pageY
+    };
+  
+  alert("X: " + game.touch.x + " Y: " + game.touch.y);
+  
 }
+
+
+
+function touchStop(event) {
+  
+  "use strict";
+  
+  event.preventDefault();
+  
+}
+
+
+canvas.addEventListener('touchstart' , touchInput, false);
+canvas.addEventListener('touchmove'  , touchInput, false);
+canvas.addEventListener('touchcancel', touchStop , false);
+canvas.addEventListener('touchend'   , touchStop , false);
 
 
 
