@@ -230,7 +230,8 @@ function updateOrganisms(game, updateAmount) {
   // Update everything on the next game level:
   // - But try to do less work here, because it can't be interacted with!
   
-  for (i = 0; i < game.levels[game.currentLevel+1].organisms.length; i++) {
+  for (i = 0; (game.levels[game.currentLevel+1]) && 
+       (i < game.levels[game.currentLevel+1].organisms.length); i++) {
     
     organism = game.levels[game.currentLevel+1].organisms[i];
     
@@ -312,6 +313,17 @@ function update(game, tFrame) {
   
   // This is a magic line of code which neither JSLint, nor myself understand anymore:
   if (!(updateAmount > 0) || updateAmount < 1) { updateAmount = 1; }
+  
+  if (game.worldTouch.active) {
+    if (Math.abs(rotationTo(game.player, game.worldTouch)) > toRadians(1)) {
+      //console.log(rotationTo(game.player, game.worldTouch).toFixed(1));
+      game.player.rotateToFace("towards", game.worldTouch);
+    }
+    game.player.accelerate(updateAmount);
+    game.player.showSpeedLines = true;
+  } else {
+    game.player.showSpeedLines = false;
+  }
   
   /*
   if (game.input.activePointer.withinGame) {

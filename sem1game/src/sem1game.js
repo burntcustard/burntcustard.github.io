@@ -39,9 +39,20 @@ function create() {
     // An array of strings defining which keyboard keys are pressed:
     keys: [],
     
-    // A touch object with (I think) x and y coords:
-    touch: {},
+    // A touch object with screen-based x & y coords:
+    screenTouch: {
+      active: false,
+      x: 0,
+      y: 0
+    },
 
+    // A touch object with game board based x & y coords:
+    worldTouch: {
+      active: false,
+      x: 0,
+      y: 0
+    },
+    
     // A bunch of levels:
     levels: [],
 
@@ -135,6 +146,8 @@ function resizeCanvas() {
 
 
 window.onload = function () {
+  
+  "use strict";
 
   // Set up canvas(es):
   canvas = document.getElementById("canvas");
@@ -146,8 +159,13 @@ window.onload = function () {
     addWebGLCanvas();
   }
   
-  // Add event listeners (not including input, that's in the input file!):
+  // Add event listeners (the input ones should be in the input file!):
   window.addEventListener('resize', resizeCanvas, false);
+
+  canvas.addEventListener('touchstart' , touchInput, false);
+  canvas.addEventListener('touchmove'  , touchInput, false);
+  canvas.addEventListener('touchcancel', touchStop , false);
+  canvas.addEventListener('touchend'   , touchStop , false);
 
   // Create a new game:
   create();

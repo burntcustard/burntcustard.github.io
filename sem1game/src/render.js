@@ -393,11 +393,13 @@ function render(tFrame, ctx, game, time, deltaTime) {
   
   ctx.lineWidth = 2;
   
-  // Draw organisms on the next level, faded out 80%:
-  ctx.globalAlpha = 0.2;
-  renderOrganisms(ctx, game.levels[game.currentLevel + 1].organisms, game.camera);
-  ctx.globalAlpha = 1; // Set the fade back to normal for the rest of the drawing.
-  
+  if (game.levels[game.currentLevel + 1]) {
+    // Draw organisms on the next level, faded out 80%:
+    ctx.globalAlpha = 0.2;
+    renderOrganisms(ctx, game.levels[game.currentLevel + 1].organisms, game.camera);
+    ctx.globalAlpha = 1; // Set the fade back to normal for the rest of the drawing.
+  }
+    
   renderMapLines(
     ctx,
     game.camera,

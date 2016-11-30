@@ -129,6 +129,8 @@ function angleBetween(objA, objB) {
     if (debug) {
       console.log("Error: Tried to find angle between objects that don't have x and y coordinates!");
     }
+    
+    return false;
 
   }
 
@@ -204,19 +206,24 @@ function rotationTo(obj, target) {
   
   "use strict";
   
-  var deltaRad = obj.rotation * (Math.PI / 180),
+  var deltaRad = toRadians(obj.rotation),
       semicircle = Math.PI; // π radians is a semicircle!
   
   deltaRad -= angleBetween(obj, target) + semicircle / 2;
-  
+
   // This fixes "weird" deltaMouseRad values that get spat out
   // sometimes. These weird values are abnormally high (~5rad ~340deg)
   // and are converted to their "opposite", e.g. 340eg -> -20deg.
   if (deltaRad > semicircle) {
+    if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
     deltaRad -= semicircle * 2;
   } else if (deltaRad < -(semicircle)) {
+    if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
     deltaRad += semicircle * 2;
   }
+  
+  //if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
+  // I think the problem is with angleBetween() !
   
   return deltaRad;
   

@@ -290,6 +290,8 @@ function generateLevels() {
   }
   
   levels.push(newLevel);
+
+  /*
   
   // There are gonna be 14 levels I think? But there could be infinite?...
   for (i = 1; i < 14; i++) {
@@ -299,6 +301,8 @@ function generateLevels() {
     levels.push(newLevel);
     
   }
+  
+  */
   
   return levels;
   
