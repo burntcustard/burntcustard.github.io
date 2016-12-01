@@ -68,7 +68,7 @@ function create() {
   game.levels = generateLevels();
 
   // Make a player:
-  game.player = new Organism("banana-xl", 0, 0);
+  game.player = new Organism("kite-s", 0, 0);
   game.player.assignPlayerProperties();
 
   // Player is now organism[0]. The original and the best.
@@ -135,11 +135,11 @@ function resizeCanvas() {
   console.log("Aspect ratio: " + aspectRatio);
 
   if (window.innerHeight > window.innerWidth) {
-    canvas.height = 640 * zoom;
-    canvas.width = canvas.height * aspectRatio;
+    canvas.height = 720 * zoom;
+    canvas.width = Math.ceil(canvas.height * aspectRatio);
   } else {
-    canvas.width = 640 * zoom;
-    canvas.height = canvas.width / aspectRatio;
+    canvas.width = 720 * zoom;
+    canvas.height = Math.ceil(canvas.width / aspectRatio);
   }
   
   //canvas.width = window.innerWidth;
