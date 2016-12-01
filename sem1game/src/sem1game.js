@@ -17,6 +17,10 @@ var time, oldTime, deltaTime = 0;
 
 var evenFrame;
 
+// Zoom might be based off a setting, scroll wheel input,
+// level number, etc. For now it's just stuck as 1.
+var zoom = 1;
+
 
 function create() {
   
@@ -125,13 +129,17 @@ function pause() {
 
 
 function resizeCanvas() {
+  
+  var aspectRatio =  window.innerWidth / window.innerHeight;
+  
+  console.log("Aspect ratio: " + aspectRatio);
 
   if (window.innerHeight > window.innerWidth) {
-    canvas.width = 576;
-    canvas.height = 1024;
+    canvas.height = 640 * zoom;
+    canvas.width = canvas.height * aspectRatio;
   } else {
-    canvas.width = 1280;
-    canvas.height = 720;
+    canvas.width = 640 * zoom;
+    canvas.height = canvas.width / aspectRatio;
   }
   
   //canvas.width = window.innerWidth;
@@ -157,16 +165,23 @@ window.onload = function () {
 
   // Set up WebGL (if supported):
   if (settings.webGL.value) {
-    addWebGLCanvas();
+    if (addWebGLCanvas()) {
+      glCanvas.addEventListener('touchstart' , touchInput, false);
+      glCanvas.addEventListener('touchmove'  , touchInput, false);
+      glCanvas.addEventListener('touchcancel', touchStop , false);
+      glCanvas.addEventListener('touchend'   , touchStop , false);
+    } else {
+      canvas.addEventListener('touchstart' , touchInput, false);
+      canvas.addEventListener('touchmove'  , touchInput, false);
+      canvas.addEventListener('touchcancel', touchStop , false);
+      canvas.addEventListener('touchend'   , touchStop , false);
+    }
   }
   
   // Add event listeners (the input ones should be in the input file!):
   window.addEventListener('resize', resizeCanvas, false);
 
-  canvas.addEventListener('touchstart' , touchInput, false);
-  canvas.addEventListener('touchmove'  , touchInput, false);
-  canvas.addEventListener('touchcancel', touchStop , false);
-  canvas.addEventListener('touchend'   , touchStop , false);
+
 
   // Create a new game:
   create();

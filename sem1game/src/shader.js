@@ -33,6 +33,8 @@ function addWebGLCanvas() {
   // Hide the original canvas and put the WebGL Canvas in its place:
   canvas.parentNode.insertBefore(glCanvas, canvas);
   canvas.style.display = "none";
+  
+  return true;
 
 }
 
