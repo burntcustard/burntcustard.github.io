@@ -11,7 +11,7 @@ var settings = {
     desc: "Applies various webGL effects.",
     high: true,
     low : false,
-    value: false
+    value: true
   },
   
   dusty: {
@@ -53,7 +53,7 @@ var settings = {
     desc: "If some objects e.g. as the map lines, have a colored glow / shadow.",
     high: true,
     low : false,
-    value: false
+    value: true
   }
   
 };

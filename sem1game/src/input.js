@@ -20,9 +20,6 @@ function touchInput(event) {
     y: event.targetTouches[0].pageY * (game.camera.height / window.innerHeight)
   };
   
-  console.log("Page: " + event.targetTouches[0].pageX + ", " + event.targetTouches[0].pageY);
-  console.log("Conv: " + game.touch.x + ", " + game.touch.y);
-  
 }
 
 

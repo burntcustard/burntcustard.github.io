@@ -127,8 +127,8 @@ function pause() {
 function resizeCanvas() {
 
   if (window.innerHeight > window.innerWidth) {
-    canvas.width = 720;
-    canvas.height = 1280;
+    canvas.width = 576;
+    canvas.height = 1024;
   } else {
     canvas.width = 1280;
     canvas.height = 720;
