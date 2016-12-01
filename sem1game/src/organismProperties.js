@@ -113,7 +113,7 @@ function getOrganismProperties(organism) {
         hpPoints: [{
           x: 0, y: 0, value: 1
         }],
-        drag: 1,
+        drag: 2,
         speed: 99,
         difficulty: 1
     };
