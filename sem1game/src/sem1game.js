@@ -40,14 +40,7 @@ function create() {
     keys: [],
     
     // A touch object with screen-based x & y coords:
-    screenTouch: {
-      active: false,
-      x: 0,
-      y: 0
-    },
-
-    // A touch object with game board based x & y coords:
-    worldTouch: {
+    touch: {
       active: false,
       x: 0,
       y: 0
@@ -71,7 +64,7 @@ function create() {
   game.levels = generateLevels();
 
   // Make a player:
-  game.player = new Organism("kite-s", 0, 0);
+  game.player = new Organism("banana-xl", 0, 0);
   game.player.assignPlayerProperties();
 
   // Player is now organism[0]. The original and the best.
@@ -87,7 +80,7 @@ function create() {
     (game.camera.width  / 2) - game.camera.deadzone,
     (game.camera.height / 2) - game.camera.deadzone
   );
-  console.log(coords.x + ", " + coords.y);
+  
   game.levels[0].organisms.push(new Organism(
     "levelUp",
     coords.x,

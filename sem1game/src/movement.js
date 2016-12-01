@@ -31,7 +31,7 @@ Organism.prototype.applyAngularDrag = function (updateAmount) {
  
   "use strict";
   
-  var decelerationPercent = 9 * updateAmount;
+  var decelerationPercent = 8 * updateAmount;
   
   var decelerationMultiplier = (1 - (decelerationPercent / 100));
   

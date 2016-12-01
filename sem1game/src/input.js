@@ -14,20 +14,11 @@ function touchInput(event) {
   
   event.preventDefault();
   
-  game.screenTouch = {
+  game.touch = {
     active: true,
-    x: event.targetTouches[0].screenX,
-    y: event.targetTouches[0].screenY
+    x: event.targetTouches[0].pageX,
+    y: event.targetTouches[0].pageY
   };
-  
-  game.worldTouch = {
-    active: true,
-    x: event.targetTouches[0].pageX + game.camera.x,
-    y: event.targetTouches[0].pageY + game.camera.y
-  };
-  
-  //console.log("screenTouch: X: " + game.screenTouch.x.toFixed(1) + " Y: " + game.screenTouch.y.toFixed(1));
-  //console.log("worldTouch:  X: " + game.worldTouch.x.toFixed(1) + " Y: " + game.worldTouch.y.toFixed(1));
   
 }
 
@@ -39,8 +30,7 @@ function touchStop(event) {
   
   event.preventDefault();
   
-  game.screenTouch.active = false;
-  game.worldTouch.active = false;
+  game.touch.active = false;
   
 }
 

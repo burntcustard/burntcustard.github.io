@@ -23,7 +23,7 @@ function drawDebug(game, time, deltaTime) {
     "  On screen: " + (getNumberOfVisible(game.levels[game.currentLevel].organisms) +                   
                        getNumberOfVisible(game.levels[game.currentLevel + 1].organisms)) + "<br>" +
     "  Total:     " + (game.levels[game.currentLevel].organisms.length +
-                       game.levels[game.currentLevel].organisms.length) + "<br>" +
+                       game.levels[game.currentLevel + 1].organisms.length) + "<br>" +
     "<br>" +
     "Player: " + "<br>" +
     "  Rotation: " + Math.round(game.player.rotation) + "<br>" +

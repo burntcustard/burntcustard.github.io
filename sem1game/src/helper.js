@@ -105,7 +105,9 @@ function distanceBetweenAbs(objA, objB) {
 
 
 /**
- * Get angle between two objects that have x and y coords
+ * Get angle in radians between two objects that have x and y coords.
+ * 
+ * This function regards pointing EAST as 0 rotation.
  * 
  * Example, angle between A -> B = 60deg (but er actually in radians)
  *  ┌─────┐
@@ -202,30 +204,76 @@ function getNumberOfVisible(objs) {
 
 
 
+// TODO: Rewrite this so that it is either properly in radians, or degrees.
 function rotationTo(obj, target) {
   
   "use strict";
   
-  var deltaRad = toRadians(obj.rotation),
-      semicircle = Math.PI; // π radians is a semicircle!
+  var organismAngle = toRadians(obj.rotation),
+      rightAngle = Math.PI / 2, // Basically 90 degrees in radians. 
+      angleTo = angleBetween(obj, target),
+      deltaRad = 0,
+      sign = -1;
   
-  deltaRad -= angleBetween(obj, target) + semicircle / 2;
+  /*
+  if (obj == game.player) {
+    console.log("obj: " + Math.round(obj.x) + ", " + Math.round(obj.y));
+    console.log("target: " + Math.round(target.x) + ", " + Math.round(target.y));
+    console.log("diff: " + Math.round(target.x - obj.x) + ", " + Math.round(target.y - obj.y));
+    console.log("angleTo: " + Math.round(toDegrees(angleTo)) + " <--");
+    console.log("--------");
+  }
+  */
+    
+  // Convert angleBetween's dodgy "pointing EAST is 0",
+  // to pointing NORTH (forwards) is 0:
+  angleTo += rightAngle;
+  if (angleTo >= Math.PI) {
+    angleTo -= toRadians(360);
+  }
+  
+  // Convert to er not be negative (i.e. 0 - 360, not -180 to 180):
+  //angleTo += Math.PI;
+  //organismAngle += Math.PI;
+  
+  deltaRad = angleTo - organismAngle;
+  
+  
+  if (deltaRad >= Math.PI) {
+    deltaRad -= Math.PI * 2;
+  }
+  else if (deltaRad <= -Math.PI) {
+    deltaRad += Math.PI * 2;
+  }
+  /*
+  deltaRad = Math.abs(organismAngle - angleTo);
+  
+  if ((angleTo - organismAngle >= 0) && (angleTo - organismAngle <= Math.PI) ||
+      (angleTo - organismAngle <= -Math.PI) && (angleTo - organismAngle >= -Math.PI*2)) {
+    sign = 1;
+  }
+  
+  if (deltaRad > Math.PI) {
+    deltaRad = (Math.PI * 2) - deltaRad;
+  }
+  */
+  
+  // I think the problem is with angleBetween() !
 
+  /*
   // This fixes "weird" deltaMouseRad values that get spat out
   // sometimes. These weird values are abnormally high (~5rad ~340deg)
   // and are converted to their "opposite", e.g. 340eg -> -20deg.
-  if (deltaRad > semicircle) {
-    if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
-    deltaRad -= semicircle * 2;
-  } else if (deltaRad < -(semicircle)) {
-    if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
-    deltaRad += semicircle * 2;
+  if (deltaRad > toRadians(180)) {
+    //if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
+    deltaRad -= toRadians(360);
+  } else if (deltaRad < -(toRadians(180))) {
+    //if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
+    deltaRad += toRadians(360);
   }
-  
-  //if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
-  // I think the problem is with angleBetween() !
-  
-  return deltaRad;
+  */
+
+  return -deltaRad;
   
 }
 

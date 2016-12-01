@@ -16,18 +16,37 @@ function changeLevel(game, toLevel) {
   
   "use strict";
   
-  var i, organism;
+  var i,
+      organism,
+      newLevelNo = game.currentLevel + toLevel;
   
-  // Reset the colour of all organisms on the current level
-  // (some of them might be angry red!)
-  for (i = 0; i < game.levels[game.currentLevel].organisms; i++) {
-    organism = game.levels[game.currentLevel].organisms[i];
-    organism.color = getOrganismProperties(organism.type);
+  // Change the current level to the new level, if it exists:
+  if ((newLevelNo >= 0) && (newLevelNo < game.levels.length)) {
+    
+    // Reset the colour of all organisms on the current level
+    // (some of them might be angry red!)
+    for (i = 0; i < game.levels[game.currentLevel].organisms; i++) {
+      organism = game.levels[game.currentLevel].organisms[i];
+      organism.color = getOrganismProperties(organism.type);
+    }
+
+    // Remove player from current level:
+    game.levels[game.currentLevel].organisms.shift();
+
+    // Change the current level number to the new level number:
+    game.currentLevel += toLevel;
+
+    // If the next level doesn't have an organisms array, it's gonna need one!
+    if (!game.levels[game.currentLevel].organisms) {
+      game.levels[game.currentLevel].organisms = [];
+    }
+
+    // Add player to start of organisms array on the new level:
+    game.levels[game.currentLevel].organisms.unshift(game.player);
+    
   }
   
-  game.levels[game.currentLevel].organisms.shift();
-  game.currentLevel += toLevel;
-  game.levels[game.currentLevel].organisms.unshift(game.player);
+  // else { TODO: Some error about there not being another level }
   
 }
 
@@ -314,11 +333,18 @@ function update(game, tFrame) {
   // This is a magic line of code which neither JSLint, nor myself understand anymore:
   if (!(updateAmount > 0) || updateAmount < 1) { updateAmount = 1; }
   
-  if (game.worldTouch.active) {
-    if (Math.abs(rotationTo(game.player, game.worldTouch)) > toRadians(1)) {
-      //console.log(rotationTo(game.player, game.worldTouch).toFixed(1));
-      game.player.rotateToFace("towards", game.worldTouch);
+  if (game.touch.active) {
+    
+    var touchWorldPosition = {
+      x: game.touch.x + game.camera.x,
+      y: game.touch.y + game.camera.y
+    };
+    
+    // If the player isn't already facing towards the touch point, make it!
+    if (Math.abs(rotationTo(game.player, touchWorldPosition)) > toRadians(1)) {
+      game.player.rotateToFace("towards", touchWorldPosition);
     }
+    
     game.player.accelerate(updateAmount);
     game.player.showSpeedLines = true;
   } else {
