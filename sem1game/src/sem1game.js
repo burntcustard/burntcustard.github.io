@@ -135,11 +135,11 @@ function resizeCanvas() {
   console.log("Aspect ratio: " + aspectRatio);
 
   if (window.innerHeight > window.innerWidth) {
-    canvas.height = 720 * zoom;
-    canvas.width = Math.ceil(canvas.height * aspectRatio);
-  } else {
-    canvas.width = 720 * zoom;
+    canvas.width = 500 * zoom;
     canvas.height = Math.ceil(canvas.width / aspectRatio);
+  } else {
+    canvas.height = 500 * zoom
+    canvas.width = Math.ceil(canvas.height * aspectRatio);
   }
   
   //canvas.width = window.innerWidth;
