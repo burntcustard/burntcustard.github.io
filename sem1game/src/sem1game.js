@@ -126,8 +126,16 @@ function pause() {
 
 function resizeCanvas() {
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  if (window.innerHeight > window.innerWidth) {
+    canvas.width = 720;
+    canvas.height = 1280;
+  } else {
+    canvas.width = 1280;
+    canvas.height = 720;
+  }
+  
+  //canvas.width = window.innerWidth;
+  //canvas.height = window.innerHeight;
   
   if (game && game.camera) {
     game.camera.width = canvas.width;

@@ -16,9 +16,12 @@ function touchInput(event) {
   
   game.touch = {
     active: true,
-    x: event.targetTouches[0].pageX,
-    y: event.targetTouches[0].pageY
+    x: (event.targetTouches[0].pageX * (game.camera.width / window.innerWidth )),
+    y: event.targetTouches[0].pageY * (game.camera.height / window.innerHeight)
   };
+  
+  console.log("Page: " + event.targetTouches[0].pageX + ", " + event.targetTouches[0].pageY);
+  console.log("Conv: " + game.touch.x + ", " + game.touch.y);
   
 }
 
