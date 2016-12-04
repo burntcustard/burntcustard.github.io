@@ -16,9 +16,11 @@ function touchInput(event) {
   
   game.touch = {
     active: true,
-    x: (event.targetTouches[0].pageX * (game.camera.width / window.innerWidth )),
+    x: event.targetTouches[0].pageX * (game.camera.width  / window.innerWidth ),
     y: event.targetTouches[0].pageY * (game.camera.height / window.innerHeight)
   };
+  
+  console.log(game.touch);
   
 }
 

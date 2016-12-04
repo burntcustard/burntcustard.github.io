@@ -90,13 +90,18 @@ function doAI(gameWidth, gameHeight, organism, updateAmount, player) {
       
       // Rotate the organism to face towards it's target (one of the player's hpPoints!):
       organism.rotateToFace("towards", organism.ai.target);
-
-      // If the organism can "charge", and it's facing at it's target (within
-      // 0.1 radians), set it's maximum velocities to it's charging values:
-      if (organism.charges && Math.abs(rotationTo(organism, organism.ai.target)) < toRadians(3)) {
+      
+      if ((organism.charges &&
+           !organism.chargeCondition) || 
+          
+          (organism.charges &&
+           organism.chargeCondition === "facing" &&
+           Math.abs(rotationTo(organism, organism.ai.target)) < toRadians(3))) {
+        
         baseOrganism = getOrganismProperties(organism.type);
         organism.maxVelocity = baseOrganism.chargeSpeed / 10 || organism.maxVelocity;
         organism.maxAngular = baseOrganism.chargeTurnRate / 10 || organism.maxAngular;
+        
       }
       
     }
@@ -200,12 +205,19 @@ function doAI(gameWidth, gameHeight, organism, updateAmount, player) {
     
     baseOrganism = getOrganismProperties(organism.type);
     
+    if (organism.maxVelocity < baseOrganism.speed / 10) {
+      organism.maxVelocity += 0.01 * updateAmount;
+    }
     if (organism.maxVelocity > baseOrganism.speed / 10) {
       organism.maxVelocity -= 0.01 * updateAmount;
     }
     if (organism.maxAngular < baseOrganism.turnRate / 10) {
       organism.maxAngular += 0.004 * updateAmount;
     }
+    if (organism.maxAngular > baseOrganism.turnRate / 10) {
+      organism.maxAngular -= 0.01 * updateAmount;
+    }
+    
   }
   
   organism.accelerate(updateAmount);

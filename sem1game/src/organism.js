@@ -149,6 +149,9 @@ var Organism = function (organismType, x, y) {
   if (organism.chargeSpeed || organism.chargeTurnRate) {
     this.charges = true;
   }
+  if (organism.chargeCondition) {
+    this.chargeCondition = organism.chargeCondition;
+  }
 
   if (organism.mouth) {
     this.initMouth(organism);

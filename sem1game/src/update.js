@@ -196,7 +196,7 @@ function updateOrganisms(game, updateAmount) {
   
   "use strict";
   
-  var i, m, organism, distanceToPlayer;
+  var i, m, organism;
   
   // Update everthing on the current game level:
   
@@ -211,7 +211,7 @@ function updateOrganisms(game, updateAmount) {
     //  - and organism has AI of some sort:
     if (evenFrame && i !== 0 && organism.alive && organism.ai) {
       
-      doAI(game.width, game.height, organism, updateAmount * 2, game.player); // TODO: This needs a better name!
+      doAI(game.width, game.height, organism, updateAmount * 2, game.player);
       
     }
   
@@ -260,7 +260,7 @@ function updateOrganisms(game, updateAmount) {
     //  - and organism has AI of some sort:
     if (!evenFrame && organism.alive && organism.ai) {
       
-      doAI(game.width, game.height, organism, updateAmount * 2); // TODO: This needs a better name!
+      doAI(game.width, game.height, organism, updateAmount * 2);
       
     }
     
@@ -325,7 +325,7 @@ function update(game, tFrame) {
   oldTime = tFrame;
   
   var i,
-      updateAmount = parseFloat(deltaTime) / (1/60 * 1000), // Because deltaTime was time not float.
+      updateAmount = deltaTime / (1/60 * 1000),
       organism;
   
   evenFrame = evenFrame ? false : true;
@@ -342,7 +342,7 @@ function update(game, tFrame) {
     
     // If the player isn't already facing towards the touch point, make it!
     if (Math.abs(rotationTo(game.player, touchWorldPosition)) > toRadians(1)) {
-      game.player.rotateToFace("towards", touchWorldPosition);
+      game.player.rotateToFace("away", touchWorldPosition);
     }
     
     game.player.accelerate(updateAmount);

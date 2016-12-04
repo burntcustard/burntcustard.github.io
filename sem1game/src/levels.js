@@ -48,12 +48,12 @@ function generateOrganisms(organismTypes, difficulty, levelSize) {
   // Generate ratios for each organism type:
   // TODO: Explain better how this works because I'm skipping writing it
   // down and going straight from fuzzy thoughts to witchcraft-code.
-  while ((ratiosTotal !== organismTypes.length * 2) &&
+  while ((ratiosTotal !== organismTypes.length * 4) &&
          (overflowCount < 99)) {
     ratios = [];
     ratiosTotal = 0;
     for (i = 0; i < organismTypes.length; i++) {
-      ratios.push(Math.round(Math.random() * (organismTypes.length * 2 - 1) + 0.5));
+      ratios.push(Math.round(Math.random() * (organismTypes.length * 4 - 1) + 0.5));
       ratiosTotal += ratios[i];
     }
     
@@ -67,10 +67,10 @@ function generateOrganisms(organismTypes, difficulty, levelSize) {
   }
   
   // If we failed to get ratios, just set them all equal (all 2s):
-  if (ratiosTotal !== organismTypes.length * 2) {
+  if (ratiosTotal !== organismTypes.length * 4) {
     ratios = [];
     for (i = 0; i < organismTypes.length; i++) {
-      ratios.push(2);
+      ratios.push(4);
     }
   }
   
@@ -83,7 +83,7 @@ function generateOrganisms(organismTypes, difficulty, levelSize) {
     overflowCount = 0;
 
     while ((ratios[i] !== 0) &&
-           (difficultyCount < difficulty * ratios[i]) &&
+           (difficultyCount < (difficulty * ratios[i]) / organismTypes.length) &&
            (overflowCount < 999)) {
       
       coords = randomCoords(levelSize, levelSize);
@@ -95,6 +95,11 @@ function generateOrganisms(organismTypes, difficulty, levelSize) {
       // not have health? It might be a food randomly generated without it!
       // Oh! If it's a tiny kite it won't have health, so lets include those too!
       if (newOrganism.getCurrentHP() || newOrganism.type === "kite-xxs") {
+        
+        // Set the new organisms max HP, so that it can't gain more,
+        // and so it knows when it's been attacked (i.e. if HP < max):
+        newOrganism.maxHP = newOrganism.getCurrentHP;
+        
         organisms.push(newOrganism);
         difficultyCount += newOrganism.difficulty;
       }
@@ -117,24 +122,17 @@ function getOrganismsFor(levelNumber, levelSize) {
   
   "use strict";
   
-  var potentialOrganismTypes = [],
-      actualOrganismTypes = [],
+  var organismTypes = [],
       coords,
       organism,
       organisms = [],
       i,
       difficultyMultiplier,
       difficulty,
-      numberOfLevelUpOrganisms = 22,   // These last two can be modified per level for special reasons.
-      numberOfLevelDownOrganisms = 16; // Also... these variable names... so long.
+      numberOfLevelUpOrganisms = 26,   // These last two can be modified per level for... reasons.
+      numberOfLevelDownOrganisms = 20; // Also... these variable names... so long.
   
-  // The number defines the difficulty curve. I.e. the lower
-  // this number, the more linear the level difficulty is. If
-  // it's really high, the levels will get crazy difficult, crazy fast.
-  // OR DOES IT I'M NOT SURE?
-  difficultyMultiplier = 9;
-  
-  difficulty = 30 + Math.floor(levelNumber * levelNumber / 2) * difficultyMultiplier;
+  difficulty = 99 + Math.floor(levelNumber * levelNumber);
   
   //console.log("level " + levelNumber + " difficulty: " + difficulty);
   
@@ -142,57 +140,59 @@ function getOrganismsFor(levelNumber, levelSize) {
       
     case 1:
       
-      // 1st list of organisms that can be randomly selected from:
-      potentialOrganismTypes.push("kite-xs");
-      
-      // Pick something from the 1st list:
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
-      
-      // Clear the potential organisms list:
-      potentialOrganismTypes = [];
-      
-      // 2nd list of organisms that can be ranomly selected from:
-      potentialOrganismTypes.push("food-xs");
-      
-      // Etc. etc.
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
-      potentialOrganismTypes = [];
-      potentialOrganismTypes.push("food-xs"); // Included thrice, so more common.
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
-      potentialOrganismTypes = [];
-      potentialOrganismTypes.push("food-xs");
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
+      organismTypes = [
+        "kite-xs", "food-xs", "food-xs"
+      ];
       
       break;
       
     case 2:
       
-      potentialOrganismTypes.push("vortexHowler-s");
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
-      potentialOrganismTypes = [];
-      potentialOrganismTypes.push("kite-s");
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
+      organismTypes = [
+        "vortexHowler-s", "kite-s"
+      ];
       
       break;
       
     case 3:
       
-      potentialOrganismTypes.push("kite-s");
-      potentialOrganismTypes.push("vortexHowler-s");
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
-      potentialOrganismTypes = [];
-      potentialOrganismTypes.push("banana-xxs");
-      actualOrganismTypes.push(selectRandomFromList(potentialOrganismTypes));
+      organismTypes.push(selectRandomFromList([
+        "kite-s", "vortexHowler-s", "owl-s"
+      ]));
       
-      break; 
+      organismTypes.push(selectRandomFromList([
+        "banana-xxs", "kite-xs"
+      ]));
+      
+      break;
+      
+    case 4:
+      
+      organismTypes.push(selectRandomFromList([
+        "kite-s", "vortexHowler-s", "owl-s"
+      ]));
+
+      organismTypes.push(selectRandomFromList([
+        "banana-s", "kite-sm", "snake-s"
+      ]));
+      
+      break;
+      
+    case 5:
+      
+      organismTypes = [
+        "banana-xxs", "foox-xs", "food-s", "food-s"
+      ];
+      
+      break;
         
     case 14: // BOSS LEVEL!
       
       numberOfLevelUpOrganisms = 0;
       numberOfLevelDownOrganisms = 10;
       
-      potentialOrganismTypes.push("kite-boss");
-      potentialOrganismTypes.push("snake-boss");
+      organismTypes.push("kite-boss");
+      organismTypes.push("snake-boss");
       // TODO: Add all the other bosses.
       // TODO: Think about extra organisms to support the bosses
       
@@ -202,11 +202,11 @@ function getOrganismsFor(levelNumber, levelSize) {
       
       // The default is to flood the map with tiny kites tehehehe
       // TODO: Figure out why broken?
-      actualOrganismTypes.push("kite-xxs");
+      organismTypes.push("kite-xxs");
     
   }
   
-  organisms = generateOrganisms(actualOrganismTypes, difficulty, levelSize);
+  organisms = generateOrganisms(organismTypes, difficulty, levelSize);
      
   // The thing to nom to get to the next level:
   for (i = 0; i < numberOfLevelUpOrganisms; i++) {
@@ -229,7 +229,7 @@ function getOrganismsFor(levelNumber, levelSize) {
   }
   
   // Rotate all the new organisms by a random amount. The "true"
-  // forces the rotation even if they're not on the camera.
+  // forces the rotation event if they're not on the camera.
   for (i = 0; i < organisms.length; i++) {
     organisms[i].rotate(Math.floor(Math.random() * 360), true);
   }

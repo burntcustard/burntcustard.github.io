@@ -115,7 +115,7 @@ function vertexLookup(shape) {
   // <•  •>
   //  \  /
   //   \/
-  case "banana-l": // WIP
+  case "banana-l":
     return [
       8, 3,
       12, 1,
@@ -134,6 +134,19 @@ function vertexLookup(shape) {
       4, 1,
       2, 2,
       0, 1
+    ];
+      
+  // Kinda like an owl face shape
+  case "owl-s":
+    return [
+      3, 1,
+      5, 0,
+      6, 2,
+      5, 3,
+      3, 2,
+      1, 3,
+      0, 2,
+      1, 0
     ];
       
   // Rocket shaped. Kinda.
