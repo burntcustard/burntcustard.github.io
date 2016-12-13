@@ -228,11 +228,7 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 1,
-<<<<<<< HEAD
-        speed: 15,
-=======
         speed: 14,
->>>>>>> origin/master
         maxSpeed: 20,
         turnRate: 25,
         mouth: [{
@@ -244,11 +240,7 @@ function getOrganismProperties(organism) {
         }],
         ai: {
           behaviour: "aggressive",
-<<<<<<< HEAD
-          viewDistance: 25
-=======
           viewDistance: 22
->>>>>>> origin/master
         },
         difficulty: 2,
         evolvesTo: "kite-sm"
@@ -526,11 +518,7 @@ function getOrganismProperties(organism) {
           behaviour: "neutral-aggressive",
           viewDistance: 30
         },
-<<<<<<< HEAD
-        difficulty: 3
-=======
         difficulty: 9
->>>>>>> origin/master
       };
       
     case "banana-xxs":
@@ -876,8 +864,6 @@ function getOrganismProperties(organism) {
             y: -49
           }
         ],
-<<<<<<< HEAD
-=======
         ai: {
           behaviour: "aggressive",
           viewDistance: 30
@@ -908,7 +894,6 @@ function getOrganismProperties(organism) {
           x: 0,
           y: -15
         }],
->>>>>>> origin/master
         ai: {
           behaviour: "aggressive",
           viewDistance: 7

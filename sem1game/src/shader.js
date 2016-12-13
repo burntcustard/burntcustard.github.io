@@ -52,7 +52,7 @@ function removeWebGlCanvas() {
   
 }
 
-
+var hueCounter = 0;
 
 function renderShader(camera) {
   
@@ -77,6 +77,17 @@ function renderShader(camera) {
   if (settings.dusty.value) {
     glCanvas.noise(Math.random() * (settings.dusty.value / 9) + (settings.dusty.value / 9));
   }
+  
+  /*
+  // Crazy colour testing. In this instance it would be really good to have multiple
+  // canvases, so different things could get their colours messed up. OR, draw some stuff,
+  // apply effect, then draw other stuff that won't have silly colours, then do another glfx render...
+  glCanvas.hueSaturation(hueCounter, 0.5);
+    hueCounter +=0.01;
+  if(hueCounter > 1){
+    hueCounter = -1;
+  }
+  */
   
   // Apply a CRT-like round-bulging-screen effect:
   if (settings.bulge.value) {

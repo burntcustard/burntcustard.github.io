@@ -82,10 +82,7 @@ Organism.prototype.rotate = function (deg, everything) {
     }
     
   }
-<<<<<<< HEAD
-=======
   
->>>>>>> origin/master
   // Rotate the hpPoints and mouth too if the body has been rotated:
   // Note: This will be based purely on the last bodies
   // rotation, NOT an average of all bodies etc.
@@ -110,15 +107,6 @@ Organism.prototype.rotate = function (deg, everything) {
   */
   
   for (i = 0; (this.mouth) && (i < this.mouth.length); i++) {
-<<<<<<< HEAD
-    mouth = this.mouth[i];
-    mouth.x = 0;
-    mouth.y = 0;
-    for (j = 0; j < mouth.vertices.length; j++) {
-      rotate(mouth.vertices[j], deg + randomRotation);
-      mouth.x += mouth.vertices[j].x;
-      mouth.y += mouth.vertices[j].y;
-=======
 
     vLength = this.mouth[i].vertices.length;
 
@@ -128,7 +116,6 @@ Organism.prototype.rotate = function (deg, everything) {
       rotate(this.mouth[i].vertices[j], deg + randomRotation);
       this.mouth[i].x += this.mouth[i].vertices[j].x;
       this.mouth[i].y += this.mouth[i].vertices[j].y;
->>>>>>> origin/master
     }
     this.mouth[i].x /= vLength;
     this.mouth[i].y /= vLength;

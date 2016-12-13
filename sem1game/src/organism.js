@@ -213,13 +213,8 @@ Organism.prototype.initMouth = function(organism) {
     this.mouth[m].vertices = [];
     this.mouth[m].lastAte = 0;
     largestVertex = 0;
-<<<<<<< HEAD
-    organism.mouth.x = organism.mouth.x || 0;
-    organism.mouth.y = organism.mouth.y || 0;
-=======
     organism.mouth[m].x = organism.mouth[m].x || 0;
     organism.mouth[m].y = organism.mouth[m].y || 0;
->>>>>>> origin/master
   
     for (i = 0; i < organism.mouth[m].vertices.length; i++) {
       switch (i % 2) {
@@ -298,11 +293,7 @@ Organism.prototype.moveMouth = function(deg, mouthIndex) {
   // We're cheating and just re-initialising the mouth if it's supposed to be re-opening.
   // I think rounding errors are screwing up doing it "properly" :(
   if (deg > 0) {
-<<<<<<< HEAD
-    this.initMouth();
-=======
     this.initMouth(getOrganismProperties(this.type));
->>>>>>> origin/master
     for (m = 0; m < this.mouth.length; m++) {
       for (i = 0; i < this.mouth[m].vertices.length; i++) {
         rotate(this.mouth[m].vertices[i], +this.rotation);
