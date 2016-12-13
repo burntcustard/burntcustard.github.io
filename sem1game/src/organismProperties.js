@@ -105,16 +105,21 @@ function getOrganismProperties(organism) {
         color: "rgb(112, 187, 255)"
       };
       
+    // ●
+    // Single dot of HP
     case "food-xxs":
       return {
         body: [],
         hpPoints: [{
           x: 0, y: 0, value: 1
         }],
+        drag: 2,
         speed: 99,
         difficulty: 1
     };
       
+    // ◉-◉
+    // Pair of HP, with random HP values between 0 and 2.
     case "food-xs":
       return {
         body: [
@@ -135,6 +140,8 @@ function getOrganismProperties(organism) {
         difficulty: 1
       };
       
+    // ◉-◉-◉
+    // Triplet of HP, with random HP values between 0 and 3.
     case "food-s":
       return {
         body: [
@@ -158,10 +165,11 @@ function getOrganismProperties(organism) {
         maxHP: 1,
         speed: 1,
         turnRate: 1,
-        mouth: [],
         ai: {},
-        difficulty: 2
+        difficulty: 3
       };
+      
+    // TODO: "food-m" variants
       
     case "kite-xxs":
       return {
@@ -169,15 +177,12 @@ function getOrganismProperties(organism) {
           vertices: vertexLookup("kite"),
           scale: 3    
         }],
-        hpPoints: [],
-        maxHP: 1,
         speed: 6,
         turnRate: 30,
         ai: {
-          behaviour: "aggressive",
+          behaviour: "flee",
           viewDistance: 30
-        },
-        difficulty: 0
+        }
       };
        
     case "kite-xs":
@@ -223,7 +228,11 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 1,
+<<<<<<< HEAD
         speed: 15,
+=======
+        speed: 14,
+>>>>>>> origin/master
         maxSpeed: 20,
         turnRate: 25,
         mouth: [{
@@ -235,7 +244,11 @@ function getOrganismProperties(organism) {
         }],
         ai: {
           behaviour: "aggressive",
+<<<<<<< HEAD
           viewDistance: 25
+=======
+          viewDistance: 22
+>>>>>>> origin/master
         },
         difficulty: 2,
         evolvesTo: "kite-sm"
@@ -248,7 +261,7 @@ function getOrganismProperties(organism) {
           scale: 11
         }],
         hpPoints: [
-          {x:  0, y:  -1, value: 1}
+          {x:  0, y:  -1, value: 2}
         ],
         speedLines: [
           [
@@ -265,7 +278,7 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 2,
-        speed: 18,
+        speed: 16,
         turnRate: 25,
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
@@ -276,9 +289,9 @@ function getOrganismProperties(organism) {
         }],
         ai: {
           behaviour: "aggressive",
-          viewDistance: 30
+          viewDistance: 24
         },
-        difficulty: 3,
+        difficulty: 4,
         evolvesFrom: "kite-s",
         evolvesTo: "kite-m",
         levelCap: 1
@@ -305,16 +318,16 @@ function getOrganismProperties(organism) {
         }],
         ai: {
           behaviour: "aggressive",
-          viewDistance: 30
+          viewDistance: 24
         },
-        difficulty: 3
+        difficulty: 5
       };
 
     case "kite-m":
       return {
         body: [{
           vertices: vertexLookup("kite"),
-          scale: 19
+          scale: 18
         }],
         hpPoints: [
           {x: -7, y: -3, value: 1},
@@ -335,20 +348,20 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 4,
-        speed: 22,
+        speed: 20,
         turnRate: 30,
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
-          scale: 13,
+          scale: 12,
           rotation: -45,
           x: 0,
-          y: -30
+          y: -28
         }],
         ai: {
           behaviour: "aggressive",
-          viewDistance: 30
+          viewDistance: 26
         },
-        difficulty: 3,
+        difficulty: 6,
         evolvesFrom: "kite-sm",
         evolvesTo: "kite-l",
         levelCap: 2
@@ -383,7 +396,7 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 12,
-        speed: 25,
+        speed: 22,
         turnRate: 35,
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
@@ -396,8 +409,9 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 4,
+        difficulty: 7,
         evolvesFrom: "kite-l",
+        evolvesTo: "kite-xl",
         levelCap: 3
       };
       
@@ -430,7 +444,7 @@ function getOrganismProperties(organism) {
           ]
         ],
         maxHP: 18,
-        speed: 25,
+        speed: 24,
         turnRate: 35,
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
@@ -443,7 +457,7 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 5,
+        difficulty: 9,
         evolvesFrom: "kite-l"
       };
 
@@ -512,7 +526,11 @@ function getOrganismProperties(organism) {
           behaviour: "neutral-aggressive",
           viewDistance: 30
         },
+<<<<<<< HEAD
         difficulty: 3
+=======
+        difficulty: 9
+>>>>>>> origin/master
       };
       
     case "banana-xxs":
@@ -526,14 +544,14 @@ function getOrganismProperties(organism) {
           {x:  5, y: -6, value: 1}
         ],
         maxHP: 2,
-        speed: 11,
+        speed: 12,
         turnRate: 13,
         mouth: [],
         ai: {
           behaviour: "flee",
           viewDistance: 30
         },
-        difficulty: 1,
+        difficulty: 2,
         evolvesTo: "banana-xs"
       };
       
@@ -548,7 +566,7 @@ function getOrganismProperties(organism) {
           {x:  5, y: -6, value: 1}
         ],
         maxHP: 2,
-        speed: 16,
+        speed: 14,
         turnRate: 20,
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
@@ -561,7 +579,7 @@ function getOrganismProperties(organism) {
           behaviour: "flee",
           viewDistance: 30
         },
-        difficulty: 2,
+        difficulty: 5,
         evolvesTo: "banana-s"
       };
       
@@ -576,7 +594,7 @@ function getOrganismProperties(organism) {
           {x:  8, y: -7.5, value: 1}
         ],
         maxHP: 4,
-        speed: 18,
+        speed: 16,
         turnRate: 20,
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
@@ -589,7 +607,7 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 3,
+        difficulty: 6,
         evolvesFrom: "banana-xs",
         evolvesTo: "banana-sm"
       };
@@ -617,17 +635,63 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 3,
+        difficulty: 7,
         evolvesFrom: "banana-s",
         evolvesTo: "banana-m"
       };
       
-    case "banana-m":
+    // Plan here is to have a "split evolution" from the banana-small,
+    // to a super speedy mysterious "long banana"
+    case "longBanana-m":
       return {
         body: [{
-          vertices: vertexLookup("banana-s"),
-          scale: 16
+          vertices: vertexLookup("longBanana-s"),
+          scale: 12
         }],
+        hpPoints: [
+          {x: -8, y: -11, value: 1},
+          {x:  8, y: -11, value: 1}
+        ],
+        maxHP: 4,
+        speed: 25,
+        turnRate: 20,
+        mouth: [{
+          vertices: vertexLookup("rightAngledTriangleMouth"),
+          scale: 10,
+          rotation: -45,
+          x: 0,
+          y: -27
+        }],
+        ai: {
+          behaviour: "aggressive",
+          viewDistance: 30
+        },
+        difficulty: 8,
+        evolvesTo: "longBanana-l"
+      };
+      
+    case "banana-m":
+      return {
+        body: [
+          {
+            vertices: vertexLookup("banana-s"),
+            scale: 16
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleShort"),
+            scale: 9,
+            rotation: -109,
+            x: -34,
+            y: 120
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleShortInverted"),
+            scale: 9,
+            rotation: 109,
+            x: 34,
+            y: 120
+          }
+        ],
         hpPoints: [
           {x: -10, y: -10, value: 1},
           {x:  10, y: -10, value: 1}
@@ -645,9 +709,52 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 3,
+        difficulty: 8,
         evolvesFrom: "banana-sm",
         evolvesTo: "banana-l"
+      };
+      
+    case "longBanana-l":
+      return {
+        body: [{
+          vertices: vertexLookup("longBanana-l"),
+          scale: 13
+        }],
+        hpPoints: [
+          {x: -15, y: -12, value: 2},
+          {x:  15, y: -12, value: 2},
+          {x:   0, y: - 1, value: 2},
+          {x:   0, y:  17, value: 2}
+        ],
+        maxHP: 8,
+        speed: 40,
+        turnRate: 15,
+        drag: 33,
+        mouth: [
+          {
+            vertices: vertexLookup("rightAngledTriangleMouth"),
+            scale: 4,
+            rotation: -45,
+            y: -37
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleMouth"),
+            scale: 7,
+            rotation: -45,
+            y: -34
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleMouth"),
+            scale: 11,
+            rotation: -45,
+            y: -31
+          }
+        ],
+        ai: {
+          behaviour: "aggressive",
+          viewDistance: 99
+        },
+        difficulty: 9
       };
       
     case "banana-l":
@@ -662,6 +769,20 @@ function getOrganismProperties(organism) {
             scale: 12,
             x: 0,
             y: -97
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleShort"),
+            scale: 14,
+            rotation: -108,
+            x: -44,
+            y: 199
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleShortInverted"),
+            scale: 14,
+            rotation: 108,
+            x: 44,
+            y: 199
           }
         ],
         hpPoints: [
@@ -687,7 +808,7 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 3,
+        difficulty: 9,
         evolvesFrom: "banana-m",
         evolvesTo: "banana-xl"
       };
@@ -704,6 +825,20 @@ function getOrganismProperties(organism) {
             scale: 15,
             x: 0,
             y: -123
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleShort"),
+            scale: 19,
+            rotation: -108,
+            x: -55,
+            y: 255
+          },
+          {
+            vertices: vertexLookup("rightAngledTriangleShortInverted"),
+            scale: 19,
+            rotation: 108,
+            x: 55,
+            y: 255
           }
         ],
         hpPoints: [
@@ -741,12 +876,44 @@ function getOrganismProperties(organism) {
             y: -49
           }
         ],
+<<<<<<< HEAD
+=======
         ai: {
           behaviour: "aggressive",
           viewDistance: 30
         },
-        difficulty: 3,
+        difficulty: 9,
         evolvesFrom: "banana-l"
+      };
+      
+    case "owl-s":
+      return {
+        body: [{
+          vertices: vertexLookup("owl-s"),
+          scale: 9
+        }],
+        hpPoints: [
+          {x: -14, y: -1, value: 1},
+          {x:  14, y: -1, value: 1}
+        ],
+        maxHP: 4,
+        speed: 4,
+        turnRate: 2,
+        chargeSpeed: 7,
+        chargeTurnRate: 38,
+        mouth: [{
+          vertices: vertexLookup("rightAngledTriangleMouth"),
+          scale: 18,
+          rotation: -45,
+          x: 0,
+          y: -15
+        }],
+>>>>>>> origin/master
+        ai: {
+          behaviour: "aggressive",
+          viewDistance: 7
+        },
+        difficulty: 4
       };
       
     case "snake-s":
@@ -777,7 +944,7 @@ function getOrganismProperties(organism) {
           behaviour: "aggressive",
           viewDistance: 25
         },
-        difficulty: 2
+        difficulty: 5
       };
       
     case "vortexHowler-s":
@@ -794,6 +961,7 @@ function getOrganismProperties(organism) {
         turnRate: 25,
         chargeSpeed: 40,
         chargeTurnRate: 3,
+        chargeCondition: "facing",
         mouth: [{
           vertices: vertexLookup("rightAngledTriangleMouth"),
           scale: 6,
@@ -803,7 +971,7 @@ function getOrganismProperties(organism) {
         }],
         ai: {
           behaviour: "aggressive",
-          viewDistance: 35
+          viewDistance: 32
         },
         difficulty: 2
       };

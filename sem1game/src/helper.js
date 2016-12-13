@@ -105,7 +105,9 @@ function distanceBetweenAbs(objA, objB) {
 
 
 /**
- * Get angle between two objects that have x and y coords
+ * Get angle in radians between two objects that have x and y coords.
+ * 
+ * This function regards pointing EAST as 0 rotation.
  * 
  * Example, angle between A -> B = 60deg (but er actually in radians)
  *  ┌─────┐
@@ -129,6 +131,8 @@ function angleBetween(objA, objB) {
     if (debug) {
       console.log("Error: Tried to find angle between objects that don't have x and y coordinates!");
     }
+    
+    return false;
 
   }
 
@@ -200,25 +204,76 @@ function getNumberOfVisible(objs) {
 
 
 
+// TODO: Rewrite this so that it is either properly in radians, or degrees.
 function rotationTo(obj, target) {
   
   "use strict";
   
-  var deltaRad = obj.rotation * (Math.PI / 180),
-      semicircle = Math.PI; // π radians is a semicircle!
+  var organismAngle = toRadians(obj.rotation),
+      rightAngle = Math.PI / 2, // Basically 90 degrees in radians. 
+      angleTo = angleBetween(obj, target),
+      deltaRad = 0,
+      sign = -1;
   
-  deltaRad -= angleBetween(obj, target) + semicircle / 2;
+  /*
+  if (obj == game.player) {
+    console.log("obj: " + Math.round(obj.x) + ", " + Math.round(obj.y));
+    console.log("target: " + Math.round(target.x) + ", " + Math.round(target.y));
+    console.log("diff: " + Math.round(target.x - obj.x) + ", " + Math.round(target.y - obj.y));
+    console.log("angleTo: " + Math.round(toDegrees(angleTo)) + " <--");
+    console.log("--------");
+  }
+  */
+    
+  // Convert angleBetween's dodgy "pointing EAST is 0",
+  // to pointing NORTH (forwards) is 0:
+  angleTo += rightAngle;
+  if (angleTo >= Math.PI) {
+    angleTo -= toRadians(360);
+  }
   
+  // Convert to er not be negative (i.e. 0 - 360, not -180 to 180):
+  //angleTo += Math.PI;
+  //organismAngle += Math.PI;
+  
+  deltaRad = angleTo - organismAngle;
+  
+  
+  if (deltaRad >= Math.PI) {
+    deltaRad -= Math.PI * 2;
+  }
+  else if (deltaRad <= -Math.PI) {
+    deltaRad += Math.PI * 2;
+  }
+  /*
+  deltaRad = Math.abs(organismAngle - angleTo);
+  
+  if ((angleTo - organismAngle >= 0) && (angleTo - organismAngle <= Math.PI) ||
+      (angleTo - organismAngle <= -Math.PI) && (angleTo - organismAngle >= -Math.PI*2)) {
+    sign = 1;
+  }
+  
+  if (deltaRad > Math.PI) {
+    deltaRad = (Math.PI * 2) - deltaRad;
+  }
+  */
+  
+  // I think the problem is with angleBetween() !
+
+  /*
   // This fixes "weird" deltaMouseRad values that get spat out
   // sometimes. These weird values are abnormally high (~5rad ~340deg)
   // and are converted to their "opposite", e.g. 340eg -> -20deg.
-  if (deltaRad > semicircle) {
-    deltaRad -= semicircle * 2;
-  } else if (deltaRad < -(semicircle)) {
-    deltaRad += semicircle * 2;
+  if (deltaRad > toRadians(180)) {
+    //if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
+    deltaRad -= toRadians(360);
+  } else if (deltaRad < -(toRadians(180))) {
+    //if (obj == game.player) console.log(toDegrees(deltaRad).toFixed(1));
+    deltaRad += toRadians(360);
   }
-  
-  return deltaRad;
+  */
+
+  return -deltaRad;
   
 }
 
@@ -253,6 +308,7 @@ function oppositeTo(inputNumber, numberToBeOppositeTo) {
   }
   
 }
+
 
 
 /**
@@ -297,10 +353,116 @@ function toRadians(degrees) {
 
 
 
-function toDegrees (radians) {
+function toDegrees(radians) {
   
   "use strict";
   
   return radians * (180 / Math.PI);
+  
+}
+
+
+
+function to360(angle) {
+  
+  "use strict";
+  
+  if (angle < 0) {
+    angle += 360;
+  }
+  
+  return angle;
+  
+}
+
+
+
+function to180(angle) {
+  
+  "use strict";
+  
+  if (angle > 180) {
+    angle -= 360;
+  }
+  
+  else if (angle < -180) {
+    angle += 360;
+  }
+  
+  return angle;
+  
+}
+
+
+
+function angleDiff(angle1, angle2) {
+  
+   "use strict";
+  
+  angle1 = to360(angle1);
+  angle2 = to360(angle2);
+  
+  return to180(angle2 - angle1);
+  
+}
+
+
+
+/**
+ * Transition from one color to another, by the intendedChange amount.
+ * E.g: colorTransition("rgb(250,15,40)", "rgb(255,10,10)", 10)
+ * Will return: "rgb(255,10,30)"
+ * The initial color is "pushed through grey" to reach the target color.
+ * This is okay-ish for us, as it'll make the middle levels a bit
+ * "boring", but the start and end will be exciting / vibrant.
+ */
+function colorTransition(initialColor, targetColor, intendedChange) {
+  
+  "use strict";
+  
+  // Currently assuming that the color string is rgb().
+  initialColor = initialColor.replace(/\s+/g, '');
+  targetColor = targetColor.replace(/\s+/g, '');
+  
+  // Turn color strings into RGB arrays.
+  // .match() returns all the numbers as the first
+  // element in the array, so we splice that out.
+  // Splice is fast. https://jsperf.com/splice-vs-splice
+  initialColor = initialColor.match(/(\d+),(\d+),(\d+)/).splice(1,4);
+  targetColor = targetColor.match(/(\d+),(\d+),(\d+)/).splice(1,4);
+  
+  var i,
+      difference,
+      actualChange,
+      output = [
+        parseInt(initialColor[0], 10),
+        parseInt(initialColor[1], 10),
+        parseInt(initialColor[2], 10)
+      ];
+  
+  // Cycle through 0/1/2, i.e. r/g/b:
+  for (i = 0; i < 3; i++) {
+    
+    // Get the difference between the initial colour and target color:
+    difference = Math.abs(targetColor[i] - output[i]);
+    
+    // If the difference is < the intended change, then only change by that amount:
+    actualChange = difference < intendedChange ? difference : intendedChange;
+    
+    // Right hand side is integer, so string on left is converted for comparison:
+    if (targetColor[i] > output[i]) {
+      output[i] += actualChange;
+    } 
+    else if (targetColor[i] < output[i]) {
+      output[i] -= actualChange;
+    }
+    
+    // Keep the values between 0-255:
+    output[i] = output[i] > 255 ? 255 : output[i];
+    output[i] = output[i] <   0 ?   0 : output[i];
+    
+  }
+  
+  return ("rgb(" + output[0] + "," + output[1] + "," + output[2] + ")");
   
 }

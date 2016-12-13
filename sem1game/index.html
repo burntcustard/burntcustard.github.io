@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>sem1gameV2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="src/helper.js"></script>
     <script src="src/input.js"></script>
     <script src="src/sem1game.js"></script>
@@ -23,11 +24,17 @@
     <script src="src/particle.js"></script>
     <script src="lib/glfx.js"></script>
     <style>
+      
       body {
-        padding: 0;
         margin: 0;
         overflow: hidden;
       }
+      
+      canvas {
+        height: 100vh;
+        width: 100vw;
+      }
+      
       #debug {
         position: absolute;
         top: 20px;
@@ -38,10 +45,11 @@
         font-family: monospace;
         display: none;
       }
+      
     </style>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-    <div id="debug">Debug text</div>
+    <div id="debug">Debug panel</div>
   </body>
 </html>

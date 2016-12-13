@@ -1,6 +1,6 @@
 /*jslint vars: true, white: true, plusplus: true*/
 
-/*global Organism, angleBetween, rotationTo*/
+/*global Organism, angleBetween, rotationTo, rotate, toRadians, angleDiff*/
 
 
 
@@ -8,7 +8,7 @@ Organism.prototype.applyDrag = function (updateAmount) {
   
   "use strict";
   
-  var decelerationPercent = 1.1 * updateAmount;
+  var decelerationPercent = (this.drag / 10) * updateAmount;
   
   var decelerationMultiplier = (1 - (decelerationPercent / 100));
   
@@ -31,7 +31,7 @@ Organism.prototype.applyAngularDrag = function (updateAmount) {
  
   "use strict";
   
-  var decelerationPercent = 9 * updateAmount;
+  var decelerationPercent = 8 * updateAmount;
   
   var decelerationMultiplier = (1 - (decelerationPercent / 100));
   
@@ -50,33 +50,46 @@ Organism.prototype.rotate = function (deg, everything) {
   
   "use strict";
   
-  this.rotation += deg;
+  var i, j, body, speedLine, mouth, vLength, randomRotation = 0;
   
-  if (this.rotation > 180) {
-    this.rotation -= 360;
+  if (this.rotation) {
+    this.rotation = to180(this.rotation);
+  }
+  if (this.visibleRotation) {
+    this.visibleRotation = to180(this.visibleRotation);
   }
   
-  if (this.rotation < -180) {
-    this.rotation += 360;
+  // Only visually rotate somethings that's on the camera,
+  // or if it's the first time it's being rotated:
+  if (this.visibleRotation === this.rotation) {
+    
+    this.rotation += deg;
+    
   }
   
-  var i, j, body, speedLine, v, hp, mouth, newX, newY, randomRotation = 0;
-  
+  if (this.visible) {
+    
+    this.visibleRotation += deg;
+
   for (i = 0; i < this.body.length; i++) {
-    body = this.body[i];
-    if (body.rotating) {
+    //body = this.body[i];
+    if (this.body[i].rotating) {
       // Add a bit of variance to the body rotation:
-      randomRotation = (body.rotating / 4) + (Math.random() * (body.rotating / 2));
+      randomRotation = (this.body[i].rotating / 4) + (Math.random() * (this.body[i].rotating / 2));
     }
-    for (j = 0; j < body.vertices.length; j++) {
-      rotate(body.vertices[j], deg + randomRotation);
+    for (j = 0; j < this.body[i].vertices.length; j++) {
+      rotate(this.body[i].vertices[j], deg + randomRotation);
     }
     
   }
+<<<<<<< HEAD
+=======
+  
+>>>>>>> origin/master
   // Rotate the hpPoints and mouth too if the body has been rotated:
   // Note: This will be based purely on the last bodies
   // rotation, NOT an average of all bodies etc.
-  if (randomRotation) {
+  if (randomRotation && this.hpPoints.length > 1) {
     for (i = 0; i < this.hpPoints.length; i++) {
       rotate(this.hpPoints[i], randomRotation);
     }
@@ -92,10 +105,12 @@ Organism.prototype.rotate = function (deg, everything) {
   if (this.tail || everything) {
     for (i = 0; i < this.hpPoints.length; i++) {
       rotate(this.hpPoints[i], deg);
-    }   
+    }
   }
   */
+  
   for (i = 0; (this.mouth) && (i < this.mouth.length); i++) {
+<<<<<<< HEAD
     mouth = this.mouth[i];
     mouth.x = 0;
     mouth.y = 0;
@@ -103,24 +118,39 @@ Organism.prototype.rotate = function (deg, everything) {
       rotate(mouth.vertices[j], deg + randomRotation);
       mouth.x += mouth.vertices[j].x;
       mouth.y += mouth.vertices[j].y;
+=======
+
+    vLength = this.mouth[i].vertices.length;
+
+    this.mouth[i].x = 0;
+    this.mouth[i].y = 0;
+    for (j = 0; j < vLength; j++) {
+      rotate(this.mouth[i].vertices[j], deg + randomRotation);
+      this.mouth[i].x += this.mouth[i].vertices[j].x;
+      this.mouth[i].y += this.mouth[i].vertices[j].y;
+>>>>>>> origin/master
     }
-    mouth.x /= mouth.vertices.length;
-    mouth.y /= mouth.vertices.length;
+    this.mouth[i].x /= vLength;
+    this.mouth[i].y /= vLength;
+
   }
   
-  // TODO: Tidy this for loop.
-  for (i = 0; (this.speedLines) &&
-              (i < this.speedLines.length); i++) {
-    speedLine = this.speedLines[i];
-    speedLine.x = 0;
-    speedLine.y = 0;
-    for (j = 0; j < speedLine.length; j++) {
-      rotate(speedLine[j], deg);
-      speedLine.x += speedLine[j].x;
-      speedLine.y += speedLine[j].y;
+  if (this.speedLines) {
+    // TODO: Tidy this for loop.
+    for (i = 0; i < this.speedLines.length; i++) {
+      speedLine = this.speedLines[i];
+      speedLine.x = 0;
+      speedLine.y = 0;
+      for (j = 0; j < speedLine.length; j++) {
+        rotate(speedLine[j], deg);
+        speedLine.x += speedLine[j].x;
+        speedLine.y += speedLine[j].y;
+      }
+      speedLine.x /= speedLine.length;
+      speedLine.y /= speedLine.length;
     }
-    speedLine.x /= speedLine.length;
-    speedLine.y /= speedLine.length;
+  }
+    
   }
   
 };
@@ -217,20 +247,31 @@ Organism.prototype.move = function (updateAmount) {
   }
   */
   
+  var i;
+  
   if (this.angularVelocity > this.maxAngular) {
     this.angularVelocity = this.maxAngular;
   }
-  if (this.angularVelocity < -this.maxAngular) {
+  else if (this.angularVelocity < -this.maxAngular) {
     this.angularVelocity = -this.maxAngular;
   }
   
   this.applyAngularDrag(updateAmount);
   
-  //console.log("this.angularVelocity " + this.angularVelocity);
   
   //this.angularVelocity += this.angularAcceleration;
   if (this.angularVelocity !== 0) {
     this.rotate(this.angularVelocity * updateAmount);
+  }
+  
+  if (this.visible) {
+      
+    if (this.visibleRotation !== this.rotation) {
+      
+      this.rotate(angleDiff(this.visibleRotation, this.rotation));
+      
+    }
+    
   }
   
   
@@ -252,13 +293,13 @@ Organism.prototype.move = function (updateAmount) {
       organismJustRotation;
   
   if (this.tail) {
-    for (var i = 1; i < this.hpPoints.length; i++) {
+    for (i = 1; i < this.hpPoints.length; i++) {
       
       organismJustRotation = {
         x: 0,
         y: 0,
         rotation: this.rotation
-      }
+      };
       
       rotationFromBodyToHp = rotationTo(organismJustRotation, this.hpPoints[i]);
       

@@ -24,6 +24,7 @@ function addWebGLCanvas() {
     for (i = 0; i < settings.length; i++) {
       settings[i].value = settings[i].low;
     }
+    return false;
   }
 
   // Tell glfx to use the original canvas as a source image:
@@ -32,6 +33,8 @@ function addWebGLCanvas() {
   // Hide the original canvas and put the WebGL Canvas in its place:
   canvas.parentNode.insertBefore(glCanvas, canvas);
   canvas.style.display = "none";
+  
+  return true;
 
 }
 

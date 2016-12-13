@@ -17,9 +17,6 @@ function renderOrganisms(ctx, organisms, camera) {
   
   var organism, coloredOrganisms = [], i, body, speedLine, v, vertex, j, hp, mouth, x, y, color, colorAlreadyAdded = false, c;
   
-  ctx.lineWidth = 2;
-  ctx.shadowBlur = 0;
-  
   // Make color lists, i.e. lists of organisms with different colors.
   // Like... a white organism list, an orange organism list, etc.
   
@@ -50,7 +47,7 @@ function renderOrganisms(ctx, organisms, camera) {
   
     ctx.strokeStyle = coloredOrganisms[c].color;
     ctx.fillStyle = coloredOrganisms[c].color;
-    ctx.shadowColor = coloredOrganisms[c].color;
+    //ctx.shadowColor = coloredOrganisms[c].color;
 
     // Begin drawing some lines:
     ctx.beginPath();
@@ -67,12 +64,16 @@ function renderOrganisms(ctx, organisms, camera) {
 
           body = organism.body[j];
           
+          // This is split up like this so that the organism gets drawn nicely
+          
+          // Go to coords of first vertex:
           ctx.moveTo(
-            organism.x + (body.vertices[body.vertices.length - 1].x) - camera.x,
-            organism.y + (body.vertices[body.vertices.length - 1].y) - camera.y
+            organism.x + body.vertices[0].x - camera.x,
+            organism.y + body.vertices[0].y - camera.y
           );            
 
-          for (v = 0; v < body.vertices.length; v++) {
+          // Draw lines to all the other vertices, and back to the first:
+          for (v = body.vertices.length - 1; v >= 0 ; v--) {
             vertex = body.vertices[v];
             ctx.lineTo(
               organism.x + vertex.x - camera.x,
@@ -235,7 +236,7 @@ function renderOrganisms(ctx, organisms, camera) {
 
         if (organism.visible && organism.alive) {
 
-          for (j = 0; j < organism.mouth.length; j++) {
+          for (j = 0; organism.mouth && j < organism.mouth.length; j++) {
 
             mouth = organism.mouth[j];
 
@@ -271,30 +272,53 @@ function renderMapLines(ctx, camera, lineColor) {
   // if the camera was zoomed in or out (if/when that's implemented?)
   // TODO: Figure out why these jump when the edge of the world is reached :(
   
-  // Maybe something like this. But not this.
-  // lineSpace += ((camera.width % 80) / Math.floor(camera.width/80));
-  
-  // Colour and style of the lines:
-  ctx.lineWidth = 1; // Lines are much brighter at only slightly larger line width.
+  // Set canvas styling:
   ctx.strokeStyle = lineColor;
-  
   if (settings.glowy.value) {
+    ctx.lineWidth = 1; // Lines are much brighter at only slightly larger line width.
     ctx.shadowColor = lineColor;
     ctx.shadowBlur = 9;
+  } else {
+    ctx.globalAlpha = 0.5
   }
   
   ctx.beginPath();
+  
   // | Vertical lines
   for (i = -(camera.x % lineSpace); i < camera.width; i += lineSpace) {
+
+    // If the lines AREN'T glowy, make them line up (makes them crisper & improves perf):
+    if (!settings.glowy.value) {
+      i = Math.round(i);
+    }
+    
     ctx.moveTo(i, 0);
     ctx.lineTo(i, camera.height);
+    
   }
+  
   // ─ Horizontal lines
   for (i = -(camera.y % lineSpace); i < camera.height; i += lineSpace) {
+    
+    // If the lines AREN'T glowy, make them line up (makes them crisper & improves perf):
+    if (!settings.glowy.value) {
+      i = Math.round(i);
+    }
+    
     ctx.moveTo(0, i);
     ctx.lineTo(camera.width, i);
+    
   }
+  
   ctx.stroke();
+  
+  // Reset canvas styling:
+  if (settings.glowy.value) {
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 0;
+  } else {
+    ctx.globalAlpha = 1;
+  }
   
 }
 
@@ -324,9 +348,6 @@ function renderParticles(ctx, particles, camera) {
       });
     }
   }
-  
-  ctx.lineWidth = 2;
-  
   
   for (i = coloredParticles.length - 1; i >= 0; i--) {
   
@@ -370,16 +391,23 @@ function render(tFrame, ctx, game, time, deltaTime) {
   ctx.fillStyle = game.levels[game.currentLevel].bgColor;
   ctx.fillRect(0, 0, game.camera.width, game.camera.height);
   
-  // Draw organisms on the next level, faded out 80%:
-  ctx.globalAlpha = 0.2;
-  renderOrganisms(ctx, game.levels[game.currentLevel + 1].organisms, game.camera);
-  ctx.globalAlpha = 1; // Set the fade back to normal for the rest of the drawing.
+  ctx.lineWidth = 2;
   
+  if (game.levels[game.currentLevel + 1]) {
+    // Draw organisms on the next level, faded out 80%:
+    ctx.globalAlpha = 0.2;
+    renderOrganisms(ctx, game.levels[game.currentLevel + 1].organisms, game.camera);
+    ctx.globalAlpha = 1; // Set the fade back to normal for the rest of the drawing.
+  }
+    
   renderMapLines(
     ctx,
     game.camera,
     game.levels[game.currentLevel].lineColor
   );
+
+  // copy into visual canvas at different position
+  //ctx.putImageData(mapImage, 0, 0);
   
   // Draw organisms on this level (including the player):
   renderOrganisms(ctx, game.levels[game.currentLevel].organisms, game.camera);

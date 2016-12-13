@@ -23,7 +23,7 @@ function drawDebug(game, time, deltaTime) {
     "  On screen: " + (getNumberOfVisible(game.levels[game.currentLevel].organisms) +                   
                        getNumberOfVisible(game.levels[game.currentLevel + 1].organisms)) + "<br>" +
     "  Total:     " + (game.levels[game.currentLevel].organisms.length +
-                       game.levels[game.currentLevel].organisms.length) + "<br>" +
+                       game.levels[game.currentLevel + 1].organisms.length) + "<br>" +
     "<br>" +
     "Player: " + "<br>" +
     "  Rotation: " + Math.round(game.player.rotation) + "<br>" +
@@ -61,4 +61,20 @@ function drawDebug(game, time, deltaTime) {
   // Get the info onto the page:
   document.getElementById("debug").innerHTML = debugInfo;
   
+}
+
+
+
+function toggleDebug() {
+  
+  "use strict";
+
+  if (debug) {
+    debug = false;
+    document.getElementById("debug").style.display = "none";
+  } else {
+    debug = true;
+    document.getElementById("debug").style.display = "block";
+  }
+
 }
