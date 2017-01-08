@@ -1,6 +1,6 @@
 /*jslint debug: true, white: true, browser: true*/
 
-/*global generateLevels, Organism, initCamera, randomCoords, update, render, settings, addWebGLCanvas, touchInput, touchStop*/
+/*global generateLevels, Organism, initCamera, randomCoords, update, render, settings, addWebGLCanvas, touchInput, touchStop, Audio*/
 
 
 
@@ -22,6 +22,8 @@ var texture;  // Contains the base canvas as an image. kind of. See shader.js
 // Variables to hold all of the sounds used.
 // Currently only one test sound from https://www.soundjay.com/beep-sounds-1.html
 // TODO: Implement different sounds for different actions, as well as music... so er not much.
+// Doesn't seem to work on mobiles. It would be good to do audio "properly" with the Web Audio API,
+// which would even allow sounds to be "made" rather than using lots of seperate mp3s.
 var audioBleep = new Audio('audio/beep.mp3');
 
 // Time variables to keep track of how long each update takes:

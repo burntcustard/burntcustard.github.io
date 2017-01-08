@@ -48,7 +48,7 @@ Particle.prototype.constructor = Particle;
  *                           "velocity" should technically be "speed" as there's no
  *                           direction. BUT when the particles are created, we use
  *                           this variable in a way that shoves a direction in. Kind of.
- * @param {int}    lifetime  How long the particle should stay around for. In
+ * @param {int}    lifetime  How long the particle should stay around for. In ms. I think.
  *
  *
  *  8  1  2
@@ -71,13 +71,13 @@ function createParticleBurst(particles, parent, offset, color, velocity, lifetim
   
   offset = offset || {x: 0, y: 0};
   
-  particles.push( new Particle(parent, offset, color, 0, 0,      0,     -v, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0, d *  v, d * -v, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0,      v,      0, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0, d *  v, d *  v, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0,      0,      v, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0, d * -v, d *  v, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0,     -v,      0, lifetime));
-  particles.push( new Particle(parent, offset, color, 0, 0, d * -v, d * -v, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0,      0,     -v, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0, d *  v, d * -v, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0,      v,      0, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0, d *  v, d *  v, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0,      0,      v, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0, d * -v, d *  v, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0,     -v,      0, lifetime));
+  particles.push(new Particle(parent, offset, color, 0, 0, d * -v, d * -v, lifetime));
   
 }
