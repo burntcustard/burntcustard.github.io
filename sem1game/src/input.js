@@ -8,6 +8,7 @@
 /* TOUCH INPUT */
 /***************/
 
+
 function touchInput(event) {
   
   "use strict";
@@ -25,7 +26,6 @@ function touchInput(event) {
 }
 
 
-
 function touchStop(event) {
   
   "use strict";
@@ -38,12 +38,9 @@ function touchStop(event) {
 
 
 
-
-
 /******************/
 /* KEYBOARD INPUT */
 /******************/
-
 
 
 /**
@@ -59,7 +56,6 @@ function keyDown(key) {
   }
   
 }
-
 
 
 /**
@@ -87,7 +83,6 @@ document.onkeydown = function (key) {
   }
   
 };
-
 
 
 /**

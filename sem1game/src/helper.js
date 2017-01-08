@@ -95,7 +95,7 @@ function to180(angle) {
 
 /*
  * Returns an object with an X and Y coordinate, randomly
- * selected within the confines of the specified width and height.
+ * selected within the confines of the specified width and height (x2 - itself).
  * E.g. with a width and height of 100:
  *    -100,        +100,
  *  -100 ┌─────────┐ -100

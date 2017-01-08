@@ -19,6 +19,11 @@ var ctx;      // Context of the base canvas.
 var glCanvas; // The WebGL canvas
 var texture;  // Contains the base canvas as an image. kind of. See shader.js
 
+// Variables to hold all of the sounds used.
+// Currently only one test sound from https://www.soundjay.com/beep-sounds-1.html
+// TODO: Implement different sounds for different actions, as well as music... so er not much.
+var audioBleep = new Audio('audio/beep.mp3');
+
 // Time variables to keep track of how long each update takes:
 var time, oldTime, deltaTime = 0;
 

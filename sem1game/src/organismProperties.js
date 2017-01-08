@@ -916,7 +916,7 @@ function getOrganismProperties(organism) {
           {value: 1},
           {value: 1}
         ],
-        maxHP: 10,
+        maxHP: 5,
         speed: 16,
         turnRate: 20,
         mouth: [{

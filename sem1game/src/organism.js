@@ -35,6 +35,9 @@ var Organism = function (organismType, x, y) {
   
   // Setting vertices witchcraft. TODO: Seperate this into it's own
   // function and write a ton of comments because a lot is going on here.
+  // A similar process for the organism's mouth set up is done in 
+  // Organism.prototype.initMouth(), and the comments in that describe a
+  // similar process in much more detail in the comments
   
   this.body = [];
   
@@ -124,7 +127,6 @@ var Organism = function (organismType, x, y) {
   this.type = organismType; // "type" is NOT a reserved word. Don't panic.
   
   // Tail stuff (must be done after body is set up):
-  
   if (organism.tail) {
     this.initTail();
   }
@@ -200,9 +202,36 @@ Organism.prototype.initTail = function() {
 
   
 };
-  
 
-// Mouthy stuff (this is gonna be crazy for now):
+
+
+/**
+ * Set up an organisms mouth(s).
+ * 
+ * This works by:
+ * 
+ *  - Taking the integers from an array that defines simple shape
+ *    (in organism.mouth), then scaling them while sticking them into this organisms (i.e.
+ *    the organism that's having the mouth actually added to it) mouth vertices list as
+ *    an object (a point, vertex, or whatever you want to call is) with x and y coordinates.
+ *    
+ *  - Figuring out the approximate size of the mouth based on it's "largest vertex".
+ *    "Largest" meaning furthest from 0,0. So an L shape's largest vertex would be
+ *    the bottom right (as 0,0 is top left). And if the L is 2 high and 1 wide, the
+ *    value of it would be 1 + 2 = 3. (In that order, not that it matters, 'cos always x then y).
+ *    
+ *  - Finding the center of the rescaled mouth, and then shifting all of the vertices that distance
+ *    to the left and up. What this does is move the mouth to the center of the organism, rather than
+ *    it being offset. I.e. to start with the origin 0,0 point of the mouth is right in the centre
+ *    of the organism, resulting in the mouth being positioned wonky. Lots of words for simple thing.
+ *    
+ *  - Finally, the mouth is rotated and moved AGAIN, to the rotation and offsets defined in the
+ *    organism's mouth properties. These stick the mouth to the face of the organism at the correct angle.
+ * 
+ * @param {object} organism The "default" or "prototype" (not exactly a JavaScript
+ *                          prototype, but the concept is the same) organism, that
+ *                          all of the mouth data is pulled from.           
+ */
 Organism.prototype.initMouth = function(organism) {
   
   "use strict";
@@ -236,6 +265,7 @@ Organism.prototype.initMouth = function(organism) {
     
     for (i = 0; i < this.mouth[m].vertices.length; i++) {
       if (this.mouth[m].vertices[i].x + this.mouth[m].vertices[i].y > largestVertex) {
+        largestVertex = this.mouth[m].vertices[i].x + this.mouth[m].vertices[i].y;
         this.mouth[m].size = (this.mouth[m].vertices[i].x + this.mouth[m].vertices[i].y) / 2;
       } 
     }

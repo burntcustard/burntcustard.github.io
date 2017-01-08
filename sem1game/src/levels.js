@@ -98,7 +98,7 @@ function generateOrganisms(organismTypes, difficulty, levelSize) {
         
         // Set the new organisms max HP, so that it can't gain more,
         // and so it knows when it's been attacked (i.e. if HP < max):
-        newOrganism.maxHP = newOrganism.getCurrentHP;
+        newOrganism.maxHP = newOrganism.getCurrentHP();
         
         organisms.push(newOrganism);
         difficultyCount += newOrganism.difficulty;
