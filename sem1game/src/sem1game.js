@@ -1,20 +1,30 @@
-/*jslint debug: true, white: true*/
+/*jslint debug: true, white: true, browser: true*/
 
+/*global generateLevels, Organism, initCamera, randomCoords, update, render, settings, addWebGLCanvas, touchInput, touchStop*/
+
+
+
+// Game object to hold the many, many game related variables.
+// Ideally this would NOT be a global variable, however it is
+// right now, mostly for convenience.
 var game = {};
 
-var cursors;
+// Is debug info visible, and how many frames since it was last updated:
 var debug = false;
 var debugCounter = 0; // Stop the debug update so frequently
 
-var player;
+// Canvas related variables:
+var canvas;   // The base canvas.
+var ctx;      // Context of the base canvas.
+var glCanvas; // The WebGL canvas
+var texture;  // Contains the base canvas as an image. kind of. See shader.js
 
-var canvas;
-var ctx;
-var glCanvas;
-var texture;
-
+// Time variables to keep track of how long each update takes:
 var time, oldTime, deltaTime = 0;
 
+// A bool which toggles every time requestAnimationFrame is called.
+// Because the browser will try to run the game at 60FPS, this lets
+// some actions/updates occur 30 times a second rather than 60.
 var evenFrame;
 
 // Zoom might be based off a setting, scroll wheel input,
@@ -22,7 +32,10 @@ var evenFrame;
 var zoom = 1;
 
 
+
 function create() {
+  
+  "use strict";
   
   var coords;
 
@@ -53,7 +66,8 @@ function create() {
     // A bunch of levels:
     levels: [],
 
-    // The level the player is currently on:
+    // The current level being viewed, and
+    // probably the level the player is currently on:
     currentLevel: 0,
 
     paused: false
@@ -97,6 +111,8 @@ function create() {
 
 function main(tFrame) {
   
+  "use strict";
+  
   // If the game was paused):
   if (game.paused) {
     oldTime = tFrame;
@@ -111,8 +127,12 @@ function main(tFrame) {
 }
 
 
-
+/**
+ * Toggles if the game is pauseed or not.
+ */
 function pause() {
+  
+  "use strict";
   
   if (game.paused) {
     // Start looping again:
@@ -127,27 +147,26 @@ function pause() {
 }
 
 
-
+/**
+ * Resizes the canvas to fit the size of the window.
+ */
 function resizeCanvas() {
+  
+  "use strict";
   
   var aspectRatio =  window.innerWidth / window.innerHeight;
   
-  console.log("Aspect ratio: " + aspectRatio);
-
   if (window.innerHeight > window.innerWidth) {
     canvas.width = 600 * zoom;
     canvas.height = Math.ceil(canvas.width / aspectRatio);
   } else {
-    canvas.height = 600 * zoom
+    canvas.height = 600 * zoom;
     canvas.width = Math.ceil(canvas.height * aspectRatio);
   }
   
-  //canvas.width = window.innerWidth;
-  //canvas.height = window.innerHeight;
-  
   if (game && game.camera) {
     game.camera.width = canvas.width;
-    game.camera.height = canvas.height
+    game.camera.height = canvas.height;
   }
 
 }
@@ -163,8 +182,12 @@ window.onload = function () {
   ctx = canvas.getContext("2d");
   resizeCanvas();
 
-  // Set up WebGL (if supported):
+  // If the graphics settings say WebGL should be on:
   if (settings.webGL.value) {
+    
+    // Try to initialise the WebGL canvas, and if successfull, add the
+    // touch event listeners to it. Otherwise, add them to the base canvas:
+    // TODO: Make an "addEventListeners" function to tidy this up.
     if (addWebGLCanvas()) {
       glCanvas.addEventListener('touchstart' , touchInput, false);
       glCanvas.addEventListener('touchmove'  , touchInput, false);
@@ -176,12 +199,11 @@ window.onload = function () {
       canvas.addEventListener('touchcancel', touchStop , false);
       canvas.addEventListener('touchend'   , touchStop , false);
     }
+    
   }
   
-  // Add event listeners (the input ones should be in the input file!):
+  // Resize the canvas if the window is resized:
   window.addEventListener('resize', resizeCanvas, false);
-
-
 
   // Create a new game:
   create();

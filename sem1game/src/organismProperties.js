@@ -402,7 +402,7 @@ function getOrganismProperties(organism) {
           viewDistance: 30
         },
         difficulty: 7,
-        evolvesFrom: "kite-l",
+        evolvesFrom: "kite-m",
         evolvesTo: "kite-xl",
         levelCap: 3
       };

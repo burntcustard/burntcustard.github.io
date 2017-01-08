@@ -1,6 +1,6 @@
 /*jslint vars: true, white: true, plusplus: true*/
 
-/*global Organism, angleBetween, rotationTo, rotate, toRadians, angleDiff*/
+/*global Organism, angleBetween, rotationTo, rotate, toRadians, to180, angleDiff*/
 
 
 

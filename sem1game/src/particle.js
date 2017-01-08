@@ -1,5 +1,7 @@
 /*jslint white: true */
 
+
+
 /**
  * Particle constructor. Particles are drawn in relation to their parent,
  * in terms of coordinates and colour.
@@ -37,6 +39,17 @@ Particle.prototype.constructor = Particle;
 
 /**
  * Creates a burst of 8 particles around a parent
+ *
+ * @param {object} particles A reference to the LEVEL the particles are going into.
+ * @param {object} parent    A reference to the organism the particles are coming from.
+ * @param {object} offset    {x, y} offset from the center of the parent.
+ * @param {string} color     HTML color code (rgb, hex, etc.) of the particles.
+ * @param {float}  velocity  The speed the particles should go. In arbitrary units.
+ *                           "velocity" should technically be "speed" as there's no
+ *                           direction. BUT when the particles are created, we use
+ *                           this variable in a way that shoves a direction in. Kind of.
+ * @param {int}    lifetime  How long the particle should stay around for. In
+ *
  *
  *  8  1  2
  *   \ | /

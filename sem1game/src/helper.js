@@ -3,7 +3,8 @@
 /*global debug: false*/
 
 
-/* 
+
+/**
  * Returns the last element of an array.
  */
 if (!Array.prototype.last) {
@@ -15,14 +16,78 @@ if (!Array.prototype.last) {
 
 
 
+/**
+ * Give it an array, and it'll return a random element from that array.
+ */
 function selectRandomFromList(potentials) {
   
   "use strict";
   
-  // Math.abs is potentially unnecessary, but without it, sometimes the
-  // random number generation will return '-0' rather than '0'...
+  return potentials[Math.floor(Math.random() * potentials.length)];
+  
+}
 
-  return potentials[Math.abs(Math.round(Math.random() * potentials.length - 0.5))];
+
+
+/**
+ * Convert degrees to radians.
+ */
+function toRadians(degrees) {
+  
+  "use strict";
+  
+  return degrees * (Math.PI / 180);
+  
+}
+
+
+
+/**
+ * Convert radians to degrees.
+ */
+function toDegrees(radians) {
+  
+  "use strict";
+  
+  return radians * (180 / Math.PI);
+  
+}
+
+
+
+/**
+ * Convert an angle from [-180 to 180], to the range [0 to 360].
+ */
+function to360(angle) {
+  
+  "use strict";
+  
+  if (angle < 0) {
+    angle += 360;
+  }
+  
+  return angle;
+  
+}
+
+
+
+/**
+ * Convert an angle from [0 to 360], to the range [-180 to 180].
+ */
+function to180(angle) {
+  
+  "use strict";
+  
+  if (angle > 180) {
+    angle -= 360;
+  }
+  
+  else if (angle < -180) {
+    angle += 360;
+  }
+  
+  return angle;
   
 }
 
@@ -55,8 +120,10 @@ function randomCoords(maxWidth, maxHeight) {
 }
 
 
-/*
+
+/**
  * Get the distance between two objects that have x and y coords
+ *  - as a vector.
  * 
  * Example, distance between A -> B = {x: 3, y: -1}
  *  ┌─────┐
@@ -90,6 +157,16 @@ function distanceBetween(objA, objB) {
 
 
 
+/**
+ * Get the distance between two objects that have x and y coords
+ *  - as a positive integer.
+ *  
+ *  Example, distance between A -> B = 3
+ *  ┌─────┐
+ *  │    B│
+ *  │A    │
+ *  └─────┘
+ */
 function distanceBetweenAbs(objA, objB) {
   
   "use strict";
@@ -139,6 +216,7 @@ function angleBetween(objA, objB) {
 }
 
 
+
 /**
  * Finds the center of an object that has x, y, width, and height properties.
  * Returns an object with x and y coordinates.
@@ -186,6 +264,9 @@ function getCenter(obj) {
 
 
 
+/**
+ * Returns the number of objects in an array with a truthy visible property.
+ */
 function getNumberOfVisible(objs) {
   
   "use strict";
@@ -281,7 +362,7 @@ function rotationTo(obj, target) {
 
 /**
  * Does the opposite of Math.abs().
- * I.e. takes a number and randomly returns either the positive or negative of it.
+ * I.e. takes a number and randomly returns either the + or - of it.
  */
 function unAbs(number) {
   
@@ -294,8 +375,8 @@ function unAbs(number) {
 
 
 /**
- * Makes sure that the inputNumber has the opposite (positive or
- * negative) sign to the numberToBeOppositeTo, and return the inputNumber.
+ * Returns the input number, with a positive or negative sign
+ * which is the opposite to that of numberToBeOppositeTo.
  */
 function oppositeTo(inputNumber, numberToBeOppositeTo) {
   
@@ -312,7 +393,7 @@ function oppositeTo(inputNumber, numberToBeOppositeTo) {
 
 
 /**
- * Feed me the thing to rotate (any object with x & y coords), and the degrees to rotate it by.
+ * Feed me the point to rotate (any object with x & y coords), and the degrees to rotate it by.
  */
 function rotate(obj, deg) {
   
@@ -327,10 +408,10 @@ function rotate(obj, deg) {
         nwX = cos * obj.x - sin * obj.y,
         nwY = cos * obj.y + sin * obj.x;
 
+    // Set the objects new x and y coordinates:
     obj.x = nwX;
     obj.y = nwY;
 
-  // ¯\_(ツ)_/¯
   } else {
     
     if (debug) {
@@ -339,58 +420,6 @@ function rotate(obj, deg) {
     
   }
 
-}
-
-
-
-function toRadians(degrees) {
-  
-  "use strict";
-  
-  return degrees * (Math.PI / 180);
-  
-}
-
-
-
-function toDegrees(radians) {
-  
-  "use strict";
-  
-  return radians * (180 / Math.PI);
-  
-}
-
-
-
-function to360(angle) {
-  
-  "use strict";
-  
-  if (angle < 0) {
-    angle += 360;
-  }
-  
-  return angle;
-  
-}
-
-
-
-function to180(angle) {
-  
-  "use strict";
-  
-  if (angle > 180) {
-    angle -= 360;
-  }
-  
-  else if (angle < -180) {
-    angle += 360;
-  }
-  
-  return angle;
-  
 }
 
 
