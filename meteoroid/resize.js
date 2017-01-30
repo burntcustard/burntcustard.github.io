@@ -34,4 +34,8 @@ function resizeGame(SSAA) {
   resizeCanvas(uiStaticCanvas, SSAA);
   resizeCanvas(uiDynamicCanvas);
   
+  baseUnit = Math.sqrt(meteorCanvas.width * meteorCanvas.height) / 1000;
+  
+  console.log("baseUNit: " + baseUnit);
+  
 }

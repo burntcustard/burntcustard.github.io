@@ -11,8 +11,9 @@ var Meteor = function (x, y) {
   this.visible = false; // Starts off invisible.
   this.position = new Vec(x, y);
   this.velocity = new Vec(0, 0);
-  this.radius = 9;
-  this.area = Math.PI * this.radius * this.radius;
+  this.radius = 15 * baseUnit;
+  this.mass = Math.PI * (this.radius / baseUnit) * (this.radius / baseUnit);
+  this.maxSpeed = 15 * baseUnit;
   
 };
 Meteor.prototype.constructor = Meteor;
@@ -75,13 +76,13 @@ Meteor.prototype.update = function (updateAmount) {
       planet,
       acceleration,
       // Times to repeat acceleration calculation to increase stability:
-      steps = 4,
+      steps = 8,
       // Inverse of steps:
       invSteps = 1 / steps,
       // The "overall" speed of the meteor (and basically the game):
-      meteorSpeed = 0.7;
+      meteorSpeed = 1;
   
-  console.log("Updating meteor " + currentLevel);
+  //console.log("Updating meteor " + currentLevel);
 
   // Go through all the planets and add some velocity from the gravitational
   // pull from each one. If the calculation to figure out how much velocity

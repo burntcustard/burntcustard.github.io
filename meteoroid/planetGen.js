@@ -24,7 +24,7 @@ var Planet = function (x, y, ratio, radius, type) {
   this.y = y;
   this.ratio = ratio;
   this.radius = radius;
-  this.area = Math.PI * radius * radius;
+  this.mass = Math.PI * (radius / baseUnit) * (radius / baseUnit);
   this.type = type || false;
   
 };

@@ -42,12 +42,15 @@ function keepOnScreen(object, width, height) {
 
 
 
-function gravitationalForce(mass1, mass2, distance) {
+function gravForce(mass1, mass2, distance) {
   
   "use strict";
   
   // Gravitational constant. Increase to make things more "gravity-ey":
-  var G = 0.0023;
+  var G = 0.0006,
+      distanceMulti = 1.2;
+  
+  distance = (distance / baseUnit) * distanceMulti;
   
   // Newton's law of universal gravitation, basically...
   return (G * ((mass1 * mass2) / (distance * distance)));
@@ -67,7 +70,7 @@ function gravAcceleration(planet, meteor) {
   var planetPosition = new Vec(planet.x, planet.y),
       direction = planetPosition.sub(meteor.position),
       distance = direction.length(),
-      // These only get calculated if the planet and meteor aren't colliding:
+      // These only get calculated if the planet/meteor aren't colliding:
       normal,
       force;
   
@@ -76,7 +79,7 @@ function gravAcceleration(planet, meteor) {
     return false;
   } else {
     normal = direction.normalized();
-    force = gravitationalForce(planet.area, meteor.area, distance);
+    force = gravForce(planet.mass, meteor.mass, distance);
     return normal.mul(force);
   }
   

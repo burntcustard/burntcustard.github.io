@@ -17,6 +17,12 @@ var planetCanvas,
     uiStaticCtx,
     uiDynamicCtx,
     
+    // A "base unit" variable which is kinda a unit of distance measurement.
+    // It's 0.1% of the length of the game if it were a square, or for
+    // example 0.05% of the length of the game if the game was twice as 
+    // wide as it were tall. Todo: explain this better.
+    baseUnit,
+    
     // Level variables:
     levels,
     currentLevel,
@@ -88,21 +94,23 @@ function newGame() {
   meteorCanvas.addEventListener("mousedown", function(event) {
     inputStart(event, input);
   });
-  meteorCanvas.addEventListener("touchstart", function(event) {
-    inputStart(event, input);
-  });
   meteorCanvas.addEventListener("mousemove", function(event) {
-    inputMove(event, input);
-  });
-  meteorCanvas.addEventListener("touchmove", function(event) {
     inputMove(event, input);
   });
   meteorCanvas.addEventListener("mouseup", function(event) {
     inputRelease(event, input);
   });
+  /*
+  meteorCanvas.addEventListener("touchstart", function(event) {
+    inputStart(event, input);
+  });
+  meteorCanvas.addEventListener("touchmove", function(event) {
+    inputMove(event, input);
+  });
   meteorCanvas.addEventListener("touchend", function(event) {
     inputRelease(event, input);
   });
+  */
   
   startLevel(0);
   
