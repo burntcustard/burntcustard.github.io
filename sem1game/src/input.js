@@ -20,7 +20,7 @@ function touchInput(event) {
     y: event.targetTouches[0].pageY * (game.camera.height / window.innerHeight)
   };
   
-  console.log(game.touch);
+  // console.log(game.touch);
   
 }
 
@@ -44,6 +44,27 @@ function touchStop(event) {
 /* KEYBOARD INPUT */
 /******************/
 
+
+
+/**
+ * If specified key is not found in the array of keys that
+ * are already held down (pressed), then add it to that array.
+ */
+function keyDown(key) {
+  
+  "use strict";
+  
+  if (game.keys.indexOf(key) === -1) {
+    game.keys.push(key);
+  }
+  
+}
+
+
+
+/**
+ * Key presses
+ */
 document.onkeydown = function (key) {
   
   "use strict";
@@ -51,15 +72,15 @@ document.onkeydown = function (key) {
   //console.log(key.which); // Used to check key.which numbers.
   
   switch (key.which) {
-    case  87: if (!(game.keys.indexOf('w') > -1)) game.keys.push('w'); break;
-    case  65: if (!(game.keys.indexOf('a') > -1)) game.keys.push('a'); break;
-    case  83: if (!(game.keys.indexOf('s') > -1)) game.keys.push('s'); break;
-    case  68: if (!(game.keys.indexOf('d') > -1)) game.keys.push('d'); break;
-    case  38: if (!(game.keys.indexOf('▲') > -1)) game.keys.push('▲'); break;
-    case  37: if (!(game.keys.indexOf('◀') > -1)) game.keys.push('◀'); break;
-    case  40: if (!(game.keys.indexOf('▼') > -1)) game.keys.push('▼'); break;
-    case  39: if (!(game.keys.indexOf('▶') > -1)) game.keys.push('▶'); break;
-    case  32: if (!(game.keys.indexOf('␣') > -1)) game.keys.push('␣'); break;
+    case  87: keyDown('w'); break;
+    case  65: keyDown('a'); break;
+    case  83: keyDown('s'); break;
+    case  68: keyDown('d'); break;
+    case  38: keyDown('▲'); break;
+    case  37: keyDown('◀'); break;
+    case  40: keyDown('▼'); break;
+    case  39: keyDown('▶'); break;
+    case  32: keyDown('␣'); break;
     case 191: toggleDebug('?'); break;
     case  19: pause('pause|break'); break;
     case  80: pause('p'); break;
@@ -69,6 +90,9 @@ document.onkeydown = function (key) {
 
 
 
+/**
+ * Key releases
+ */
 document.onkeyup = function (key) {
   
   "use strict";

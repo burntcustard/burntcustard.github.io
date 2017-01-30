@@ -1,0 +1,5 @@
+Todo:
+
+ - Figure out if having smaller and/or fewer canvases helps with performance. Right now the two UI canvases are full screen when they really don't need to be.
+ 
+ - Investigate if 8 seconds is actually a good time to have for each level. Maybe it should change per level? (Probably not).

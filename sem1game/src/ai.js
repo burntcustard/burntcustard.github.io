@@ -180,7 +180,9 @@ function doAI(gameWidth, gameHeight, organism, updateAmount, player) {
       organism.ai.target = randomCoords(9999, 9999);
       organism.ai.targetCounter = 0;
 
-      organism.color = baseOrganism.color || "rgb(255, 255 ,255)";
+      if (!organism.deactivated) {
+        organism.color = baseOrganism.color || "rgb(255, 255 ,255)";
+      }
     
     } else {
     

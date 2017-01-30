@@ -1,5 +1,7 @@
 /*jslint white: true */
 
+
+
 /**
  * Particle constructor. Particles are drawn in relation to their parent,
  * in terms of coordinates and colour.

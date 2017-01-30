@@ -7,9 +7,10 @@
 /**
  * Try to create a WebGL canvas. If WebGL isn't supported, this will return false,
  * and we won't try to do any of the fancy WebGL shader effects when rendering.
- * webGL variable can be set to false before this is run to disable WebGL on slow
+ * WebGL variable can be set to false before this is run to disable WebGL on slow
  * computers or if people want to see what it's like with WebGL off. Although...
  * I haven't actually implemented a way to go from being "on" to "off" yet.
+ * And it doesn't actually improve performance THAT much.
  */
 function addWebGLCanvas() {
   
@@ -52,7 +53,7 @@ function removeWebGlCanvas() {
   
 }
 
-
+var hueCounter = 0;
 
 function renderShader(camera) {
   
@@ -77,6 +78,17 @@ function renderShader(camera) {
   if (settings.dusty.value) {
     glCanvas.noise(Math.random() * (settings.dusty.value / 9) + (settings.dusty.value / 9));
   }
+  
+  /*
+  // Crazy colour testing. In this instance it would be really good to have multiple
+  // canvases, so different things could get their colours messed up. OR, draw some stuff,
+  // apply effect, then draw other stuff that won't have silly colours, then do another glfx render...
+  glCanvas.hueSaturation(hueCounter, 0.5);
+    hueCounter +=0.01;
+  if(hueCounter > 1){
+    hueCounter = -1;
+  }
+  */
   
   // Apply a CRT-like round-bulging-screen effect:
   if (settings.bulge.value) {

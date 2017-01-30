@@ -6,9 +6,9 @@
 // is being completely removed from JSHint in the near future:
 // http://jshint.com/docs/options/
 
-// "variable: true" here indicates that the variable is writable (i.e. NOT read only).
+// "variable: true" indicates that the variable is writable (i.e. NOT read only).
 // TODO: Remove some of these. Too many! Some could be passed as parameters!
-/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings, createParticleBurst, Organism, game, evenFrame: true, deltaTime: true, oldTime: true*/
+/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings, createParticleBurst, Organism, game, evenFrame: true, deltaTime: true, oldTime: true, rotationTo, toRadians*/
 
 
 
@@ -173,9 +173,21 @@ function checkForNoms(organism, player) {
 
         if (player.getCurrentHP() === 0) {
           // You dead. Well not really.
-          //console.log("Trying to devolve");
+          
+          // Try to shrink the player down to what it evolved from:
           player.devolve();
-          changeLevel(game, -1);
+          
+          // If the devolution was successful and the player is now too
+          // small to be on the current level, go back to previous level:
+          if (player.getCurrentHP() > 0 &&
+              game.player.evolveCount < game.currentLevel - 2) {
+            changeLevel(game, -1);
+          }
+          // If the devolution failed and the player still has 0hp:
+          if (player.getCurrentHP() === 0) {
+            // Go back to level 0:
+            changeLevel(game, -game.currentLevel);
+          }
         }
 
       }
@@ -224,6 +236,39 @@ function updateOrganisms(game, updateAmount) {
 
       checkForNoms(organism, game.player);
       
+    }
+    
+    
+    ////////////////////////////////////////////////
+    // LevelUp organism activation & deactivation //
+    ////////////////////////////////////////////////
+    // - This should really only be triggered when the player evolves
+    //   or de-evolves, but it's simpler code wise to do it all here.
+    
+    if (!evenFrame && organism.visible && organism.type === "levelUp") {
+      
+      // If the player's too small (evolution counter is too low):
+      if (game.player.evolveCount < game.currentLevel - 1) {
+        
+        // If the organism hasn't already been deactivated:
+        if (!organism.deactivated) {
+          organism.deactivated = true;
+          organism.color = game.levels[game.currentLevel].lineColor;
+          organism.hpPoints[0].value = 0;
+          //console.log("deactivating levelups");
+        }
+        
+      // If the player's evolved enough to progress (evolution counter high enough):
+      } else {
+        
+        // if the organism was previously deactivated:
+        if (organism.deactivated) {
+          organism.deactivated = false;
+          organism.color = getOrganismProperties(organism.type).color;
+          organism.hpPoints[0].value = 1;
+        }
+        
+      }
     }
       
     for (m = 0; (organism.mouth) && (m < organism.mouth.length); m++) {
@@ -326,16 +371,17 @@ function update(game, tFrame) {
   
   var i,
       updateAmount = deltaTime / (1/60 * 1000),
-      organism;
+      organism,
+      touchWorldPosition;
   
   evenFrame = evenFrame ? false : true;
   
-  // This is a magic line of code which neither JSLint, nor myself understand anymore:
+  // Magic line of code which neither JSLint, nor myself understand anymore:
   if (!(updateAmount > 0) || updateAmount < 1) { updateAmount = 1; }
   
   if (game.touch.active) {
     
-    var touchWorldPosition = {
+    touchWorldPosition = {
       x: game.touch.x + game.camera.x,
       y: game.touch.y + game.camera.y
     };
@@ -368,13 +414,13 @@ function update(game, tFrame) {
     */
     
     // Keyboard input:
-    if (game.keys.indexOf('◀') >= 0) {
+    if (game.keys.indexOf('◀') >= 0 || game.keys.indexOf('a') >= 0) {
       game.player.angularVelocity -= 0.5 * updateAmount;
     }
-    if (game.keys.indexOf('▶') >= 0) {
+    if (game.keys.indexOf('▶') >= 0 || game.keys.indexOf('d') >= 0) {
       game.player.angularVelocity += 0.5 * updateAmount;
     }
-    if (game.keys.indexOf('▲') >= 0) {
+    if (game.keys.indexOf('▲') >= 0 || game.keys.indexOf('w') >= 0) {
       game.player.accelerate(updateAmount);
       game.player.showSpeedLines = true;
     } else {

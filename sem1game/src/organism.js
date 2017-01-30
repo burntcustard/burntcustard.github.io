@@ -1,6 +1,6 @@
 /*jslint plusplus: true, white: true*/
 
-/*global getOrganismProperties*/
+/*global game, getOrganismProperties, unAbs, oppositeTo, rotate, createParticleBurst*/
 
 
 
@@ -81,6 +81,10 @@ var Organism = function (organismType, x, y) {
     }
 
     this.body[j].center = {
+      // JSLint says "weird condition" because of the negative sign.
+      // But it isn't weird. It needs to be opposite-ed. E.g.
+      // If body[j].x is  5, x should be -5.
+      // If body[j].y is -3, y should be  3. Etc.
       x: -organism.body[j].x || 0,
       y: -organism.body[j].y || 0
     };
@@ -451,6 +455,28 @@ Organism.prototype.addHP = function () {
 
 
 /**
+ * Call this on the organism which is going to be the player. It will:
+ *   a) Give the organism the player's color (set here to orange).
+ *   b) Make controls feel more responsive and give the player an advantage by:
+ *      i) Increasing the max rotation speed.
+ *     ii) Increasing the max speed (forwards).
+ *   c) Remove any AI properties that the organism had.
+ */
+Organism.prototype.assignPlayerProperties = function () {
+  
+  "use strict";
+  
+  this.color = "rgb(255, 159, 0)";
+  this.maxAngular *= 2;
+  this.maxSpeed *= 2;
+  delete this.ai;
+  this.evolveCount = this.evolveCount || 0;
+  
+};
+
+
+
+/**
  * Evolve one type of organism into another.
  * TODO: A fancy not at all complicated animation.
  */
@@ -458,12 +484,14 @@ Organism.prototype.evolve = function () {
   
   "use strict";
   
-  var organismType = getOrganismProperties(this.type);
+  var organismType = getOrganismProperties(this.type),
+      newOrganism,
+      i;
   
   // If the organism can evolve into something else:
   if (organismType.evolvesTo) {
 
-    var newOrganism = new Organism(organismType.evolvesTo, this.x, this.y);
+    newOrganism = new Organism(organismType.evolvesTo, this.x, this.y);
     
     // Rotating probably doesn't work, might need to convert to/from radians/degrees
     newOrganism.rotate(this.rotation);
@@ -477,21 +505,30 @@ Organism.prototype.evolve = function () {
     newOrganism.lastAte = this.lastAte;
 
     // Replace the current organisms properties with those from the new (evolved) organism:
-    for (var i in this) {
-      delete this[i];
+    for (i in this) {
+      if (this.hasOwnProperty(i)) {
+        if (this[i] !== this.evolveCount) {
+          delete this[i];
+        }
+      }
     }
-    for (var i in newOrganism) {
-      this[i] = newOrganism[i];
+    for (i in newOrganism) {
+      if (newOrganism.hasOwnProperty(i)) {
+        this[i] = newOrganism[i];
+      }
     }
     
     // Make sure all of the new creature's HP points start at 1:
-    for (var i in this.hpPoints) {
-      this.hpPoints[i].value = 1;
+    for (i in this.hpPoints) {
+      if (this.hpPoints.hasOwnProperty(i)) {
+        this.hpPoints[i].value = 1;
+      }
     }
     
     // Assign player-only properties
     if (this === game.player) {
       this.assignPlayerProperties();
+      this.evolveCount++;
     }
     
     // Fancy particles:
@@ -503,29 +540,25 @@ Organism.prototype.evolve = function () {
 
 
 
-Organism.prototype.assignPlayerProperties = function () {
-  this.color = "rgb(255, 159, 0)";
-  this.maxAngular *= 2;
-  this.maxSpeed *= 2;
-  delete this.ai;
-}
-
-
-
-// Primitive, regress... I don't like these words. So I'm using devolve even though it's
-// not entirely grammatically correct, and is dangerously close to just "evolve".
-// This could almost certainly be combined with the evolve function into
-// something shorter... but possibly not as nice to use as .evolve() and .devolve().
+// Primitive, regress... I don't like these words. So I'm
+// using devolve even though it's not entirely grammatically
+// correct, and is dangerously close to just "evolve".
+//
+// This could almost certainly be combined with the evolve
+// function into something shorter... but possibly not as
+// nice to use as .evolve() and .devolve().
 Organism.prototype.devolve = function () {
   
   "use strict";
   
-  var organismType = getOrganismProperties(this.type);
+  var organismType = getOrganismProperties(this.type),
+      newOrganism,
+      i;
   
   // If the organism can evolve into something else:
   if (organismType.evolvesFrom) {
-
-    var newOrganism = new Organism(organismType.evolvesFrom, this.x, this.y);
+    
+    newOrganism = new Organism(organismType.evolvesFrom, this.x, this.y);
     
     // Rotating probably doesn't work, might need to convert to/from radians/degrees
     newOrganism.rotate(this.rotation);
@@ -539,21 +572,30 @@ Organism.prototype.devolve = function () {
     newOrganism.lastAte = this.lastAte;
 
     // Replace the current organisms properties with those from the new (evolved) organism:
-    for (var i in this) {
-      delete this[i];
+    for (i in this) {
+      if (this.hasOwnProperty(i)) {
+        if (this[i] !== this.evolveCount) {
+          delete this[i];
+        }
+      }
     }
-    for (var i in newOrganism) {
-      this[i] = newOrganism[i];
+    for (i in newOrganism) {
+      if (newOrganism.hasOwnProperty(i)) {
+        this[i] = newOrganism[i];
+      }
     }
     
     // Make sure all of the new creature's HP points start at 1:
-    for (var i in this.hpPoints) {
-      this.hpPoints[i].value = 1;
+    for (i in this.hpPoints) {
+      if (this.hpPoints.hasOwnProperty(i)) {
+        this.hpPoints[i].value = 1;
+      }
     }
     
     // Assign player-only properties
     if (this === game.player) {
       this.assignPlayerProperties();
+      this.evolveCount--;
     }
     
   }

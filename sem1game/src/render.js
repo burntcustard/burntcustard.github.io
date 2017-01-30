@@ -1,6 +1,6 @@
-/*jslint plusplus: true, white: true*/
+/*jslint plusplus: true, white: true, browser: true*/
 
-/*global debug, settings, renderShader*/
+/*global debug, settings, renderShader, drawDebug, debugCounter: true*/
 
 
 
@@ -279,7 +279,7 @@ function renderMapLines(ctx, camera, lineColor) {
     ctx.shadowColor = lineColor;
     ctx.shadowBlur = 9;
   } else {
-    ctx.globalAlpha = 0.5
+    ctx.globalAlpha = 0.5;
   }
   
   ctx.beginPath();
@@ -324,11 +324,16 @@ function renderMapLines(ctx, camera, lineColor) {
 
 
 
-function renderParticles(ctx, particles, camera) {
+function renderParticles(game, ctx, particles, camera, updateAmount) {
   
   "use strict";
   
-  var i, j, particle, xDiff, yDiff, colorAlreadyAdded, coloredParticles = [];
+  var i, j,
+      particle,
+      xPos, yPos,   // Camera x and y coords of particle.
+      xDiff, yDiff, // Diff between particle's coords and it's old coords.
+      colorAlreadyAdded,
+      coloredParticles = [];
   
   // Make color lists, i.e. lists of particles with different colors.
   // Like... a white particle list, an orange particle list, etc.
@@ -359,18 +364,26 @@ function renderParticles(ctx, particles, camera) {
 
       particle = coloredParticles[i].particles[j];
 
+      // Figure out the screen / camera coordinates of the particle:
+      xPos = particle.parent.x + particle.offset.x - game.camera.x;
+      yPos = particle.parent.y + particle.offset.y - game.camera.y;
+      
+      // Get the difference between the particle's current
+      // position, and it's position from the previous update: 
       xDiff = particle.x - particle.xOld;
       yDiff = particle.y - particle.yOld;
 
+      // Draw a line from the particles old position...
       ctx.moveTo(
-        particle.parent.x + particle.offset.x + particle.xOld - game.camera.x,
-        particle.parent.y + particle.offset.y + particle.yOld - game.camera.y
+        xPos + particle.xOld,
+        yPos + particle.yOld
       );
+      // ... to it's new position, + a bit extra to make it the right length:
       ctx.lineTo(
-        particle.parent.x + particle.offset.x + particle.x + xDiff * 2 - game.camera.x,
-        particle.parent.y + particle.offset.y + particle.y + yDiff * 2 - game.camera.y
+        xPos + particle.x + xDiff * 2 / updateAmount,
+        yPos + particle.y + yDiff * 2 / updateAmount
       );
-
+      
     }
     
     ctx.stroke();
@@ -384,6 +397,8 @@ function renderParticles(ctx, particles, camera) {
 function render(tFrame, ctx, game, time, deltaTime) {
   
   "use strict";
+  
+  var updateAmount = deltaTime / (1/60 * 1000);
   
   time = window.performance.now();
   
@@ -413,7 +428,7 @@ function render(tFrame, ctx, game, time, deltaTime) {
   renderOrganisms(ctx, game.levels[game.currentLevel].organisms, game.camera);
 
   // Draw particles
-  renderParticles(ctx, game.levels[game.currentLevel].particles, game.camera);
+  renderParticles(game, ctx, game.levels[game.currentLevel].particles, game.camera, updateAmount);
   
   if (settings.webGL.value) {
     renderShader(game.camera);
