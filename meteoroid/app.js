@@ -88,10 +88,19 @@ function newGame() {
   meteorCanvas.addEventListener("mousedown", function(event) {
     inputStart(event, input);
   });
+  meteorCanvas.addEventListener("touchstart", function(event) {
+    inputStart(event, input);
+  });
   meteorCanvas.addEventListener("mousemove", function(event) {
     inputMove(event, input);
   });
+  meteorCanvas.addEventListener("touchmove", function(event) {
+    inputMove(event, input);
+  });
   meteorCanvas.addEventListener("mouseup", function(event) {
+    inputRelease(event, input);
+  });
+  meteorCanvas.addEventListener("touchend", function(event) {
     inputRelease(event, input);
   });
   
