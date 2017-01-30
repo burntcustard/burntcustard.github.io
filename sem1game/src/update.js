@@ -8,7 +8,7 @@
 
 // "variable: true" indicates that the variable is writable (i.e. NOT read only).
 // TODO: Remove some of these. Too many! Some could be passed as parameters!
-/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings, createParticleBurst, Organism, game, evenFrame: true, deltaTime: true, oldTime: true, rotationTo, toRadians*/
+/*global distanceBetweenAbs, doAI, debug: true, cameraFollow, infiniteCamera, getOrganismProperties, settings, createParticleBurst, Organism, game, evenFrame: true, deltaTime: true, oldTime: true, rotationTo, toRadians, audioBleep*/
 
 
 
@@ -85,6 +85,9 @@ function checkForNoms(organism, player) {
         player.mouth[m].lastAte = 40;
 
         player.moveMouth(-40, m);
+        
+        // Play the test nom sound:
+        audioBleep.play();
 
         switch (organism.type) {
 
@@ -134,7 +137,7 @@ function checkForNoms(organism, player) {
       
     } // Finished going through all organism's HP points.
     
-  } // Finished going through all the player's mouths.
+  } // Finished going through all the player's mouths to see if they've eaten anything.
 
   
   // Do the organism nomming the player's HP second:
@@ -161,7 +164,7 @@ function checkForNoms(organism, player) {
         organism.mouth[m].lastAte = 40;
 
         organism.moveMouth(-40, m);
-
+        
         if (organism.getCurrentHP() < organism.maxHP) {
           organism.addHP();
         }

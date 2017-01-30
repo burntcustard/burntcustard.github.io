@@ -8,8 +8,8 @@
 /**
  * Draw the organisms onto the canvas. TODO: Split into
  * the 3 body/hp/mouths sections, and animate, and look
- * into performance improvements some more :)
- * THIS IS GETTING CRAZY TODO: MAKE LESS CRAZY LONG
+ * into performance improvements some more.
+ * THIS IS GETTING CRAZY. TODO: MAKE LESS CRAZY LONG.
  */
 function renderOrganisms(ctx, organisms, camera) {
   

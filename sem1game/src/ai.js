@@ -4,8 +4,18 @@
 
 
 
-// Player is optional.. so if AI is being run for a background layer
-// then it doesn't do stuff like run from the player.
+
+/**
+ * Do all of the AI for the organisms. E.g. figure out if it should run to or away from the player.
+ * @param {integer} gameWidth    Width of the game world. E.g. 99 indicates a game world of -99 to 99.
+ * @param {integer} gameHeight   Height of the game world.
+ * @param {object}  organism     The organism that's being told what to do.
+ * @param {float}   updateAmount A multiplier to make sure that the AI does the right amount of
+ *                               an action (e.g. turning), based off the time since last update.
+ * @param {object}  player       The human player that the AI might be running to/from etc.
+ *                               This is optional, and without it, the AI won't react to the player,
+ *                               so it's not used on the background (next) level shown underneath.
+ */
 function doAI(gameWidth, gameHeight, organism, updateAmount, player) {
 
   "use strict";

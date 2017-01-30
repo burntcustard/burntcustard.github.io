@@ -2,6 +2,8 @@
 
 /*global canvas: false, glCanvas: true, texture: true, fx, settings: false*/
 
+//var hueCounter = 0; // Unused crazy hue shifting effect variable.
+
 
 
 /**
@@ -53,7 +55,7 @@ function removeWebGlCanvas() {
   
 }
 
-var hueCounter = 0;
+
 
 function renderShader(camera) {
   
@@ -83,6 +85,7 @@ function renderShader(camera) {
   // Crazy colour testing. In this instance it would be really good to have multiple
   // canvases, so different things could get their colours messed up. OR, draw some stuff,
   // apply effect, then draw other stuff that won't have silly colours, then do another glfx render...
+  // To make this work there's a global hueCounter variable at the top of this file that needs uncommenting.
   glCanvas.hueSaturation(hueCounter, 0.5);
     hueCounter +=0.01;
   if(hueCounter > 1){
