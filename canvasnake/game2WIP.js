@@ -1700,7 +1700,7 @@ function init() {
 function shareScore() {
   var twitter = "https://twitter.com/home/?status=";
   //https://twitter.com/share?url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button
-  var tweetScore = "I scored "+localStorage.highScore+" at tiny.cc/canvasnake!";
+  var tweetScore = "I scored "+localStorage.highScore+" at burnt.io/canvasnake!";
   window.open(twitter+tweetScore,"_blank");
 }
 
