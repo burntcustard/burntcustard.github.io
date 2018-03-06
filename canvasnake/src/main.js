@@ -148,7 +148,7 @@ window.canvasnake = function() {
     var qrContainer = document.getElementById("qrCode");
     setTimeout(function() {
         qrContainer.addEventListener ("touchstart", input.touched);
-    }, 2500); // The delay is so that.. I have no fucking idea. Plz send help.
+    }, 999); // The delay is so that.. I have no fucking idea. Plz send help.
 
     // Assign the highscore as whatever is set in the browsers local storage:
     if (!localStorage.highScore) { game.highScore = 0; } else { game.highScore = localStorage.highScore; }
