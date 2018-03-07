@@ -10,7 +10,7 @@ export function updateHighScore(snake, highScores, gameMode, onlyAI) {
     if ((!snake.ai || onlyAI) &&
         (snake.score > highScores[gameMode])) {
         highScores[gameMode] = snake.score;
-        localStorage.setItem("snakeHighScores", JSON.stringify({highScores}));
+        localStorage.setItem("snakeHighScores", JSON.stringify(highScores));
     }
 }
 
@@ -46,8 +46,8 @@ export function update(game) {
         }
     });
 
+    // Game's over. Figure out who won of if it was a draw:
     if (game.state.finalUpdate) {
-        // Figure out who won
         game.results.winner = game.snakes[0];
         for (let snakeI = 1; snakeI < game.snakes.length; snakeI++) {
             if (game.snakes[snakeI].score > game.results.winner.score) {
@@ -58,4 +58,5 @@ export function update(game) {
             }
         }
     }
+
 }

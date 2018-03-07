@@ -7,41 +7,48 @@ import { updateHighScore } from './update.js';
 
 
 
-export function Snake(name, color, speed, ai, controls, direction, coords) {
+/**
+ * Constructs a new snake. See newGame.js for explanation and examples of how to use.
+ */
+export function Snake({
+    name = "Player X",
+    color = "black",
+    direction = 'S',
+    speed = 200,
+    controls,
+    coords,
+    ai
+}) {
+    
+    // Assign the optional parameters that have default values to the snake:
+    Object.assign(this, {name, color, speed, direction});
 
-    // General properties
-    this.name = name || "player X";
+    // If controls were specified then give them to the snake:
+    if (controls) this.controls = controls;
+    
+    // Coordinates for the snake MUST have been specified!
+    this.coords = coords || console.error(
+        "Coordinates must be specified for " + this.name
+    );
+    
+    // Give the snake AI properties if an 'ai' parameter object passed in:
+    if (ai) {
+        let {lazy = false, suicideOnWin = true, avoidance = {}} = ai;
+        Object.assign(ai, {lazy, suicideOnWin, avoidance});
+        let {walls = true, snakes = true, tubes = true} = ai.avoidance;
+        Object.assign(ai.avoidance, {walls, snakes, tubes});
+        this.ai = ai;
+    }
+    
+    this.head = this.coords[0];   // Reference to the head coordinates for easy access.
     this.score = 0;
     this.dead = false;
-    this.controls = controls;
-    this.color = color || "black";
-
-    // Location & movement properties
-    this.speed = speed || 200;
-    this.direction = direction || 'S';  // Defult direction is South.
-    this.newDirection = '';  // If falsey then the snake is going straight.
-    this.coords = coords;    // The coordinates of the head and body segments of the snake.
-    this.head = this.coords[0];   // Reference to the first of the coordinates for easy access.
-
-    // AI-related properties
-    // .ai properties are ones that human players DO NOT have, so
-    // AIs cannot use (cannot "see") .ai properties of other snakes.
-    if (ai) {
-        this.ai = ai || {difficulty: "no AI"};  // Contains avoidance.
-        this.ai.dizzy = false;
-        this.ai.determined = false;
-        this.ai.alone = false;
-        this.hardblocked = {N: false, E: false, S: false, W: false};
-        this.softBlocked = {N: false, E: false, S: false, W: false};
-        this.blocked = this.hardblocked;  // hardBlocked shorthand.
-        // Distance between head & closest food, & it's index:
-        this.foodDistance = {x: 0, y: 0, total: 0, closest: 0};
-        this.centerDistance = {x: 0, y: 0, total: 0};
-        this.movesSinceNommed = 0;
-        this.winning = false;
-        this.extraMoves = 0;
-    }
-
+    this.blocked = {N: false, E: false, S: false, W: false};
+    this.foodDist = {x: 0, y: 0, total: 0, closest: 0};
+    this.centerDistance = {x: 0, y: 0, total: 0};
+    this.movesSinceNommed = 0;
+    this.winning = false;
+    
 }
 
 
@@ -80,7 +87,7 @@ Snake.prototype.updateFoodDistance = function(foods) {
 
     var tmp = {};
 
-    this.foodDistance = {};
+    this.foodDist = {};
 
     foods.forEach((food) => {
 
@@ -90,8 +97,8 @@ Snake.prototype.updateFoodDistance = function(foods) {
         tmp.total = Math.abs(tmp.x) + Math.abs(tmp.y);
 
         // If first food being looked at, or food is closer than previously closest food:
-        if (!this.foodDistance.total || tmp.total < this.foodDistance.total) {
-            this.foodDistance = {
+        if (!this.foodDist.total || tmp.total < this.foodDist.total) {
+            this.foodDist = {
                 x: tmp.x,
                 y: tmp.y,
                 total: tmp.total,

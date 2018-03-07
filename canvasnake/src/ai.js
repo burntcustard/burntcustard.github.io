@@ -5,7 +5,7 @@ import { coinToss } from './lib.js';
 
 
 export function updateAIProperties(snake, game) {
-    
+
     // Check if snake is the last snake alive and if it's winning (higher score)
     snake.ai.alone = true;
     snake.winning = true;
@@ -19,7 +19,7 @@ export function updateAIProperties(snake, game) {
             }
         }
     });
-    
+
     // If the snake hasn't eaten in a long time, it becomes "determined" to get to
     // the food, potentially turning off parts of it's collision avoidance.
     snake.ai.determined = (snake.movesSinceNommed > 100 ? true : false);
@@ -27,7 +27,7 @@ export function updateAIProperties(snake, game) {
     // If the snake hasn't eaten in a VERY long time, it becomes "dizzy" and stops
     // being able to pick a new direction to go in (probably leading to it's death).
     snake.ai.dizzy = (snake.movesSinceNommed > 300 ? true : false);
-    
+
 }
 
 
@@ -84,15 +84,15 @@ function getDirectionTo(currentDirection, targetDistX, targetDistY) {
 
 /**
 * Sets a snakes new direction to tell it to go towards the food whose coordinates are
-* held in snake.foodDistance (probably the closest food).
+* held in snake.foodDist (probably the closest food).
 * @param {Object} snake - The hungry hungry snake.
 */
 function goTowardsFood(snake) {
 
     snake.newDirection = getDirectionTo(
         snake.direction,
-        snake.foodDistance.x,
-        snake.foodDistance.y
+        snake.foodDist.x,
+        snake.foodDist.y
     );
 
 }
@@ -119,7 +119,7 @@ function goTowardsCenter(snake, board) {
 * Used to make a snake "look" around it at one cell to help determine which way to go.
 * Pushes cell it's looked at into the array debugSquares.
 * @param   {Object}  snake - The observant snake.
-* @param   {String}  type  - Check for collisions with "snakes", "walls", or a falsey value meaning both.
+* @param   {String}  type  - Check for collisions with "snake"s, "wall"s, or a falsey value meaning both.
 * @param   {int}     x     - Horizontal offset. E.g. "-1" to indicate 1 cell to the left of snakes head.
 * @param   {int}     y     - Vertical offset.
 * @returns {Boolean} - True if the specified snake & offsets collide with something bad.
@@ -130,11 +130,11 @@ function checkPotentialCollision(snake, target, x, y, game) {
         yCoord = snake.coords[0].y + y;
 
     if (game.settings.debug) {
-        console.log(snake.name + " looking at coords: X:" + xCoord + " Y:" + yCoord);
+        //console.log(snake.name + " looking at coords: X:" + xCoord + " Y:" + yCoord);
         game.debugSquares.push({x: xCoord, y: yCoord});
     }
 
-    if (target === "snakes" || !target) {
+    if (target === "snake" || !target) {
 
         let collidesWithSelf = function() {
             return checkCollision(xCoord, yCoord, snake.coords);
@@ -155,7 +155,7 @@ function checkPotentialCollision(snake, target, x, y, game) {
 
     }
 
-    if (target === "walls" || !target) {
+    if (target === "wall" || !target) {
         if (checkCollision(xCoord, yCoord, game.board)) { return true; }
     }
 
@@ -212,6 +212,54 @@ function detectTube(snake, game) {
 
 
 
+/**
+ * Make the snake look left and right for an obstacle (a target obstacle).
+ *
+ * @param   {object} snake  The snake that's looking around.
+ * @param   {string} target "snakes" or "walls". // TODO: Add food etc?
+ *
+ * @param   {number} x      If x is  1, then East is left and West is right.
+ *                          If x is -1, then West is left and East is right.
+ *                          If x is  0, then we're not looking along the X axis.
+ *
+ * @param   {number} y      If y is  1, then North is left and South is right.
+ *                          If y is -1, then South is left and North is right.
+ *                          If y is  0, then we're not looking along the Y axis.
+ * @param   {object} game   Reference to the game object.
+ *
+ * @returns {object} An object with two booleans indicating if anything
+ *                   was found to the .left and/or .right of the snake.
+ */
+function lookLeftAndRight(snake, target, x, y, game) {
+
+    if (Math.abs(x) + Math.abs(y) > 1) {
+        throw new Error("Can't look left/right on X and Y axis at the same time!");
+    }
+
+    // How far snakes can "see". If x is 0 then we're looking North/South not East/West.
+    var viewDistance = (x === 0 ? game.board.h / 2 : game.board.w / 2);
+
+    // Is there something to the snakes:
+    var left = false,
+        right = false;
+
+    for (var i = 1; i < viewDistance; i++) {
+        if (!left && !right) {
+            left  = checkPotentialCollision(snake, target, -i * x,  i * y, game);
+            right = checkPotentialCollision(snake, target,  i * x, -i * y, game);
+            if (game.settings.debug && (left || right)) {
+                console.log(
+                    snake.name + " found a " + target + " to avoid on the: " + left + "," + right
+                );
+            }
+        }
+    }
+    return {left: left, right: right};
+
+}
+
+
+
 //╔═════════════════╗//
 //║       ██        ║//
 //║       ██  Snake ║//
@@ -223,241 +271,129 @@ function detectTube(snake, game) {
  * the snake, NOT the board). Takes into account:
  *  - snake.ai.avoidance.snakes, if the snake should turn away from itself and other snakes.
  *  - snake.ai.avoidance.walls,  if the snake should turn away from the nearest wall.
+ *
  * Snake avoidance is prioritised, no wall checks are done if a snake has been found to avoid.
  * This reduces the likelyhood of the AI from tangling itself up,
  * because it discourages it from getting too close to obstacles.
  * If nothing is found to avoid, or there is an obstacle an equal distance
  * from the snake on the left and the right, a direction is chosen randomly.
- * @param   {Object}  snake - The claustrophobic snake.
- * @returns {Boolean} - True if the snake should turn right, false if it should turn left.
+ *
+ * A potential concern is that the two 'let' statements create new objects and may get
+ * called multiple times within a game tick. That can't be fun for the garbage collector.
+ *
+ * @param   {Object}  snake The claustrophobic snake.
+ * @param   {Object}  game  Reference to the game object.
+ * @returns {Boolean} True if the snake should turn right, false if it should turn left.
  */
 function shouldGoRight(snake, game) {
 
-    var tmpGoLeft = false,
-        tmpGoRight = false,
-        viewDistance = { x: game.board.w / 2, y: game.board.h / 2 }, // How far snakes can "see".
-        iNS, iNW,
-        iES, iEW, // "iES" is "index East Snake", "iEW" is "index East Wall".
-        iSS, iSW, // Used to loop through the a snakes view distance block by block,
-        iWS, iWW; // looking for either a Snake or Wall to avoid.
+    var shouldGo = { left: false, right: false };
 
-    switch (snake.newDirection || snake.direction) {
+    var directionMap = [
+        {direction: 'N', x:  1, y:  0},
+        {direction: 'E', x:  0, y: -1},
+        {direction: 'S', x: -1, y:  0},
+        {direction: 'W', x:  0, y:  1},
+    ];
 
-        case 'N':
+    directionMap.forEach(map => {
+        if ((snake.newDirection || snake.direction) === map.direction) {
             if (snake.ai.avoidance.snakes) {
-                for (iNS = 1; iNS < viewDistance.x; iNS++) { // "iNS" is index North Snake
-                    if (!tmpGoRight && !tmpGoLeft) {
-                        tmpGoLeft  = checkPotentialCollision(snake, "snakes",  iNS, 0, game); // Go left if something found on right (+x coord)
-                        tmpGoRight = checkPotentialCollision(snake, "snakes", -iNS, 0, game); // Go right if something found on left (-x coord)
-                        if (game.settings.debug && (tmpGoRight || tmpGoLeft)) {
-                            console.log("Found snake to avoid, go: " + tmpGoLeft + "," + tmpGoRight);
-                        }
-                }
+                let snakeOnThe = lookLeftAndRight(snake, "snake", map.x, map.y, game);
+                // Should go left if there's a snake on the right,
+                // and should go right if there's a snake on the left:
+                shouldGo = { left: snakeOnThe.right, right: snakeOnThe.left };
+            }
+            // Only check for walls if no snakes have been found to avoid:
+            if (snake.ai.avoidance.walls && !shouldGo.left && !shouldGo.right) {
+                let wallOnThe = lookLeftAndRight(snake, "wall", map.x, map.y, game);
+                shouldGo = { left: wallOnThe.right, right: wallOnThe.left };
             }
         }
-        if (snake.ai.avoidance.walls) {
-            for (iNW = 1; iNW < viewDistance.x; iNW++) { // "iNW" is index North Wall
-                if (!tmpGoRight && !tmpGoLeft) { // Only do this if no snakes have been found to avoid!
-                    tmpGoLeft  = checkPotentialCollision(snake, "walls",  iNW, 0, game);
-                    tmpGoRight = checkPotentialCollision(snake, "walls", -iNW, 0, game);
-                    if (game.settings.debug && (tmpGoRight || tmpGoLeft)) {
-                        console.log("Found wall to avoid, go: " + tmpGoLeft + "," + tmpGoRight);
-                    }
-                }
-            }
-        }
-      break;
+    });
 
-      case 'E': {
-        if (snake.ai.avoidance.snakes) {
-          for (iES = 1; iES < viewDistance.y; iES++) {
-            if (!tmpGoRight && !tmpGoLeft) {
-              tmpGoLeft  = checkPotentialCollision(snake, "snakes", 0,  iES, game); // Go left if something found on right (+x coord)
-              tmpGoRight = checkPotentialCollision(snake, "snakes", 0, -iES, game); // Go right if something found on left (-x coord)
-              if (game.settings.debug && (tmpGoRight || tmpGoLeft)) { console.log("Found snake to avoid, go: " + tmpGoLeft + "," + tmpGoRight); }
-            }
-          }
-        }
-        if (snake.ai.avoidance.walls) {
-          for (iEW = 1; iEW < viewDistance.y; iEW++) {
-            if (!tmpGoRight && !tmpGoLeft) { // Only do this if no snakes have been found to avoid!
-              tmpGoLeft  = checkPotentialCollision(snake, "walls", 0,  iEW, game);
-              tmpGoRight = checkPotentialCollision(snake, "walls", 0, -iEW, game);
-              if (game.settings.debug && (tmpGoRight || tmpGoLeft)) { console.log("Found wall to avoid, go: " + tmpGoLeft + "," + tmpGoRight); }
-            }
-          }
-        }
-      } break;
-      case 'S': {
-        if (snake.ai.avoidance.snakes) {
-          for (iSS = 1; iSS < viewDistance.x; iSS++) {
-            if (!tmpGoRight && !tmpGoLeft) {
-              tmpGoLeft  = checkPotentialCollision(snake, "snakes", -iSS, 0, game); // Go left if something found on right (+x coord)
-              tmpGoRight = checkPotentialCollision(snake, "snakes",  iSS, 0, game); // Go right if something found on left (-x coord)
-              if (game.settings.debug && (tmpGoRight || tmpGoLeft)) { console.log("Found snake to avoid, go: " + tmpGoLeft + "," + tmpGoRight); }
-            }
-          }
-        }
-        if (snake.ai.avoidance.walls) {
-          for (iSW = 1; iSW < viewDistance.x; iSW++) {
-            if (!tmpGoRight && !tmpGoLeft) { // Only do this if no snakes have been found to avoid!
-              tmpGoLeft  = checkPotentialCollision(snake, "walls", -iSW, 0, game);
-              tmpGoRight = checkPotentialCollision(snake, "walls",  iSW, 0, game);
-              if (game.settings.debug && (tmpGoRight || tmpGoLeft)) { console.log("Found wall to avoid, go: " + tmpGoLeft + "," + tmpGoRight); }
-            }
-          }
-        }
-      } break;
-      case 'W': {
-        if (snake.ai.avoidance.snakes) {
-          for (iWS = 1; iWS < viewDistance.y; iWS++) {
-            if (!tmpGoRight && !tmpGoLeft) {
-              tmpGoLeft  = checkPotentialCollision(snake, "snakes", 0, -iWS, game); // Go left if something found on right (+x coord)
-              tmpGoRight = checkPotentialCollision(snake, "snakes", 0,  iWS, game); // Go right if something found on left (-x coord)
-              if (game.settings.debug && (tmpGoRight || tmpGoLeft)) { console.log("Found snake to avoid, go: " + tmpGoLeft + "," + tmpGoRight); }
-            }
-          }
-        }
-        if (snake.ai.avoidance.walls) {
-          for (iWW = 1; iWW < viewDistance.y; iWW++) {
-            if (!tmpGoRight && !tmpGoLeft) { // Only do this if no snakes have been found to avoid!
-              tmpGoLeft  = checkPotentialCollision(snake, "walls", 0, -iWW, game);
-              tmpGoRight = checkPotentialCollision(snake, "walls", 0,  iWW, game);
-              if (game.settings.debug && (tmpGoRight || tmpGoLeft)) { console.log("Found wall to avoid, go: " + tmpGoLeft + "," + tmpGoRight); }
-            }
-          }
-        }
-      } break;
-    }
-
-    // Return true if going right is needed, false if left, else randomly turn right or left:
-    if (tmpGoRight && !tmpGoLeft) { return true; }
-    if (!tmpGoRight && tmpGoLeft) { return false; }
+    // Return true if going right is needed, false if left, otherwise randomly decide:
+    if (!shouldGo.left && shouldGo.right) { return true; }
+    if (!shouldGo.right && shouldGo.left) { return false; }
     return coinToss;
 
-  }
+}
 
 
 
 function avoidDirection(snake, avoid, game) {
 
-    var goRight;
+    function ifNotBlockedGo(direction) {
+        if (!snake.blocked[direction]) {
+            snake.newDirection = direction;
+        }
+    }
+
+    var tryToGoRight;
 
     if (!snake.ai.determined) {
-        goRight = shouldGoRight(snake, game);
+        tryToGoRight = shouldGoRight(snake, game);
     } else {
-        goRight = coinToss();
+        tryToGoRight = coinToss();
     }
 
-    if (avoid === 'N') {
-        if (goRight) {
-            if (!snake.blocked.W) { snake.newDirection = 'W'; }
-            if (!snake.blocked.S) { snake.newDirection = 'S'; }
-            if (!snake.blocked.E) { snake.newDirection = 'E'; } // <-- Preferred direction
-        } else {
-            if (!snake.blocked.E) { snake.newDirection = 'E'; }
-            if (!snake.blocked.S) { snake.newDirection = 'S'; }
-            if (!snake.blocked.W) { snake.newDirection = 'W'; }
+    var avoidMap = [
+        { avoiding: 'N', priority: ['W', 'S', 'E'] },
+        { avoiding: 'E', priority: ['N', 'W', 'S'] },
+        { avoiding: 'S', priority: ['E', 'N', 'W'] },
+        { avoiding: 'W', priority: ['S', 'E', 'N'] },
+    ];
+
+    avoidMap.forEach(direction => {
+        if (direction.avoiding === avoid) {
+            if (tryToGoRight) {
+                ifNotBlockedGo(direction.priority[0]);  // Attempt no.1 is least priority.
+                ifNotBlockedGo(direction.priority[1]);  // Attempt no.2 overwrites previous.
+                ifNotBlockedGo(direction.priority[2]);  // Attempt no.3 is preferred direction.
+            } else {
+                ifNotBlockedGo(direction.priority[2]);
+                ifNotBlockedGo(direction.priority[1]);
+                ifNotBlockedGo(direction.priority[0]);
+            }
+            if (game.settings.debug) {
+                console.log(snake.name + " avoiding " + direction.avoiding + ", switched to: " + snake.newDirection);
+            }
         }
-        if (game.settings.debug) { console.log(snake.name + " avoiding N, switched to: " + snake.newDirection); }
-    }
-    if (avoid === 'E') {
-        if (goRight) {
-            if (!snake.blocked.N) { snake.newDirection = 'N'; }
-            if (!snake.blocked.W) { snake.newDirection = 'W'; }
-            if (!snake.blocked.S) { snake.newDirection = 'S'; }
-        } else {
-            if (!snake.blocked.S) { snake.newDirection = 'S'; }
-            if (!snake.blocked.W) { snake.newDirection = 'W'; }
-            if (!snake.blocked.N) { snake.newDirection = 'N'; }
-        }
-        if (game.settings.debug) { console.log(snake.name + " avoiding E, switched to: " + snake.newDirection); }
-    }
-    if (avoid === 'S') {
-        if (goRight) {
-            if (!snake.blocked.E) { snake.newDirection = 'E'; }
-            if (!snake.blocked.N) { snake.newDirection = 'N'; }
-            if (!snake.blocked.W) { snake.newDirection = 'W'; }
-        } else {
-            if (!snake.blocked.W) { snake.newDirection = 'W'; }
-            if (!snake.blocked.N) { snake.newDirection = 'N'; }
-            if (!snake.blocked.E) { snake.newDirection = 'E'; }
-        }
-        if (game.settings.debug) { console.log(snake.name + " avoiding S, switched to: " + snake.newDirection); }
-    }
-    if (avoid === 'W') {
-        if (goRight) {
-            if (!snake.blocked.S) { snake.newDirection = 'S'; }
-            if (!snake.blocked.E) { snake.newDirection = 'E'; }
-            if (!snake.blocked.N) { snake.newDirection = 'N'; }
-        } else {
-            if (!snake.blocked.N) { snake.newDirection = 'N'; }
-            if (!snake.blocked.E) { snake.newDirection = 'E'; }
-            if (!snake.blocked.S) { snake.newDirection = 'S'; }
-        }
-        if (game.settings.debug) { console.log(snake.name + " avoiding W, switched to: " + snake.newDirection); }
-    }
+    });
 
 }
 
 
 
 /**
- * Returns true if snakeA's head is closer to snakeA's closest food, than
- * snakeB's head to snakeB's closest food, otherwise returns false.
- * @param   {object}   snakeA Snake
- * @param   {object}   snakeB Snake
- * @returns {boolean}
- */
-function closerToFood(snakeA, snakeB) {
-    return snakeA.foodDistance.total < snakeB.foodDistance.total;
-}
-
-
-
-function anyOtherSnakes(snakes, query, snake) {
-
-    for (var i = 0; i < snakes.length-1; i++) {
-        if (snakes[i] !== snake) {
-            return query(snakes[i], snake);
-        }
-    }
-
-}
-
-
-
-/**
-  * Determines a new direction for the AI to turn ('N','E','S','W'),
-  * and sets it as the snake's newDirection property.
+  * Potentially determines a new direction for the AI to turn ('N','E','S','W').
+  * If there is a new direction, it sets it as the snake's newDirection property.
   */
 export function chooseDirection(snake, game) {
 
-    if (!snake.ai.lazy) {
+    function anyOtherSnake(query) {
+        for (var i = 0; i < game.snakes.length-1; i++) {
+            if (game.snakes[i] !== snake) {
+                return query(game.snakes[i], snake);
+            }
+        }
+    }
 
+    if (!snake.ai.lazy) {
         goTowardsFood(snake);
 
     } else {
 
-        let cba = false;
+        // A lazy snake Can't Be Arsed (cba=true) to go to food if another snake is closer.
+        // Lazy ai goes towards the center (+ shape) of the map if it cba to go for food.
+        snake.ai.cba = anyOtherSnake((other, self) => other.foodDist.total < self.foodDist.total);
 
-        // A lazy snake Can't Be Arsed (cba=true) to go to food if other snake/s are closer.
-        // Lazy ai goes towards the center (+ shape) of the map if other snakes are closer to food.
-
-        // Check if other snakes heads are closer to food than this snake:
-        if (anyOtherSnakes(game.snakes, closerToFood, snake)) {
-            cba = true;
-        }
-
-        if (!cba || snake.ai.alone || game.foodArray.length > 1) {
-            // This snake is closer than all other alive snakes to
-            // single food, or there's more than 1 food, go get!
+        if (!snake.ai.cba || snake.ai.alone || game.foodArray.length > 1) {
             if (game.settings.debug) {
                 console.log(snake.name + " is NOT being lazy, and is going for food");
             }
             goTowardsFood(snake);
         } else {
-            // This snake is further away from food, just go towards middle of board.
             if (game.settings.debug) {
                 console.log(snake.name + " cba, and is just going to center");
             }
@@ -471,13 +407,13 @@ export function chooseDirection(snake, game) {
         // Check if you gonna crash and avoid it. Uses the snakes current direction
         // if there is no new direction (i.e. if newDirection is falsey).
         switch (snake.newDirection || snake.direction) {
-            case 'N': if (snake.blocked.N) { avoidDirection(snake, 'N', game); } break;
-            case 'E': if (snake.blocked.E) { avoidDirection(snake, 'E', game); } break;
-            case 'S': if (snake.blocked.S) { avoidDirection(snake, 'S', game); } break;
-            case 'W': if (snake.blocked.W) { avoidDirection(snake, 'W', game); } break;
+            case 'N': if (snake.blocked.N) avoidDirection(snake, 'N', game); break;
+            case 'E': if (snake.blocked.E) avoidDirection(snake, 'E', game); break;
+            case 'S': if (snake.blocked.S) avoidDirection(snake, 'S', game); break;
+            case 'W': if (snake.blocked.W) avoidDirection(snake, 'W', game); break;
         }
 
-        // Check if you gonna go into a tube
+        // Check if the snake is gonna go into a tube
         if (snake.ai.avoidance.tubes && !snake.ai.determined) {
             if (detectTube(snake, game)) {
                 avoidDirection(snake, snake.newDirection, game);

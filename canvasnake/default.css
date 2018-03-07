@@ -358,8 +358,8 @@ small {
     width: 380px;
     background-color: white;
     color: black;
-    line-height: 14px;
-    padding: 9px 0 0 0;
+    line-height: calc(var(--text-size-small) + 2px);
+    padding: 12px 0 0 0;
 }
 
 .bottom.slider.large a {
@@ -367,11 +367,11 @@ small {
 }
 
 .bottom.slider.large p {
-    padding: 4px;
+    padding: 5px;
 }
 
 .bottom.slider.large .button {
-    padding-bottom: 9px;
+    padding-bottom: 11px;
 }
 
 .bottom.slider.large .button:hover {

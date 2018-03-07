@@ -44,23 +44,23 @@ function shareScore() {
 
 
 function clearHighScores() {
-    
+
     var game = window.game;
-    
+
     if (game.highScores) {
         game.highScores = {};
     }
-    
+
     if (game.settings.gameMode) {
         game.highScores[game.settings.gameMode] = 0;
     }
-    
+
     if (game.ui && game.ui.clear) {
         game.ui.drawScores(
             game.ui,
             game.snakes,
             0,
-            game.settings.onlyAI
+            game.state.onlyAI
         );
         if (game.state.gameOver === true) {
             game.ui.drawEndScreen(
@@ -70,7 +70,7 @@ function clearHighScores() {
             );
         }
     }
-    
+
     localStorage.setItem("snakeHighScores", JSON.stringify(game.highScores));
 }
 

@@ -107,31 +107,31 @@ window.canvasnake = function() {
                 render(game);
                 game.step = false;
             }
-            
+
             // We need to render at least once even if not updating
             if (game.state.paused && game.state.firstTurn) {
                 render(game);
             }
 
+            // It's no longer the first turn:
             if (game.state.firstTurn) game.state.firstTurn = false;
 
             if (game.state.gameOver && game.settings.autoRepeat === true) {
                 newGame(game);
             }
 
-            // Set game speed (will be different only if you ate something, but not worth if-ing)
+            // Set game speed (will be different only if food was eaten)
             game.updateInterval = 0;
             game.snakes.forEach(snake => {
                 game.updateInterval += snake.speed;
             });
-            game.updateInterval = (game.updateInterval / game.snakes.length);
+            game.updateInterval /= game.snakes.length;
             clearInterval(game.gameLoop);
             game.gameLoop = setInterval(game.mainLoopFunc, game.updateInterval);
 
         }
     };
-
-    window.game = game;
+    
     game.state.running = true;
 
     // Check if the canvas' size is set correctly:
@@ -149,9 +149,6 @@ window.canvasnake = function() {
     setTimeout(function() {
         qrContainer.addEventListener ("touchstart", input.touched);
     }, 999); // The delay is so that.. I have no fucking idea. Plz send help.
-
-    // Assign the highscore as whatever is set in the browsers local storage:
-    if (!localStorage.highScore) { game.highScore = 0; } else { game.highScore = localStorage.highScore; }
 
     // Start a new game!
     newGame(game);
