@@ -262,7 +262,37 @@ function convertText(text) {
                 lines[3] += '   █ ';
                 break;
             case ' ':
+                lines[1] += '   ';
+                lines[2] += '   ';
+                lines[3] += '   ';
+                break;
+            case '!':
+                lines[1] += ' █ ';
+                lines[2] += ' █ ';
+                lines[3] += ' ▄ ';
+                break;
+            case '.':
+                lines[1] += ' ';
+                lines[2] += ' ';
+                lines[3] += '▄';
+                break;
+            case '+':
                 lines[1] += '     ';
+                lines[2] += ' ▄█▄ ';
+                lines[3] += '  ▀  ';
+                break;
+            case '-':
+                lines[1] += '     ';
+                lines[2] += ' ▄▄▄ ';
+                lines[3] += '     ';
+                break;
+            case '_':
+                lines[1] += '     ';
+                lines[2] += '     ';
+                lines[3] += ' ▄▄▄ ';
+                break;
+            case '^':
+                lines[1] += ' ▄▀▄ ';
                 lines[2] += '     ';
                 lines[3] += '     ';
                 break;
@@ -516,10 +546,10 @@ function color(colorInput) {
 
 function enter(text) {
     // handle help messages and stuff
-    if (text.charAt(0) === '-') {
+    if (text.charAt(0) === '/') {
 
         // Command is the text input without the command symbol & before the 1st space character:
-        var command = text.replace('-', '').split(' ');
+        var command = text.replace('/', '').split(' ');
 
         // Is the command one of these?
         switch (command[0].toUpperCase()) {
@@ -575,7 +605,7 @@ function enter(text) {
     }
 
     // Check if the text input is too long:
-    if (text !== '' && text.charAt(0) !== '-') {
+    if (text !== '' && text.charAt(0) !== '/') {
         if (text.length <= 16) {
             convertText(text);
         } else {
@@ -583,7 +613,7 @@ function enter(text) {
         }
     }
 
-    text = text.replace('-', '');
+    text = text.replace('/', '');
 }
 
 
@@ -597,7 +627,6 @@ document.onkeypress = function (key) {
         var text = textBox.value, // Text is all the text in text area.
             newText = text.replace(oldText, ''); // New text is all the text minus old text.
         newText = newText.replace(/(\r\n|\n|\r)/gm, ''); // Remove newlines.
-        newText = newText.replace('/', '-'); // Replace useful special chars with -.
         //newText = newText.replace(/[^A-Z a-z 0-9 # ( ) , -]+/g, ''); // Remove any useless chars.
         oldText = text;
         enter(newText);
