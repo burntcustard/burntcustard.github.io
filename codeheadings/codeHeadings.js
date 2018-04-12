@@ -414,12 +414,14 @@ function save() {
 
 
 function isNone(string) {
-    console.log(string);
-    switch (string) {
-        case 'none':
-        case 'undefined':
-        case 'reset':
-        case 'false': return true;
+    if (typeof string !== 'string') {
+        return false;
+    }
+    switch (string.toUpperCase()) {
+        case 'NONE':
+        case 'UNDEFINED':
+        case 'RESET':
+        case 'FALSE': return true;
         default: return false;
     }
 }
@@ -488,7 +490,6 @@ function toggleBorder(borderStr) {
 
     if (!newBorderStyle) {
         borderStyleIndex = borderStyles.indexOf(borderStyle);
-        console.log("Border beep, index: " + borderStyleIndex);
         if (++borderStyleIndex === borderStyles.length) {
             borderStyleIndex = 0;
         }
