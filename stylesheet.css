@@ -13,33 +13,47 @@ body {
 header {
     background-color: #fff;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     flex-shrink: 0;  /* WTF Chrome */
     box-shadow: 0 0 8px black;
-    transition: 0.3s height;
+    transition: all 0.3s;
 }
 
 header.collapsed {
-    height: auto;
+    min-height: 20px;
+    max-height: 140px;
     flex-direction: row;
 }
 
 h1 {
+    --h1-font-size-s: 32px;
+    --h1-font-size-m: 40px;
+    --h1-font-size-l: 96px;
     font-family: 'Righteous', sans-serif;
     font-weight: 400;
-    font-size: 96px;
+    font-size: var(--h1-font-size-l);
     color: #fc1;
     margin: 4px 10px;
-    transition: all 0.3s;
     cursor: default;
+    transition: all 0.3s;
+}
+
+
+@media (max-width: 400px) {
+
+    h1 {
+        font-size: var(--h1-font-size-m);
+    }
+
 }
 
 header.collapsed > h1 {
-    font-size: 32px;
+    font-size: var(--h1-font-size-s);
 }
 
 header.collapsed > h1:hover {
@@ -58,6 +72,7 @@ header.collapsed > h1:hover {
     }
 
     header.collapsed > h1 {
+        font-size: var(--h1-font-size-m);
         margin: 8px 0 0 0;
     }
 
@@ -152,7 +167,8 @@ nav > a:active {
     padding: 7px;
     border-radius: 6px;
     border: 1px solid #333;
-    width: calc(100% - 16px);
+    /* width: 100% - padding*2 - border*2 - 1 */
+    width: calc(100% - 17px);
 }
 
 .category .item img.logo {
