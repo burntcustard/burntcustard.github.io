@@ -58,12 +58,7 @@ header.collapsed > h1:hover {
     }
 
     header.collapsed > h1 {
-        margin: 15px 0 0 0;
-        font-size: 38px;
-    }
-
-    .category {
-        margin: 0;
+        margin: 8px 0 0 0;
     }
 
 }
@@ -132,7 +127,7 @@ nav > a:active {
 
 .category {
     display: none;
-    padding: 25px;
+    padding: 25px 0;
 }
 
 .category.visible {
@@ -157,7 +152,7 @@ nav > a:active {
     padding: 7px;
     border-radius: 6px;
     border: 1px solid #333;
-    width: 100%;
+    width: calc(100% - 16px);
 }
 
 .category .item img.logo {
