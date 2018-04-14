@@ -5,9 +5,11 @@ body {
     width: 100%;
     height: 100vh;
     margin: 0;
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
     display: flex;
     flex-direction: column;
+    min-width: 310px;
 }
 
 header {
@@ -32,7 +34,7 @@ header.collapsed {
 
 h1 {
     --h1-font-size-s: 32px;
-    --h1-font-size-m: 40px;
+    --h1-font-size-m: 54px;
     --h1-font-size-l: 96px;
     font-family: 'Righteous', sans-serif;
     font-weight: 400;
@@ -43,15 +45,6 @@ h1 {
     transition: all 0.3s;
 }
 
-
-@media (max-width: 400px) {
-
-    h1 {
-        font-size: var(--h1-font-size-m);
-    }
-
-}
-
 header.collapsed > h1 {
     font-size: var(--h1-font-size-s);
 }
@@ -59,23 +52,6 @@ header.collapsed > h1 {
 header.collapsed > h1:hover {
     cursor: pointer;
     transform: rotate(-4deg);
-}
-
-@media (max-width: 400px) {
-
-    header.collapsed {
-        flex-direction: column;
-    }
-
-    header.collapsed > nav > a {
-        flex: 0 0 25%;
-    }
-
-    header.collapsed > h1 {
-        font-size: var(--h1-font-size-m);
-        margin: 8px 0 0 0;
-    }
-
 }
 
 #websiteDesc {
@@ -99,11 +75,12 @@ header.collapsed > h1:hover {
 }
 
 nav {
-    margin: 4px;
-    padding: 0 3px;
+    margin: 6px;
+    margin-bottom: 5px;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+    padding-right: 8px;
     transition: 0.3s all;
 }
 
@@ -184,11 +161,11 @@ nav > a:active {
     padding: 6px;
 }
 
-.category .item h2 {
+h2 {
     font-family: 'Righteous', sans-serif;
     text-transform: uppercase;
     color: #eee;
-    margin: 8px;
+    margin: 8px 0;
 }
 
 .category p {
@@ -222,7 +199,9 @@ nav > a:active {
 }
 
 .category .item a.logo-title-button {
-    display: inline-block;
+    display: inline-flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 /* Paragraph after the logo-title-button */
@@ -246,4 +225,39 @@ nav > a:active {
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+@media (max-width: 400px) {
+
+    body {
+        overflow-y: auto;
+    }
+
+    #contentCont {
+        overflow-y: visible;
+    }
+
+    nav {
+        padding-right: 0;
+    }
+
+    h1 {
+        font-size: var(--h1-font-size-m);
+    }
+
+    header.collapsed {
+        flex-direction: column;
+        max-height: 200px;
+        padding-bottom: 3px;
+    }
+
+    header.collapsed > nav > a {
+        flex: 0 0 25%;
+    }
+
+    header.collapsed > h1 {
+        font-size: var(--h1-font-size-m);
+        margin: 8px 0 0 0;
+    }
+
 }
