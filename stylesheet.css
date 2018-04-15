@@ -9,7 +9,6 @@ body {
     overflow-x: auto;
     display: flex;
     flex-direction: column;
-    min-width: 310px;
 }
 
 header {
@@ -161,7 +160,7 @@ nav > a:active {
     padding: 6px;
 }
 
-h2 {
+.category .item h2 {
     font-family: 'Righteous', sans-serif;
     text-transform: uppercase;
     color: #eee;
