@@ -5,6 +5,7 @@
 
 import newGame from './newGame.js';
 import { toggleDebug, reScale } from './view.js';
+import { downloadCSV } from './ai/export.js';
 
 
 
@@ -87,6 +88,8 @@ export function get(game, document, canvas) {
             case  82: input = "R";     break;
             case 219: input = "[";     break;
             case 221: input = "]";     break;
+            case  72: input = "H";     break;
+            case  67: input = "C";     break;
 
         }
 
@@ -120,7 +123,9 @@ function handleInput(input, game) {
         case "4" : selectGameMode("Three player");        break;
         case "5" : selectGameMode("AI vs AI");            break;
         case "6" : selectGameMode("Crazy AI");            break;
-        case "7" : selectGameMode("Custom");              break;
+        case "7" : selectGameMode("Neuroevolution AI");   break;
+        case "8" : selectGameMode("Old AI vs New AI");    break;
+        case "9" : selectGameMode("Neuroevolution AI 2"); break;
 
         // Other
         case "SPACE" : newGame(game); break;
@@ -130,6 +135,8 @@ function handleInput(input, game) {
         case "R"     : toggleAutoRepeat(); break;
         case "]"     : game.settings.ssaa.increment(); break;
         case "["     : game.settings.ssaa.decrement(); break;
+        case "H"     : game.settings.skipRender = !game.settings.skipRender; break;
+        case "C"     : downloadCSV(); break;
 
     }
 

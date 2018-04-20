@@ -196,6 +196,11 @@ function selectGameMode(gameMode) {
     // Highlight the newly selected UI option (if there is one)
     if (selected) selected.classList.add("selected");
 
+    // Turn auto-repeat off if it was on:
+    if (window.game.settings.autoRepeat) {
+        window.game.settings.autoRepeat = false;
+    }
+
     setGameMode(gameModeStr);
 
 }

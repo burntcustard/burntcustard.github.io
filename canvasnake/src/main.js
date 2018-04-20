@@ -104,7 +104,7 @@ window.canvasnake = function() {
 
             if (!game.state.paused || game.step) {
                 update(game);
-                render(game);
+                if (!game.settings.skipRender) render(game);
                 game.step = false;
             }
 
@@ -118,20 +118,22 @@ window.canvasnake = function() {
 
             if (game.state.gameOver && game.settings.autoRepeat === true) {
                 newGame(game);
+            } else {
+                if (game.state.paused) {
+                    game.updateInterval = 100;
+                } else {
+                    game.updateInterval = 0;
+                    game.snakes.forEach(snake => {
+                        game.updateInterval += snake.speed;
+                    });
+                    game.updateInterval /= game.snakes.length;
+                }
+                clearInterval(game.gameLoop);
+                game.gameLoop = setInterval(game.mainLoopFunc, game.updateInterval);
             }
-
-            // Set game speed (will be different only if food was eaten)
-            game.updateInterval = 0;
-            game.snakes.forEach(snake => {
-                game.updateInterval += snake.speed;
-            });
-            game.updateInterval /= game.snakes.length;
-            clearInterval(game.gameLoop);
-            game.gameLoop = setInterval(game.mainLoopFunc, game.updateInterval);
-
         }
     };
-    
+
     game.state.running = true;
 
     // Check if the canvas' size is set correctly:

@@ -335,7 +335,9 @@ export function render(game, forceTextRender) {
                 qrContainer.addEventListener   ("touchstart", touched);
             }, 500);
         }
-        drawEndScreen(game.ui, game.snakes, game.results);
+        if (!game.settings.autoRepeat) {
+            drawEndScreen(game.ui, game.snakes, game.results);
+        }
         //updateInterval = 500;
         game.state.gameOver = true; // To make sure text only rendered once after death.
 
@@ -346,6 +348,7 @@ export function render(game, forceTextRender) {
 
       }
 
+      /*
       // Print the snake properties to two big textboxes:
       var snakeInfoLeft = document.getElementById("snakeInfoLeft");
       var snakeInfoRight = document.getElementById("snakeInfoRight");
@@ -357,7 +360,7 @@ export function render(game, forceTextRender) {
               snakeInfoRight.innerHTML = snakeInfo(game.snakes[1], game.state.paused, game.wins);
           }
       }
-
+      */
 }
 
 

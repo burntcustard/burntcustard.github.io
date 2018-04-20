@@ -1,6 +1,8 @@
 
-import { coinToss } from './lib.js';
+import { coinToss } from './lib/misc.js';
 import * as ai from './ai.js';
+import * as oldAI from './ai-old.js';
+import * as newAI from './ai-new.js';
 import { Obstacle } from './collision.js';
 import { check as checkCollision } from './collision.js';
 import { updateHighScore } from './update.js';
@@ -19,36 +21,42 @@ export function Snake({
     coords,
     ai
 }) {
-    
+
     // Assign the optional parameters that have default values to the snake:
     Object.assign(this, {name, color, speed, direction});
 
     // If controls were specified then give them to the snake:
     if (controls) this.controls = controls;
-    
+
     // Coordinates for the snake MUST have been specified!
     this.coords = coords || console.error(
         "Coordinates must be specified for " + this.name
     );
-    
+
     // Give the snake AI properties if an 'ai' parameter object passed in:
     if (ai) {
-        let {lazy = false, suicideOnWin = true, avoidance = {}} = ai;
-        Object.assign(ai, {lazy, suicideOnWin, avoidance});
-        let {walls = true, snakes = true, tubes = true} = ai.avoidance;
-        Object.assign(ai.avoidance, {walls, snakes, tubes});
+        if (ai.neuralNet) {
+            let {suicideOnWin = true} = ai;
+            Object.assign(ai, {suicideOnWin});
+            //ai.chromosome.roundsPlayed++;
+        } else {
+            let {lazy = false, suicideOnWin = true, avoidance = {}} = ai;
+            Object.assign(ai, {lazy, suicideOnWin, avoidance});
+            let {walls = true, snakes = true, tubes = true} = ai.avoidance;
+            Object.assign(ai.avoidance, {walls, snakes, tubes});
+        }
         this.ai = ai;
     }
-    
-    this.head = this.coords[0];   // Reference to the head coordinates for easy access.
+
+    this.head = this.coords[0]; // Reference to the head coordinates for easy access.
     this.score = 0;
     this.dead = false;
     this.blocked = {N: false, E: false, S: false, W: false};
-    this.foodDist = {x: 0, y: 0, total: 0, closest: 0};
+    this.foodDist = {x: 0, y: 0, total: 0, oldTotal: 0, closest: 0};
     this.centerDistance = {x: 0, y: 0, total: 0};
     this.movesSinceNommed = 0;
     this.winning = false;
-    
+
 }
 
 
@@ -87,7 +95,11 @@ Snake.prototype.updateFoodDistance = function(foods) {
 
     var tmp = {};
 
-    this.foodDist = {};
+    this.foodDist.oldTotal = this.foodDist.total;
+
+    this.foodDist.x = 0;
+    this.foodDist.y = 0;
+    this.foodDist.total = 0;
 
     foods.forEach((food) => {
 
@@ -98,12 +110,10 @@ Snake.prototype.updateFoodDistance = function(foods) {
 
         // If first food being looked at, or food is closer than previously closest food:
         if (!this.foodDist.total || tmp.total < this.foodDist.total) {
-            this.foodDist = {
-                x: tmp.x,
-                y: tmp.y,
-                total: tmp.total,
-                closest: food
-            };
+            this.foodDist.x = tmp.x;
+            this.foodDist.y = tmp.y;
+            this.foodDist.total = tmp.total;
+            this.foodDist.closests = food;
         }
 
     });
@@ -181,7 +191,11 @@ Snake.prototype.update = function(game) {
     // Pick direction for AI controlled snakes
     if ((this.ai && this.ai.dizzy === false) &&
         !(this.ai.alone && this.winning && this.ai.suicideOnWin)) {
-        ai.chooseDirection(this, game);
+        if (this.ai.neuralNet) {
+            newAI.chooseDirection(this, game);
+        } else {
+            oldAI.chooseDirection(this, game);
+        }
     }
 
     // Update which way the snake is going:
