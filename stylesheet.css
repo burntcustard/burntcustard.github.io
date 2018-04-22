@@ -79,7 +79,7 @@ nav {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    padding-right: 8px;
+    padding-right: 12px;
     transition: 0.3s all;
 }
 
@@ -143,8 +143,8 @@ nav > a:active {
     padding: 7px;
     border-radius: 6px;
     border: 1px solid #333;
-    /* width: 100% - padding*2 - border*2 - 1 */
-    width: calc(100% - 17px);
+    /* width: 100% - padding*2 - border*2 - 2px extra */
+    width: calc(100% - 18px);
 }
 
 .category .item img.logo {
