@@ -1,5 +1,6 @@
 
 var textBox = document.getElementById('textBox'),
+    textBoxStyle = window.getComputedStyle(textBox),
     oldText = '',
     c = 0,  // Character index within a message to be (or is being) printed.
     printing = false,
@@ -8,29 +9,29 @@ var textBox = document.getElementById('textBox'),
     commentStyle,
     alt,
 
-    startMessage = 'Enter text to convert to heading.\n' +
+    startMessage = 'Enter text to convert to heading.\n'       +
                    'Use /help for help and options.\n\n',
 
     infoMessage = 'Information\n' +
                   '───────────\n' +
-                  'codeHeadings was made by @burntcustard,\n' +
-                  'because he wanted some fancy headings for\n' +
-                  'his far-too-much-text-in-one-file\n' +
+                  'codeHeadings was made by @burntcustard,\n'  +
+                  'because he wanted some fancy headings\n'    +
+                  'for his far-too-much-text-in-one-file\n'    +
                   'JavaScript projects, and most of the big\n' +
                   'text generators on the interwebs sucked.\n',
 
     helpMessage = 'Commands\n' +
                   '────────\n' +
-                  '/help   : Show this message.\n' +
-                  '/clear  : Clear. Ctrl+a, del works too.\n' +
-                  '/comment: Comment style: // /* or #.\n' +
-                  '/border : Headings with borders.\n' +
-                  '/fast   : Toggle slow typing effect.\n' +
-                  '/alt    : Try this if output is wonky.\n' +
+                  '/help   : Show this message.\n'             +
+                  '/clear  : Clear. Ctrl+a, del works too.\n'  +
+                  '/comment: Comment style: // /* or #.\n'     +
+                  '/border : Headings with borders.\n'         +
+                  '/fast   : Toggle slow typing effect.\n'     +
+                  '/alt    : Try this if output is wonky.\n'   +
                   '/max    : Resize screen to maximum size.\n' +
                   '/min    : Resize screen to minimum size.\n' +
-                  '/color x: Recolor display with color x.\n' +
-                  '/reset  : Reset everything to default.\n' +
+                  '/color x: Recolor display with color x.\n'  +
+                  '/reset  : Reset everything to default.\n'   +
                   '/info   : Information about codeHeadings.\n';
 
 
@@ -67,237 +68,18 @@ function printMessage(text, paragraph) {
 
     printing = true;
     c = 0;
+    // If box isn't empty, do a (another) newline:
     if (textBox.value) {
         textBox.value += '\n';
-    } // If box isn't empty, do a (another) newline.
+    }
     printNextChar(); // Start printing characters.
 }
 
 
 
 function convertText(text) {
-    var lines = ['', '', '', '', ''],
+    var lines = getBigCharString(text),
         codeHeading = '';
-
-    for (c = 0; c < text.length; c++) {
-        switch (text.charAt(c).toUpperCase()) {
-            case 'A':
-                lines[1] += '  ▄▀▄  ';
-                lines[2] += ' █ ▄ █ ';
-                lines[3] += ' █   █ ';
-                break;
-            case 'B':
-                lines[1] += ' █▀▀▄ ';
-                lines[2] += ' █▀▀▄ ';
-                lines[3] += ' █▄▄▀ ';
-                break;
-            case 'C':
-                lines[1] += ' ▄▀▀ ';
-                lines[2] += ' █   ';
-                lines[3] += ' ▀▄▄ ';
-                break;
-            case 'D':
-                lines[1] += ' █▀▀▄ ';
-                lines[2] += ' █  █ ';
-                lines[3] += ' █▄▄▀ ';
-                break;
-            case 'E':
-                lines[1] += ' █▀▀ ';
-                lines[2] += ' █▀▀ ';
-                lines[3] += ' █▄▄ ';
-                break;
-            case 'F':
-                lines[1] += ' █▀▀ ';
-                lines[2] += ' █▄  ';
-                lines[3] += ' █   ';
-                break;
-            case 'G':
-                lines[1] += ' ▄▀▀  ';
-                lines[2] += ' █ ▄▄ ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case 'H':
-                lines[1] += ' █  █ ';
-                lines[2] += ' █▀▀█ ';
-                lines[3] += ' █  █ ';
-                break;
-            case 'I':
-                lines[1] += ' ▀█▀ ';
-                lines[2] += '  █  ';
-                lines[3] += ' ▄█▄ ';
-                break;
-            case 'J':
-                lines[1] += ' ▀▀█ ';
-                lines[2] += '   █ ';
-                lines[3] += ' ▄▄▀ ';
-                break;
-            case 'K':
-                lines[1] += ' █  ▄ ';
-                lines[2] += ' █▄▀  ';
-                lines[3] += ' █ ▀▄ ';
-                break;
-            case 'L':
-                lines[1] += ' █   ';
-                lines[2] += ' █   ';
-                lines[3] += ' █▄▄ ';
-                break;
-            case 'M':
-                lines[1] += ' █▄ ▄█ ';
-                lines[2] += ' █ ▀ █ ';
-                lines[3] += ' █   █ ';
-                break;
-            case 'N':
-                lines[1] += ' █▄  █ ';
-                lines[2] += ' █ ▀▄█ ';
-                lines[3] += ' █  ▀█ ';
-                break;
-            case 'O':
-                lines[1] += ' ▄▀▀▄ ';
-                lines[2] += ' █  █ ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case 'P':
-                lines[1] += ' █▀▄ ';
-                lines[2] += ' █▄▀ ';
-                lines[3] += ' █   ';
-                break;
-            case 'Q':
-                lines[1] += ' ▄▀▀▄ ';
-                lines[2] += ' █  █ ';
-                lines[3] += '  ▀█▄ ';
-                break;
-            case 'R':
-                lines[1] += ' █▀▀▄ ';
-                lines[2] += ' █▄▄▀ ';
-                lines[3] += ' █  █ ';
-                break;
-            case 'S':
-                lines[1] += ' ▄▀▀ ';
-                lines[2] += ' ▀■▄ ';
-                lines[3] += ' ▄▄▀ ';
-                break;
-            case 'T':
-                lines[1] += ' ▀█▀ ';
-                lines[2] += '  █  ';
-                lines[3] += '  █  ';
-                break;
-            case 'U':
-                lines[1] += ' █  █ ';
-                lines[2] += ' █  █ ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case 'V':
-                lines[1] += ' █   █ ';
-                lines[2] += ' █   █ ';
-                lines[3] += '  ▀▄▀  ';
-                break;
-            case 'W':
-                lines[1] += ' █   █ ';
-                lines[2] += ' █ █ █ ';
-                lines[3] += '  █ █  ';
-                break;
-            case 'X':
-                lines[1] += ' ▀▄ ▄▀ ';
-                lines[2] += '   █   ';
-                lines[3] += ' ▄▀ ▀▄ ';
-                break;
-            case 'Y':
-                lines[1] += ' █   █ ';
-                lines[2] += '  ▀▄▀  ';
-                lines[3] += '   █   ';
-                break;
-            case 'Z':
-                lines[1] += ' ▀▀▀█▀ ';
-                lines[2] += '   █   ';
-                lines[3] += ' ▄█▄▄▄ ';
-                break;
-            case '0':
-                lines[1] += ' ▄▀▀▄ ';
-                lines[2] += ' █  █ ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case '1':
-                lines[1] += ' ▄█  ';
-                lines[2] += '  █  ';
-                lines[3] += ' ▄█▄ ';
-                break;
-            case '2':
-                lines[1] += ' ▄▀▀▄ ';
-                lines[2] += '   █  ';
-                lines[3] += ' ▄█▄▄ ';
-                break;
-            case '3':
-                lines[1] += ' ▄▀▀▄ ';
-                lines[2] += '   █  ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case '4':
-                lines[1] += ' ▄    ';
-                lines[2] += ' █ ▄  ';
-                lines[3] += ' ▀▀█▀ ';
-                break;
-            case '5':
-                lines[1] += ' █▀▀▀ ';
-                lines[2] += ' ▀▀▀█ ';
-                lines[3] += ' ▄▄▄▀ ';
-                break;
-            case '6':
-                lines[1] += ' ▄▀▀  ';
-                lines[2] += ' █▀▀▄ ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case '7':
-                lines[1] += ' ▀▀▀█ ';
-                lines[2] += '   █  ';
-                lines[3] += '  █   ';
-                break;
-            case '8':
-                lines[1] += ' ▄▀▀▄ ';
-                lines[2] += ' ▄▀▀▄ ';
-                lines[3] += ' ▀▄▄▀ ';
-                break;
-            case '9':
-                lines[1] += ' ▄▀▄ ';
-                lines[2] += ' ▀▄█ ';
-                lines[3] += '   █ ';
-                break;
-            case ' ':
-                lines[1] += '   ';
-                lines[2] += '   ';
-                lines[3] += '   ';
-                break;
-            case '!':
-                lines[1] += ' █ ';
-                lines[2] += ' █ ';
-                lines[3] += ' ▄ ';
-                break;
-            case '.':
-                lines[1] += ' ';
-                lines[2] += ' ';
-                lines[3] += '▄';
-                break;
-            case '+':
-                lines[1] += '     ';
-                lines[2] += ' ▄█▄ ';
-                lines[3] += '  ▀  ';
-                break;
-            case '-':
-                lines[1] += '     ';
-                lines[2] += ' ▄▄▄ ';
-                lines[3] += '     ';
-                break;
-            case '_':
-                lines[1] += '     ';
-                lines[2] += '     ';
-                lines[3] += ' ▄▄▄ ';
-                break;
-            case '^':
-                lines[1] += ' ▄▀▄ ';
-                lines[2] += '     ';
-                lines[3] += '     ';
-                break;
-        }
-    }
 
     if (borderStyle === 'single' || borderStyle === 'double') {
         // ┌──────┐
@@ -349,10 +131,6 @@ function convertText(text) {
             codeHeading += line + '\n';
         }
     });
-    
-    // Font-width fixing on Android Chrome test.
-    // Replace all spaces with a particular space char;
-    //codeHeading = codeHeading.replace(/ /g, ' ')
 
     // Replace all spaces with "U+3000 - IDEOGRAPHIC SPACE - foo　bar".
     // This is to make the output spaces same width as the block chars.
@@ -362,7 +140,7 @@ function convertText(text) {
 
     printMessage(codeHeading + '\n');
     c = 0;
-    oldText = textBox.value; // Makes it so you can't input the output you just got.
+    oldText = textBox.value; // So you can't input the output you just got.
 }
 
 
@@ -386,10 +164,10 @@ function reset(options) {
     alt = (localStorage.alt === 'true' ? true : false);
 
     textBox.style.padding = '8px';
-    textBox.style.height = localStorage.h || '333px';
-    textBox.style.width = localStorage.w || '444px';
-    textBox.style.minHeight = '333px';
     textBox.style.minWidth = '444px';
+    textBox.style.minHeight = '333px';
+    textBox.style.width = localStorage.w || textBoxStyle.minWidth;
+    textBox.style.height = localStorage.h || textBoxStyle.minHeight;
     textBox.style.opacity = 1;
     textBox.value = '';
 
@@ -410,8 +188,8 @@ function save() {
     localStorage.borderStyle = borderStyle;
     localStorage.fast = JSON.stringify(fast);
     localStorage.alt = JSON.stringify(alt);
-    localStorage.h = (textBox.style.height != 333 ? textBox.style.height : '333px');
-    localStorage.w = (textBox.style.width != 444 ? textBox.style.width : '444px');
+    localStorage.w = textBox.style.width;
+    localStorage.h = textBox.style.height;
     localStorage.color = textBox.style.color;
 }
 
@@ -507,16 +285,16 @@ function toggleBorder(borderStr) {
 
 
 function max() {
-    textBox.style.height = 'calc(100% - 40px)';
-    textBox.style.width = 'calc(100% - 40px)';
+    textBox.style.width = textBoxStyle.maxWidth;
+    textBox.style.height = textBoxStyle.maxHeight;
     printMessage('');
 }
 
 
 
 function min() {
-    textBox.style.height = '333px';
-    textBox.style.width = '444px';
+    textBox.style.width = textBoxStyle.minWidth;
+    textBox.style.height = textBoxStyle.minHeight;
     printMessage('');
     textBox.scrollTop = textBox.scrollHeight; // Scroll to bottom of textarea.
 }
