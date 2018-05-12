@@ -351,8 +351,8 @@ function convertText(text) {
     });
     
     // Font-width fixing on Android Chrome test.
-    // Replace all spaces with &nbsp;
-    codeHeading = codeHeading.replace(/ /g, '\u00a0')
+    // Replace all spaces with a particular space char;
+    codeHeading = codeHeading.replace(/ /g, ' ')
 
     // Replace all spaces with "U+3000 - IDEOGRAPHIC SPACE - foo　bar".
     // This is to make the output spaces same width as the block chars.
