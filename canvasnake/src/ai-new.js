@@ -93,7 +93,7 @@ export function chooseDirection(snake, game) {
     snake.newDirection = relativeToCardinal(snake.direction, newDirection);
 
     // Reward for just staying alive:
-    genome.fitness++;
+    //genome.fitness++;
 
     // Reward for going towards/away from food:
     if (snake.foodDist && snake.foodDist.oldTotal) {

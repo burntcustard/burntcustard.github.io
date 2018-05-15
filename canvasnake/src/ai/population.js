@@ -105,7 +105,7 @@ Population.prototype.updateFitness = function() {
  * @param {number} ratio = settings.cullRatio Ratio of population to cull.
  */
 Population.prototype.cull = function(ratio = settings.cullRatio) {
-    print.fitnessList(this, this.cullNum);
+    //print.fitnessList(this, this.cullNum);
     this.organisms.splice(this.survivorNum);
     this.organisms.forEach(organism => {
         organism.old = true;

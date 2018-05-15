@@ -16,10 +16,11 @@ import { unAbs } from '../lib/misc.js';
 
 export const settings = Object.freeze({
     debug: true,           // Set to false to remove debugging properties.
-    populationSize: 40,    // Number of organisms. Probably has to be even.
-    roundsPerOrganism: 10, // Min number of rounds a snake plays per refresh.
-    topology: [5, 12, 3],  // Number of layers and neurons per layer. ai2: 902.
-    cullRatio: 0.75,       // % of chromosomes to kill at end of round.
-    newWeight: () => unAbs(randomWeightedLow(3)),
-    mutationAmount: () => Math.max(Math.floor(randomWeightedLow() * 9 - 1), 0)
+    populationSize: 100,   // Number of organisms. Probably has to be even.
+    roundsPerOrganism: 1,  // Min number of rounds a snake plays per refresh.
+    topology: [5, 10, 3],  // Number of layers and neurons per layer. ai2: 902.
+    cullRatio: 0.7,        // % of chromosomes to kill at end of round.
+    startWeight:    () => 0,
+    newWeight:      () => unAbs(randomWeightedLow(3)),
+    mutationAmount: () => Math.max(Math.floor(randomWeightedLow(1) * 9 - 1), 0)
 });

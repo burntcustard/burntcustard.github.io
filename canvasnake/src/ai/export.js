@@ -28,24 +28,29 @@ export function downloadCSV() {
  */
 export function update(population) {
     if (!population.csv) {
-        population.csv = [
-            Object.keys(population.settings),
-            // Add population setting values with commas replaced with periods:
-            Object.values(population.settings).map(
-                value => value.toString().replace(/,/g, '.')
-            ),
-            [],
+        population.csv = [];
+        Object.keys(population.settings).forEach(key => {
+            population.csv.push([
+                key,
+                population.settings[key].toString().replace(/,/g, '.')
+            ]);
+        });
+        population.csv.push(["Last-round best:"]);
+        population.csv.push(["Population best:"]);
+        population.csv.push([]);
+        population.csv.push([
             ["generation", "average", "best", "worst", "total", "runTime"]
-        ];
-        population.csv[0].length += 3;
-        population.csv[1].length += 3;
-        population.csv[0][population.csv[0].length-2] = "Last-round best:";
-        population.csv[1][population.csv[1].length-2] = "Population best:";
+        ]);
     }
-    var bestGenomeRecent = encodeGenome(population.bestGenomeCurrent).replace(/#/, 'c:');
-    var bestGenomeEver = encodeGenome(population.bestGenomeEver).replace(/#/, 'c:');
-    population.csv[0][population.csv[0].length-1] = bestGenomeRecent;
-    population.csv[1][population.csv[1].length-1] = bestGenomeEver;
+    var bestGenomeRecent = encodeGenome(
+        population.bestGenomeCurrent
+    ).replace(/#/, 'c:');
+    var bestGenomeEver = encodeGenome(
+        population.bestGenomeEver
+    ).replace(/#/, 'c:');
+    // TODO: Un-number-hardcode these two, get place in array from the two keys.
+    population.csv[8][1] = bestGenomeRecent;
+    population.csv[9][1] = bestGenomeEver;
     population.csv.push([
         population.genCounter,
         population.fitness.avg,

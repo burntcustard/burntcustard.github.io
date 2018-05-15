@@ -69,6 +69,9 @@ export default function newGame(game) {
         break;
 
         case "single player vs ai":
+            let neuralNetAI = new NeuralNet({genome: decodeGenome(
+                "#800080|f:4681|5.12.3|-6DTm-8YwU+67cD-KALn+GclC+6JGO-CBKC+8d_k+4utz-MkZa+2DLQ+FbMl-1gr_+APJF-4tNq-6zVi+FvQz-67kL+6WgH-1RUz+XkSc+4lp9-ChSW+15Ha+5A$k-8zrj-9h0w-2ZjW+DyTP-1Vhe+5o6e-3GWF+F7yk-1k5l-DCQB-GwIe-6cmU-D5$L+6J8M+N4jo-7dAZ-2PIT-2yB8-3n2R+44FP+TBuR-4HiK+49Hy+3roB-7F29+6vG3+PVp0-5Cf5+A6ua-E9TW-CMac-AnWA+1YdV-Nerv+2f5K+53X0+AUfZ+MvHE-Fah$+Mf2z-1K5G-QSGG-0fSi+1amw+16aO+JShj+4l3I-13q8-5Tiw+8cV0+K9Na+6VP3-1R06-II70+B0hZ-9U_c-0Wa4-IFvE+7OAz+5umy+7gLk-0cU4+2Dlx+EKgg-6UnO+4qJP-0E11+AoLL+8qfj-2NIg+9qxo-3VgU+DMMf-PjQV-HJNS+4pVX+0bnX-2iky+3Vn3+3Xsw+4ySU+3jnE-22bc-0Hjp+9Svd+M0kQ+3hG9-52qW+09YB-BzPV-2sdx"
+            )});
             game.snakes = [
                 new Snake({
                     name: "Player 1",
@@ -78,8 +81,8 @@ export default function newGame(game) {
                 }),
                 new Snake({
                     name: "AI",
-                    color: "purple",
-                    ai: {},  // Default AI requires an object but no arguments.
+                    ai: {neuralNet: neuralNetAI},
+                    color: neuralNetAI.genome.color,
                     coords: [{x: 20, y: 7}, {x: 20, y: 6}, {x: 20, y: 5}]
                 })
             ];
@@ -207,7 +210,7 @@ export default function newGame(game) {
             ];
             //*/
 
-            /*// Self-play:
+            /*// Self-play only (rather than vs other neuroevolution snakes):
             game.ai.popIndexB = game.ai.popIndexB || 1;
             if (game.ai.popIndexB > population.size) {
                 game.ai.popIndexB = 1;
