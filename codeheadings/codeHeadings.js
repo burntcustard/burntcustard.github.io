@@ -222,7 +222,7 @@ function changeCommentStyle(style) {
         commentStyle = newCommentStyle;
         printMessage('Comment style: ' + commentStyle + '\n\n');
     } else {
-        printMessage('Bad comment style, use \'//\' \'/*\' \'#\' or \'none\'\n\n');
+        printMessage('Invalid style, use \'//\' \'/*\' \'#\' or \'none\'\n\n');
     }
 }
 
