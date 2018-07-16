@@ -347,7 +347,7 @@ function enter(text) {
                 if (command[1]) {
                     changeCommentStyle(command[1]);
                 } else {
-                    printMessage('Try "/comment" followed by //, /*, #, or none\n\n');
+                    printMessage('Try "/comment" then: //, /*, #, or none\n\n');
                 }
                 break;
             case 'BORDER':
