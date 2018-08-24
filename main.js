@@ -8,11 +8,11 @@ var headerShown = true; // I.e. whether the full screen banner is up
  * element to select. All others are unselected.
  */
 function changeTab(navName) {
-  
+
   var navs = document.getElementById("mainNav");
   var navAnchors = navs.getElementsByTagName("a");
   var categories = document.getElementsByClassName("category");
-  
+
   // Buttons:
   [].forEach.call(navAnchors, function (nav) {
     if (navName === nav.getAttribute("href")) {
@@ -21,7 +21,7 @@ function changeTab(navName) {
       nav.classList.remove("selected");
     }
   });
-  
+
   // Content:
   [].forEach.call(categories, function (cat) {
     if ((navName + "-tab") === cat.id) {
@@ -30,25 +30,23 @@ function changeTab(navName) {
       cat.classList.remove("visible");
     }
   });
-  
+
 }
 
 function toggleHeader() {
-  
+
   var header = document.getElementsByTagName("header")[0];
   var websiteDesc = document.getElementById("websiteDesc");
-  
+
   if (header.classList.contains("collapsed")) {
     changeTab(); // Removes the selections on the tabs
     header.classList.remove("collapsed");
-    websiteDesc.classList.remove("hidden");
     headerShown = true;
   } else {
     header.classList.add("collapsed");
-    websiteDesc.classList.add("hidden");
     headerShown = false;
   }
-  
+
 }
 
 // Detect hash changes in quite a heavy handed way,
@@ -68,13 +66,13 @@ window.addEventListener('popstate', function(event) {
 window.onload = function() {
 
   var websiteName = document.getElementsByTagName("h1")[0];
-  
+
   // If page is loaded with a hash, load the correct tab:
   if (window.location.hash) {
     toggleHeader();
     changeTab(window.location.hash);
   }
-  
+
   websiteName.onclick = function() {
     window.location.hash = '';
   };

@@ -53,7 +53,7 @@ header.collapsed > h1:hover {
     transform: rotate(-4deg);
 }
 
-#websiteDesc {
+header > h2 {
     font-family: 'Rubik', sans-serif;
     color: #555;
     font-size: 18px;
@@ -65,7 +65,7 @@ header.collapsed > h1:hover {
     opacity: 1;
 }
 
-#websiteDesc.hidden {
+header.collapsed > h2 {
     height: 0;
     width: 0;
     opacity: 0;
