@@ -264,7 +264,12 @@ nav > a:active {
     box-shadow: none;
 }
 
-.category .item a.logo-title-button:hover > h2 {
+.category .item a.logo-title-button:focus {
+    outline: none;
+}
+
+.category .item a.logo-title-button:hover > h2,
+.category .item a.logo-title-button:focus > h2 {
     box-shadow:
         0 -2px 0 #eee inset,
         0 1px 0 #111;
