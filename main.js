@@ -38,13 +38,17 @@ function changeTab(navName) {
 function toggleHeader() {
 
   var header = document.getElementsByTagName("header")[0];
+  var title = header.getElementsByTagName("h1")[0];
   var websiteDesc = document.getElementById("websiteDesc");
 
   if (header.classList.contains("collapsed")) {
     changeTab(); // Removes the selections on the tabs
     header.classList.remove("collapsed");
+    title.innerHTML = title.innerHTML.replace("<a href=''>", '');
+    title.innerHTML = title.innerHTML.replace("</a>", '');
     headerShown = true;
   } else {
+    title.innerHTML = "<a href=''>" + title.innerHTML + "</a>"
     header.classList.add("collapsed");
     headerShown = false;
   }
@@ -69,7 +73,7 @@ window.addEventListener('popstate', function(event) {
 
 window.onload = function() {
 
-  var websiteName = document.getElementsByTagName("h1")[0];
+  var title = document.getElementsByTagName("h1")[0];
 
   // If page is loaded with a hash, load the correct tab:
   if (window.location.hash) {
@@ -77,8 +81,10 @@ window.onload = function() {
     changeTab(window.location.hash);
   }
 
-  websiteName.onclick = function() {
-    window.location.hash = '';
+  title.onclick = function() {
+    if (!headerShown) {
+      window.location.hash = '';
+    }
   };
 
   // Scrolling down on homepage goes to first tab
