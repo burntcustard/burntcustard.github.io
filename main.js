@@ -2,6 +2,7 @@
 
 var headerShown = true; // I.e. whether the full screen banner is up
 
+
 /**
  * Changes which "tab" is selected.
  * @param {string} navName The (optional) name of the nav
@@ -33,6 +34,7 @@ function changeTab(navName) {
 
 }
 
+
 function toggleHeader() {
 
   var header = document.getElementsByTagName("header")[0];
@@ -49,6 +51,7 @@ function toggleHeader() {
 
 }
 
+
 // Detect hash changes in quite a heavy handed way,
 // then toggle header and/or change highlighted navigation
 window.addEventListener('popstate', function(event) {
@@ -62,6 +65,7 @@ window.addEventListener('popstate', function(event) {
     changeTab(hash);
   }
 });
+
 
 window.onload = function() {
 
