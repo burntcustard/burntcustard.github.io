@@ -44,11 +44,11 @@ function toggleHeader() {
   if (header.classList.contains("collapsed")) {
     changeTab(); // Removes the selections on the tabs
     header.classList.remove("collapsed");
-    title.innerHTML = title.innerHTML.replace("<a href=''>", '');
+    title.innerHTML = title.innerHTML.replace('<a href="#">', '');
     title.innerHTML = title.innerHTML.replace("</a>", '');
     headerShown = true;
   } else {
-    title.innerHTML = "<a href=''>" + title.innerHTML + "</a>"
+    title.innerHTML = '<a href="#">' + title.innerHTML + '</a>';
     header.classList.add("collapsed");
     headerShown = false;
   }
@@ -71,7 +71,7 @@ window.addEventListener('popstate', function(event) {
 });
 
 
-window.onload = function() {
+window.onload = function () {
 
   var title = document.getElementsByTagName("h1")[0];
 

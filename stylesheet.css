@@ -42,6 +42,7 @@ h1 {
     margin: 4px 10px;
     cursor: default;
     transition: all 0.3s;
+    display: flex;
 }
 
 header.collapsed > h1 {
