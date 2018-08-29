@@ -42,8 +42,7 @@ function toggleHeader() {
     "use strict";
 
     var header = document.getElementsByTagName("header")[0],
-        title = header.getElementsByTagName("h1")[0],
-        websiteDesc = document.getElementById("websiteDesc");
+        title = header.getElementsByTagName("h1")[0];
 
     if (header.classList.contains("collapsed")) {
         changeTab(); // Removes the selections on the tabs
