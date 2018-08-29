@@ -94,6 +94,7 @@ window.onload = function () {
         if (!headerShown) {
             window.location.hash = '';
         }
+        return false;
     };
 
     // Scrolling down on homepage goes to first tab
