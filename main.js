@@ -1,4 +1,3 @@
-/*jslint browser:true */
 
 var headerShown = true; // I.e. whether the full screen banner is up
 
@@ -103,5 +102,12 @@ window.onload = function () {
             window.location.hash = "#about";
         }
     }, false);
+
+    document.querySelectorAll("img").forEach(img => {
+        let dataSrc = img.getAttribute("data-src");
+        if (dataSrc) {
+            img.setAttribute("src", dataSrc);
+        }
+    });
 
 };
