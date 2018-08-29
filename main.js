@@ -20,8 +20,10 @@ function changeTab(navName) {
     [].forEach.call(navAnchors, function (nav) {
         if (navName === nav.getAttribute("href")) {
             nav.classList.add("selected");
+            nav.focus();
         } else {
             nav.classList.remove("selected");
+            nav.blur();
         }
     });
 
