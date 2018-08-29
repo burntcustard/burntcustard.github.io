@@ -204,6 +204,7 @@ nav > a:active {
 
 .category .item img.face {
     width: 150px;
+    height: 150px;
 }
 
 .category .item img.round {
