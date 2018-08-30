@@ -90,6 +90,7 @@ window.onload = function () {
         changeTab(window.location.hash);
     }
 
+    // Toggle the header if the title in the small nav bar is clicked
     title.onclick = function () {
         if (!headerShown) {
             window.location.hash = '';
@@ -104,6 +105,7 @@ window.onload = function () {
         }
     }, false);
 
+    // Async image loading by swapping data-src string into src
     document.querySelectorAll("img").forEach(img => {
         let dataSrc = img.getAttribute("data-src");
         if (dataSrc) {
