@@ -31,9 +31,16 @@
         <a href=#games>Games</a>
         <a href=http://burntcustard.tumblr.com>Blog</a>
     </nav>
-    <h2>
+    <h2 id="noJS">
+        This site requires JavaScript to work!
+    </h2>
+    <h2 id ="yeJS" style="opacity: 0">
         Info about John Evans, aka burntcustard, and his fun&nbsp;fun&nbsp;fun&nbsp;projects!
     </h2>
+    <script type="text/javascript">
+        document.getElementById('yeJS').style.opacity = 1;
+        document.getElementById('noJS').style.display = 'none';
+    </script>
 </header>
 
 <div id="contentCont" tabindex="-1">
