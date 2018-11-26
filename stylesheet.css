@@ -159,19 +159,17 @@ nav > a:active {
     box-shadow: 0 0 0 0 #fff inset;
 }
 
-header > h1,
-header > nav,
-header > p {
-    opacity: 0;
-}
-
+/* Fancy fade-in-on-load */
 header > h1 {
+    opacity: 0;
     transition: .4s opacity .1s;
 }
 header > nav {
+    opacity: 0;
     transition: .4s opacity .3s;
 }
 header > p {
+    opacity: 0;
     transition: .4s opacity .5s;
 }
 
