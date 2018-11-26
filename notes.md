@@ -28,6 +28,8 @@ New about me: (if it gets too long needs to be separate still?)
 
 Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a web developer at Lighthouse London, a Computer Science graduate, gamer, cross-OS (Win10/MacOS/Ubuntu) complainer, Pokemon Go player, Minecraft server host, text editor enthusiast, controller builder, loud music listener, and more!
 
+Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a <b>web developer</b> at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a <b>Computer Science (Games)</b> graduate, gamer, text editor enthusiast, controller builder, and more!
+
 new categories:
 web dev
 digiteam

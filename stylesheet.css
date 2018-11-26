@@ -39,10 +39,12 @@ h1 {
     font-weight: 400;
     font-size: var(--h1-font-size-l);
     color: #fc1;
-    margin: 4px 10px;
+    margin: 6px 10px;
     cursor: default;
     transition: all 0.3s;
     display: flex;
+    opacity: 0;
+    transition: 0.3s opacity 0.3s;
 }
 
 header.collapsed > h1 {
@@ -75,24 +77,32 @@ header.collapsed > h1 > a:focus:not(:active)::before {
     border-bottom: 2px solid #fc1;
 }
 
-header > h2 {
+header > p {
     font-family: 'Rubik', sans-serif;
     color: #555;
     font-size: 18px;
     line-height: 18px;
     font-weight: 400;
-    margin: 18px;
-    transition: 0.6s opacity;
-    transition-delay: 0.2s;
+    margin: 20px;
+    transition: 0.5s opacity;
+    transition-delay: 0.4s;
     opacity: 1;
+    max-width: 900px;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    opacity: 0;
 }
 
-header.collapsed > h2 {
+header.collapsed > p {
     height: 0;
     width: 0;
     opacity: 0;
     margin: 0;
     overflow: hidden;
+}
+
+.header.loaded-js > * {
+    opacity: 1;
 }
 
 nav {
@@ -102,16 +112,17 @@ nav {
     flex-flow: row wrap;
     justify-content: center;
     padding-right: 12px;
-    transition: 0.3s all;
+    transition: 0.3s all 0.1s;
+    opacity: 0;
 }
 
 nav > a {
     position: relative;
     font-family: 'Rubik', sans-serif;
     text-decoration: none;
-    font-size: 19px;
-    padding: 3px 6px;
-    margin: 4px 4px;
+    font-size: 20px;
+    padding: 3px 8px;
+    margin: 5px 5px;
     display: inline-block;
     color: #333;
     transition: 0.2s all;
@@ -121,20 +132,11 @@ nav > a {
     border-top-left-radius: 6px;
 }
 
-nav > a:hover {
-/*
-    color: #000;
-    box-shadow: 0 0 0 99px #fff inset,
-    1px 1px 3px rgba(0, 0, 0, 0.2);
-*/
-}
-
 nav a:focus {
     outline: 0;
 }
 
-nav > a:hover::before,
-nav > a:focus::before {
+nav > a:before {
     content: '';
     position: absolute;
     display: block;
@@ -142,24 +144,35 @@ nav > a:focus::before {
     height: 100%;
     top: 5px;
     border-bottom: 2px solid #fc1;
+    opacity: 0;
 }
 
-/*
-nav > a:focus:not(:active)::before {
-    display: none;
+nav > a:hover::before,
+nav > a:focus::before {
+    opacity: 1;
 }
-*/
-/*
-nav > a.selected::before {
-    display: none;
-}
-*/
 
 nav a.selected,
 nav > a:active {
     background-color: #fc1;
     color: #fff;
     box-shadow: 0 0 0 0 #fff inset;
+}
+
+header > h1,
+header > nav,
+header > p {
+    opacity: 0;
+}
+
+header > h1 {
+    transition: .4s opacity .1s;
+}
+header > nav {
+    transition: .4s opacity .3s;
+}
+header > p {
+    transition: .4s opacity .5s;
 }
 
 #contentCont {

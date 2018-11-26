@@ -19,26 +19,27 @@
 │  █  █  █▄▄  █   █  █▄▄▀  █▄▄  █  █  │
 └─────────────────────────────────────┘
 -->
-<header id="mainheader">
+<header id="header" class="header">
     <h1 class="noSelect">
         burnt.io
     </h1>
-    <nav id="mainNav">
-        <a href=#uni>Uni</a>
-        <a href=#webdev>Web&nbsp;Dev</a>
+    <nav id="mainNav" class="header__nav">
         <a href=#work>Work</a>
+        <a href=#projects>Projects</a>
         <a href=#games>Games</a>
+        <a href=https://github.com/burntcustard>GitHub</a>
+        <a href=https://github.com/burntcustard>CodePen</a>
         <a href=http://burntcustard.tumblr.com>Blog</a>
     </nav>
-    <h2 id="noJS">
+    <p id="noJS" class="header__noJS">
         This site requires JavaScript to work!
-    </h2>
-    <h2 id ="yeJS" style="opacity: 0">
-        Info about John Evans, aka burntcustard, and his fun&nbsp;fun&nbsp;fun&nbsp;projects!
-    </h2>
+    </p>
+    <p class="header__intro">
+        Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a <b>web developer</b> at <a href="https://wearelighthouse.com/">Lighthouse London</a>, a <b>Computer Science</b> graduate, gamer, text editor enthusiast, controller builder, and more!
+    </p>
     <script type="text/javascript">
-        document.getElementById('yeJS').style.opacity = 1;
         document.getElementById('noJS').style.display = 'none';
+        document.getElementById('header').classList.add('loaded-js');
     </script>
 </header>
 
