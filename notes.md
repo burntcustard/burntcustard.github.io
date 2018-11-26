@@ -29,12 +29,22 @@ New about me: (if it gets too long needs to be separate still?)
 Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a web developer at Lighthouse London, a Computer Science graduate, gamer, cross-OS (Win10/MacOS/Ubuntu) complainer, Pokemon Go player, Minecraft server host, text editor enthusiast, controller builder, loud music listener, and more!
 
 new categories:
-about
 web dev
 digiteam
 projects
 games
 contact (short or footer?)
+
+or (3 is nice... but blog?)
+work -> lighthouse, tnt
+projects -> canvasnake, codeheadings, ...
+games -> PA, minecraft, other
+blog
+
+or
+web dev -> lighthouse, canvasnake, codeheadings
+tnt, uni?
+games -> PA, minecraft, other
 
 #### Design
 
@@ -42,11 +52,14 @@ White background bit with super fast loading
 ----------------------
    ---burnt.io---
      about thing
+     -----------
+    (horizontal?..)
+
 -------------------
-scrolling down through <a>s
+scrolling down through <a>s eh too much
 -> lighthouse Stuff ->
-<- digiteam stuff <-
--> projects ->
+<- projects <-
+-> digiteam stuff ->
 <- games <-
 contact is just a tiny little footer?
 email blog twitter
