@@ -97,16 +97,13 @@ window.onload = function () {
     // Scrolling down on homepage goes to first tab
     window.addEventListener('mousewheel', function (e) {
         if (e.wheelDeltaY < 0 && window.location.hash === '') {
-            window.location.hash = '#about';
+            window.location.hash = document.querySelector('main > section').id;
         }
     }, false);
 
-    // Async image loading by swapping data-src string into src
-    document.querySelectorAll('img').forEach(img => {
-        let dataSrc = img.getAttribute('data-src');
-        if (dataSrc) {
-            img.setAttribute('src', dataSrc);
-        }
+    // Async image (or anything) loading by swapping data-src string into src
+    document.querySelectorAll('[data-src]').forEach(element => {
+        element.setAttribute('src', element.getAttribute('data-src'));
     });
 
 };
