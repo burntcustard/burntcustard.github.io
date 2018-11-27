@@ -38,8 +38,8 @@ function toggleHeader() {
 
     'use strict';
 
-    var header = document.getElementsByTagName("header")[0],
-        title = header.getElementsByTagName("h1")[0];
+    var header = document.getElementsByTagName('header')[0],
+        title = header.getElementsByTagName('h1')[0];
 
     if (header.classList.contains('collapsed')) {
         changeTab(); // Removes the selections on the tabs
@@ -78,7 +78,7 @@ window.onload = function () {
 
     'use strict';
 
-    var title = document.getElementsByTagName("h1")[0];
+    var title = document.getElementsByTagName('h1')[0];
 
     // If page is loaded with a hash, load the correct tab:
     if (window.location.hash) {
