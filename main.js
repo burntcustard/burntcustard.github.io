@@ -11,26 +11,23 @@ function changeTab(navName) {
 
     "use strict";
 
-    var navAnchors = document.querySelectorAll('#mainNav > a'),
-        categories = document.querySelectorAll('main > section');
-
-    navAnchors.forEach((nav) => {
-        if (navName === nav.getAttribute('href')) {
-            nav.classList.add('selected');
-            nav.focus();
+    document.querySelectorAll('#mainNav > a').forEach((a) => {
+        if (navName === a.getAttribute('href')) {
+            a.classList.add('selected');
+            a.focus();
         } else {
-            nav.classList.remove('selected');
-            nav.blur();
+            a.classList.remove('selected');
+            a.blur();
         }
     });
 
-    categories.forEach((cat) => {
-        if (navName === cat.id) {
-            cat.classList.add('visible');
-            cat.setAttribute('aria-hidden', 'false');
+    document.querySelectorAll('main > section').forEach((category) => {
+        if (navName === category.id) {
+            category.classList.add('visible');
+            category.setAttribute('aria-hidden', 'false');
         } else {
-            cat.classList.remove("visible");
-            cat.setAttribute('aria-hidden', 'true');
+            category.classList.remove("visible");
+            category.setAttribute('aria-hidden', 'true');
         }
     });
 
