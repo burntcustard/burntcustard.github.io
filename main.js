@@ -11,27 +11,26 @@ function changeTab(navName) {
 
     "use strict";
 
-    var navs = document.getElementById("mainNav"),
-        navAnchors = navs.getElementsByTagName("a"),
-        categories = document.getElementsByClassName("category");
+    var navAnchors = document.querySelectorAll('#mainNav > a'),
+        categories = document.querySelectorAll('main > section');
 
-    // Buttons:
-    [].forEach.call(navAnchors, function (nav) {
-        if (navName === nav.getAttribute("href")) {
-            nav.classList.add("selected");
+    navAnchors.forEach((nav) => {
+        if (navName === nav.getAttribute('href')) {
+            nav.classList.add('selected');
             nav.focus();
         } else {
-            nav.classList.remove("selected");
+            nav.classList.remove('selected');
             nav.blur();
         }
     });
 
-    // Content:
-    [].forEach.call(categories, function (cat) {
-        if ((navName + "-tab") === cat.id) {
-            cat.classList.add("visible");
+    categories.forEach((cat) => {
+        if (navName === cat.id) {
+            cat.classList.add('visible');
+            cat.setAttribute('aria-hidden', 'false');
         } else {
             cat.classList.remove("visible");
+            cat.setAttribute('aria-hidden', 'true');
         }
     });
 
