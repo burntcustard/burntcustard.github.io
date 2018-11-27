@@ -78,8 +78,6 @@ window.onload = function () {
 
     'use strict';
 
-    var title = document.getElementsByTagName('h1')[0];
-
     // If page is loaded with a hash, load the correct tab:
     if (window.location.hash) {
         toggleHeader();
@@ -87,7 +85,7 @@ window.onload = function () {
     }
 
     // Toggle the header if the title in the small nav bar is clicked
-    title.onclick = function () {
+    document.getElementsByTagName('h1')[0].onclick = function () {
         if (!headerShown) {
             window.location.hash = '';
         }
