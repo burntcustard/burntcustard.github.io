@@ -11,6 +11,9 @@ function changeTab(navName) {
 
     'use strict';
 
+    var main = document.getElementsByTagName('main')[0];
+    main.scrollTo(0, 0);
+
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
             a.classList.add('selected');
@@ -21,7 +24,7 @@ function changeTab(navName) {
         }
     });
 
-    document.querySelectorAll('main > section').forEach((category) => {
+    main.querySelectorAll('section').forEach((category) => {
         if (navName === category.id) {
             category.classList.add('visible');
             category.setAttribute('aria-hidden', 'false');
@@ -93,8 +96,9 @@ window.onload = function () {
     };
 
     // Scrolling down on homepage goes to first tab
-    window.addEventListener('mousewheel', function (e) {
-        if (e.wheelDeltaY < 0 && window.location.hash === '') {
+    window.addEventListener('wheel', event => {
+        console.log(event.deltaY);
+        if (event.deltaY > 0 && window.location.hash === '') {
             window.location.hash = document.querySelector('main > section').id;
         }
     }, false);
