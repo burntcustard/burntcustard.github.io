@@ -11,8 +11,11 @@ function changeTab(navName) {
 
     'use strict';
 
-    var main = document.getElementsByTagName('main')[0];
-    main.scrollTo(0, 0);
+    var main = document.getElementsByTagName('main');
+
+    if (navName === undefined || navName === '') {
+        main.scrollTo(0, 0);
+    }
 
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
