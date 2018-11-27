@@ -9,7 +9,7 @@ var headerShown = true; // I.e. whether the full screen banner is up
  */
 function changeTab(navName) {
 
-    "use strict";
+    'use strict';
 
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
@@ -26,7 +26,7 @@ function changeTab(navName) {
             category.classList.add('visible');
             category.setAttribute('aria-hidden', 'false');
         } else {
-            category.classList.remove("visible");
+            category.classList.remove('visible');
             category.setAttribute('aria-hidden', 'true');
         }
     });
@@ -36,20 +36,20 @@ function changeTab(navName) {
 
 function toggleHeader() {
 
-    "use strict";
+    'use strict';
 
     var header = document.getElementsByTagName("header")[0],
         title = header.getElementsByTagName("h1")[0];
 
-    if (header.classList.contains("collapsed")) {
+    if (header.classList.contains('collapsed')) {
         changeTab(); // Removes the selections on the tabs
-        header.classList.remove("collapsed");
+        header.classList.remove('collapsed');
         title.innerHTML = title.innerHTML.replace('<a href="#">', '');
-        title.innerHTML = title.innerHTML.replace("</a>", '');
+        title.innerHTML = title.innerHTML.replace('</a>', '');
         headerShown = true;
     } else {
         title.innerHTML = '<a href="#">' + title.innerHTML + '</a>';
-        header.classList.add("collapsed");
+        header.classList.add('collapsed');
         headerShown = false;
     }
 
@@ -60,7 +60,7 @@ function toggleHeader() {
 // then toggle header and/or change highlighted navigation
 window.addEventListener('popstate', function (event) {
 
-    "use strict";
+    'use strict';
 
     var hash = window.location.hash;
     if (hash === '' || hash === '#') {
@@ -76,7 +76,7 @@ window.addEventListener('popstate', function (event) {
 
 window.onload = function () {
 
-    "use strict";
+    'use strict';
 
     var title = document.getElementsByTagName("h1")[0];
 
@@ -95,17 +95,17 @@ window.onload = function () {
     };
 
     // Scrolling down on homepage goes to first tab
-    window.addEventListener("mousewheel", function (e) {
+    window.addEventListener('mousewheel', function (e) {
         if (e.wheelDeltaY < 0 && window.location.hash === '') {
-            window.location.hash = "#about";
+            window.location.hash = '#about';
         }
     }, false);
 
     // Async image loading by swapping data-src string into src
-    document.querySelectorAll("img").forEach(img => {
-        let dataSrc = img.getAttribute("data-src");
+    document.querySelectorAll('img').forEach(img => {
+        let dataSrc = img.getAttribute('data-src');
         if (dataSrc) {
-            img.setAttribute("src", dataSrc);
+            img.setAttribute('src', dataSrc);
         }
     });
 
