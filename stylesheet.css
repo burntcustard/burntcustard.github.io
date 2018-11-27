@@ -101,10 +101,6 @@ header.collapsed > p {
     overflow: hidden;
 }
 
-.header.loaded-js > * {
-    opacity: 1;
-}
-
 nav {
     margin: 6px;
     margin-bottom: 4px;
@@ -171,6 +167,9 @@ header > nav {
 header > p {
     opacity: 0;
     transition: .4s opacity .5s;
+}
+header.loaded-js:not(.collpased) > * {
+    opacity: 1;
 }
 
 #contentCont {
@@ -287,7 +286,7 @@ header > p {
         0 1px 0 #111;
 }
 
-.noSelect {
+.no-select {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;

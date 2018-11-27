@@ -20,7 +20,7 @@
 └─────────────────────────────────────┘
 -->
 <header id="header" class="header">
-    <h1 class="noSelect">
+    <h1 class="no-select">
         burnt.io
     </h1>
     <nav id="mainNav" class="header__nav">
@@ -34,7 +34,7 @@
     <noscript>
         This site requires JavaScript to work!
     </noscript>
-    <p class="header__intro">
+    <p>
         Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a <b>web developer</b> at <a href="https://wearelighthouse.com/">Lighthouse London</a>, a <b>Computer Science</b> graduate, gamer, text editor enthusiast, controller builder, and more!
     </p>
     <script type="text/javascript">
@@ -42,42 +42,46 @@
     </script>
 </header>
 
-<div id="contentCont">
+<main id="contentCont">
 
-<!--
-┌────────────────────────────────┐
-│   ▄▀▄   █▀▀▄  ▄▀▀▄  █  █  ▀█▀  │
-│  █ ▄ █  █▀▀▄  █  █  █  █   █   │
-│  █   █  █▄▄▀  ▀▄▄▀  ▀▄▄▀   █   │
-└────────────────────────────────┘
--->
-    <div id="#about-tab" class="category">
-        <div class="about item">
-            <img class="logo face round" data-src="https://avatars2.githubusercontent.com/u/462459" alt="my face">
-            <p>
-                Hi! My name's John, aka burntcustard. I’m a <b>web developer</b> at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a <b>Computer Science (Games)</b> graduate. When I'm not at work, I'm usually playing video games, building PCs, or wondering around catching Pokémon.
-            </p>
-            <p>
-                I spent a year as a <b>Digital Marketing Assistant</b> at TNT. There I learnt about managing websites and social media for a large company, SEO, PPC campaigns, marketing emails, design, and more! <a href=#work>Find out about my work at TNT ></a>
-            </p>
-            <p>
-                Contact me on Twitter <a href="https://twitter.com/burntcustard">@burntcustard</a>, or by email: <a href="mailto:burntcustard@gmail.com">burntcustard@gmail.com</a>
-            </p>
-        </div>
-    </div>
+    <div id="#work-tab" class="category">
 
-<!--
-┌────────────────────┐
-│  █  █  █▄  █  ▀█▀  │
-│  █  █  █ ▀▄█   █   │
-│  ▀▄▄▀  █  ▀█  ▄█▄  │
-└────────────────────┘
--->
-    <div id="#uni-tab" class="category">
-        <div class="uni item">
-            <h2>Uni module number 1?...</h2>
-            <p>This bit's not done yet either!</p>
-        </div>
+        <section class="work item">
+            <h2>Lighthouse</h2>
+            <p>Some writings about Lighthouse</p>
+        </section>
+
+        <section class="work item">
+            <h2>TNT</h2>
+            <p>
+                At TNT I managed the UK <a href="https://www.facebook.com/TNTUKOfficial">Facebook</a>, <a href="https://twitter.com/tntukofficial">Twitter</a> and <a href="https://www.linkedin.com/company/tnt-uk/">LinkedIn</a> social media. This included posting content from global HQ, and long conference calls… but was mostly fun stuff like posting <a href="https://twitter.com/TNTUKOfficial/status/755771843739607040">pictures from drivers and depots</a>, covering TNT’s <a href="https://www.facebook.com/pg/TNTUKOfficial/photos/?tab=album&album_id=972470369468634">support of the London Marathon</a>, <s>photoshopping gloves onto employees to follow health and safety rules</s>, or <a href="https://twitter.com/TNTUKOfficial/status/773430943386333185">advertising new TNT Direct pricing</a> that me and my enormous spreadsheets were responsible for.
+            </p>
+            <p>
+                I worked on the <a href="https://www.tnt.com/express/en_gb/site/home.html">TNT UK website</a> (Adobe CQ5), the <a href="https://direct.tnt.co.uk/">TNT Direct</a> website (with Parcel2Go, an external company running the site), and the <a href="https://direct.tnt.co.uk/blog">TNT Direct WordPress blog</a> (pre-written posts). My main focus in this area was improving the UX of TNT Direct, and managing it’s content to run alongside advertising campaigns - often also led by moi.
+            </p>
+            <p>
+                I worked on several emails-related projects at TNT, which included:
+            </p>
+            <ul>
+                <li>
+                    Finding out what emails should be sent to customers, e.g. manually marketing to lost customers, or via automatic triggers set up with the help of Parcel2Go.
+                </li>
+                <li>
+                    Working with in house and external designers (<a href="https://twitter.com/laurium">@laurium</a>) to create fancy graphics.
+                </li>
+                <li>
+                    Writing copy, and ensuring that for example '%CUSTOMER_NAME%' worked!
+                </li>
+                <li>
+                    I created HTML for many of the emails, usually by modifying templates. Sometimes I just advised those creating the actual emails (by making tweaks myself and sending HTML back to them). Various tools were used for this, from MailChimp (not bad), to Campaign Pro (the experience of which I am still trying to wipe from my memory).
+                </li>
+            </ul>
+            <p>
+                Below are a Black Friday 2015 marketing email I created, and a 'Thanks for Registering' email which was part of an ongoing series where I revamped, and added to, the set of TNT Direct customer journey emails (previously, these were <a href="img/old-email.png">hilariously bad</a>).
+            </p>
+            <img data-src="img/emails.png" alt="Black Friday and Thanks for Registering emails">
+        </section>
+
     </div>
 
 <!--
@@ -174,4 +178,5 @@
             <p>I play games! Lots of games! They'll be listed here eventually and it should be interesting :)</p>
         </div>
     </div>
-</div>
+
+</main>
