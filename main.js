@@ -15,9 +15,9 @@ function changeTab(navName) {
 
     console.log(navName);
 
-    if (navName === undefined || navName === '') {
-        main.scrollTo(0, 0);
-    }
+    // if (navName === undefined || navName === '') {
+    //     main.scrollTo(0, 0);
+    // }
 
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
@@ -33,17 +33,17 @@ function changeTab(navName) {
     main.querySelectorAll('section').forEach((category, index) => {
         if (navName === category.id) {
             //category.classList.add('visible');
-            category.setAttribute('aria-hidden', 'false');
-            category.style.transform = 'translate(0)';
-            foundVisible = true;
+            //category.setAttribute('aria-hidden', 'false');
+            //category.style.transform = 'translate(0)';
+            //foundVisible = true;
         } else {
-            category.classList.remove('visible');
+            //category.classList.remove('visible');
             //category.setAttribute('aria-hidden', 'true');
-            if (!foundVisible) {
-                category.style.transform = 'translate(-100%)';
-            } else {
-                category.style.transform = 'translate(100%)';
-            }
+            // if (!foundVisible) {
+            //     category.style.transform = 'translate(-100%)';
+            // } else {
+            //     category.style.transform = 'translate(100%)';
+            // }
         }
     });
 
@@ -102,7 +102,7 @@ window.onload = function () {
     // If page is loaded with a hash, load the correct tab:
     if (window.location.hash) {
         toggleHeader();
-        changeTab(window.location.hash);
+        //changeTab(window.location.hash);
     }
 
     // Toggle the header if the title in the small nav bar is clicked
@@ -126,15 +126,18 @@ window.onload = function () {
         element.setAttribute('src', element.getAttribute('data-src'));
     });
 
-    // Set ARIA-labelledbys
-    document.querySelectorAll('section > article').forEach((article) => {
-        var heading = article.querySelector('h2');
-        if (heading && heading.innerHTML) {
-            var id = strToId(heading.innerHTML);
-            heading.id = id;
-            article.setAttribute('aria-labelledby', id);
-        }
+    // Set IDs of articles and related ARIA-labelledbys
+    document.querySelectorAll('section').forEach((category) => {
+        category.querySelectorAll('article').forEach((article) => {
+            var heading = article.querySelector('h2');
+            if (heading && heading.innerHTML) {
+                var id = strToId(category.id + '-' + heading.innerHTML);
+                console.log(id);
+                heading.id = id;
+                console.log(heading.id);
+                article.setAttribute('aria-labelledby', id);
+            }
+        });
     });
-
 
 };
