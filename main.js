@@ -11,14 +11,6 @@ function changeTab(navName) {
 
     'use strict';
 
-    var main = document.getElementsByTagName('main')[0];
-
-    console.log(navName);
-
-    // if (navName === undefined || navName === '') {
-    //     main.scrollTo(0, 0);
-    // }
-
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
             a.classList.add('selected');
@@ -26,24 +18,6 @@ function changeTab(navName) {
         } else {
             a.classList.remove('selected');
             a.blur();
-        }
-    });
-
-    var foundVisible = false;
-    main.querySelectorAll('section').forEach((category, index) => {
-        if (navName === category.id) {
-            //category.classList.add('visible');
-            //category.setAttribute('aria-hidden', 'false');
-            //category.style.transform = 'translate(0)';
-            //foundVisible = true;
-        } else {
-            //category.classList.remove('visible');
-            //category.setAttribute('aria-hidden', 'true');
-            // if (!foundVisible) {
-            //     category.style.transform = 'translate(-100%)';
-            // } else {
-            //     category.style.transform = 'translate(100%)';
-            // }
         }
     });
 
@@ -115,7 +89,6 @@ window.onload = function () {
 
     // Scrolling down on homepage goes to first tab
     window.addEventListener('wheel', event => {
-        console.log(event.deltaY);
         if (event.deltaY > 0 && window.location.hash === '') {
             window.location.hash = document.querySelector('main > section').id;
         }
@@ -132,12 +105,59 @@ window.onload = function () {
             var heading = article.querySelector('h2');
             if (heading && heading.innerHTML) {
                 var id = strToId(category.id + '-' + heading.innerHTML);
-                console.log(id);
                 heading.id = id;
-                console.log(heading.id);
                 article.setAttribute('aria-labelledby', id);
             }
         });
+    });
+
+    // Add intersectionObservers for the categories
+
+    // Links to sections on same page
+    //const secHeader = document.querySelector('.c-header--secondary');
+    var nav = document.querySelector('header > nav');
+    //const internalNavLinks = secHeader.querySelectorAll('a[href*="#"]');
+    var internalNavLinks = nav.querySelectorAll('a[href*="#"]');
+
+    // Get the sections that match the links in the nav
+    var sections = [...internalNavLinks].map(
+        link => document.getElementById(link.href.split("#").pop())
+    );
+
+    console.log(sections);
+
+    var observerConfig = {
+        threshold: Array.from(Array(100), (x, i) => i * .01)
+    };
+
+    var currentLinkObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            let onscreenRatio = (entry.intersectionRatio * entry.target.scrollHeight) / window.innerHeight;
+            if (onscreenRatio >= 0.5) {
+                internalNavLinks.forEach(navLink => {
+                    navLink.classList.remove('current');
+                });
+                let currentNavLink = nav.querySelector(`a[href="#${entry.target.id}"]`);
+                currentNavLink.classList.add('current');
+            }
+            if (onscreenRatio < 0.5) {
+                let currentNavLink = nav.querySelector('.current');
+                if (currentNavLink) {
+                    let currentNavLinkHref = currentNavLink.href.split("#").pop();
+                    let entryHref = entry.target.id;
+                    if (currentNavLinkHref === entryHref) {
+                        currentNavLink.classList.remove('current');
+                    }
+                }
+            }
+        });
+
+    }, observerConfig);
+
+    sections.forEach(section => {
+        if (section) {
+            currentLinkObserver.observe(section);
+        }
     });
 
 };

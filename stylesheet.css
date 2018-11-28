@@ -146,7 +146,7 @@ nav > a:focus::before {
     opacity: 1;
 }
 
-nav a.selected,
+nav a.current,
 nav > a:active {
     background-color: #fc1;
     color: #fff;
