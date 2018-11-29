@@ -147,7 +147,8 @@ nav > a:focus::before {
 }
 
 nav a.clicked,
-nav a.observed {
+nav a.observed,
+nav a.active {
     background-color: #fc1;
     color: #fff;
     box-shadow: 0 0 0 0 #fff inset;

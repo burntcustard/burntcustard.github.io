@@ -17,6 +17,7 @@ function changeTab(navName) {
             //a.focus();
         } else {
             a.classList.remove('clicked');
+            a.classList.remove('observed');
             //a.blur();
         }
     });
@@ -116,6 +117,16 @@ window.onload = function () {
     // Links to sections on same page
     //const secHeader = document.querySelector('.c-header--secondary');
     var nav = document.querySelector('header > nav');
+
+    var externalNavLinks = nav.querySelectorAll('a:not([href*="#"])');
+
+    externalNavLinks.forEach(link => {
+        link.classList.remove('clicked');
+        link.onclick = function() {
+            this.classList.add('clicked');
+        }
+    });
+
     //const internalNavLinks = secHeader.querySelectorAll('a[href*="#"]');
     var internalNavLinks = nav.querySelectorAll('a[href*="#"]');
 
@@ -135,23 +146,24 @@ window.onload = function () {
             let onscreenRatio = (entry.intersectionRatio * entry.target.scrollHeight) / window.innerHeight;
             if (onscreenRatio >= 0.5) {
                 internalNavLinks.forEach(navLink => {
-                    if (navLink.classList.remove('observed')) {
+                    if (navLink.classList.contains('observed')) {
+                        navLink.classList.remove('observed');
                         navLink.classList.remove('clicked');
                     }
                 });
                 let currentNavLink = nav.querySelector(`a[href="#${entry.target.id}"]`);
                 currentNavLink.classList.add('observed');
             }
-            if (onscreenRatio < 0.5) {
-                let currentNavLink = nav.querySelector('.current');
-                if (currentNavLink) {
-                    let currentNavLinkHref = currentNavLink.href.split("#").pop();
-                    let entryHref = entry.target.id;
-                    if (currentNavLinkHref === entryHref) {
-                        currentNavLink.classList.remove('observed');
-                    }
-                }
-            }
+            // if (onscreenRatio < 0.5) {
+            //     let currentNavLink = nav.querySelector('.observed');
+            //     if (currentNavLink) {
+            //         let currentNavLinkHref = currentNavLink.href.split("#").pop();
+            //         let entryHref = entry.target.id;
+            //         if (currentNavLinkHref === entryHref) {
+            //             currentNavLink.classList.remove('observed');
+            //         }
+            //     }
+            // }
         });
 
     }, observerConfig);
