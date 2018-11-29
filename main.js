@@ -13,11 +13,11 @@ function changeTab(navName) {
 
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
-            a.classList.add('selected');
-            a.focus();
+            a.classList.add('clicked');
+            //a.focus();
         } else {
-            a.classList.remove('selected');
-            a.blur();
+            a.classList.remove('clicked');
+            //a.blur();
         }
     });
 
@@ -135,10 +135,12 @@ window.onload = function () {
             let onscreenRatio = (entry.intersectionRatio * entry.target.scrollHeight) / window.innerHeight;
             if (onscreenRatio >= 0.5) {
                 internalNavLinks.forEach(navLink => {
-                    navLink.classList.remove('current');
+                    if (navLink.classList.remove('observed')) {
+                        navLink.classList.remove('clicked');
+                    }
                 });
                 let currentNavLink = nav.querySelector(`a[href="#${entry.target.id}"]`);
-                currentNavLink.classList.add('current');
+                currentNavLink.classList.add('observed');
             }
             if (onscreenRatio < 0.5) {
                 let currentNavLink = nav.querySelector('.current');
@@ -146,7 +148,7 @@ window.onload = function () {
                     let currentNavLinkHref = currentNavLink.href.split("#").pop();
                     let entryHref = entry.target.id;
                     if (currentNavLinkHref === entryHref) {
-                        currentNavLink.classList.remove('current');
+                        currentNavLink.classList.remove('observed');
                     }
                 }
             }
