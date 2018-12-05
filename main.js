@@ -13,7 +13,8 @@ function changeTab(navName) {
 
     document.querySelectorAll('#mainNav > a').forEach((a) => {
         if (navName === a.getAttribute('href')) {
-            a.classList.add('clicked');
+            //a.classList.add('clicked');
+            a.click(); // Argh flashy
             //a.focus();
         } else {
             a.classList.remove('clicked');

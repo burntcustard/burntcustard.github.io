@@ -65,3 +65,15 @@ scrolling down through <a>s eh too much
 <- games <-
 contact is just a tiny little footer?
 email blog twitter
+
+
+New plan...
+Very yellow.
+No categories, just top 5 things?
+1. Title and short intro still
+2. Savoir - in pretende browser - right?
+3. StemCSS (?) - in pretende code editor that's animated mmm - left?
+4. CodeHeadings - Actual codeheadings somehow but yellow text - right?
+5. Canvasnake - center because slidey out bits
+6. Games or TNT? something else? left
+7. Footer/contacty so doesn't count as a thing
