@@ -1,160 +1,52 @@
 
 body {
-    text-align: center;
-    background-color: #2e2e2e;
+    background-color: #fc1;
     width: 100%;
+    min-height: 100vh;
     margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    font-family: 'Rubik', sans-sans-serif;
 }
 
 header {
-    background-color: #fff;
+    position: sticky;
+    top: 0;
     width: 100%;
-    min-height: 100vh;
-    max-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    flex-shrink: 0;  /* WTF Chrome */
-    box-shadow: 0 0 8px black;
-    transition: all 0.3s;
-}
-
-header.collapsed {
-    min-height: 20px;
-    max-height: 140px;
-    flex-direction: row;
-}
-
-h1 {
-    --h1-font-size-s: 32px;
-    --h1-font-size-m: 54px;
-    --h1-font-size-l: 96px;
-    font-family: 'Righteous', sans-serif;
-    font-weight: 400;
-    font-size: var(--h1-font-size-l);
-    color: #fc1;
-    margin: 6px 10px;
-    cursor: default;
-    transition: all 0.3s;
-    display: flex;
-    opacity: 0;
-    transition: 0.3s opacity 0.3s;
-}
-
-header.collapsed > h1 {
-    font-size: var(--h1-font-size-s);
-}
-
-header.collapsed > h1:hover,
-header.collapsed > h1:focus {
-    cursor: pointer;
-    transform: rotate(-4deg);
-}
-
-h1 > a {
-    position: relative;
-    color: inherit;
-    text-decoration: none;
-}
-
-header.collapsed > h1 > a:focus {
-    outline: none;
-}
-
-header.collapsed > h1 > a:focus:not(:active)::before {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    border-bottom: 2px solid #fc1;
-}
-
-header > p {
-    font-family: 'Rubik', sans-serif;
-    color: #555;
-    font-size: 18px;
-    line-height: 18px;
-    font-weight: 400;
-    margin: 20px;
-    transition: 0.5s opacity;
-    transition-delay: 0.4s;
-    opacity: 1;
-    max-width: 900px;
-    line-height: 1.4;
-    opacity: 0;
-}
-
-header.collapsed > p {
-    height: 0;
-    width: 0;
-    opacity: 0;
-    margin: 0;
-    overflow: hidden;
 }
 
 nav {
-    margin: 6px;
-    margin-bottom: 4px;
+    color: #111;
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    padding-right: 12px;
-    transition: 0.3s all 0.1s;
-    opacity: 0;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px 10px;
 }
 
-nav > a {
-    position: relative;
-    font-family: 'Rubik', sans-serif;
+nav a:first-child {
+    margin-right: auto;
+    font-family: 'Righteous', sans-sans-serif;
+    font-size: 28px;
+}
+
+nav a {
     text-decoration: none;
-    font-size: 20px;
-    padding: 3px 8px;
-    margin: 5px 5px;
-    display: inline-block;
-    color: #333;
-    transition: 0.2s all;
-    box-shadow: 0 0 0 99px #fff inset;
-    border: 2px solid #fc1;
-    transform: skewX(-20deg);
-    border-top-left-radius: 6px;
+    font-size: 18px;
+    color: #111;
+    margin: 0 10px;
+    border: 2px solid transparent;
 }
 
-nav a:focus {
-    outline: 0;
+nav a:not(:first-of-type) {
+    font-weight: 500;
+    border: 2px solid #fff;
+    padding: 9px 20px;
 }
 
-nav > a:before {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 5px;
-    border-bottom: 2px solid #fc1;
-    opacity: 0;
+nav a:not(first-of-type):hover {
+    
 }
 
-nav > a:hover::before,
-nav > a:focus::before {
-    opacity: 1;
-}
-
-nav a.clicked,
-nav a.observed,
-nav a.active {
-    background-color: #fc1;
-    color: #fff;
-    box-shadow: 0 0 0 0 #fff inset;
-}
-
-/* Fancy fade-in-on-load */
-header > h1 {
+/* Fancy fade-in-on-load. TODO: Reimplement */
+/* header > h1 {
     opacity: 0;
     transition: .4s opacity .1s;
 }
@@ -168,156 +60,4 @@ header > p {
 }
 header.loaded-js:not(.collpased) > * {
     opacity: 1;
-}
-
-main {
-    height: 100%;
-    overflow-y: scroll;
-    scroll-behavior: smooth;
-}
-
-section {
-    padding: 25px 0;
-    transition: .3s transform;
-    width: 100%;
-}
-
-section article {
-    margin: 10px 20px;
-    color: #eee;
-    text-shadow: 0 1px 4px #111;
-    max-width: 680px;
-}
-
-section.small-tiles article {
-    max-width: 450px;
-}
-
-section article img {
-    background-color: #222;
-    padding: 7px;
-    border-radius: 6px;
-    border: 1px solid #333;
-    /* width: 100% - padding*2 - border*2 - 2px extra */
-    width: calc(100% - 18px);
-}
-
-section article img.logo {
-    width: auto;
-}
-
-section article img.face {
-    width: 150px;
-    height: 150px;
-}
-
-section article img.round {
-    border-radius: 50%;
-    padding: 6px;
-}
-
-section article h2 {
-    font-family: 'Righteous', sans-serif;
-    text-transform: uppercase;
-    color: #eee;
-    margin: 8px 0;
-}
-
-section p {
-    margin: 15px auto;
-    text-align: left;
-    font-family: Rubik;
-    font-size: 16px;
-    line-height: 18pt;
-}
-
-section article ul {
-    text-align: left;
-    font-family: Rubik;
-    font-size: 16px;
-    line-height: 18px;
-}
-
-section article li {
-    margin: 5px 0;
-}
-
-section article a {
-    color: #fc1;
-    text-decoration: none;
-}
-
-section article a:hover {
-    box-shadow:
-        0 -1px 0 #fc1 inset,
-        0 1px 0 #111;
-}
-
-section article a.logo-title-button {
-    display: inline-flex;
-    flex-flow: column;
-    align-items: center;
-}
-
-/* Paragraph after the logo-title-button */
-section article a.logo-title-button + p {
-    margin-top: 0;
-    text-align: center;
-}
-
-section article a.logo-title-button:hover {
-    box-shadow: none;
-}
-
-section article a.logo-title-button:focus {
-    outline: none;
-}
-
-section article a.logo-title-button:hover > h2,
-section article a.logo-title-button:focus > h2 {
-    box-shadow:
-        0 -2px 0 #eee inset,
-        0 1px 0 #111;
-}
-
-.no-select {
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
-
-@media (max-width: 400px) {
-
-    body {
-        overflow-y: auto;
-    }
-
-    #contentCont {
-        overflow-y: visible;
-    }
-
-    nav {
-        padding-right: 0;
-    }
-
-    h1 {
-        font-size: var(--h1-font-size-m);
-    }
-
-    header.collapsed {
-        flex-direction: column;
-        max-height: 200px;
-        padding-bottom: 3px;
-    }
-
-    header.collapsed > nav > a {
-        flex: 0 0 25%;
-    }
-
-    header.collapsed > h1 {
-        font-size: var(--h1-font-size-m);
-        margin: 8px 0 0 0;
-    }
-
-}
+} */
