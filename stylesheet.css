@@ -8,41 +8,87 @@ body {
 }
 
 header {
-    position: sticky;
-    top: 0;
-    width: 100%;
 }
 
-nav {
+footer {
+    position: relative;
+    margin: 30px auto;
+    width: 80%;
+    overflow: hidden;
+}
+
+footer > div {
+    width: 46%;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+footer div:first-child {
+    flex-flow: column;
+    text-align: right;
+    float: left;
+}
+
+footer div:first-child ul {
+    justify-content: flex-end;
+}
+
+footer div:last-child {
+    float: right;
+    flex-flow: column-reverse;
+}
+
+footer div:last-child ul {
+
+}
+
+footer ul {
     color: #111;
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 20px 10px;
+    padding: 0;
 }
 
-nav a:first-child {
-    margin-right: auto;
-    font-family: 'Righteous', sans-sans-serif;
-    font-size: 28px;
-}
-
-nav a {
-    text-decoration: none;
-    font-size: 18px;
-    color: #111;
+footer li {
+    list-style: none;
     margin: 0 10px;
-    border: 2px solid transparent;
 }
 
-nav a:not(:first-of-type) {
+footer a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #111;
+    border: 2px solid transparent;
     font-weight: 500;
     border: 2px solid #fff;
     padding: 9px 20px;
 }
 
-nav a:not(first-of-type):hover {
-    
+footer:before,
+footer:after {
+    content: '';
+    position: absolute;
+}
+
+footer:before {
+    width: 2px;
+    height: 100vw;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    background-color: white;
+    transition: .2s all;
+}
+
+footer:after {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: 0 0 0 100px #fc1 inset;
+    box-shadow: 0 0 0 0 #fc1 inset;
+    transition: .2s all;
 }
 
 /* Fancy fade-in-on-load. TODO: Reimplement */
