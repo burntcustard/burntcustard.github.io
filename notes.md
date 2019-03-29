@@ -77,3 +77,25 @@ No categories, just top 5 things?
 5. Canvasnake - center because slidey out bits
 6. Games or TNT? something else? left
 7. Footer/contacty so doesn't count as a thing
+
+New new plan... (might move to 2019 update branch)
+
+1. Title & short intro (while other stuff in the background loads)
+2. Yes, multiple pages (could be all same page w/ clever JS):
+  1. Sites / work / Lighthouse
+    1. Propio
+    2. Savoir
+    3. BetterBankside (soon)
+    4. Lighthouse Website (soon)
+    5. StemCSS
+    ... just choose 4 of those mebbe?
+  2. Personal Web Projects / Games / Apps etc.
+    1. canvasnake
+    2. scrabble (hopefully react soon)
+    3. codeheadings
+  3. Video games screenshots / gallery
+3. Footer or links page or in header?
+  1. github
+  2. twitter
+  3. codepen
+  4. email
