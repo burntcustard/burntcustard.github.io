@@ -93,9 +93,11 @@ New new plan... (might move to 2019 update branch)
     1. canvasnake
     2. scrabble (hopefully react soon)
     3. codeheadings
-  3. Video games screenshots / gallery
+  3. Video games screenshots / gallery (pull from Imgur(?))
 3. Footer or links page or in header?
   1. github
   2. twitter
   3. codepen
   4. email
+
+Do I want a markdown blog uhhh kinda
