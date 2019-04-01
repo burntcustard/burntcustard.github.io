@@ -12,125 +12,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<header>
-    <h1 class="no-select">
-        burnt.io
-    </h1>
-    <noscript>
-        This site requires JavaScript!
-    </noscript>
-    <p>
-        Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a <b>web developer</b> at <a href="https://wearelighthouse.com/">Lighthouse London</a>, a <b>Computer Science</b> graduate, gamer, text editor enthusiast, controller builder, and more!
-    </p>
-    <script type="text/javascript">
-        document.getElementById('header').classList.add('loaded-js');
-    </script>
-</header>
+<body>
 
-<main>
+    <header>
+        <h1 class="no-select">
+            burnt.io
+        </h1>
+        <nav>
+            <a href="#websites">Websites</a>
+            <a href="#projects">Projects</a>
+            <a href="#pictures">Pictures</a>
+        </nav>
+    </header>
 
-    <article>
-        <div class="info">
-            <h2>Savoir</h2>
-            <p>Some writings about makin' the Savoir site w/lighthouse and Without</p>
-        </div>
-        <div class="media">
-            <div class="device device--desktop">
-                <div class="device__screen">
-                    <!-- TODO: Fit in actual webpage and/or img -->
+    <main>
+
+        <noscript>
+            This site requires JavaScript!
+        </noscript>
+        <p>
+            Hi! My name's John, aka <a href="https://twitter.com/burntcustard">@burntcustard</a>. I'm a <b>web developer</b> at <a href="https://wearelighthouse.com/">Lighthouse London</a>, a <b>Computer Science</b> graduate, gamer, controller builder, and more!
+        </p>
+        <script type="text/javascript">
+            document.getElementById('header').classList.add('loaded-js');
+        </script>
+
+        <section>
+            <h2 id="websites">Websites</h2>
+            <p>Some notes about websitey stuff</p>
+
+            <article>
+                <div class="article__text(?)">
+                    <h3 id="savoir">Savoir Beds</h3>
                 </div>
-            </div>
-        </div>
-    </article>
-
-    <article>
-        <div class="info">
-            <h2>stemCSS</h2>
-            <p>
-                Some notes about stemCSS
-            </p>
-        </div>
-        <div class="media">
-            <!-- TODO: Pretend code editor(?) -->
-        </div>
-    </article>
-
-    <article>
-        <div class="info">
-            <h2>codeHeadings</h2>
-            <p>
-                CodeHeadings was created because I wanted fancy big headings in my programming projects.
-            </p>
-        </div>
-        <div class="media">
-            <!-- TODO: Split codeheadings HTML & CSS so can use it nicely here -->
-        </div>
-    </article>
-
-    <article>
-        <div class="info">
-            <h2>Canvasnake</h2>
-            <p>
-                It's snake. By default you're fighting an AI snake, but on desktop it has a bunch of different modes, including same-device <b>multiplayer</b>, and <b>neuroevolution AI</b> testing.
-            </p>
-        </div>
-        <div class="media">
-            <!-- TODO: Get canvasnake in here -->
-        </div>
-    </article>
+                <div class="article__screen(?)">
+                </div>
+            </article>
 
 
-    <article>
-        <div class="info">
-            <h2>TNT</h2>
-            <p>
-                At TNT I managed the UK <a href="https://www.facebook.com/TNTUKOfficial">Facebook</a>, <a href="https://twitter.com/tntukofficial">Twitter</a> and <a href="https://www.linkedin.com/company/tnt-uk/">LinkedIn</a> social media. This included posting content from global HQ, and long conference calls… but was mostly fun stuff like posting <a href="https://twitter.com/TNTUKOfficial/status/755771843739607040">pictures from drivers and depots</a>, covering TNT’s <a href="https://www.facebook.com/pg/TNTUKOfficial/photos/?tab=album&album_id=972470369468634">support of the London Marathon</a>, <s>photoshopping gloves onto employees to follow health and safety rules</s>, or <a href="https://twitter.com/TNTUKOfficial/status/773430943386333185">advertising new TNT Direct pricing</a> that me and my enormous spreadsheets were responsible for.
-            </p>
-            <p>
-                I worked on the <a href="https://www.tnt.com/express/en_gb/site/home.html">TNT UK website</a> (Adobe CQ5), the <a href="https://direct.tnt.co.uk/">TNT Direct</a> website (with Parcel2Go, an external company running the site), and the <a href="https://direct.tnt.co.uk/blog">TNT Direct WordPress blog</a> (pre-written posts). My main focus in this area was improving the UX of TNT Direct, and managing it’s content to run alongside advertising campaigns - often also led by moi.
-            </p>
-            <p>
-                I worked on several emails-related projects at TNT, which included:
-            </p>
-            <ul>
-                <li>
-                    Finding out what emails should be sent to customers, e.g. manually marketing to lost customers, or via automatic triggers set up with the help of Parcel2Go.
-                </li>
-                <li>
-                    Working with in house and external designers (<a href="https://twitter.com/laurium">@laurium</a>) to create fancy graphics.
-                </li>
-                <li>
-                    Writing copy, and ensuring that for example '%CUSTOMER_NAME%' worked!
-                </li>
-                <li>
-                    I created HTML for many of the emails, usually by modifying templates. Sometimes I just advised those creating the actual emails (by making tweaks myself and sending HTML back to them). Various tools were used for this, from MailChimp (not bad), to Campaign Pro (the experience of which I am still trying to wipe from my memory).
-                </li>
-            </ul>
-            <p>
-                Below are a Black Friday 2015 marketing email I created, and a 'Thanks for Registering' email which was part of an ongoing series where I revamped, and added to, the set of TNT Direct customer journey emails (previously, these were <a href="img/old-email.png">hilariously bad</a>).
-            </p>
-        </div>
-        <div class="media">
-            <img data-src="img/emails.png" alt="Black Friday and Thanks for Registering emails">
-        </div>
-    </article>
+        </section>
 
-</main>
+    </main>
 
-<footer>
-    <div>
-        <h3>More of my stuff</h3>
-        <ul>
-            <li><a href=https://github.com/burntcustard>GitHub</a></li>
-            <li><a href=https://codepen.com/burntcustard>CodePen</a></li>
-            <li><a href=http://burntcustard.tumblr.com>Blog</a></li>
-        </ul>
-    </div>
-    <div>
-        <h3>Contact Me</h3>
-        <ul>
-            <li><a href=https://github.com/burntcustard>Email</a></li>
-            <li><a href=https://github.com/burntcustard>Twitter</a></li>
-        </ul>
-    </div>
-</footer>
+</body>

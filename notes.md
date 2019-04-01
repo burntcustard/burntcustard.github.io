@@ -101,3 +101,40 @@ New new plan... (might move to 2019 update branch)
   4. email
 
 Do I want a markdown blog uhhh kinda
+
+Okay no blog yet, just simply single page, maybe no games pictures for now?
+
+websites
+-- Some websites I've made while at Lighthouse
+    propio
+    savoir
+    lighthouse
+projects
+    stem
+    canvasnake
+    scrabble
+    codeheadings
+pictures
+    E:D etc.
+
+
+|--------------- header --------------------------------|
+burnt.io <- h1            websites / projects / pictures
+                         |----------------- nav --------|
+<section labelledby h2>
+projects <- h2
+desc     <- h2 <span> or <p>
+  <article labelledby h3>
+     ----------------- |---------------- _ x [] |
+     SAVOIR <- H3      |                        |
+     Design by:        |
+     little agency     |
+                       |
+                       |
+   </article>
+</section>
+
+<footer>
+
+
+
