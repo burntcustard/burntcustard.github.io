@@ -137,4 +137,32 @@ desc     <- h2 <span> or <p>
 <footer>
 
 
+Changes of plans again (22/05/2019)
+----------------------------------
 
+Things to include:
+
+projects:
+ - codeheadings
+ - canvasnake
+ - stemCSS
+ - stylemark (soon™)
+
+websites:
+ - savoir
+ - lighthouse
+ - hlsi (soon™)
+ - BetterBankside (soon™)
+
+pictures
+
+links (basically):
+ - blog
+ - github link
+ - twitter link
+ - contact/email
+
+Other stuff:
+ - Some fancy JS
+ - lazyloading in a not stupid way
+ - WCAG AAA
