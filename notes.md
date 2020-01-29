@@ -154,7 +154,7 @@ websites:
  - hlsi (soon™)
  - BetterBankside (soon™)
 
-pictures
+pictures(?)
 
 links (basically):
  - blog
@@ -166,3 +166,58 @@ Other stuff:
  - Some fancy JS
  - lazyloading in a not stupid way
  - WCAG AAA
+
+
+Changes of plans again (18/10/2019)
+-----------------------------------
+
+Things to include:
+
+ - 20469 Dioretsa - on the page? Nah
+ - canvasnake - but the QR code is borked so maybe make a new one (sigh)
+ - space for more game jam games in the future
+ - codeheadings
+ - savoir
+ - hlsi
+ - lighthouse
+ - stemCSS
+ - pictures
+
+links:
+ - github
+ - codepen
+ - email
+ - twitter
+
+Yellow means link / button
+Need build task for JS so... might as well make a build task
+4 space tabs
+no scss/sass
+only classes when reaaally needed.
+under 1kB JS
+single page with codeheadings and build task to remove them?
+
+Just make each of the below full vw with non-browser-windowed looping mp4
+
+so we need to have a full vh header with some stuff in:
+burnt.io
+intro text
+links to each section
+codepen/github/email/twitter
+
+projects on the left, text on the right?
+but project screenshots/mp4s have to be the thing that scrolls umm
+
+websites?
+ - savoir
+ - hlsi
+ - lighthouse
+ - ... there needs to be a "more" button with a page of all of them?
+   - propio
+   - betterbankside
+projects?
+ - stemCSS
+ - codeheadings
+game-dev?
+ - Dioretsa
+ - Canvasnake
