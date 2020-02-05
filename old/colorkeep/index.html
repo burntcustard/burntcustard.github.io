@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>colorKeep</title>
+    
+    <style>
+
+      body {
+        background-color: #2d2d2d;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      #container {
+        display:flex;
+        justify-content: center;
+        flex-flow: row wrap;
+        max-height: 100%;
+        min-width: 260px;
+        margin: 7px;
+        width: 100%;
+      }
+      
+      #container:before {
+        content: "";
+        display: block;
+        height: 7px;
+        width: 100%;
+      }
+      
+      #container:after {
+        content: "";
+        display: block;
+        height: 7px;
+        width: 100%;
+      }
+      
+      #container > form {
+        text-align: center;
+        flex: 0 1 100%;
+        margin: 7px;
+      }
+      
+      #container > form > #textInput {
+        width: 160px;
+        height: 40px;
+        
+        border-radius: 20px;
+        
+        margin: 0px;
+        padding: 0px 20px;
+        border: none;
+        padding: 0px 65px 0px 15px;
+        
+        width: 50%;
+        max-width: 350px;
+        
+        font-size: 15px;
+      }
+      
+      #container > form > button {
+        width: 60px;
+        height: 40px;
+        
+        border-radius: 20px;
+        padding: 4px;
+        background-color:grey;
+        
+        transition: background-color 0.3s ease-in-out;
+        
+        vertical-align: bottom;
+        
+        cursor: pointer;
+        
+        margin: 0px;
+        margin-left: -63px;
+        
+        border: none;
+      }
+      
+      #textInput:focus {
+        outline: none;
+        box-shadow: 0 1px 5px 1px black;
+      }
+      
+      .colorBox {
+        height: 130px;
+        width: 130px;
+        margin: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column nowrap;
+      }
+      
+      .colorBox > p {
+        font-family: "Tahoma", sans-serif;
+        margin: 10px;
+      }
+
+    </style>
+  </head>
+  
+  <body>
+    
+    <div id="container">
+      <form onsubmit="return addColor();">
+        <input
+          type="text"
+          id="textInput"
+          onkeydown="keyDown()"
+          placeholder="name, rgb, hex..."
+          autofocus
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+        />
+        <button type="submit" id="plusButton">
+          <svg height="100%" viewBox="0 0 8 8">
+            <line x1="1" x2="7" y1="4" y2="4" stroke="white" stroke-linecap="round"/>
+            <line x1="4" x2="4" y1="1" y2="7" stroke="white" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  
+  </body>
+  
+  <script src='colorKeep/colorKeep.js'></script>
+</html>

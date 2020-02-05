@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>emoji</title>
+    
+    <script src="//twemoji.maxcdn.com/twemoji.min.js"></script>
+    
+    <style>
+
+      body {
+        background-color: #2d2d2d;
+        height: 100vh;
+        margin: 0;
+      }
+      
+      #centreContainer {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+    </style>
+  </head>
+  
+  <body>
+    <div id="centreContainer">
+      <input input type="text" name="fname" id="searchBox" placeholder="rocket" onkeydown="search(event)"></input>
+      <i id="imageEmoji" class="twa twa-rocket"></i>
+      <span id="textEmoji">🚀<span>
+    <div>
+  </body>
+      
+  <script>
+    function copy() {
+      var textField = document.createElement('textarea');
+      var char = document.getElementById('textEmoji');
+      document.body.appendChild(textField);
+      textField.value = char.innerHTML;
+      textField.select();
+      document.execCommand('copy');
+      textField.remove();
+      document.getElementById("searchBox").focus();
+      return false;
+    }
+
+    function search(event) {
+      if (event.keyCode == '13') {
+        copy();
+      } else {
+        // setTimeout with 0ms delay means that key entered is read correctly.
+        // I.e. when 'c' pressed [abc] rather than [ab] read.
+        setTimeout (function() {
+          var emojiCode;
+          var input = document.getElementById('searchBox').value.toLowerCase();
+          var imageEmoji = document.getElementById('imageEmoji');
+
+          imageEmoji.className = ('twa twa-' + input);
+
+          var bgCode = JSON.stringify($('#imageEmoji').css('background-image'));
+
+          var top = '"url(\\"https://twemoji.maxcdn.com/svg/';
+          var tail = '.svg\\")"';
+          var none = '&#x"none";';
+
+          emojiCode = bgCode.replace(top,'');
+          emojiCode = emojiCode.replace(tail,'');
+          emojiCode = '&#x' + emojiCode + ';'
+          emojiCode = emojiCode.replace(none,'');
+
+          document.getElementById('textEmoji').innerHTML = emojiCode;
+        }, 0);
+      }
+    }    
+  </script>
+  
+</html>

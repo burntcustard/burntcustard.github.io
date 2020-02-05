@@ -1,0 +1,385 @@
+
+/* === GLOBAL === */
+
+:root {
+    --green: #32d52b;
+    --blue: #1da1f2;  /* Official Twitter blue (25-Feb-2018) */
+    --red: OrangeRed;
+    --text-color-light: White;
+    --text-color-dark: Black;
+    --text-color-alt: DimGray;
+    --text-color-light-link: DimGray;
+    --text-color-dark-link: OrangeRed;
+    --text-size-small: 13px;
+    --text-size-medium: 18px;
+    --text-size-large: 28px;
+}
+
+/* Thank you Jason Kottke for free font! */
+/* http://www.kottke.org/plus/type/silkscreen/index.html */
+/* Font has errors when hosted online but works fine using it locally(?) */
+@font-face {
+    font-family: 'silkscreen';
+    src: url('slkscr-webfont.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    font-family: 'silkscreen';
+    font-size: var(--text-size-small);
+    line-height: 1;  /* Different browsers set to different values by default */
+    color: var(--text-color-light);
+    text-shadow: 0px 1px 4px rgba(0,0,0,0.2);
+    user-select: none;  /* Any selectable text must overwrite this */
+}
+
+a:link, a:visited {
+    color: var(--text-color-light-link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Align small text vertically center */
+small {
+    vertical-align: middle;
+}
+
+.button {
+    cursor: pointer;
+}
+
+
+
+/* === MAIN === */
+
+#main-container {
+    margin: auto;
+    display: grid;
+    padding: 10px;
+    grid-template-columns: auto 452px auto;
+    grid-template-rows: 452px auto;
+    grid-template-areas:
+        "slider-left game slider-right"
+        ". slider-bottom .";
+}
+
+
+
+/* === GAME === **/
+
+#game-container {
+    grid-area: game;
+    position: relative;
+    height: 450px;
+    width: 450px;
+    border: 1px solid white;
+    background: white;
+    z-index: 1;  /* Must be on top of sliders */
+    overflow: hidden;  /* To make SSAA'd canvas not cause scroll bars */
+    box-shadow: 0 1px 7px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.4);
+}
+
+#gameCanvas, #textCanvas {
+    /* So SSAA-ing doesn't move it incorrectly */
+    transform-origin: top left;
+    position: absolute;
+}
+
+#qr-container, #qr-container-hidden {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 1;
+}
+
+#qr-container-hidden {
+    cursor: auto;
+    opacity: 0.07;
+}
+
+/* Center the QR code Canvasnake logo image */
+#qr-container img, #qr-container-hidden img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#qr-container::after {
+    content: "- click to play -";
+    /* It'd be better if this were positioned in relation to the  */
+    /* qr code… But [img]s can't have pseudo-elements so oh well. */
+    display: inline-block;
+    position: absolute;
+    bottom: 26px;
+    width: 100%;
+    text-align: center;
+    color: var(--red);
+    opacity: 0;
+    transition: opacity 0.1s;
+}
+
+#qr-container:hover::after {
+    opacity: 1;
+}
+
+
+
+/* === GENERIC SLIDER === */
+
+.slider-container {
+    display: flex;
+}
+
+.slider-container img {
+    filter: drop-shadow(0px 1px 3px rgba(0,0,0,0.2));
+}
+
+.slider {
+    box-shadow: 0 1px 6px rgba(0,0,0,0.2), 0 1px 1px rgba(0,0,0,0.3);
+    transition-duration: 0.3s;
+}
+
+.slider:hover {
+    box-shadow: 0 3px 9px rgba(0,0,0,0.2), 0 1px 4px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 550px) {
+    #slider-container-left, #slider-container-right {
+        display: none;
+    }
+}
+
+
+
+/* === SIDE SLIDERS === */
+
+.side.slider {
+    margin: 30px 0px;
+    transition-duration: 0.1s; /* Hover transition duration */
+}
+
+.side.slider > .button {
+    --button-size: var(--text-size-large);
+    width: var(--button-size); /* Height of button font size */
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.side.slider > .button > span {
+    font-size: var(--button-size);
+    transform:
+        translateX(calc(0px - var(--button-size)))
+        rotate(90deg);
+}
+
+.side.slider > .content {
+    transition-duration: 0.2s; /* Expanding transition duration */
+    position: relative;
+}
+
+.side.slider.collapsed > .content {
+    /* Using !important to override #slider-menu width's specificity */
+    width: 0 !important;
+}
+
+
+
+/* === LEFT SLIDER === */
+
+#slider-container-left {
+    grid-area: slider-left;
+}
+
+
+
+/* === RIGHT SLIDER === */
+
+#slider-container-right {
+    grid-area: slider-right;
+}
+
+.right.side.slider {
+    --background-color: var(--green);
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+
+
+/* === MENU SLIDER === */
+
+/* The menu slider is currently on the right, but that could be changed! */
+
+#slider-menu {
+    --menu-width: 250px;
+}
+
+/* To put menu on the other side these need to be left/right flipped. */
+#slider-menu.collapsed {
+    margin-right: 5px;
+}
+#slider-menu.collapsed:hover{
+    padding-left: 5px;
+    margin-right: 0px;
+}
+
+#slider-menu .content  {
+    width: var(--menu-width);
+}
+
+.slider.menu .content ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 15px 10px;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0;
+    width: var(--menu-width);
+}
+
+/* TODO: Allow more menu items to fit. Perhaps
+   using display: flex, or overflow: scroll */
+.slider.menu .content ul li {
+    font-size: var(--text-size-medium);
+    padding: 7px 10px;
+}
+
+.slider.menu .content ul li.button:hover > :first-child > span {
+    text-decoration: underline;
+}
+
+/* Add brackets around "default" settings text */
+.slider.menu .content ul li span ~ small::before {
+    content: "(";
+    display: inline-block;
+    margin-left: 0.5em;
+}
+.slider.menu .content ul li span ~ small::after {
+    content: ")";
+    display: inline-block;
+}
+
+.slider.menu .content ul li .option {
+    padding-left: 1px;
+}
+
+/* Bullet points (w/text-shadow) for settings options */
+.slider.menu .content ul li {
+    counter-reset: li;
+}
+.slider.menu .content ul li .option:before {
+    content: counter(li)'.';
+    counter-increment: li;
+    margin-right:0.5em;
+    display: inline-block;  /* Removes underline when selected */
+}
+
+.slider.menu .content ul li .option.selected {
+    background-color: var(--text-color-light);
+    color: var(--background-color);
+    text-shadow: none;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.1);
+}
+
+.slider.menu .content ul li :nth-child(n+2) {
+    font-size: var(--text-size-small);
+    margin: 2px;
+}
+
+.slider.menu .content ul li .description {
+    padding-left: 1em;
+}
+
+.slider.menu .content ul li .description::before {
+    display: inline-block;
+    content: "-";
+    width: 1em;
+    margin-left: -1em;
+}
+
+
+
+/* === BOTTOM SLIDERS === */
+
+#slider-container-bottom {
+    grid-area: slider-bottom;
+    justify-content: center;
+}
+
+.slider.bottom > p {
+    display: block;
+    margin: 0;
+    padding: 16px 8px 1px 8px;
+}
+
+.bottom.slider {
+    align-self: flex-start;
+    text-align: center;
+}
+
+.bottom.slider.small {
+    margin: 0px 10px;
+    transform: translateY(calc(-100% + 68px));
+}
+
+.bottom.slider:hover {
+    transform: translateY(0);
+}
+
+#slider-mobile {
+    background-color: var(--green);
+    width: 150px;
+}
+
+#slider-twitter {
+    background-color: var(--blue);
+    width: 95px;
+}
+
+#slider-about {
+    background-color: var(--red);
+    width: 64px;
+}
+
+.bottom.slider.large {
+    position: absolute;
+    width: 380px;
+    background-color: white;
+    color: black;
+    line-height: calc(var(--text-size-small) + 2px);
+    padding: 12px 0 0 0;
+}
+
+.bottom.slider.large a {
+    color: var(--red);
+}
+
+.bottom.slider.large p {
+    padding: 5px;
+}
+
+.bottom.slider.large .button {
+    padding-bottom: 11px;
+}
+
+.bottom.slider.large .button:hover {
+    text-decoration: underline;
+}
+
+#about-popout {
+}
+#about-popout.hidden {
+    transform: translateY(-110%);
+}

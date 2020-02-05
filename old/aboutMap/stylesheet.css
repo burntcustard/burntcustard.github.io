@@ -1,0 +1,30 @@
+body {
+	background-color: #eaeaea;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+<!-- SVG styling -->
+
+.nodes {
+  fill: #2d2d2d;
+}
+
+.links {
+  stroke: #2d2d2d;
+  stroke-width: 3px;
+}
+
+.centerNode {
+  stroke: #2d2d2d;
+  stroke-width: 10px;
+}
+
+text { 
+  stroke: #eaeaea;
+  stroke-width: 0px;
+  fill: #2d2d2d;
+  font-weight: bold;
+}
+
+<!-- End of SVG styling -->
