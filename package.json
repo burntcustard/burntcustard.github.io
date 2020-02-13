@@ -1,0 +1,23 @@
+{
+  "name": "burnt.io",
+  "version": "1.0.0",
+  "description": "If you got here looking for my CI287 Web based game development module game, go play it at [burnt.io/sem1game](http://burnt.io/sem1game/), or have a look at the code in the sem1game folder.",
+  "main": "index.js",
+  "scripts": {
+    "start": "sergey",
+    "dev": "sergey --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burntcustard/burntcustard.github.io.git"
+  },
+  "author": "John Evans",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/burntcustard/burntcustard.github.io/issues"
+  },
+  "homepage": "https://github.com/burntcustard/burntcustard.github.io#readme",
+  "dependencies": {
+    "sergey": "0.0.13"
+  }
+}
