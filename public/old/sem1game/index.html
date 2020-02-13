@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>sem1gameV2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="src/helper.js"></script>
+    <script src="src/input.js"></script>
+    <script src="src/sem1game.js"></script>
+    <script src="src/colorConvert.js"></script>
+    <script src="src/shapes.js"></script>
+    <script src="src/organism.js"></script>
+    <script src="src/organismProperties.js"></script>
+    <script src="src/camera.js"></script>
+    <script src="src/movement.js"></script>
+    <script src="src/debug.js"></script>
+    <script src="src/render.js"></script>
+    <script src="src/levels.js"></script>
+    <script src="src/shader.js"></script>
+    <script src="src/update.js"></script>
+    <script src="src/settings.js"></script>
+    <script src="src/ai.js"></script>
+    <script src="src/particle.js"></script>
+    <script src="lib/glfx.js"></script>
+    <style>
+      
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      
+      canvas {
+        height: 100vh;
+        width: 100vw;
+      }
+      
+      #debug {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: rgba(9, 9, 9, 0.7);
+        color: white;
+        padding: 5px;
+        font-family: monospace;
+        display: none;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="debug">Debug panel</div>
+  </body>
+</html>

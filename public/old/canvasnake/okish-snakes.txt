@@ -1,0 +1,51 @@
+┌─────────────────────────┐
+│  ▀█▀  █▄  █  █▀▀  ▄▀▀▄  │
+│   █   █ ▀▄█  █▄   █  █  │
+│  ▄█▄  █  ▀█  █    ▀▄▄▀  │
+└─────────────────────────┘
+
+The 'c:' can be replaced by a '#' to save a character. That segment describes
+the color of the snake, and can be modified freely to any other hex code.
+
+The 'f:' section is the snakes last recorded fitness value (averaged over the
+rounds it played during that population cycle), and can be removed if desired.
+
+
+
+┌────────────────────────────────────┐
+│  █   █  ▄▀▀     █▄  █  █▀▀  █   █  │
+│  █   █  ▀■▄     █ ▀▄█  █▀▀  █ █ █  │
+│   ▀▄▀   ▄▄▀     █  ▀█  █▄▄   █ █   │
+└────────────────────────────────────┘
+Neuroevolutionary AI trained against neuroevolutionary AI
+
+c:6d707b|f:1838|5.12.3|+J925+6jIp+CstG-EpuX-5PYS-0v8T+D5oe-9ACb-AAGd+D$9s+Fxzg-6xTr+W9$3-DAr2+H45D+6D6Z-Im4p+B4bP-0p2g-2y7U+Cwy1+5AMY-31Vh-5F_T+8wRO-95wC+58W8+Hf6$-A2gm-5l5o-0OW8-I_qP+A1BS-Jas3-HFTY-6uun-3SfG-0tn7-JZ7i+PiOs+0vV7-3OSy-52Q$-AHL4-Biza+J5ZD-44fc+BJVX+2LEd+8tF_+4BMb-8xql-1$bg+IQj$+Jloy+2YLd+3L5O-9s9e+4YH3-A7w8+1KLc-4qKH+2zlp+7LMR+J4fg-BLk0-2wcy+2jY5-VDXA-2bNQ-1zh9+Bdt9-4ERu+0qTZ+ESuZ-BtkX+7dRL+G6VJ+Hf8H-CQVt-2rej-A$Je+56zP+3J2E+JKNa-DypC-4UYB-0HQg+76mu-9Xkk+2xjM-Ahzb-0QiV-9QFz-E_xO-2aOl-9dAZ-7el2+2vQB+E$mB+F4u6-76s9-08ZI+4r9e+9g1V+AkxV+3VA0-DYM7-AZXd-7Y7S+L94I-IkIF-5JwV-VHXH-X8wj-CvMI
+
+c:96756a|f:2444|5.12.3|+J925+Uzyl-2di_-38WA-5PYS-0v8T+D5oe-9ACb-AAGd+5NSA+Fxzg-6xTr+W9$3-A_$S+H45D+6D6Z-Im4p+B4bP-0p2g-2y7U+Cwy1+5AMY-31Vh-5F_T+8wRO-3TuX+58W8+2fON-7lw6-5l5o+0mVH-I_qP+A1BS-N60Q+HFTY+6uun+7mLV+Ay9s-Qq_g+PiOs+0vV7-3OSy-52Q$-AHL4-Biza+J5ZD-44fc+BJVX+2LEd+8tF_+4BMb-6JO6-1$bg+IQj$+BQRw+2YLd-2oRY+0Gs$+4YH3-A7w8-1_42-4qKH+2zlp+7LMR+J4fg-BLk0-2wcy+2jY5-VDXA-2bNQ-Fc_l+Bdt9-C4$2-2fU$+ESuZ-7fAp+7dRL+G6VJ+Hf8H-CQVt-2rej-A$Je+56zP+3J2E+JKNa-5vYu-4UYB-0HQg+76mu-9Xkk+2xjM-Ahzb-0QiV-ENIu-E_xO-2aOl-3oSr-FMso+2vQB+7R25+F4u6-9I4u-08ZI+4r9e-0SKP+HTCR+3VA0-HKIZ-AZXd-7Y7S+L94I-61xN-5JwV-VHXH-X8wj-CvMI
+
+c:82be88|f:2453|5.10.3|+M4fo-9bcC+0W7G-3gMp+2KN9+CpxJ+51s9-5PRg+FWcr-5Qhc+5qyV+2$L_-4_5m-29Ii+9vQw-1UaH-ICTg+5M0N-BsCq+76TH-M$U7-13$z+EQ$T-AY_X+FQ2k-7_wN+DyYY+QCiS+28wS+0000+0000+APYo-CpQB+0xme+9Qth+0000-0guu-1fVI+4Z5n-E0RA-1cGR-7T_V+31d_+4P79-5l8h+N0c7+9bCn+A1Bx-Gy5q+0000+4b08+4CIA+0000+81DI+044Q+Gp7p+0000+09fP+1v7z+RXZl-Lqke+2Y63-0Msb+7Oem-4DVH+0000+0000+0000+0000+0000+HCR_+0000+0000+0000+1WZ7+0000+0000+F7DX+14a6+0000-3nbL+7PcM+7xRy+0000-C7UP-3qqM-1EzM+0000+1jdY+0000+0000+0000+0000+0000+0000+0000+0000+5Vwn
+
+
+
+┌──────────────────────────────────┐
+│  █   █  ▄▀▀     ▄▀▀▄  █    █▀▀▄  │
+│  █   █  ▀■▄     █  █  █    █  █  │
+│   ▀▄▀   ▄▄▀     ▀▄▄▀  █▄▄  █▄▄▀  │
+└──────────────────────────────────┘
+Neuroevolutionary AI trained against the old rule-based AI
+
+c:a75f8b|f:4485|5.12.3|-LRCZ+3DbG-6jiL+0ueL+81mt+3kaY+UAGx-D6IS-7978-BrlR-8VI9-Jl9X-6Qau-Evab-3Qap+GlD_+A6Xp+NaJB+6FTK+3VvR+3BwJ+1b9q-6aAQ+5JK2+Ey2X+3PcD+JgDj+3rd$+0000-2ZQb+F2Nm+6EGY-3q35-Kc3g+3R1A-0EUa+3Er1-0XlV+LtBQ-48Iq-KybU-46Db-3bLo+1r54-GQWy-JO$B+0bbB-17SF-DqHd+2E_W+7CIJ+7Ph0+DeH4-8jFg-GnRC+0Es9+8E09-1rDi-9jXy-59oz+8XSI-CJXm-0qW0-DRA$+33zJ+7uhX+6qnR-Ajrd-NXbT+QXJu-54CL+3yae-ARGj+0tkM+PYQa+3Fsd-1DBW-42F0-0jb9-21sa-AF6I-BwC3+1rhU+ASck+JnT$+EiIG+0g7u-0nDI+0$bR-CvyH-0xvH-2pbP+2va0+0000+JqEA+Br$G-056Y+1cBQ-0d6w-17FI-4Hp9-HLIx+8tHW+0946+4k_O+1wlC+2iUG+38fP-8hvl+C$Wc-5j3z-5FFz-0r3c-41R4-93h2-1EcW
+
+c:e229a9|f:4681|5.12.3|-6DTm-8YwU+67cD-KALn+GclC+6JGO-CBKC+8d_k+4utz-MkZa+2DLQ+FbMl-1gr_+APJF-4tNq-6zVi+FvQz-67kL+6WgH-1RUz+XkSc+4lp9-ChSW+15Ha+5A$k-8zrj-9h0w-2ZjW+DyTP-1Vhe+5o6e-3GWF+F7yk-1k5l-DCQB-GwIe-6cmU-D5$L+6J8M+N4jo-7dAZ-2PIT-2yB8-3n2R+44FP+TBuR-4HiK+49Hy+3roB-7F29+6vG3+PVp0-5Cf5+A6ua-E9TW-CMac-AnWA+1YdV-Nerv+2f5K+53X0+AUfZ+MvHE-Fah$+Mf2z-1K5G-QSGG-0fSi+1amw+16aO+JShj+4l3I-13q8-5Tiw+8cV0+K9Na+6VP3-1R06-II70+B0hZ-9U_c-0Wa4-IFvE+7OAz+5umy+7gLk-0cU4+2Dlx+EKgg-6UnO+4qJP-0E11+AoLL+8qfj-2NIg+9qxo-3VgU+DMMf-PjQV-HJNS+4pVX+0bnX-2iky+3Vn3+3Xsw+4ySU+3jnE-22bc-0Hjp+9Svd+M0kQ+3hG9-52qW+09YB-BzPV-2sdx
+
+
+
+┌──────────────────────────────┐
+│  ▄▀▀▄  ▀█▀  █  █  █▀▀  █▀▀▄  │
+│  █  █   █   █▀▀█  █▀▀  █▄▄▀  │
+│  ▀▄▄▀   █   █  █  █▄▄  █  █  │
+└──────────────────────────────┘
+Any other weird or wonderful noteworthy snakes
+
+Diagonal-travelling snake (may be broken):
+c:dd8290|f:1892|5.10.3|-7X6t+Osqg+23Vl+0_Al-D96e+EeSO+Eb42+6bq_-KE6t-Mg9F+XEvW+1j_Y+EH$a+1PtQ+5vyP-3bao-0AfP+CuDd-5zuR-2xZ1-0p_V-5Yn5-4GQj+7Oyn+3pSf-J3ok-1VN2+H0Wj-DPu_+7ICP-PLtS-Cvmo-31p7+BsN6+A53B+6ZQv+HnHh+3Y8o+80lD-DUxc+9Us4-0bsR+5Ftz+1V9r-321a+98xm+4sVS+8AoQ-6amZ+HRo5+CeWE-7Xfv-Yoy$-00Sz-O$cJ+6ecX-52uH+1g9A-4OBN+34ea+8Lqt-8rrs-BTm9-5vY_+MPHu+9aBK-CfCG+2sFK-PUv0+9CT$+Aku_-5PGd+LJbT-KAf2+A7Cs-0a2K+3JQa+0143+D7e8-85yS-3gKl+B3jr+CT74-B91F-5F7u-LWMp-Gqzi+2j7E-Ankb-75gv+B5UT+CfA_+4JNk-8vcK+HuiU+2ryC-0hJd-NgZy

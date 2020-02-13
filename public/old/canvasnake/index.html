@@ -1,0 +1,115 @@
+<!doctype html>
+
+<html>
+
+    <head>
+        <title>Canvasnake</title>
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="16x16 32x32 64x64" href="favicon.ico">
+        <link rel="icon" sizes="192x192" href="favicon192.png"/>
+        <meta name="viewport" content="width=480, user-scalable=no">
+        <script src="src/web-ui.js"></script>
+        <script src="src/main.js" type="module"></script>
+        <link rel="stylesheet" type="text/css" href="default.css">
+    </head>
+
+    <body>
+
+        <div id="main-container">
+
+            <div id="game-container">
+                <canvas id="gameCanvas" width="450" height="450">Error loading canvasnake :(</canvas>
+                <canvas id="textCanvas" width="450" height="450"></canvas>
+                <div id="qr-container">
+                    <img src="img/qrLogo.png" id="qrCode" alt="QR code">
+                </div>
+            </div>
+
+            <div id="slider-container-left" class="slider-container"></div>
+
+            <div id="slider-container-right" class="slider-container">
+                <div id="slider-menu" class="right side slider menu collapsed">
+                    <div class="menu button" onclick="toggleMenu();">
+                        <span>Menu</span>
+                    </div>
+                    <div id="menu-content" class="content">
+                        <ul>
+                            <li class="button" onclick="selectGameMode(+1);">
+                                <div id="gamemode"><span>Gamemode</span></div>
+                                <div class="option">Single player</div>
+                                <div class="option selected">Single player vs AI</div>
+                                <div class="option">Two player</div>
+                                <div class="option">Three player</div>
+                                <div class="option">AI vs AI</div>
+                            </li>
+                            <li class="button" onclick="clearHighScores();">
+                                <div><span>Clear high scores</span></div>
+                                <div class="description">Resets all high scores</div>
+                            </li>
+                            <li class="button" onclick="incrementSSAA();">
+                                <div id="SSAA">
+                                    <span>SSAA:</span> 1<small>default</small>
+                                </div>
+                                <div class="description">Makes the game clearer by rendering at higher res and downscaling.
+                                </div>
+                                <div class="description shortcut">Shortcuts: [,]</div>
+                            </li>
+                            <li class="button" onclick="toggleAutoRepeat();">
+                                <div id="autoRepeat">
+                                    <span>Auto-repeat:</span> false
+                                </div>
+                                <div class="description shortcut">Shortcut: R</div>
+                            </li>
+                            <li class="button" onclick="togglePause();">
+                                <div id="pause">
+                                    <span>Pause</span>
+                                </div>
+                                <div class="description shortcut">Shortcut: P</div>
+                                <div class="description shortcut">Next step shortcut: N</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="slider-container-bottom" class="slider-container">
+                <div id="slider-mobile" class="slider bottom small">
+                    <p>
+                        Scan QR code with an app like
+                        <a href="https://play.google.com/store/apps/details?id=com.mobile.qrcodereader" title="QR Code Reader on the Play Store" target="_blank">this&nbsp;one</a> to play on mobile.
+                        <a id="showQRLink" title="Not working? Instead, go to: burnt.io/canvasnake" href="#" onclick="init(); return false;">Show&nbsp;QR</a>
+                    </p>
+                    <img src="img/mobile.png" alt="mobile logo" />
+                </div>
+                <div id="slider-twitter" class="slider bottom small button" onclick="shareScore(); return false">
+                    <p>Tweet your highscore</p>
+                    <img src="img/twitter.png" alt="twitter logo" />
+                </div>
+                <div id="slider-about" class="slider bottom small button" onclick="toggleAbout();">
+                    <p>About</p>
+                    <img src="img/info.png" alt="about logo" />
+                </div>
+                <div id="about-popout" class="slider bottom large hidden">
+                    <p>
+                        WASD, IJKL, arrow keys, or<br>
+                        up/down/left/right taps to turn
+                    </p>
+                    <p>
+                        <a href="https://github.com/burntcustard/canvasnake">Source code</a> and <a href="https://github.com/burntcustard/canvasnake/blob/master/LICENSE">MIT&nbsp;license</a> on GitHub
+                    </p>
+                    <p>
+                        Contact me on twitter <a href="https://twitter.com/burntcustard" target="_blank">@burntcustard</a><br>or via email <a href="mailto:burntcustard@gmail.com?Subject=canvasnake"
+                   target="_top">burntcustard@gmail.com</a>
+                    </p>
+                    <p class="button" onclick="toggleAbout();">
+                        - Hide -
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+
+</html>

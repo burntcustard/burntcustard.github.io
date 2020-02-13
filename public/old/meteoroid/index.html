@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>meteoroid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="resize.js"></script>
+    <script src="init.js"></script>
+    <script src="domUI.js"></script>
+    <script src="staticUI.js"></script>
+    <script src="dynamicUI.js"></script>
+    <script src="planetGen.js"></script>
+    <script src="planetDraw.js"></script>
+    <script src="level.js"></script>
+    <script src="helper.js"></script>
+    <script src="colors.js"></script>
+    <script src="meteor.js"></script>
+    <script src="input.js"></script>
+    <script src="update.js"></script>
+    <script src="vector.js"></script>
+    <script src="physics.js"></script>
+    <script src="app.js"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:800" rel="stylesheet">
+    
+    <style>
+      
+      body {
+        margin: 0;
+        height: 100%;
+        background-color: rgb(70, 60, 99);
+        overflow: hidden;
+      }
+      
+      canvas {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        pointer-events: none;
+      }
+      
+      #meteorCanvas {
+        pointer-events: auto;
+      }
+      
+      #debug {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: rgba(9, 9, 9, 0.7);
+        color: white;
+        padding: 5px;
+        font-family: monospace;
+        display: none;
+      }
+      
+      #versionPanel {
+        position: absolute;
+        right: 9px;
+        bottom: 7px;
+        font-family: monospace;
+        color: white;
+      }
+      
+      .UIContainer {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: rgb(44, 255, 224);
+        pointer-events: none;
+      }
+      
+      .UIContainer > div {
+        display: none;
+        pointer-events: auto;
+      }
+      
+      #gameName {
+        font-size: 9vmin;
+        cursor: default;
+      }
+      
+      .buttonsContainer {
+        
+      }
+      
+      /* Remove browser defaults for <button> */
+      button {
+        display: block;
+        margin: auto;
+        background: none;
+        color: inherit;
+        border: none;
+      }
+      button:focus {
+        outline: none;
+      }
+      
+      .buttonsContainer > button {
+        font-size: 4vmin;
+        cursor: pointer;
+        margin: 3vmin auto;
+        padding: 1.5vmin 5vmin;
+        background-color: rgb(0, 220, 210);
+        border-radius: 1vmin;
+        color: white;
+        text-shadow: 0 0.2vmin 0.1vmin rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0.7vmin 0 rgba(0,0,0,0.25),
+                    0 0.7vmin 0 rgb(19, 194, 211),
+                    0 1.5vmin 0 rgba(0,0,0,0.2);
+        transition: all 0.2s;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      .buttonsContainer > button:hover {
+        box-shadow: 0 0.1vmin 5vmin rgba(0, 220, 210, 0.2),
+                    0 0.4vmin 0 rgba(0,0,0,0.2);
+        transform: translateY(0.6vmin);
+        transition: all 0.15s;
+      }
+      
+    </style>
+  </head>
+  
+  <body>
+    
+    <canvas id="planetCanvas"></canvas>
+    <canvas id="meteorCanvas"></canvas>
+    <canvas id="uiCanvasStatic"></canvas>
+    <canvas id="uiCanvasDynamic"></canvas>
+    
+    <div class="UIContainer">
+      
+      <div id="mainMenu">
+        <h1 id="gameName">meteoroid</h1><!-- Could switch to an image for a logo eventually -->
+        <div class="buttonsContainer">
+          <button id="newGameButton"  >New game</button>
+          <button id="continueButton" >Continue from level ??</button>
+          <button id="highscoreButton">Highscores</button>
+          <button id="settingsButton" >Settings</button>
+          <button id="creditsButton"  >Credits</button>
+        </div>
+      </div>
+      
+      <div id="pauseMenu">
+        <h1 id="paused">Paused</h1>
+        <div class="buttonsContainer">
+          <button>Continue</button>
+          <button>Main menu</button>
+        </div>
+      </div>
+      
+      <div id="preLevelMessage">
+        <p>pre level message placeholder text</p>
+        <div class="buttonsContainer">
+          <button>Continue</button>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div id="debug">Debug panel</div>
+    <div id="versionPanel">v???</div>
+    
+  </body>
+  
+</html>

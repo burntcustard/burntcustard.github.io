@@ -1,0 +1,268 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='scrabble.js' async></script>
+    
+    <title>scrabble</title>
+    
+    <style>
+      
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      input {
+        border: none;
+        outline: none;
+        background: white;
+        font-size: 16px;
+      }
+      
+      body {
+        background-color: #2d2d2d;
+        text-align: center;
+      }
+      
+      .container {
+
+        border: 6px solid rgb(50, 90, 40);
+        border-radius: 6px;
+        
+        font-family: "Consolas", "Lucida Console", "Monaco", "DejaVu Sans Mono", monospace;
+        
+        max-width: calc(100% - 40px);
+
+        display: flex;
+        
+        min-width: 330px;
+        
+        height: 350px;
+        
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-49.5%, -50%);
+        
+        overflow-x: auto;
+        
+        overflow-y: hidden;
+        overflow: hidden;
+
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.66), 0px 2px 14px rgba(0, 0, 0, 0.46);
+        
+      }
+      
+      #words, #scores {
+        padding: 20px;
+      }
+      
+      #words {
+        position: relative;
+        background-color: rgb(28, 173, 102);
+        width: 160px;
+        min-width: 160px;
+      }
+      
+      #scores {
+        background-color: white;
+        z-index: 1;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+      }
+      
+      #wordInput {
+        padding: 4px;
+        width: calc(100% - 8px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      }
+      
+      #wordInput:focus {
+        box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+      }
+      
+      #wordList {
+        height: 225px;
+        text-align: left;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      
+      #wordList > li {
+        border-top: 1px solid rgb(98, 205, 122);
+        padding: 4px;
+        width: 100%;
+        color: white;
+        cursor: pointer;
+      }
+      
+      .menuBtn {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content: center;
+        bottom: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+      
+      .menuBtn:hover {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      }
+      
+      .menuBtnClicked {
+        background-color: rgb(28, 173, 102);;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.3);
+        transform: rotate(-180deg);
+        transition: all 0.3s ease-in-out;
+      }
+      
+      .menuBtnClicked:hover {
+        box-shadow: 0 -4px 10px rgba(0,0,0,0.5);
+      }
+      
+      .menuBtn > .line {
+        background-color: grey;
+        height: 3px;
+        width: 24px;
+        margin: 3px;
+        transition: all .3s;
+      }
+      
+      .menuBtnClicked > .line {
+        background-color: white;
+      }
+        
+      .menuBtnClicked > .line:nth-child(1) {
+        background-color: white;
+        transform: translate(10px, 5px) rotate(45deg) scale(0.5, 1);
+      }
+  
+      .menuBtnClicked > .line:nth-child(3) {
+        transform: translate(10px, -5px) rotate(-45deg) scale(0.5, 1);
+      }
+      
+      .menu {
+        position: absolute;
+        padding: 20px;
+        height: calc(100% - 40px);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: flex-start;
+        align-items: flex-start;
+        top: 0;
+        left: 0;
+        background-color: white;
+        transform: rotate(-45deg) translate(-150%, 50%);
+        transition: all .3s;
+      }
+      
+      .menuShown {
+        transform: none;
+      }
+      
+      .menu > li {
+        color: grey;
+        cursor: pointer;
+        width: calc(100% - 20px);
+        padding: 4px;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+      }
+      
+      .menu > li:hover {
+        color: rgb(28, 173, 102);
+      }
+
+      .menu > li:first-child {
+        color: rgb(28, 173, 102);
+        border-bottom: 1px solid grey;
+        cursor: default;
+      }
+      
+      .greyed {
+        color: lightgrey !important;
+        cursor: default !important;
+      }
+      
+      .names {
+        border-bottom: 1px solid grey;
+      }
+      
+      .names > li, .points > li {
+        display: flex;
+      }
+      
+      .names > li > input, .points > li > input {
+        padding: 4px;
+        width: 108px;
+        text-align: center;
+        margin: 0px;
+      }
+      
+      .names > li > input, .points > li > input {
+        border-left: 1px solid grey;
+      }
+    
+      .names > li > input:first-child, .points > li > input:first-child {
+        border-left: 1px solid rgba(0,0,0,0); 
+      }
+      
+      .points {
+        height: 285px;
+        overflow-y: overlay;
+      }
+      
+      
+    </style>
+  </head>
+  
+  <body>
+    <div class="container">
+      <div id="words">
+        <input id="wordInput" placeholder="Word lookup"></input>
+        <ul id="wordList"></ul>
+        <ul class="menu">
+          <li>OPTIONS</li>
+          <li onclick="addPlayer()"    id="addPlayer"   >Add player   </li>
+          <li onclick="removePlayer()" id="removePlayer">Remove player</li>
+          <li onclick="clearScores()"  id="clearScores" >Clear scores </li>
+        </ul>
+        <div class="menuBtn" onclick="menuClick(this)" title="Menu">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div id="menuSlider"></div>
+      </div>
+      <div id="scores">
+        <ul class="names">
+          <li>
+            <input placeholder="Player 1"></input>
+            <input placeholder="Player 2"></input>
+          </li>
+        </ul>
+        <ul class="points">
+          <li>
+            <input placeholder="Score" onblur="maybeAddPointsBoxes()" type="number"></input>
+            <input placeholder="Score" onblur="maybeAddPointsBoxes()" type="number"></input>
+          </li>  
+        </ul>
+      </div>
+    </div>
+  </body>
+  
+</html>
