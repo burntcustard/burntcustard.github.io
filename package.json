@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "sergey",
-    "dev": "sergey --watch"
+    "watch": "sergey --watch"
   },
   "repository": {
     "type": "git",
