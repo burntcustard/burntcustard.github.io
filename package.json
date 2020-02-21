@@ -17,7 +17,5 @@
     "url": "https://github.com/burntcustard/burntcustard.github.io/issues"
   },
   "homepage": "https://github.com/burntcustard/burntcustard.github.io#readme",
-  "dependencies": {
-    "sergey": "0.0.13"
-  }
+  "dependencies": {}
 }
