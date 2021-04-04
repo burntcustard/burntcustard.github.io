@@ -1,6 +1,5 @@
-
-a.games:before,
-a.games:after {
+a.games::before,
+a.games::after {
   width: 2px;
   height: 14px;
   background-color: currentColor;
@@ -11,22 +10,22 @@ a.games:after {
   100% { transform: translateY( 8px); }
 }
 
-a.games:before {
+a.games::before {
   left: -2px;
 }
 
-a.games:after {
+a.games::after {
   right: -2px;
 }
 
-a.games:focus:before,
-a.games:hover:before {
+a.games:focus::before,
+a.games:hover::before {
   left: 4px;
   animation: 1s linear infinite alternate play;
 }
 
-a.games:focus:after,
-a.games:hover:after {
+a.games:focus::after,
+a.games:hover::after {
   right: 4px;
   animation: 1s linear infinite alternate-reverse play;
 }

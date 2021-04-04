@@ -3,7 +3,7 @@ p time {
   margin-top: -2em;
 }
 
-time:before {
+time::before {
   display: inline-block;
   content: '-\a0';
 }

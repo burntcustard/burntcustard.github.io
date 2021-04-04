@@ -22,6 +22,11 @@ div.projects-list {
 }
 
 @media all and (min-width: 500px) {
+  .info {
+    display: flex;
+    justify-content: flex-end;
+    flex-basis: 40%;
+  }
 
   .projects-list article:nth-child(odd) .info {
     padding-right: 48px;
@@ -34,11 +39,5 @@ div.projects-list {
   .projects-list article:nth-child(even) .info {
     justify-content: flex-start;
     padding-left: 48px;
-  }
-
-  .info {
-    display: flex;
-    justify-content: flex-end;
-    flex-basis: 40%;
   }
 }

@@ -3,8 +3,8 @@ main header,
 main.home,
 main.post,
 .blog .listings {
- max-width: 1200px;
- margin: 0 auto;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 main.home {
@@ -13,8 +13,8 @@ main.home {
 
 /* Inner */
 main:not(.home) header h1 {
- margin: max(6%, 48px) 0;
- padding: 0 1rem;
+  padding: 0 1rem;
+  margin: max(6%, 48px) 0;
 }
 
 main.home > div {

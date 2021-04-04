@@ -3,7 +3,7 @@ a.home {
   background: var(--gray-dark);
 }
 
-a.home:before {
+a.home::before {
   display: block;
   content: '';
   position: absolute;
@@ -15,7 +15,7 @@ a.home:before {
   background-color: white;
 }
 
-a.home:after {
+a.home::after {
   display: block;
   content: '';
   right: calc(100% + 10px);
@@ -23,17 +23,18 @@ a.home:after {
   height: 24px;
   width: 24px;
   background-color: var(--gray-dark);
-  clip-path: polygon(
-    0 12px,
-    12px 0,
-    24px 12px,
-    24px 24px,
-    15px 24px,
-    15px 15px,
-    9px 15px,
-    9px 24px,
-    0 24px
-  );
+  clip-path:
+    polygon(
+      0 12px,
+      12px 0,
+      24px 12px,
+      24px 24px,
+      15px 24px,
+      15px 15px,
+      9px 15px,
+      9px 24px,
+      0 24px
+    );
 }
 
 a.home:focus,
@@ -41,7 +42,7 @@ a.home:hover {
   margin-left: 50px;
 }
 
-a.home:focus:before,
-a.home:hover:before {
+a.home:focus::before,
+a.home:hover::before {
   width: 44px;
 }

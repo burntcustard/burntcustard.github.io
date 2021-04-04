@@ -8,12 +8,12 @@ a.blog {
   100% { opacity: 1; }
 }
 
-a.blog:before,
-a.blog:after {
+a.blog::before,
+a.blog::after {
   transition: .25s all steps(3, end);
 }
 
-a.blog:before {
+a.blog::before {
   border: 2px solid var(--nearly-white);
   border-top: none;
   left: 10px;
@@ -45,7 +45,7 @@ a.blog:before {
     );
 }
 
-a.blog:after {
+a.blog::after {
   opacity: 0;
   width: 3px;
   height: 3px;
@@ -55,12 +55,12 @@ a.blog:after {
   border-radius: 50%;
 }
 
-a.blog:focus:before,
-a.blog:hover:before {
+a.blog:focus::before,
+a.blog:hover::before {
   top: 100%;
 }
 
-a.blog:focus:after,
-a.blog:hover:after {
+a.blog:focus::after,
+a.blog:hover::after {
   animation: 1s ease-in-out infinite alternate blink;
 }
