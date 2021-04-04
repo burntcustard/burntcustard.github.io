@@ -1,5 +1,5 @@
-.home a,
 p a,
+.home a,
 .blog h2 a,
 .read-more {
   color: var(--yellow);
@@ -54,15 +54,15 @@ p a,
     );
 }
 
+p a:hover,
+p a:focus,
+.home a:hover {
+  background-size: 100% 100%, 100% 100%;
+}
+
 .blog h2 a:focus,
 .blog h2 a:hover,
 .read-more:focus,
 .read-more:hover {
   background-size: calc(100% - .4em) 100%;
-}
-
-.home a:hover,
-p a:hover,
-p a:focus {
-	background-size: 100% 100%, 100% 100%;
 }
