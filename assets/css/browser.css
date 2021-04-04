@@ -6,14 +6,14 @@
 }
 
 /* Aspect ratio padding hack */
-.browser:before {
+.browser::before {
   content: '';
   float: left;
   padding-top: calc(56% + 28px);
 }
 
 /* Taskbar • • • */
-.browser:after {
+.browser::after {
   content: '';
   position: absolute;
   top: 6px;
@@ -30,12 +30,13 @@
   top: 2px;
   padding-top: 1px;
   color: var(--gray-dark);
-  background-image: linear-gradient(
-    transparent calc(100% - 2px),
-    var(--gray-dark) 0,
-    var(--gray-dark) calc(100% - 1px),
-    transparent 0
-  );
+  background-image:
+    linear-gradient(
+      transparent calc(100% - 2px),
+      var(--gray-dark) 0,
+      var(--gray-dark) calc(100% - 1px),
+      transparent 0
+    );
   background-repeat: no-repeat;
   background-size: 0 100%;
   transition: background-size .2s;
@@ -45,7 +46,7 @@
 .browser a:focus,
 .browser a:hover {
   outline: none;
-	background-size: 100% 100%;
+  background-size: 100% 100%;
 }
 
 .viewport {
