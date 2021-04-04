@@ -6,13 +6,12 @@ p a,
   background-image:
     linear-gradient(
       transparent calc(100% - 4px),
-      var(--nearly-white) 0,
-      var(--nearly-white) calc(100% - 3px),
+      var(--nearly-white) 0 calc(100% - 3px),
       transparent 0
     ),
     linear-gradient(
-      transparent calc(100% - 1px),
-      white calc(100% - 1px)
+      transparent calc(100% - 2px),
+      white calc(100% - 1px) 100%
     );
   background-repeat: no-repeat;
   background-size: 100% 100%, 0 100%;
