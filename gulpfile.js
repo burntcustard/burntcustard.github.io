@@ -7,10 +7,10 @@ const concat = require('gulp-concat');
 const gzipSize = require('gzip-size');
 const through = require('through2');
 const path = require('path');
-const markdown = require('marked');
 const glob = require ('fast-glob');
 const rename = require('gulp-rename');
 const chalk = require('chalk');
+const jam = require('./jam');
 
 function clean(cb) {
   return del(['dist/']);
@@ -73,236 +73,32 @@ function js() {
     .pipe(gulp.dest('dist/js'));
 }
 
-/**
- * Slot or 'import' HTML files into other HTML files, respecting indentation.
- *
- * Use via:
- * <part src="filename-of-part"/> (no dir or extensions)
- * in HTML files. Self-closing HTML forward slash is optional.
- *
- * Parts CAN import other parts, but too much recursion could get slow.
- * @param  {[type]} html [description]
- * @return {[type]}      [description]
- */
-function slotParts(html, parts) {
-  const regex = /( *)(?:<part src=")([a-zA-Z./-]*)(?:"\/?>)/g;
-  const replacer = (match, indent, filename) => {
-    let filepath = `src/parts/${filename}.html`
-    if (!(filepath in parts)) {
-      let error = `Failed to include part: ${filepath}`;
-      console.error(chalk.red(error));
-      return `<pre>${error}</pre>`;
-    }
-
-    let part = parts[filepath];
-
-    // Part importing recursion
-    if (part.includes('<part src="')) {
-      part = slotParts(part, parts);
-    }
-
-    // Return withe part, with the same indentation as the tag it's replacing
-    return part.replace(/^/gm, indent);
-  };
-
-  return html.replace(regex, replacer);
-}
-
-/**
- * Slot new HTML content into a main HTML string.
- * @param  {[type]} html    [description]
- * @param  {[type]} content [description]
- * @return {[type]}         [description]
- */
-function slotContent(html, content) {
-  const regex = /( *)(?:<content\/?>)/g;
-  const replacer = (match, indent) => {
-    return content.replace(/^/gm, indent);
-  };
-
-  return html.replace(regex, replacer);
-}
-
-function slotListings(html, content) {
-  const regex = /( *)(?:<listings\/?>)/g;
-  const replacer = (match, indent) => {
-    return content.replace(/^/gm, indent);
-  };
-
-  return html.replace(regex, replacer);
-}
-
-function setCurrentNav(html, pagePath) {
-  const filename = path.basename(pagePath, path.extname(pagePath));
-  const dirname = path.basename(path.dirname(pagePath));
-
-  if (dirname === 'pages' && filename === 'index') {
-    return html.replace('href="/"', '$& aria-current="page"');
-  }
-
-  const regex = new RegExp(`href="\/(${filename}|${dirname})"`);
-  return html.replace(regex, '$& aria-current="page"');
-}
-
-function combineTitles(html, separator = ' - ') {
-  // Used to get all the title elements from an HTML snippet
-  const titleElementsRegex = /(<title>[^<]+<\/title>)/g;
-
-  // Used to pull the title text out of a title tag
-  const titleTextRegex = /(?:<title>)([^<]+)(?:<\/title)/;
-
-  // Get all the title elements including <title> tags and indentation
-  const titleElements = html.match(titleElementsRegex);
-
-  // If there's no titles, or there's only one, don't modify
-  if (!titleElements || titleElements.length === 1) {
-    return html;
-  }
-
-  const titleTexts = [];
-
-  for (i = titleElements.length - 1; i >= 0; i--) {
-    titleTexts.unshift(titleElements[i].match(titleTextRegex)[1]);
-
-    // If the title element is the first, original, hopefully in <head>, one
-    if (i === 0) {
-      // Replace it with all the title tags combined
-      let fullTitle = titleTexts.join(separator);
-      html = html.replace(titleElements[i], `<title>${fullTitle}</title>`);
-    } else {
-      // Otherwise remove it!
-      // Get the full title line, with indentation and newline at the end. Also
-      // Include 0 or 1 single empty lines (can have spaces) after title line
-      html = html.replace(new RegExp(` *${titleElements[i]}( *\\n)*`), '');
-    }
-  }
-
-  return html;
-}
-
-function addListings(content, files, dirname, listingTemplate) {
-  const posts = files[dirname];
-  let listingsContent = '';
-
-  for (const [filename, postContent] of Object.entries(posts)) {
-    let single = listingTemplate;
-    let name = path.basename(filename, path.extname(filename));
-
-    // Fill in <post-title/>
-    let h1Match = postContent.match(/<h1[^>]+>([^<]+)<\/h1>/);
-    single = single.replace(/<post-title\/?>/, h1Match ? h1Match[1] : name);
-
-    // Fill in <post-permalink/>s
-    single = single.replace(/<post-permalink\/?>/g, `/${dirname}/${name}`);
-
-    // Fill in <post-date/>
-    let datetimeMatch = postContent.match(/datetime="([^"]+)"/);
-    if (datetimeMatch) {
-      let datetime = datetimeMatch[1];
-      let datetimeInnerMatch = postContent.match(/<time[^>]*>([^<]+)/);
-      let datetimeInner = datetimeInnerMatch ? datetimeInnerMatch[1] : '';
-      let timeElement = `<time datetime="${datetime}">${datetimeInner}</time>`;
-      single = single.replace(/<post-date\/?>/g, timeElement);
-    }
-
-    // Fill in <post-excerpt/>
-    let excerptMatch = postContent.match(/<p [^]*excerpt[^>]*>[^]*?<\/p>/);
-    let excerpt = excerptMatch ? excerptMatch[0] : '';
-    single = single.replace(/<post-excerpt\/?>/, excerpt);
-
-    // Add the listing to the listings... list
-    listingsContent += single;
-  }
-
-  //console.log(listingsContent);
-
-  // Return the content but with <listings/> replaced with listingsContent
-  content = slotListings(content, listingsContent);
-
-  //return html.replace(regex, replacer);
-  return content;
-}
-
-/**
- * Named after jamstack, this does (or calls) all the fun part replacement,
- * markdown to HTML, slotting content into templates, etc.
- * @param  {[type]}   chunk     [description]
- * @param  {[type]}   encoding  [description]
- * @param  {Function} callback  [description]
- * @param  {[type]}   templates [description]
- * @return {[type]}             [description]
- */
-function jam(chunk, encoding, callback, files) {
-  let content = chunk.contents.toString();
-  let dirname = path.basename(chunk.dirname);
-  let filename = path.basename(chunk.basename);
-
-  // If the file is markdown
-  if (path.extname(chunk.path) === '.md') {
-    // Convert it to HTML
-    content = markdown(content, { smartypants: true });
-
-    // If it's in a folder with a template, slot the content in the template
-    let templatePath = `src/${dirname}/template.html`;
-
-    if (templatePath in files.templates) {
-      content = slotContent(files.templates[templatePath], content);
-    }
-  }
-
-  // Add the file to the files cache/map thingy
-  //console.log(remove_(filename));
-  if (remove_(filename) === 'index.html') {
-    let listingPath = `src/${dirname}/listing.html`;
-    if (listingPath in files.listings) {
-      content = addListings(
-        content,
-        files,
-        dirname,
-        files.listings[listingPath]
-      );
-    }
-  } else {
-    if (!files[dirname]) {
-      files[dirname] = {};
-    }
-    files[dirname][remove_(filename)] = content;
-  }
-
-  content = slotParts(content, files.parts);
-  content = setCurrentNav(content, chunk.path);
-  content = combineTitles(content);
-
-  chunk.contents = Buffer.from(content);
-  callback(null, chunk);
-}
-
-const patterns = {
-  templates: 'src/*/?(_)template.html',
-  listings: 'src/*/?(_)listing.html',
-  parts: 'src/parts/*.html',
-  notIndexes: 'src/**/!(?(_)index).{html,md}',
-  indexes: 'src/**/?(_)index.{html,md}'
-};
-
-function remove_(string) {
-  return string.replace(/^_/, '').replace(/\/_/, '/');
-}
-
-function getFiles(pattern) {
-  const filepaths = glob.sync(pattern);
-  const files = {};
-
-  filepaths.forEach(filepath => {
-    // Put file contents into files obj, without optional underscores in key
-    files[remove_(filepath)] = fs.readFileSync(filepath, 'utf8');
-  });
-
-  return files;
-}
-
 
 function html() {
+  function getFiles(pattern) {
+    const filepaths = glob.sync(pattern);
+    const files = {};
+
+    function remove_(string) {
+      return string.replace(/^_/, '').replace(/\/_/, '/');
+    }
+
+    filepaths.forEach(filepath => {
+      // Put file contents into files obj, without optional underscores in key
+      files[remove_(filepath)] = fs.readFileSync(filepath, 'utf8');
+    });
+
+    return files;
+  }
+
+  const patterns = {
+    templates: 'src/*/?(_)template.html',
+    listings: 'src/*/?(_)listing.html',
+    parts: 'src/parts/*.html',
+    notIndexes: 'src/**/!(?(_)index).{html,md}',
+    indexes: 'src/**/?(_)index.{html,md}'
+  };
+
   const files = {
     templates: getFiles(patterns.templates),
     listings: getFiles(patterns.listings),

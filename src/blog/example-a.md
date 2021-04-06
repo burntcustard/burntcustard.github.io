@@ -1,6 +1,10 @@
-# Blog post a heading
+---
+date: 2020-04-29
+title: Blog post aa heading
+excerpt: Test post A excerpt
+---
+
 <time datetime="29-04-2020">29th April 2020</time>
-<p class="excerpt">Test post A excerpt <a href="test">test</a></p>
 
 Another paragraph
 
