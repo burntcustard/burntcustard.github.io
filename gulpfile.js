@@ -76,16 +76,11 @@ function js() {
 
 function html() {
   function getFiles(pattern) {
-    const filepaths = glob.sync(pattern);
     const files = {};
 
-    function remove_(string) {
-      return string.replace(/^_/, '').replace(/\/_/, '/');
-    }
-
-    filepaths.forEach(filepath => {
+    glob.sync(pattern).forEach(filepath => {
       // Put file contents into files obj, without optional underscores in key
-      files[remove_(filepath)] = fs.readFileSync(filepath, 'utf8');
+      files[filepath.replace(/\/_/, '/')] = fs.readFileSync(filepath, 'utf8');
     });
 
     return files;
