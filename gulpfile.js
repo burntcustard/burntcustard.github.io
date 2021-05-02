@@ -10,7 +10,7 @@ const path = require('path');
 const glob = require ('fast-glob');
 const rename = require('gulp-rename');
 const chalk = require('chalk');
-const jam = require('./jam');
+const jam = require('./jam/main');
 
 function clean(cb) {
   return del(['dist/']);
