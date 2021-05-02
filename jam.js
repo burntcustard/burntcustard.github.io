@@ -110,6 +110,27 @@ function combineTitles(html, separator = ' - ') {
   return html;
 }
 
+function postdate(date) {
+  const suffix = (n) => [,'st','nd','rd'][n/10%10^1&&n%10] || 'th';
+  const customizeDate = (localeDate) => {
+    return localeDate
+      .toString()
+      .split(' ')
+      .map((segment, i) => i === 0 ? segment + suffix(segment) : segment)
+      .join(' ')
+  }
+
+  return date ? (
+    `<time datetime="${date.toISOString().split('T')[0]}">
+      ${customizeDate(date.toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }))}
+    </time>`
+  ) : '';
+}
+
 function addListings(content, files, dirname, listingTemplate) {
   const posts = files[dirname];
   let listingsContent = '';
@@ -127,25 +148,11 @@ function addListings(content, files, dirname, listingTemplate) {
       return `<p class="excerpt">${postContent.attributes.excerpt || ''}</p>`;
     }
 
-    function postdate() {
-      const date = postContent.attributes.date;
-
-      return date ? (
-        `<time datetime="${date.toISOString().split('T')[0]}">
-          ${date.toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
-          })}
-        </time>`
-      ) : '';
-    }
-
     // Add the listing to the listings... list
     listingsContent += single
       .replace(/<post-title\/?>/g, title())
       .replace(/<post-permalink\/?>/g, `/${dirname}/${name}`)
-      .replace(/<post-date\/?>/g, postdate())
+      .replace(/<post-date\/?>/g, postdate(postContent.attributes.date))
       .replace(/<post-excerpt\/?>/g, excerpt());;
   }
 
@@ -177,6 +184,7 @@ module.exports = function (chunk, encoding, callback, files) {
 
     if (templatePath in files.templates) {
       content.body = slotContent(files.templates[templatePath], content.body);
+      content.body = content.body.replace(/<post-date\/?>/g, postdate(content.attributes.date));
     }
   }
 
