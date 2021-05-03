@@ -1,14 +1,6 @@
 const path = require('path');
 const postdate = require('./postdate');
-
-function slotListings(html, content) {
-  const regex = /( *)(?:<listings\/?>)/g;
-  const replacer = (match, indent) => {
-    return content.replace(/^/gm, indent);
-  };
-
-  return html.replace(regex, replacer);
-}
+const slot = require('./slot');
 
 function addListings(content, files, dirname, listingTemplate) {
   const posts = files[dirname];
@@ -35,8 +27,7 @@ function addListings(content, files, dirname, listingTemplate) {
       .replace(/<post-excerpt\/?>/g, excerpt());;
   }
 
-  // Return the content but with <listings/> replaced with listingsContent
-  return slotListings(content, listingsContent);
+  return slot(content, 'listings', listingsContent);
 }
 
 module.exports = addListings;

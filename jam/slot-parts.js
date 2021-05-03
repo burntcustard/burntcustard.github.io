@@ -14,7 +14,8 @@ const chalk = require('chalk');
 function slotParts(html, parts) {
   const regex = /( *)(?:<part src=")([a-zA-Z./-]*)(?:"\/?>)/g;
   const replacer = (match, indent, filename) => {
-    let filepath = `src/parts/${filename}.html`
+    let filepath = `src/parts/${filename}.html`;
+
     if (!(filepath in parts)) {
       let error = `Failed to include part: ${filepath}`;
       console.error(chalk.red(error));
@@ -23,7 +24,6 @@ function slotParts(html, parts) {
 
     let part = parts[filepath];
 
-    // Part importing recursion
     if (part.includes('<part src="')) {
       part = slotParts(part, parts);
     }

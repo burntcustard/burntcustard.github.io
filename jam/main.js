@@ -7,21 +7,7 @@ const combineTitles = require('./combine-titles');
 const postdate = require('./postdate');
 const setCurrentNav = require('./set-current-nav');
 const slotParts = require('./slot-parts');
-
-/**
- * Slot new HTML content into a main HTML string.
- * @param  {[type]} html    [description]
- * @param  {[type]} content [description]
- * @return {[type]}         [description]
- */
-function slotContent(html, content) {
-  const regex = /( *)(?:<content\/?>)/g;
-  const replacer = (match, indent) => {
-    return content.replace(/^/gm, indent);
-  };
-
-  return html.replace(regex, replacer);
-}
+const slot = require('./slot');
 
 /**
  * Named after jamstack, this does (or calls) all the fun part replacement,
@@ -46,14 +32,13 @@ module.exports = function (chunk, encoding, callback, files) {
     let templatePath = `src/${dirname}/template.html`;
 
     if (templatePath in files.templates) {
-      content.body = slotContent(files.templates[templatePath], content.body);
+      content.body = slot(files.templates[templatePath], 'content', content.body);
       content.body = content.body.replace(/<post-date\/?>/g, postdate(content.attributes.date));
     }
   }
 
   // Add the file to the files cache/map thingy
-  //console.log(remove_(filename));
-  if (remove_(filename) === 'index.html') {
+  if (filename.replace(/^_/, '') === 'index.html') {
     let listingPath = `src/${dirname}/listing.html`;
 
     if (listingPath in files.listings) {
@@ -68,7 +53,7 @@ module.exports = function (chunk, encoding, callback, files) {
     if (!files[dirname]) {
       files[dirname] = {};
     }
-    files[dirname][remove_(filename)] = content;
+    files[dirname][filename.replace(/^_/, '')] = content;
   }
 
   content.body = slotParts(content.body, files.parts);
@@ -77,8 +62,4 @@ module.exports = function (chunk, encoding, callback, files) {
 
   chunk.contents = Buffer.from(content.body);
   callback(null, chunk);
-}
-
-function remove_(string) {
-  return string.replace(/^_/, '').replace(/\/_/, '/');
 }
