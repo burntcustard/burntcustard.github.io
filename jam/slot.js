@@ -8,21 +8,20 @@
  */
 function slot(source, tagName, replacement) {
   if (!replacement) {
-    const regex = new RegExp(`( *)<${tagName}\/?>\n`, 'g');
-    return source.replace(regex, '');
+    const deleteTagRegex = new RegExp(`( *)<${tagName}\/?>\n?`, 'g');
+    return source.replace(deleteTagRegex, '');
   }
 
-  const indentAndTagRegex = new RegExp(`( *)(?:<${tagName}\/?>)`, 'g');
+  const removeWrappingBlankLines = (r) => r.replace(/^\n|\n\s*$/g, '');
 
-  // Remove blank lines at start and end of replacement
-  replacement = replacement.replace(/^\n|\n\s*$/g, '');
+  replacement = removeWrappingBlankLines(replacement);
 
   const replacer = (match, indent) => {
     const minIndentation = replacement
       .split('\n')
       .reduce((acc, curr, i) => {
         const lineSpaceCharCount = curr.search(/\S|$/);
-        if (i === 0 || (0 < lineSpaceCharCount && lineSpaceCharCount < acc)) {
+        if (i === 0 || lineSpaceCharCount < acc) {
           return lineSpaceCharCount;
         }
         return acc;
@@ -31,7 +30,9 @@ function slot(source, tagName, replacement) {
     return replacement.replace(indentationRegex, indent);
   };
 
-  return source.replace(indentAndTagRegex, replacer);
+  const replaceIndentAndTagRegex = new RegExp(`( *)(?:<${tagName}\/?>)`, 'g');
+
+  return source.replace(replaceIndentAndTagRegex, replacer);
 }
 
 module.exports = slot;
