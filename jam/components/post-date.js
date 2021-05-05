@@ -13,9 +13,11 @@ function postdate(date) {
     })
     .replace(/\d+(?=\s)/, (day) => day + suffix(day));
 
-  return (`<time datetime="${machineReadableDate}">
+  return `
+    <time datetime="${machineReadableDate}">
       ${humanReadableDate}
-    </time>`);
+    </time>
+  `;
 }
 
 module.exports = postdate;

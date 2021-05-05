@@ -7,12 +7,31 @@
  * @return {String}
  */
 function slot(source, tagName, replacement) {
-  const regex = new RegExp(`( *)(?:<${tagName}\/?>)`, 'g');
+  if (!replacement) {
+    const regex = new RegExp(`( *)<${tagName}\/?>\n`, 'g');
+    return source.replace(regex, '');
+  }
+
+  const indentAndTagRegex = new RegExp(`( *)(?:<${tagName}\/?>)`, 'g');
+
+  // Remove blank lines at start and end of replacement
+  replacement = replacement.replace(/^\n|\n\s*$/g, '');
+
   const replacer = (match, indent) => {
-    return replacement.replace(/^/gm, indent);
+    const minIndentation = replacement
+      .split('\n')
+      .reduce((acc, curr, i) => {
+        const lineSpaceCharCount = curr.search(/\S|$/);
+        if (i === 0 || (0 < lineSpaceCharCount && lineSpaceCharCount < acc)) {
+          return lineSpaceCharCount;
+        }
+        return acc;
+      }, 0);
+    const indentationRegex = new RegExp(`(?<=^)\\s{${minIndentation}}`, 'gm');
+    return replacement.replace(indentationRegex, indent);
   };
 
-  return source.replace(regex, replacer);
+  return source.replace(indentAndTagRegex, replacer);
 }
 
 module.exports = slot;

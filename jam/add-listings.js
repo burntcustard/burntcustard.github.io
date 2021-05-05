@@ -7,34 +7,21 @@ function addListings(content, files, dirname, listingTemplate) {
   let listingsContent = '';
 
   for (const [filename, postContent] of Object.entries(posts)) {
-    let { date, title, excerpt } = postContent.attributes;
-    let single = listingTemplate;
     const name = path.basename(filename, path.extname(filename));
+    let single = listingTemplate;
+    let {
+      date,
+      title = postContent.body.match(/(?<=<h1[^>]+>)([^<]+)(?=<\/h1>)/)[0] || name,
+      excerpt
+    } = postContent.attributes;
 
-    function makeTitle() {
-      const h1Match = postContent.body.match(/(?<=<h1[^>]+>)([^<]+)(?=<\/h1>)/);
-      return postContent.attributes.title || h1Match && h1Match[0] || name;
-    }
+    const excerptElement = () => `<p class="excerpt">${excerpt}</p>`;
 
-    function makeExcerpt() {
-      return `<p class="excerpt">${excerpt}</p>`;
-    }
+    single = slot(single, 'post-date', date ? postdate(date) : null);
+    single = slot(single, 'post-title', title);
+    single = slot(single, 'post-excerpt', excerpt ? excerptElement() : null);
+    single = slot(single, 'post-permalink', `/${dirname}/${name}`);
 
-    if (date !== undefined) {
-      single = single.replace(/<post-date\/?>/g, postdate(date));
-    }
-
-    if (title !== undefined) {
-      single = single.replace(/<post-title\/?>/g, makeTitle());
-    }
-
-    if (excerpt !== undefined) {
-      single = single.replace(/<post-excerpt\/?>/g, makeExcerpt());
-    }
-
-    single = single.replace(/<post-permalink\/?>/g, `/${dirname}/${name}`);
-
-    // Add the listing to the listings... list
     listingsContent += single;
   }
 
