@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const frontmatter = require('front-matter');
 const addListings = require('./add-listings');
 const combineTitles = require('./combine-titles');
-const postdate = require('./postdate');
+const postdate = require('./components/post-date');
 const setCurrentNav = require('./set-current-nav');
 const slotParts = require('./slot-parts');
 const slot = require('./slot');
@@ -33,7 +33,9 @@ module.exports = function (chunk, encoding, callback, files) {
 
     if (templatePath in files.templates) {
       content.body = slot(files.templates[templatePath], 'content', content.body);
-      content.body = content.body.replace(/<post-date\/?>/g, postdate(content.attributes.date));
+      if (content.attributes.date) {
+        content.body = content.body.replace(/<post-date\/?>/g, postdate(content.attributes.date));
+      }
     }
   }
 
