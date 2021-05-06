@@ -1,3 +1,5 @@
+const removeEmptyTag = require('./remove-empty-tag');
+
 /**
  * Return a new string, based off a source, with a <tagName> replaced by a
  * replacement, with correct indentation.
@@ -8,8 +10,7 @@
  */
 function slot(source, tagName, replacement) {
   if (!replacement) {
-    const deleteTagRegex = new RegExp(`( *)<${tagName}\/?>\n?`, 'g');
-    return source.replace(deleteTagRegex, '');
+    return removeEmptyTag(source, tagName);
   }
 
   const removeWrappingBlankLines = (r) => r.replace(/^\n|\n\s*$/g, '');

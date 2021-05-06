@@ -1,7 +1,7 @@
 const path = require('path');
 const postdate = require('./components/post-date');
 const slot = require('./slot');
-const h1Regex = /(?<=<h1[^>]+>)([^<]+)(?=<\/h1>)/;
+const parseH1 = require('./util/parse-h1');
 const excerptHtml = (excerpt) => `<p class="excerpt">${excerpt}</p>`;
 
 function addListings(content, files, dirname, listingTemplate) {
@@ -12,7 +12,7 @@ function addListings(content, files, dirname, listingTemplate) {
     let single = listingTemplate;
     let {
       date,
-      title = postContent.body.match(h1Regex)[0] || name,
+      title = parseH1(postContent.body) || name,
       excerpt
     } = postContent.attributes;
 

@@ -28,7 +28,7 @@ function slotParts(html, parts) {
       part = slotParts(part, parts);
     }
 
-    // Return withe part, with the same indentation as the tag it's replacing
+    // Return the part, with the same indentation as the tag it's replacing
     return part.replace(/^/gm, indent);
   };
 

@@ -22,6 +22,7 @@ module.exports = function (chunk, encoding, callback, files) {
   let content = frontmatter(chunk.contents.toString());
   let dirname = path.basename(chunk.dirname);
   let filename = path.basename(chunk.basename);
+  let { date, title } = content.attributes;
 
   // If the file is markdown
   if (path.extname(chunk.path) === '.md') {
@@ -33,9 +34,8 @@ module.exports = function (chunk, encoding, callback, files) {
 
     if (templatePath in files.templates) {
       content.body = slot(files.templates[templatePath], 'content', content.body);
-      if (content.attributes.date) {
-        content.body = content.body.replace(/<post-date\/?>/g, postdate(content.attributes.date));
-      }
+      content.body = slot(content.body, 'post-date', date ? postdate(date) : '');
+      content.body = slot(content.body, 'post-title', title || '');
     }
   }
 
