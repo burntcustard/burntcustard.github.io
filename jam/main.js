@@ -7,7 +7,17 @@ const combineTitles = require('./combine-titles');
 const postdate = require('./components/post-date');
 const setCurrentNav = require('./set-current-nav');
 const slotParts = require('./slot-parts');
-const slot = require('./slot');
+const slotMany = require('./slot-many');
+
+function slotPostIntoTemplate(content, template) {
+  const { date, title } = content.attributes;
+
+  return slotMany(template, {
+    'content': content.body,
+    'post-date': date ? postdate(date) : '',
+    'post-title': title,
+  });
+}
 
 /**
  * Named after jamstack, this does (or calls) all the fun part replacement,
@@ -19,30 +29,22 @@ const slot = require('./slot');
  * @return {[type]}             [description]
  */
 module.exports = function (chunk, encoding, callback, files) {
-  let content = frontmatter(chunk.contents.toString());
-  let dirname = path.basename(chunk.dirname);
-  let filename = path.basename(chunk.basename);
-  let { date, title } = content.attributes;
+  const content = frontmatter(chunk.contents.toString());
+  const dirname = path.basename(chunk.dirname);
+  const filename = path.basename(chunk.basename);
+  const templatePath = `src/${dirname}/template.html`;
+  const listingPath = `src/${dirname}/listing.html`;
 
-  // If the file is markdown
   if (path.extname(chunk.path) === '.md') {
-    // Convert it to HTML
     content.body = markdown(content.body, { smartypants: true });
 
-    // If it's in a folder with a template, slot the content in the template
-    let templatePath = `src/${dirname}/template.html`;
-
     if (templatePath in files.templates) {
-      content.body = slot(files.templates[templatePath], 'content', content.body);
-      content.body = slot(content.body, 'post-date', date ? postdate(date) : '');
-      content.body = slot(content.body, 'post-title', title || '');
+      content.body = slotPostIntoTemplate(content, files.templates[templatePath]);
     }
   }
 
   // Add the file to the files cache/map thingy
-  if (filename.replace(/^_/, '') === 'index.html') {
-    let listingPath = `src/${dirname}/listing.html`;
-
+  if (/^_?index.html/.test(filename)) {
     if (listingPath in files.listings) {
       content.body = addListings(
         content.body,
