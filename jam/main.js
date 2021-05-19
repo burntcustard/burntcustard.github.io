@@ -31,7 +31,7 @@ module.exports = function (chunk, encoding, callback, files) {
       const { date, title } = content.attributes;
 
       content.body = slotMany(files.templates[templatePath], {
-        'content': content.body,
+        'content': htmlify(content.body),
         'post-date': date ? postdate(date) : '',
         'post-title': title,
       });

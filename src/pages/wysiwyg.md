@@ -1,5 +1,3 @@
-<part src="header">
-
 # Heading 1
 
 Right, gimme a Pepsi free. Are you okay? Doc, is that a de- Yeah I know, If you put your mind to it you could accomplish anything. Right. Lou, gimme a milk, chocolate. Lorraine, my density has popped me to you.
@@ -19,5 +17,3 @@ Wow, you must be rich. Pretty Mediocre photographic fakery, they cut off your br
 - Unordered list item A
 - Unordered list item B
 - Unordered list item C
-
-<part src="footer">
