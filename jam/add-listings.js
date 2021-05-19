@@ -9,10 +9,10 @@ function addListings(content, files, dirname, listingTemplate) {
   const listings = [];
 
   for (const [filename, postContent] of Object.entries(files[dirname])) {
-    const name = path.basename(filename, path.extname(filename));
+    const slug = path.basename(filename, path.extname(filename));
     const {
       date,
-      title = parseH1(postContent.body) || name,
+      title = parseH1(postContent.body) || slug,
       excerpt,
     } = postContent.attributes;
 
@@ -20,7 +20,7 @@ function addListings(content, files, dirname, listingTemplate) {
       'post-date': date ? postdate(date) : '',
       'post-title': title,
       'post-excerpt': excerpt ? excerptHtml(excerpt) : '',
-      'post-permalink': `/${dirname}/${name}`,
+      'post-permalink': `/${dirname}/${slug}`,
     }));
   }
 
