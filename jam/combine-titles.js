@@ -15,7 +15,7 @@ function combineTitles(html, separator = ' - ') {
 
   const titleTexts = [];
 
-  for (i = titleElements.length - 1; i >= 0; i--) {
+  for (let i = titleElements.length - 1; i >= 0; i--) {
     titleTexts.unshift(titleElements[i].match(titleTextRegex)[1]);
 
     // If the title element is the first, original, hopefully in <head>, one

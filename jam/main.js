@@ -1,6 +1,5 @@
 const path = require('path');
 const markdown = require('marked');
-const chalk = require('chalk');
 const frontmatter = require('front-matter');
 const addListings = require('./add-listings');
 const combineTitles = require('./combine-titles');
@@ -15,7 +14,7 @@ const slotMany = require('./slot-many');
  * @param  {[type]}   chunk     [description]
  * @param  {[type]}   encoding  [description]
  * @param  {Function} callback  [description]
- * @param  {[type]}   templates [description]
+ * @param  {[type]}   files [description]
  * @return {[type]}             [description]
  */
 module.exports = function (chunk, encoding, callback, files) {

@@ -8,7 +8,7 @@ function setCurrentNav(html, pagePath) {
     return html.replace('href="/"', '$& aria-current="page"');
   }
 
-  const regex = new RegExp(`href="\/(${filename}|${dirname})"`);
+  const regex = new RegExp(`href="/(${filename}|${dirname})"`);
   return html.replace(regex, '$& aria-current="page"');
 }
 

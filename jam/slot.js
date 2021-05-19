@@ -31,7 +31,7 @@ function slot(source, tagName, replacement) {
     return replacement.replace(indentationRegex, indent);
   };
 
-  const replaceIndentAndTagRegex = new RegExp(`( *)(?:<${tagName}\/?>)`, 'g');
+  const replaceIndentAndTagRegex = new RegExp(`( *)(?:<${tagName}/?>)`, 'g');
 
   return source.replace(replaceIndentAndTagRegex, replacer);
 }

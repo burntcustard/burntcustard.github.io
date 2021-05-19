@@ -30,5 +30,8 @@
     "gzip-size": "^5.1.1",
     "marked": "^0.8.2",
     "through2": "^3.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.26.0"
   }
 }
