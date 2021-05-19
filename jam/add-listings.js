@@ -1,6 +1,7 @@
 const path = require('path');
 const postdate = require('./components/post-date');
 const slot = require('./slot');
+const slotMany = require('./slot-many');
 const parseH1 = require('./util/parse-h1');
 const excerptHtml = (excerpt) => `<p class="excerpt">${excerpt}</p>`;
 
@@ -9,17 +10,17 @@ function addListings(content, files, dirname, listingTemplate) {
 
   for (const [filename, postContent] of Object.entries(files[dirname])) {
     const name = path.basename(filename, path.extname(filename));
-    let single = listingTemplate;
-    let {
+    const {
       date,
       title = parseH1(postContent.body) || name,
-      excerpt
+      excerpt,
     } = postContent.attributes;
-
-    single = slot(single, 'post-date', date ? postdate(date) : '');
-    single = slot(single, 'post-title', title);
-    single = slot(single, 'post-excerpt', excerpt ? excerptHtml(excerpt) : '');
-    single = slot(single, 'post-permalink', `/${dirname}/${name}`);
+    const single = slotMany(listingTemplate, {
+      'post-date': date ? postdate(date) : '',
+      'post-title': title,
+      'post-excerpt': excerpt ? excerptHtml(excerpt) : '',
+      'post-permalink': `/${dirname}/${name}`,
+    })
 
     listingsContent += single;
   }

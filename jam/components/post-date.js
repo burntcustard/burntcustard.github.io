@@ -1,3 +1,4 @@
+const htmlify = require('../util/htmlify');
 const suffix = (n) => [,'st','nd','rd'][n/10%10^1&&n%10] || 'th';
 
 function postdate(date) {
@@ -9,15 +10,15 @@ function postdate(date) {
     .toLocaleDateString('en-GB', {
       day: 'numeric',
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
     })
     .replace(/\d+(?=\s)/, (day) => day + suffix(day));
 
-  return `
+  return htmlify(`
     <time datetime="${machineReadableDate}">
       ${humanReadableDate}
     </time>
-  `;
+  `);
 }
 
 module.exports = postdate;

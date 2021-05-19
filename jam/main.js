@@ -45,7 +45,7 @@ module.exports = function (chunk, encoding, callback, files) {
         content.body,
         files,
         dirname,
-        files.listings[listingPath]
+        files.listings[listingPath],
       );
     }
   }

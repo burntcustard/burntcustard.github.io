@@ -13,25 +13,25 @@ function slot(source, tagName, replacement) {
     return removeEmptyTag(source, tagName);
   }
 
-  const removeWrappingBlankLines = (r) => r.replace(/^\n|\n\s*$/g, '');
-
-  replacement = removeWrappingBlankLines(replacement);
-
-  const replacer = (match, indent) => {
-    const minIndentation = replacement
-      .split('\n')
-      .reduce((acc, curr, i) => {
-        const lineSpaceCharCount = curr.search(/\S|$/);
-        if (i === 0 || lineSpaceCharCount < acc) {
-          return lineSpaceCharCount;
-        }
-        return acc;
-      }, 0);
-    const indentationRegex = new RegExp(`(?<=^)\\s{${minIndentation}}`, 'gm');
-    return replacement.replace(indentationRegex, indent);
-  };
-
   const replaceIndentAndTagRegex = new RegExp(`( *)(?:<${tagName}/?>)`, 'g');
+
+  const replacer = (match, tagIndent) => {
+    const minIndentWidth = replacement
+      .split('\n')
+      .reduce((minIndentWidth, currentLine, i) => {
+        const indentWidth = currentLine.search(/\S|$/);
+
+        if (i === 0 || indentWidth < minIndentWidth) {
+          return indentWidth;
+        }
+
+        return minIndentWidth;
+      }, 0);
+
+    const indentationRegex = new RegExp(`(?<=^)\\s{${minIndentWidth}}`, 'gm');
+
+    return replacement.replace(indentationRegex, tagIndent);
+  };
 
   return source.replace(replaceIndentAndTagRegex, replacer);
 }
