@@ -7,6 +7,7 @@ const postdate = require('./components/post-date');
 const setCurrentNav = require('./set-current-nav');
 const slotParts = require('./slot-parts');
 const slotMany = require('./slot-many');
+const htmlify = require('./util/htmlify');
 
 /**
  * Named after jamstack, this does (or calls) all the fun part replacement,
@@ -45,7 +46,7 @@ module.exports = function (chunk, encoding, callback, files) {
         content.body,
         files,
         dirname,
-        files.listings[listingPath],
+        htmlify(files.listings[listingPath]),
       );
     }
   }

@@ -6,7 +6,7 @@ const parseH1 = require('./util/parse-h1');
 const excerptHtml = (excerpt) => `<p class="excerpt">${excerpt}</p>`;
 
 function addListings(content, files, dirname, listingTemplate) {
-  let listingsContent = '';
+  const listings = [];
 
   for (const [filename, postContent] of Object.entries(files[dirname])) {
     const name = path.basename(filename, path.extname(filename));
@@ -15,17 +15,16 @@ function addListings(content, files, dirname, listingTemplate) {
       title = parseH1(postContent.body) || name,
       excerpt,
     } = postContent.attributes;
-    const single = slotMany(listingTemplate, {
+
+    listings.push(slotMany(listingTemplate, {
       'post-date': date ? postdate(date) : '',
       'post-title': title,
       'post-excerpt': excerpt ? excerptHtml(excerpt) : '',
       'post-permalink': `/${dirname}/${name}`,
-    })
-
-    listingsContent += single;
+    }));
   }
 
-  return slot(content, 'listings', listingsContent);
+  return slot(content, 'listings', listings.join('\n\n'));
 }
 
 module.exports = addListings;
