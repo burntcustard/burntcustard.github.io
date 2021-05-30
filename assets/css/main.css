@@ -1,20 +1,7 @@
-/* Outer */
-main header,
-main.home,
-main.post,
-.blog .listings {
-  margin: 0 auto;
-  max-width: 1200px;
-}
-
-main.home {
-  padding: 0 1rem;
-}
-
 /* Inner */
 main:not(.home) header h1 {
-  padding: 0 1rem;
-  margin: max(6%, 48px) 0;
+  margin-top: max(5vw, 48px);
+  margin-bottom: max(5vw, 48px);
 }
 
 main.home > div {

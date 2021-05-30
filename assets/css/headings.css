@@ -1,12 +1,8 @@
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-family: 'Montserrat', sans-serif;
-}
-
-.home h1 {
-  font-size: 62px;
-  margin-top: 0;
-  color: var(--yellow);
-  opacity: .9; /* Because it's so just we make it a tiny bit "lighter" */
 }
 
 h1 {
@@ -22,3 +18,10 @@ h3 {
 }
 
 /* Ideally we don't need smaller than h3 */
+
+.home h1 {
+  font-size: 62px;
+  margin-top: 0;
+  color: var(--yellow);
+  opacity: .9; /* Because it's so just we make it a tiny bit "lighter" */
+}

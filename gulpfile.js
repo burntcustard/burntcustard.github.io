@@ -6,24 +6,21 @@ const cleanCSS = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const gzipSize = require('gzip-size');
 const through = require('through2');
-const path = require('path');
 const glob = require ('fast-glob');
 const rename = require('gulp-rename');
-const chalk = require('chalk');
 const jam = require('./jam/main');
 
-function clean(cb) {
+function clean() {
   return del(['dist/']);
-  cb();
 }
 
 function browserSyncInit(cb) {
   browserSync.init({
     serveStatic: ['dist'],
     serveStaticOptions: {
-      extensions: ['html']
+      extensions: ['html'],
     },
-    logSnippet: false
+    logSnippet: false,
   });
   cb();
 }
@@ -39,13 +36,14 @@ function watch() {
   gulp.watch('assets/img/*', img);
 
   gulp.watch('src/**/*.{html,md}', gulp.series(html, reload))
-      .on('all', (event, path, stats) => {
+      .on('all', (event, path) => {
         console.log('Markup changed:', path);
       });
 }
 
 function css() {
-  let init = mini = gzip = 0;
+  let [ init, mini, gzip ] = 0;
+
   return gulp
     .src('assets/css/*.css')
     .pipe(concat('styles.css'))
@@ -91,13 +89,13 @@ function html() {
     listings: 'src/*/?(_)listing.html',
     parts: 'src/parts/*.html',
     notIndexes: 'src/**/!(?(_)index).{html,md}',
-    indexes: 'src/**/?(_)index.{html,md}'
+    indexes: 'src/**/?(_)index.{html,md}',
   };
 
   const files = {
     templates: getFiles(patterns.templates),
     listings: getFiles(patterns.listings),
-    parts: getFiles(patterns.parts)
+    parts: getFiles(patterns.parts),
   };
 
   return gulp
@@ -115,7 +113,7 @@ function html() {
       // Remove optional underscores so e.g. '_index.html' becomes 'index.html'
       basename: path.basename.replace(/^_/, ''),
       // All extension names are now .html (i.e. convert from .md)
-      extname: '.html'
+      extname: '.html',
     })))
     .pipe(gulp.dest('./dist'))
 }
@@ -129,8 +127,8 @@ exports.watch = gulp.parallel(
   img,
   gulp.series(
     browserSyncInit,
-    watch
-  )
+    watch,
+  ),
 );
 
 exports.default = gulp.series(
@@ -139,6 +137,6 @@ exports.default = gulp.series(
     html,
     css,
     img,
-    js
-  )
+    js,
+  ),
 );

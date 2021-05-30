@@ -5,7 +5,7 @@ nav a {
   justify-content: center;
   margin: 8px;
   font-size: 24px;
-  border: 2px solid var(--nearly-white);
+  border: 2px solid var(--off-white);
   padding: 4px 10px;
   transition: .2s all;
   height: 32px;
@@ -15,8 +15,8 @@ nav a:nth-child(2) {
   margin-left: auto;
 }
 
-nav a:before,
-nav a:after {
+nav a::before,
+nav a::after {
   display: block;
   position: absolute;
   content: '';

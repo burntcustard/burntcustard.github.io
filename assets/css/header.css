@@ -1,12 +1,6 @@
-body > header {
-  padding: 8px;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 1200px;
-}
-
 nav {
   display: flex;
+  margin: 16px -8px;
 }
 
 nav a[aria-current] {

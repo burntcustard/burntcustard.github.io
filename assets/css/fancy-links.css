@@ -6,7 +6,7 @@ p a,
   background-image:
     linear-gradient(
       transparent calc(100% - 4px),
-      var(--nearly-white) 0 calc(100% - 3px),
+      var(--off-white) 0 calc(100% - 3px),
       transparent 0
     ),
     linear-gradient(
@@ -31,10 +31,10 @@ p a,
   background-position: .2em 0;
   background-size: 0 100%;
   text-shadow:
-    0 2px 0 var(--nearly-white),
-    0 -2px 0 var(--nearly-white),
-    2px  0 var(--nearly-white),
-    -2px 0 0 var(--nearly-white);
+    0 2px 0 var(--off-white),
+    0 -2px 0 var(--off-white),
+    2px  0 var(--off-white),
+    -2px 0 0 var(--off-white);
   background-image:
     linear-gradient(
       transparent calc(100% - 9px),
