@@ -42,7 +42,7 @@ function watch() {
 }
 
 function css() {
-  let [ init, mini, gzip ] = 0;
+  let init, mini, gzip;
 
   return gulp
     .src('assets/css/*.css')

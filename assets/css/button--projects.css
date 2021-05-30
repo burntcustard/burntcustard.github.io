@@ -1,8 +1,8 @@
-a.projects {
+a.projects:not([aria-current]) {
   transition: all .15s;
 }
 
-a.projects::before {
+a.projects:not([aria-current])::before {
   position: absolute;
   top: 3px;
   right: 100%;
@@ -19,7 +19,7 @@ a.projects::before {
   transition: all .1s;
 }
 
-a.projects::after {
+a.projects:not([aria-current])::after {
   top: -2px;
   width: 18px;
   background:
@@ -34,20 +34,20 @@ a.projects::after {
   transition: all .15s;
 }
 
-a.projects:focus,
-a.projects:hover {
+a.projects:not([aria-current]):focus,
+a.projects:not([aria-current]):hover {
   color: var(--gray-dark);
   transition: all .15s;
 }
 
-a.projects:focus::before,
-a.projects:hover::before {
+a.projects:not([aria-current]):focus::before,
+a.projects:not([aria-current]):hover::before {
   bottom: 3px;
   right: 3px;
 }
 
-a.projects:focus::after,
-a.projects:hover::after {
+a.projects:not([aria-current]):focus::after,
+a.projects:not([aria-current]):hover::after {
   top: -4px;
   padding-top: 9px;
   transition: all .15s .1s;

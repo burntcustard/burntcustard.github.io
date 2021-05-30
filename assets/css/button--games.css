@@ -5,11 +5,6 @@ a.games:not([aria-current])::after {
   background-color: var(--off-white);
 }
 
-@keyframes play {
-  0%   { transform: translateY(-8px); }
-  100% { transform: translateY( 8px); }
-}
-
 a.games:not([aria-current])::before {
   left: -2px;
 }
@@ -21,11 +16,16 @@ a.games:not([aria-current])::after {
 a.games:not([aria-current]):focus::before,
 a.games:not([aria-current]):hover::before {
   left: 4px;
-  animation: 1s linear infinite alternate play;
+  animation: 1s linear infinite alternate play-pong;
 }
 
 a.games:not([aria-current]):focus::after,
 a.games:not([aria-current]):hover::after {
   right: 4px;
-  animation: 1s linear infinite alternate-reverse play;
+  animation: 1s linear infinite alternate-reverse play-pong;
+}
+
+@keyframes play-pong {
+  0%   { transform: translateY(-8px); }
+  100% { transform: translateY( 8px); }
 }
