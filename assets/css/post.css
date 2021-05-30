@@ -1,9 +1,0 @@
-.post h1 {
-  margin-top: max(6%, 32px);
-  margin-bottom: 4rem;
-}
-
-.post h1 + p time {
-  margin-top: -4rem;
-  margin-bottom: 4rem;
-}

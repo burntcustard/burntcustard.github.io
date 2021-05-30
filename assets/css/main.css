@@ -1,5 +1,5 @@
 /* Inner */
-main:not(.home) header h1 {
+main:not(.home) h1 {
   margin-top: max(5vw, 48px);
   margin-bottom: max(5vw, 48px);
 }

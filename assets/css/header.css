@@ -1,8 +1,0 @@
-nav {
-  display: flex;
-  margin: 16px -8px;
-}
-
-nav a[aria-current] {
-  color: var(--yellow);
-}
