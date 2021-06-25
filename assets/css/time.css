@@ -1,5 +1,7 @@
 time {
   display: inline-flex;
+  font-size: 15px;
+  color: var(--gray);
 }
 
 time::before {
