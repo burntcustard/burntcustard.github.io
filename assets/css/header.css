@@ -1,0 +1,9 @@
+main header {
+  margin-top: max(5vw, 48px);
+  margin-bottom: max(5vw, 48px);
+}
+
+main.projects header,
+main.games header {
+  text-align: center;
+}

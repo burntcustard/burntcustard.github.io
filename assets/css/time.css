@@ -1,6 +1,5 @@
-p time {
-  display: block;
-  margin-top: -2em;
+time {
+  display: inline-flex;
 }
 
 time::before {

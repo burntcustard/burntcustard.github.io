@@ -1,16 +1,6 @@
 /* Inner */
-main:not(.home) h1 {
-  margin-top: max(5vw, 48px);
-  margin-bottom: max(5vw, 48px);
-}
-
 main.home > div {
   max-width: 500px;
-}
-
-main.projects header,
-main.games header {
-  text-align: center;
 }
 
 main.post {
@@ -23,8 +13,4 @@ main.post > * {
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
-}
-
-main.post > time {
-  display: flex;
 }
