@@ -18,20 +18,20 @@
   },
   "homepage": "https://github.com/burntcustard/burntcustard.github.io#readme",
   "dependencies": {
-    "browser-sync": "^2.26.7",
-    "chalk": "^4.0.0",
-    "del": "^5.1.0",
-    "fast-glob": "^3.2.2",
+    "browser-sync": "^2.27.1",
+    "chalk": "^4.1.1",
+    "del": "^6.0.0",
+    "fast-glob": "^3.2.5",
     "front-matter": "^4.0.2",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^2.0.0",
-    "gzip-size": "^5.1.1",
-    "marked": "^0.8.2",
-    "through2": "^3.0.1"
+    "gzip-size": "^6.0.0",
+    "marked": "^2.1.2",
+    "through2": "^4.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.26.0"
+    "eslint": "^7.29.0"
   }
 }
