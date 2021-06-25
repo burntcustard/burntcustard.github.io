@@ -11,6 +11,6 @@ main.post > * {
   /* At 500px wide this is full width */
   width: calc(50% + 250px - 1rem);
   max-width: 100%;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
 }

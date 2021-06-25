@@ -1,8 +1,8 @@
 div.projects-list {
+  max-width: 1440px;
   margin-right: auto;
   margin-left: auto;
   padding: 0 max(16px, 4vw);
-  max-width: 1440px;
 }
 
 .projects-list article {
@@ -11,8 +11,8 @@ div.projects-list {
 }
 
 .info > div {
-  max-width: 360px;
   width: 100%;
+  max-width: 360px;
 }
 
 @media all and (max-width: 499px) {
@@ -24,8 +24,8 @@ div.projects-list {
 @media all and (min-width: 500px) {
   .info {
     display: flex;
-    justify-content: flex-end;
     flex-basis: 40%;
+    justify-content: flex-end;
   }
 
   .projects-list article:nth-child(odd) .info {

@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "build": "gulp",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "lint": "stylelint assets/css/*.css"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,10 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
-    "eslint": "^7.29.0"
+    "eslint": "^7.29.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-order": "^4.1.0"
   }
 }

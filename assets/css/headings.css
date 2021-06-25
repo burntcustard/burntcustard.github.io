@@ -20,8 +20,8 @@ h3 {
 /* Ideally we don't need smaller than h3 */
 
 .home h1 {
-  font-size: 62px;
   margin-top: 0;
   color: var(--yellow);
+  font-size: 62px;
   opacity: .9; /* Because it's so just we make it a tiny bit "lighter" */
 }

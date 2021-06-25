@@ -1,5 +1,8 @@
 {
-  "extends": "stylelint-config-standard",
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-rational-order"
+  ],
   "rules": {
     "block-opening-brace-space-before": null,
     "function-parentheses-space-inside": null,

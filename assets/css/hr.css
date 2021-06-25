@@ -1,7 +1,7 @@
 hr {
-  border: none;
   height: 1px;
-  background: var(--gray);
   margin: 1rem;
+  background: var(--gray);
+  border: none;
   opacity: .5;
 }

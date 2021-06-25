@@ -3,6 +3,11 @@ p a,
 .blog h2 a,
 .read-more {
   color: var(--yellow);
+  text-shadow:
+    0 1px 0 var(--gray-dark),
+    0 -1px 0 var(--gray-dark),
+    1px  0 var(--gray-dark),
+    -1px 0 0 var(--gray-dark);
   background-image:
     linear-gradient(
       transparent calc(100% - 4px),
@@ -16,11 +21,6 @@ p a,
   background-repeat: no-repeat;
   background-size: 100% 100%, 0 100%;
   transition: background-size .2s;
-  text-shadow:
-    0 1px 0 var(--gray-dark),
-    0 -1px 0 var(--gray-dark),
-    1px  0 var(--gray-dark),
-    -1px 0 0 var(--gray-dark);
   text-decoration-color: var(--gray-dark);
 }
 
@@ -28,8 +28,6 @@ p a,
 .read-more {
   color: var(--gray-dark);
   text-decoration: none;
-  background-position: .2em 0;
-  background-size: 0 100%;
   text-shadow:
     0 2px 0 var(--off-white),
     0 -2px 0 var(--off-white),
@@ -42,6 +40,8 @@ p a,
       var(--gray-dark) calc(100% - 7px),
       transparent 0
     );
+  background-position: .2em 0;
+  background-size: 0 100%;
 }
 
 .read-more {

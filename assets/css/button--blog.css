@@ -13,13 +13,11 @@ a.blog::after {
 }
 
 a.blog:not([aria-current])::before {
-  border: 2px solid var(--off-white);
-  border-top: none;
-  left: 10px;
-  right: 10px;
   top: calc(100% - 18px);
-  height: 18px;
+  right: 10px;
+  left: 10px;
   z-index: -1;
+  height: 18px;
   background:
     linear-gradient(
       to right,
@@ -42,16 +40,18 @@ a.blog:not([aria-current])::before {
       transparent 0,
       transparent
     );
+  border: 2px solid var(--off-white);
+  border-top: none;
 }
 
 a.blog:not([aria-current])::after {
-  opacity: 0;
-  width: 3px;
-  height: 3px;
   top: 5px;
   right: 5px;
+  width: 3px;
+  height: 3px;
   background: white;
   border-radius: 50%;
+  opacity: 0;
 }
 
 a.blog:focus::before,

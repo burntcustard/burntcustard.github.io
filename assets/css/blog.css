@@ -4,8 +4,8 @@
 
 .blog h2 a,
 .read-more {
-  background-color: var(--off-white);
-  color: var(--gray-dark);
   padding: .1em .2em;
+  color: var(--gray-dark);
+  background-color: var(--off-white);
   box-decoration-break: clone;
 }

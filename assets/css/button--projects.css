@@ -8,6 +8,7 @@ a.projects:not([aria-current])::before {
   right: 100%;
   bottom: 100%;
   left: 3px;
+  z-index: -1;
   background:
     linear-gradient(
       -45deg,
@@ -15,7 +16,6 @@ a.projects:not([aria-current])::before {
       transparent 6px,
       var(--off-white) 0
     );
-  z-index: -1;
   transition: all .1s;
 }
 
@@ -28,9 +28,9 @@ a.projects:not([aria-current])::after {
       var(--gray-dark) 5px,
       var(--off-white) 0
     );
-  box-shadow: inset 0 0 0 2px var(--gray-dark);
   border: 2px solid var(--off-white);
   border-bottom: none;
+  box-shadow: inset 0 0 0 2px var(--gray-dark);
   transition: all .15s;
 }
 
@@ -42,8 +42,8 @@ a.projects:not([aria-current]):hover {
 
 a.projects:not([aria-current]):focus::before,
 a.projects:not([aria-current]):hover::before {
-  bottom: 3px;
   right: 3px;
+  bottom: 3px;
 }
 
 a.projects:not([aria-current]):focus::after,
