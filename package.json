@@ -6,11 +6,9 @@
   "scripts": {
     "build": "gulp",
     "watch": "gulp watch",
-    "lint": "stylelint assets/css/*.css"
+    "lint": "stylelint assets/css/*.css",
+    "prepare": "husky install"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/burntcustard/burntcustard.github.io.git"
@@ -37,7 +35,7 @@
   },
   "devDependencies": {
     "eslint": "^7.29.0",
-    "pre-commit": "^1.2.2",
+    "husky": "^6.0.0",
     "stylelint": "^13.13.1",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^22.0.0",
