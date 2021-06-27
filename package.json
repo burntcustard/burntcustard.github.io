@@ -9,7 +9,7 @@
     "lint": "stylelint assets/css/*.css"
   },
   "pre-commit": [
-    "lint",
+    "lint"
   ],
   "repository": {
     "type": "git",
