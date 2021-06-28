@@ -1,9 +1,9 @@
-a.home {
+a[href='/'] {
   position: relative;
   background: var(--gray-dark);
 }
 
-a.home::before {
+a[href='/']::before {
   position: absolute;
   top: -2px;
   right: 100%;
@@ -15,7 +15,7 @@ a.home::before {
   content: '';
 }
 
-a.home::after {
+a[href='/']::after {
   top: 9px;
   right: calc(100% + 10px);
   display: block;
@@ -37,12 +37,16 @@ a.home::after {
     );
 }
 
-a.home:focus,
-a.home:hover {
+a[href='/']:focus,
+a[href='/']:hover {
   margin-left: 50px;
 }
 
-a.home:focus::before,
-a.home:hover::before {
+a[href='/']:focus::before,
+a[href='/']:hover::before {
   width: 44px;
+}
+
+a[href='/'][aria-current] {
+  display: none;
 }

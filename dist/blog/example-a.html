@@ -21,7 +21,7 @@
         class="menu"
         aria-expanded="true"
         aria-controls="nav-items"
-        onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') !== 'true')"
+        onclick="const expanded = this.getAttribute('aria-expanded') !== 'true'; this.setAttribute('aria-expanded', expanded); document.getElementById('nav-items').setAttribute('aria-hidden', !expanded); document.body.classList.toggle('menu-expanded', expanded);"
       >
         <svg
           viewBox="0 0 16 16"

@@ -10,4 +10,35 @@ nav a[aria-current] {
 
 #nav-items {
   display: flex;
+  transition: opacity .2s;
+}
+
+@media (max-width: 768px) {
+  #nav-items {
+    top: 76px;
+    left: 0;
+    flex-direction: column;
+    width: calc(100% - 1rem);
+    overflow: hidden;
+  }
+
+  nav button[aria-expanded='false'] + #nav-items {
+    display: none;
+  }
+
+  nav button[aria-expanded='true'] + #nav-items {
+    width: 100%;
+  }
+}
+
+nav a[href='/'] ~ * {
+  margin-left: auto;
+}
+
+.menu-expanded > header {
+  background: var(--gray-dark);
+}
+
+.menu-expanded > header nav {
+  flex-wrap: wrap;
 }

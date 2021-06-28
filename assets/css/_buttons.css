@@ -1,18 +1,19 @@
-nav a {
+nav a,
+nav button {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
   margin: 8px;
-  padding: 4px 10px;
   font-size: 24px;
   border: 2px solid var(--off-white);
-  transition: .2s all;
+  cursor: pointer;
 }
 
-nav a:nth-child(2) {
-  margin-left: auto;
+nav a {
+  height: 32px;
+  padding: 4px 10px;
+  transition: .2s all;
 }
 
 nav a::before,
@@ -21,48 +22,4 @@ nav a::after {
   display: block;
   transition: .2s all;
   content: '';
-}
-
-a[href='/'][aria-current] {
-  display: none;
-}
-
-nav button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 44px;
-  margin: 8px;
-  background: 0;
-  border: 2px solid var(--off-white);
-  cursor: pointer;
-  stroke: var(--off-white);
-}
-
-nav button path {
-  transition: all .2s;
-}
-
-nav button path:nth-child(1) {
-  transform-origin: center 4px;
-}
-
-nav button path:nth-child(2) {
-  transform-origin: center;
-}
-
-nav button path:nth-child(3) {
-  transform-origin: center 12px;
-}
-
-nav button[aria-expanded='true'] path:nth-child(1) {
-  transform: translateY(4px) rotate(45deg);
-}
-
-nav button[aria-expanded='true'] path:nth-child(2) {
-  transform: scaleX(0);
-}
-
-nav button[aria-expanded='true'] path:nth-child(3) {
-  transform: translateY(-4px) rotate(-45deg);
 }
