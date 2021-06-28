@@ -16,9 +16,30 @@
   <header class="container">
     <nav>
       <a href="/" aria-current="page" class="home">burnt.io</a>
-      <a href="/projects" class="projects">Projects</a>
-      <a href="/games" class="games">Games</a>
-      <a href="/blog" class="blog">Blog</a>
+
+      <button
+        class="menu"
+        aria-expanded="true"
+        aria-controls="nav-items"
+        onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') !== 'true')"
+      >
+        <svg
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+          height="32"
+          width="32"
+        >
+          <path d="M2 4 l12 0" />
+          <path d="M2 8 l12 0" />
+          <path d="M2 12 l12 0" />
+        </svg>
+      </button>
+
+      <div id="nav-items">
+        <a href="/projects" class="projects">Projects</a>
+        <a href="/games" class="games">Games</a>
+        <a href="/blog" class="blog">Blog</a>
+      </div>
     </nav>
   </header>
 

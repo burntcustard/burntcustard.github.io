@@ -1,8 +1,13 @@
 nav {
   display: flex;
+  align-items: center;
   margin: 16px -8px;
 }
 
 nav a[aria-current] {
   color: var(--yellow);
+}
+
+#nav-items {
+  display: flex;
 }
