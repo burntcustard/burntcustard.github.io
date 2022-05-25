@@ -1,0 +1,23 @@
+{
+  "name": "burnt.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy --input=src --output=dist",
+    "watch": "eleventy --input=src --output=dist --watch --incremental"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burntcustard/burntcustard.github.io.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/burntcustard/burntcustard.github.io/issues"
+  },
+  "homepage": "https://github.com/burntcustard/burntcustard.github.io#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.1"
+  }
+}
