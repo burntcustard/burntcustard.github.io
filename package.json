@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/burntcustard/burntcustard.github.io#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.1"
+    "@11ty/eleventy": "^1.0.1",
+    "@11ty/eleventy-navigation": "^0.3.3",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "eleventy-plugin-react-ssr": "^1.0.2"
   }
 }
