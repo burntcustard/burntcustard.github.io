@@ -12,12 +12,13 @@ const Header = () => {
   return (
     <header>
       {navItems.map(({ title, url }) => {
-        const regex = new RegExp(`^${url}\/?$`, 'i');
+        const isCurrentPostTypeRegex = new RegExp(`^${url}\/?`, 'i');
+        const isCurrentPostType = isCurrentPostTypeRegex.test(page.url);
 
         return (
           <a
             href={url}
-            aria-current={regex.test(page.url) ? 'page' : null}
+            aria-current={isCurrentPostType ? 'page' : null}
             key={title}
           >
             {title}
