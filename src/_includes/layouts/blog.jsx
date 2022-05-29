@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from '../components/html-page';
 
-function Post() {
+const Post = () => {
   const { content, page, data } = useContext(EleventyContext);
 
   return (
