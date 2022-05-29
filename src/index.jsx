@@ -1,15 +1,14 @@
 import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
-
-import Header from './_includes/components/header';
+import HTMLPage from './_includes/components/html-page';
 
 function Index() {
   const { collections, data } = useContext(EleventyContext);
 
   return (
-    <html>
-      <Header/>
-    </html>
+    <HTMLPage>
+      <h1>Homepage</h1>
+    </HTMLPage>
   )
 }
 
