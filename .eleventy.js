@@ -5,16 +5,6 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(eleventyReactSSRPlugin);
 
-  eleventyConfig.addCollection(
-    'posts',
-    (collectionApi) => collectionApi.getFilteredByGlob('src/blog/*.md')
-  );
-
-  eleventyConfig.addCollection(
-    'work',
-    (collectionApi) => collectionApi.getFilteredByGlob('src/work/*.md')
-  );
-
   return {
     dir: {
       input: 'src',

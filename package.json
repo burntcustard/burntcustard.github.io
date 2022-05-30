@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "eleventy --input=src --output=dist",
-    "watch": "eleventy --input=src --output=dist --watch --incremental"
+    "watch": "eleventy --input=src --output=dist --watch --serve --incremental"
   },
   "repository": {
     "type": "git",

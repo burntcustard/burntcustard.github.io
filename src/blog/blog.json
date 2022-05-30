@@ -1,3 +1,6 @@
 {
-  "layout": "layouts/blog.jsx"
+  "layout": "layouts/blog.jsx",
+  "tags": [
+    "posts"
+  ]
 }

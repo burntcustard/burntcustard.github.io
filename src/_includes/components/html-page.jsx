@@ -2,16 +2,17 @@ import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import Head from './head';
 import Header from './header';
+import makeTitle from '../utils/makeTitle';
 
 const HTMLPage = ({ children }) => {
-  const { title, elevent, data, page } = useContext(EleventyContext);
+  const { title, page } = useContext(EleventyContext);
 
   return (
     <html lang="en-gb">
-      <Head title={title}/>
+      <Head title={makeTitle({ pageUrl: page.url, postTitle: title })}/>
 
       <body>
-        <Header pageUrl={page.url} data={data} />
+        <Header pageUrl={page.url} />
 
         <main>
           {children}
@@ -19,6 +20,6 @@ const HTMLPage = ({ children }) => {
       </body>
     </html>
   );
-}
+};
 
 export default HTMLPage;
