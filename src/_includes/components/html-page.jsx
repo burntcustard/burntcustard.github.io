@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
+import Head from './head';
 import Header from './header';
 
 const HTMLPage = ({ children }) => {
@@ -7,10 +8,7 @@ const HTMLPage = ({ children }) => {
 
   return (
     <html lang="en-gb">
-      <head>
-        <meta charSet="utf-8"/>
-        <title>{title}</title>
-      </head>
+      <Head title={title}/>
 
       <body>
         <Header pageUrl={page.url} data={data} />
