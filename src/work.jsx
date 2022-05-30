@@ -9,15 +9,15 @@ const Article = ({ date, excerpt, title, url }) => (
   </article>
 );
 
-const Blog = () => {
+const Work = () => {
   const { collections } = useContext(EleventyContext);
 
   return (
     <HTMLPage>
-      <h1>Blog Archive V2?</h1>
+      <h1>Work Archive V2?</h1>
 
       <section>
-        {collections.posts.map(({ url, data }) => (
+        {collections.work.map(({ url, data }) => (
           <Article
             date={data.date}
             excerpt={data.description}
@@ -31,4 +31,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Work;
