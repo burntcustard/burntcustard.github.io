@@ -1,8 +1,9 @@
-const Head = ({ title }) => (
+const Head = ({ title, description }) => (
   <head>
     <meta charSet="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{title}</title>
+    {description && <meta name="description" content={description}/>}
   </head>
 );
 

@@ -5,11 +5,14 @@ import Header from './header';
 import makeTitle from '../utils/makeTitle';
 
 const HTMLPage = ({ children }) => {
-  const { title, page } = useContext(EleventyContext);
+  const { title, page, description } = useContext(EleventyContext);
 
   return (
     <html lang="en-gb">
-      <Head title={makeTitle({ pageUrl: page.url, postTitle: title })}/>
+      <Head
+        title={makeTitle({ pageUrl: page.url, postTitle: title })}
+        description={description}
+      />
 
       <body>
         <Header pageUrl={page.url} />
