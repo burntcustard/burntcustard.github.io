@@ -23,7 +23,7 @@ const Work = () => {
             excerpt={data.description}
             title={data.title}
             url={url}
-            key={data.title}
+            key={url}
           />
         ))}
       </section>

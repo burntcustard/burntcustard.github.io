@@ -4,6 +4,7 @@ const Head = ({ title, description }) => (
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{title}</title>
     {description && <meta name="description" content={description}/>}
+    <link href="/assets/css/style.css" rel="stylesheet"/>
   </head>
 );
 

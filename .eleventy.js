@@ -1,9 +1,7 @@
-const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
-const eleventyReactSSRPlugin = require('eleventy-plugin-react-ssr');
+const reactSSRPlugin = require('eleventy-plugin-react-ssr');
 
 module.exports = (eleventyConfig) => {
-  eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(eleventyReactSSRPlugin);
+  eleventyConfig.addPlugin(reactSSRPlugin);
 
   return {
     dir: {
