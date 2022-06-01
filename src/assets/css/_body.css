@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  color: var(--off-white);
+  font-size: 1.2rem;
+  font-family: 'Recursive', sans-serif;
+  line-height: 1.4;
+  background: var(--gray-dark);
+}

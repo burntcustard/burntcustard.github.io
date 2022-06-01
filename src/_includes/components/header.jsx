@@ -19,15 +19,18 @@ const navItems = [
 
 const Header = () => (
   <header>
-    {navItems.map(({ title, url }) => (
-      <a
-        href={url}
-        aria-current={isCurrentPostType(url) ? 'page' : null}
-        key={title}
-      >
-        {title}
-      </a>
-    ))}
+    <nav>
+      {navItems.map(({ title, url }) => (
+        <a
+          href={url}
+          className={title.toLowerCase()}
+          aria-current={isCurrentPostType(url) ? 'page' : null}
+          key={title}
+        >
+          {title}
+        </a>
+      ))}
+    </nav>
   </header>
 );
 

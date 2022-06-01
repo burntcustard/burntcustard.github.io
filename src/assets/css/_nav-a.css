@@ -1,0 +1,25 @@
+nav a,
+nav button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  border: 2px solid var(--off-white);
+  cursor: pointer;
+}
+
+nav a {
+  height: 2rem;
+  padding-inline: .75rem;
+  padding-block: .25rem;
+  transition: .2s all;
+}
+
+nav a::before,
+nav a::after {
+  position: absolute;
+  display: block;
+  transition: .2s all;
+  content: '';
+}

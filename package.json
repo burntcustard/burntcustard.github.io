@@ -5,8 +5,8 @@
   "main": "index.html",
   "scripts": {
     "clean": "rm -rf dist",
-    "css": "postcss src/_includes/css/main.css --output dist/assets/css/style.css",
-    "css:watch": "postcss src/_includes/css/main.css --output dist/assets/css/style.css --watch",
+    "css": "postcss src/assets/css/main.css --output dist/assets/css/style.css",
+    "css:watch": "postcss src/assets/css/main.css --output dist/assets/css/style.css --watch",
     "11ty": "eleventy --input=src --output=dist",
     "11ty:watch": "eleventy --input=src --output=dist --watch --serve --incremental",
     "build": "npm-run-all --parallel css 11ty",
