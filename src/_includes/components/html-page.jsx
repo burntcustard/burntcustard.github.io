@@ -14,7 +14,7 @@ const HTMLPage = ({ children }) => {
         description={description}
       />
 
-      <body>
+      <body className={page.url.split('/')[1] || 'home'}>
         <Header pageUrl={page.url} />
 
         <main>

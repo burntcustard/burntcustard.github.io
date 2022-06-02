@@ -1,0 +1,54 @@
+a.work {
+  transition: all .15s;
+}
+
+a.work::before {
+  position: absolute;
+  top: 3px;
+  right: 100%;
+  bottom: 100%;
+  left: 3px;
+  z-index: -1;
+  background:
+    linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      var(--off-white) 0
+    );
+  transition: all .1s;
+}
+
+a.work::after {
+  top: -2px;
+  width: 18px;
+  background:
+    linear-gradient(
+      var(--gray-dark),
+      var(--gray-dark) 5px,
+      var(--off-white) 0
+    );
+  border: 2px solid var(--off-white);
+  border-bottom: none;
+  box-shadow: inset 0 0 0 2px var(--gray-dark);
+  transition: all .15s;
+}
+
+a.work:focus,
+a.work:hover {
+  color: var(--gray-dark);
+  transition: all .15s;
+}
+
+a.work:focus::before,
+a.work:hover::before {
+  right: 3px;
+  bottom: 3px;
+}
+
+a.work:focus::after,
+a.work:hover::after {
+  top: -4px;
+  padding-top: 9px;
+  transition: all .15s .1s;
+}

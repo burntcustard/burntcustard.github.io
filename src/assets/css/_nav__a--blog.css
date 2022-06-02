@@ -12,7 +12,7 @@ a.blog::after {
   transition: .25s all steps(3, end);
 }
 
-a.blog:not([aria-current])::before {
+a.blog::before {
   top: calc(100% - 18px);
   right: 10px;
   left: 10px;
@@ -44,7 +44,7 @@ a.blog:not([aria-current])::before {
   border-top: none;
 }
 
-a.blog:not([aria-current])::after {
+a.blog::after {
   top: 5px;
   right: 5px;
   width: 3px;

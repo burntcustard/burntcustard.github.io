@@ -1,0 +1,31 @@
+a.play::before,
+a.play::after {
+  width: 2px;
+  height: 14px;
+  background-color: var(--off-white);
+}
+
+a.play::before {
+  left: -2px;
+}
+
+a.play::after {
+  right: -2px;
+}
+
+a.play:focus::before,
+a.play:hover::before {
+  left: 4px;
+  animation: 1s linear infinite alternate play-pong;
+}
+
+a.play:focus::after,
+a.play:hover::after {
+  right: 4px;
+  animation: 1s linear infinite alternate-reverse play-pong;
+}
+
+@keyframes play-pong {
+  0%   { transform: translateY(-8px); }
+  100% { transform: translateY( 8px); }
+}

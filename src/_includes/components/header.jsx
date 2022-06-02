@@ -13,6 +13,7 @@ const isCurrentPostType = (url) => {
 
 const navItems = [
   { title: 'Home', url: '/' },
+  { title: 'Play', url: '/play/' },
   { title: 'Work', url: '/work/' },
   { title: 'Blog', url: '/blog/' },
 ];

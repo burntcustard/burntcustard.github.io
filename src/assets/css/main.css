@@ -1,6 +1,11 @@
-@import '_reset.css';
-@import '_colors.css';
+@import '_reset';
+@import '_colors';
+@import '_header';
+@import '_home';
 @import '_body';
 @import '_nav';
-@import '_nav-a';
-@import '_nav-a-blog';
+@import '_nav__a';
+@import '_nav__a--blog';
+@import '_nav__a--home';
+@import '_nav__a--play';
+@import '_nav__a--work';

@@ -1,6 +1,10 @@
 nav {
   display: flex;
-  align-items: center;
+  gap: 8px;
+}
+
+nav *:nth-child(2) {
+  margin-left: auto;
 }
 
 nav a[aria-current] {
