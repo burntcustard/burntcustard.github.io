@@ -19,6 +19,7 @@ h3 {
 }
 
 body.home h1 {
+  font-family: 'Fira Code', monospace;
   color: var(--yellow);
   font-size: clamp(2rem, 4vw + 1.2rem, 6rem);
   font-weight: 700;

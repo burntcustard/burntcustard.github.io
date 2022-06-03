@@ -8,6 +8,18 @@ function Index() {
   return (
     <HTMLPage>
       <h1>burnt.io</h1>
+
+      <p>
+        Hi! My name's John, aka burntcustard. I’m a front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.
+      </p>
+
+      <p>
+        <a href="https://twitter.com/burntcustard">Twitter</a>
+        {' '}
+        <a href="mailto:burntcustard@gmail.com">Email</a>
+        {' '}
+        <a href="burntcustard.github.com">GitHub</a>
+      </p>
     </HTMLPage>
   )
 }
