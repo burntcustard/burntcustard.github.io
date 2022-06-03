@@ -1,0 +1,25 @@
+h1,
+h2,
+h3 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+body.home h1 {
+  color: var(--yellow);
+  font-size: clamp(2rem, 4vw + 1.2rem, 6rem);
+  font-weight: 700;
+}
