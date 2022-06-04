@@ -1,5 +1,5 @@
 .listing {
-  margin-block-start: 3rem;
+  margin-block: 3rem;
 }
 
 .listing a {
@@ -16,10 +16,12 @@
 .listing a div {
   display: inline-flex;
   align-items: center;
-  border: 2px solid var(--off-white);
+  border: 2px solid var(--gray);
   padding-inline: .5rem;
   padding-block: .25rem;
-  color: var(--gray);
+  color: var(--yellow);
+  outline: 2px solid transparent;
+  transition: outline-offset .2s, outline-color .2s;
 }
 
 .listing h3 {
@@ -27,35 +29,41 @@
 }
 
 .listing svg {
+  flex-shrink: 0;
+  margin-inline-start: 2px;
   margin-inline-end: -4px;
 }
 
 .listing time {
-  background-color: var(--off-white);
-  color: var(--gray-dark);
-}
-
-.listing a time {
   padding-inline: .5rem;
   font-size: 14px;
   font-weight: bold;
+  background-color: var(--gray);
+  color: var(--gray-dark);
 }
 
+.listing a:focus div,
 .listing a:hover div {
-  color: var(--off-white);
+  border-color: var(--off-white);
 }
 
+.listing a:focus time,
+.listing a:hover time {
+  background-color: var(--off-white);
+}
+
+.listing a:focus div {
+  outline: 2px solid var(--off-white);
+  outline-offset: -6px;
+}
+
+.listing a:focus svg,
 .listing a:hover svg {
   animation: .5s wiggle;
   animation-timing-function: ease-in-out;
 }
 
 @keyframes wiggle {
-  25% {
-    transform: rotate(-6deg);
-  }
-
-  75% {
-    transform: rotate(6deg);
-  }
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
 }

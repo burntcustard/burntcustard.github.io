@@ -6,10 +6,13 @@ const Article = ({ date, excerpt, title, url }) => (
   <article className="listing">
     <a href={url}>
       <div>
-        <h3>
-          {title ?? 'Untitled'}
-        </h3>
-        <svg width="30px" height="30px" viewbox="0 0 10 10" class="arrow" aria-hidden="true">
+        <h3>{title ?? 'Untitled'}</h3>
+        <svg
+          width="30px"
+          height="30px"
+          viewBox="0 0 10 10"
+          aria-hidden="true"
+        >
           <path fill="none" stroke="currentColor" d="M2 5l6 0M5 2l3 3 l-3 3"/>
         </svg>
       </div>
@@ -21,7 +24,6 @@ const Article = ({ date, excerpt, title, url }) => (
 
 const Blog = () => {
   const { collections } = useContext(EleventyContext);
-  console.log(collections.posts);
 
   return (
     <HTMLPage>

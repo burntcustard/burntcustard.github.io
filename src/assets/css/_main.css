@@ -1,14 +1,3 @@
-h1,
-h2,
-h3,
-p,
-header {
-  /* padding-inline: max(8px, 8vw); */
-}
-
-h1,
-h2,
-h3,
-p {
-  /* max-width: 32rem; */
+main {
+  margin-top: 48px;
 }

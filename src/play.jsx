@@ -10,7 +10,7 @@ const Play = () => {
       <h1>Play</h1>
 
       <section>
-        Just a list of games I made?
+        <p>Just a list of games I made?</p>
       </section>
     </HTMLPage>
   );
