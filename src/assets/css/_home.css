@@ -2,3 +2,7 @@
 .home section {
   text-align: left;
 }
+
+.home main {
+  margin-top: 48px;
+}

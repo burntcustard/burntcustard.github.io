@@ -1,0 +1,61 @@
+.listing {
+  margin-block-start: 3rem;
+}
+
+.listing a {
+  display: inline-grid;
+  justify-items: start;
+  pointer-events: none;
+}
+
+.listing a > * {
+  pointer-events: all;
+  transition: color .3s;
+}
+
+.listing a div {
+  display: inline-flex;
+  align-items: center;
+  border: 2px solid var(--off-white);
+  padding-inline: .5rem;
+  padding-block: .25rem;
+  color: var(--gray);
+}
+
+.listing h3 {
+  padding: 0;
+}
+
+.listing svg {
+  margin-inline-end: -4px;
+}
+
+.listing time {
+  background-color: var(--off-white);
+  color: var(--gray-dark);
+}
+
+.listing a time {
+  padding-inline: .5rem;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.listing a:hover div {
+  color: var(--off-white);
+}
+
+.listing a:hover svg {
+  animation: .5s wiggle;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes wiggle {
+  25% {
+    transform: rotate(-6deg);
+  }
+
+  75% {
+    transform: rotate(6deg);
+  }
+}

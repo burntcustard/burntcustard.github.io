@@ -4,6 +4,7 @@
 @import '_headings';
 @import '_home';
 @import '_inline-link';
+@import '_listing';
 @import '_main';
 @import '_body';
 @import '_nav';
@@ -13,3 +14,19 @@
 @import '_nav__a--play';
 @import '_nav__a--work';
 @import '_p';
+
+h1,
+h2,
+h3,
+p,
+header,
+article a {
+  padding-inline: max(9px, calc(16vw - 80px));
+}
+
+h1,
+h2,
+h3,
+p {
+  max-width: 32rem;
+}
