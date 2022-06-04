@@ -21,7 +21,6 @@ h3 {
 body.home h1 {
   font-family: 'Fira Code', monospace;
   color: var(--yellow);
-  font-size: clamp(3rem, 2.8rem + 1vw, 4rem);
   font-size: clamp(3.5rem, 3.3rem + 1vw, 4.5rem);
   letter-spacing: 0;
 }
