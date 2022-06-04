@@ -18,7 +18,7 @@ function Index() {
         {' '}
         <a href="mailto:burntcustard@gmail.com">Email</a>
         {' '}
-        <a href="burntcustard.github.com">GitHub</a>
+        <a href="https://github.com/burntcustard">GitHub</a>
       </p>
     </HTMLPage>
   )

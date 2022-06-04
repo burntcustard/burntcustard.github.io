@@ -11,6 +11,7 @@ const Article = ({ date, excerpt, title, url }) => (
 
 const Work = () => {
   const { collections } = useContext(EleventyContext);
+  console.log(collections.work);
 
   return (
     <HTMLPage>

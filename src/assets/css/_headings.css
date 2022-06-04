@@ -2,7 +2,7 @@ h1,
 h2,
 h3 {
   font-family: 'Fira Sans', sans-serif;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .05em;
 }
 
@@ -20,6 +20,7 @@ h3 {
 
 body.home h1 {
   font-family: 'Fira Code', monospace;
+  font-weight: 700;
   color: var(--yellow);
   font-size: clamp(3.5rem, 3.3rem + 1vw, 4.5rem);
   letter-spacing: 0;
