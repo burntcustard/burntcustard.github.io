@@ -4,14 +4,13 @@ import HTMLPage from './_includes/components/html-page';
 
 const Article = ({ date, excerpt, title, url }) => (
   <article>
-    <h3><a href={url}>{title}</a></h3>
+    <a href={url}><h3>{title}</h3></a>
     <p>{excerpt}</p>
   </article>
 );
 
 const Work = () => {
   const { collections } = useContext(EleventyContext);
-  console.log(collections.work);
 
   return (
     <HTMLPage>
