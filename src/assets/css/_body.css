@@ -5,4 +5,10 @@ body {
   font-family: 'Fira Code', monospace;
   line-height: 1.4;
   background: var(--gray-dark);
+  /* background: #fff; */
+  min-height: 100vh;
+  background-image:
+    repeating-linear-gradient(90deg, #0000 0 14px, #4441 0 16px),
+    repeating-linear-gradient(45deg, #0000 0 14px, #4441 0 16px),
+    repeating-linear-gradient(0deg, #0000 0 14px, #4441 0 16px);
 }
