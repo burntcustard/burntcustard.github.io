@@ -14,7 +14,7 @@ const Work = () => {
 
   return (
     <HTMLPage>
-      <h1>Work Archive V2?</h1>
+      <h1>My Work</h1>
 
       <section>
         {collections.work.map(({ url, data }) => (

@@ -27,7 +27,7 @@ const Blog = () => {
 
   return (
     <HTMLPage>
-      <h1>Blog Archive V2?</h1>
+      <h1>Blog</h1>
 
       <section>
         {collections.posts.map(({ url, date, data }) => (
