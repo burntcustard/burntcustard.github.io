@@ -1,5 +1,6 @@
 a.work {
   transition: all .15s;
+  isolation: isolate;
 }
 
 a.work::before {

@@ -1,50 +1,5 @@
 a.home {
-  position: relative;
-  background: var(--gray-dark);
-}
-
-a.home::before {
-  position: absolute;
-  top: -2px;
-  left: 100%;
-  display: block;
-  width: 2px;
-  height: 44px;
-  background-color: white;
-  transition: all .2s;
-  content: '';
-}
-
-a.home::after {
-  top: 9px;
-  left: calc(100% + 10px);
-  display: block;
-  width: 24px;
-  height: 24px;
-  background-color: var(--gray-dark);
-  content: '';
-  clip-path:
-    polygon(
-      0 12px,
-      12px 0,
-      24px 12px,
-      24px 24px,
-      15px 24px,
-      15px 15px,
-      9px 15px,
-      9px 24px,
-      0 24px
-    );
-}
-
-a.home:focus,
-a.home:hover {
-  margin-right: 42px;
-}
-
-a.home:focus::before,
-a.home:hover::before {
-  width: 44px;
+  
 }
 
 a.home[aria-current] {

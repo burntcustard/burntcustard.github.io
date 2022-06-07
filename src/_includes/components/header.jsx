@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
 
-const isCurrentPostType = (url) => {
-  const { page } = useContext(EleventyContext);
-
+const isCurrentPostType = (page, url) => {
   if (url === '/' && page.url !== '/') {
     return false;
   }
@@ -18,21 +16,25 @@ const navItems = [
   { title: 'Blog', url: '/blog/' },
 ];
 
-const Header = () => (
-  <header>
-    <nav>
-      {navItems.map(({ title, url }) => (
-        <a
-          href={url}
-          className={title.toLowerCase()}
-          aria-current={isCurrentPostType(url) ? 'page' : null}
-          key={title}
-        >
-          {title}
-        </a>
-      ))}
-    </nav>
-  </header>
-);
+const Header = () => {
+  const { page, pkg } = useContext(EleventyContext);
+
+  return (
+    <header>
+      <nav>
+        {navItems.map(({ title, url }) => (
+          <a
+            href={url}
+            className={title.toLowerCase()}
+            aria-current={isCurrentPostType(page, url) ? 'page' : null}
+            key={title}
+          >
+            {title === 'Home' ? pkg.name : title}
+          </a>
+        ))}
+      </nav>
+    </header>
+  );
+};
 
 export default Header;
