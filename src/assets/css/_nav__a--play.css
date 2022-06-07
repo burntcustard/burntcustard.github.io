@@ -2,7 +2,6 @@ a.play::before,
 a.play::after {
   width: 2px;
   height: 14px;
-  background-color: var(--off-white);
 }
 
 a.play::before {
@@ -14,15 +13,23 @@ a.play::after {
 }
 
 a.play:focus::before,
+a.play:hover::before,
+a.play:focus::after,
+a.play:hover::after {
+  background-color: var(--off-white);
+  animation: 1s linear infinite play-pong;
+}
+
+a.play:focus::before,
 a.play:hover::before {
   left: 4px;
-  animation: 1s linear infinite alternate play-pong;
+  animation-direction: alternate;
 }
 
 a.play:focus::after,
 a.play:hover::after {
   right: 4px;
-  animation: 1s linear infinite alternate-reverse play-pong;
+  animation-direction: alternate-reverse;
 }
 
 @keyframes play-pong {
