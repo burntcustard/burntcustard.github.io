@@ -21,7 +21,15 @@
   padding-block: .25rem;
   color: var(--yellow);
   outline: 2px solid transparent;
-  transition: outline-offset .2s, outline-color .2s;
+  outline-offset: -2px;
+  transition: outline-color .3s;
+  border-image-slice: 1;
+  border-image-source: conic-gradient(
+    from var(--deg, 0deg),
+    var(--off-white),
+    #999,
+    var(--off-white)
+  );
 }
 
 .listing h3 {
@@ -40,11 +48,12 @@
   font-weight: bold;
   background-color: var(--gray);
   color: var(--gray-dark);
+  transition: background-color .3s;
 }
 
 .listing a:focus div,
 .listing a:hover div {
-  border-color: var(--off-white);
+  outline-color: var(--off-white);
 }
 
 .listing a:focus time,
