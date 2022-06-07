@@ -16,4 +16,4 @@ window.addEventListener('mousemove', ({ clientX, clientY }) => {
 
 const mx = sessionStorage.getItem('mx');
 const my = sessionStorage.getItem('my');
-fancyBorderElements.forEach(element => mx && my && setAngleToMouse(element, mx, my));
+mx && my && fancyBorderElements.forEach(element => setAngleToMouse(element, mx, my));

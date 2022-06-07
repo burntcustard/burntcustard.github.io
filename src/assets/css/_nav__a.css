@@ -11,7 +11,6 @@ nav button {
 
   outline: 2px solid transparent;
   outline-offset: -2px;
-  transition: outline-color .3s;
   border: 2px solid var(--off-white);
   border-image-slice: 1;
   border-image-source: conic-gradient(
@@ -26,7 +25,7 @@ nav a {
   height: 2rem;
   padding-inline: .75rem;
   padding-block: .25rem;
-  transition: .2s all;
+  transition: .3s all;
 }
 
 nav a::before,
