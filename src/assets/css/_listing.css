@@ -51,6 +51,10 @@
   transition: background-color .3s;
 }
 
+.listing a:focus {
+  outline: none;
+}
+
 .listing a:focus div,
 .listing a:hover div {
   outline-color: var(--off-white);
