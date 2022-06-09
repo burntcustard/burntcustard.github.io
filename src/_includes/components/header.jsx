@@ -22,16 +22,31 @@ const Header = () => {
   return (
     <header>
       <nav>
-        {navItems.map(({ title, url }) => (
-          <a
-            href={url}
-            className={title.toLowerCase()}
-            aria-current={isCurrentPostType(page, url) ? 'page' : null}
-            key={title}
-          >
-            {title === 'Home' ? pkg.name : title}
-          </a>
-        ))}
+        <div>
+          {[navItems.find(n => n.url === '/')].map(({ title, url }) => (
+            <a
+              href={url}
+              className={title.toLowerCase()}
+              aria-current={isCurrentPostType(page, url) ? 'page' : null}
+              key={title}
+            >
+              {pkg.name}
+            </a>
+          ))}
+        </div>
+
+        <div>
+          {navItems.filter(n => n.url !== '/').map(({ title, url }) => (
+            <a
+              href={url}
+              className={title.toLowerCase()}
+              aria-current={isCurrentPostType(page, url) ? 'page' : null}
+              key={title}
+            >
+              {title}
+            </a>
+          ))}
+        </div>
       </nav>
     </header>
   );

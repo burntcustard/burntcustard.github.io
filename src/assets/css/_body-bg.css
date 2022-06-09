@@ -3,7 +3,6 @@ body {
   --bg-inner: 22px;
   --bg-outer: 24px;
   background: var(--gray-dark);
-  /* background: #ff9; */
   background-image:
     repeating-linear-gradient(
       90deg,

@@ -6,7 +6,7 @@ const Article = ({ date, excerpt, title, url }) => (
   <article className="listing">
     <a href={url}>
       <div>
-        <h3>{title ?? 'Untitled'}</h3>
+        <h2>{title ?? 'Untitled'}</h2>
         <svg
           width="30px"
           height="30px"

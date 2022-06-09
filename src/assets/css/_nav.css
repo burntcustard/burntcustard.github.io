@@ -1,38 +1,14 @@
-nav {
+nav,
+nav div {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-nav *:nth-child(2) {
-  margin-left: auto;
+nav div:nth-child(1) {
+  margin-right: auto;
 }
 
 nav a[aria-current] {
   color: var(--yellow);
-}
-
-@media (max-width: 768px) {
-  #nav-items {
-    top: 76px;
-    left: 0;
-    flex-direction: column;
-    width: calc(100% - 1rem);
-    overflow: hidden;
-  }
-
-  nav button[aria-expanded='false'] + #nav-items {
-    display: none;
-  }
-
-  nav button[aria-expanded='true'] + #nav-items {
-    width: 100%;
-  }
-}
-
-.menu-expanded > header {
-  background: var(--gray-dark);
-}
-
-.menu-expanded > header nav {
-  flex-wrap: wrap;
 }
