@@ -7,8 +7,9 @@ module.exports = (eleventyConfig) => {
     files: 'dist/assets/css/style.css',
   });
 
-  eleventyConfig.addPassthroughCopy('assets/js/main.js', 'dist/assets/js');
-  eleventyConfig.addPassthroughCopy('static', '/');
+  eleventyConfig.addPassthroughCopy('assets/img');
+  eleventyConfig.addPassthroughCopy('assets/js/main.js');
+  eleventyConfig.addPassthroughCopy({'static': '/'});
 
   return {
     dir: {
