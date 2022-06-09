@@ -8,6 +8,7 @@ module.exports = (eleventyConfig) => {
   });
 
   eleventyConfig.addPassthroughCopy('src/assets/js/main.js');
+  eleventyConfig.addPassthroughCopy({ 'static': '/' });
 
   return {
     dir: {
