@@ -7,10 +7,12 @@ function Index() {
 
   return (
     <HTMLPage>
-      <h1>{pkg.name}</h1>
+      <header>
+        <h1>{pkg.name}</h1>
+      </header>
 
       <p>
-        Hi! My name's John, aka burntcustard. I’m a front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.
+        Hi! My name's John, aka burntcustard. I’m a senior front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.
       </p>
 
       <p>

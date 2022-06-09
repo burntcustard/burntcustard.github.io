@@ -2,18 +2,18 @@
   margin-block: 3rem;
 }
 
-.listing a {
+.listing > a {
   display: inline-grid;
   justify-items: start;
   pointer-events: none;
 }
 
-.listing a > * {
+.listing > a > * {
   pointer-events: all;
   transition: color .3s;
 }
 
-.listing a div {
+.listing > a div {
   display: inline-flex;
   align-items: center;
   border: 2px solid var(--gray);
@@ -51,27 +51,27 @@
   transition: background-color .3s;
 }
 
-.listing a:focus {
+.listing > a:focus {
   outline: none;
 }
 
-.listing a:focus div,
-.listing a:hover div {
+.listing > a:focus div,
+.listing > a:hover div {
   outline-color: var(--off-white);
 }
 
-.listing a:focus time,
-.listing a:hover time {
+.listing > a:focus time,
+.listing > a:hover time {
   background-color: var(--off-white);
 }
 
-.listing a:focus div {
+.listing > a:focus div {
   outline: 2px solid var(--off-white);
   outline-offset: -6px;
 }
 
-.listing a:focus svg,
-.listing a:hover svg {
+.listing > a:focus svg,
+.listing > a:hover svg {
   animation: .5s wiggle;
   animation-timing-function: ease-in-out;
 }

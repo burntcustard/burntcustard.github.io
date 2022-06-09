@@ -14,7 +14,9 @@ const Work = () => {
 
   return (
     <HTMLPage>
-      <h1>My Work</h1>
+      <header>
+        <h1>My Work</h1>
+      </header>
 
       <section>
         {collections.work.map(({ url, data }) => (

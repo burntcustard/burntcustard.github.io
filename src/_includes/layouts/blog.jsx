@@ -3,11 +3,19 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from '../components/html-page';
 
 const Post = () => {
-  const { content, page, data } = useContext(EleventyContext);
+  const { content, page, title, date } = useContext(EleventyContext);
+
+  console.log(useContext(EleventyContext));
 
   return (
     <HTMLPage>
-      <h1>TEST</h1>
+      <header>
+        <h1>{title}</h1>
+        {date && (
+          <time>{date.toLocaleDateString()}</time>
+        )}
+      </header>
+
       <div dangerouslySetInnerHTML={{ __html: content }} />
     </HTMLPage>
   )
