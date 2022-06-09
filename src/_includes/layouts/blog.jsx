@@ -5,8 +5,6 @@ import HTMLPage from '../components/html-page';
 const Post = () => {
   const { content, page, title, date } = useContext(EleventyContext);
 
-  console.log(useContext(EleventyContext));
-
   return (
     <HTMLPage>
       <header>
@@ -16,7 +14,7 @@ const Post = () => {
         )}
       </header>
 
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div className="content" dangerouslySetInnerHTML={{ __html: content }} />
     </HTMLPage>
   )
 }

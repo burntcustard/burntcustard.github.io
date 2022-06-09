@@ -1,5 +1,27 @@
 a.home {
-  
+  poaition: relative;
+}
+
+a.home::before,
+a.home::after {
+  font-size: .6em;
+  font-weight: 600;
+  opacity: 0;
+}
+
+a.home::before {
+  content: '<';
+  left: .2em;
+}
+
+a.home::after {
+  content: '-';
+  right: .2em;
+}
+
+a.home:hover::before,
+a.home:hover::after {
+  opacity: 1;
 }
 
 a.home[aria-current] {

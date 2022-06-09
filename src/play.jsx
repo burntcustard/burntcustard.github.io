@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from './_includes/components/html-page';
 import Listing from './_includes/components/listing';
 

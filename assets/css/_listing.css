@@ -42,15 +42,6 @@
   margin-inline-end: -4px;
 }
 
-.listing time {
-  padding-inline: .5rem;
-  font-size: 14px;
-  font-weight: bold;
-  background-color: var(--gray);
-  color: var(--gray-dark);
-  transition: background-color .3s;
-}
-
 .listing > a:focus {
   outline: none;
 }

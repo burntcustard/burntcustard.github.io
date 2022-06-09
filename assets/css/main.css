@@ -15,10 +15,12 @@
 @import '_nav__a--play';
 @import '_nav__a--work';
 @import '_p';
+@import '_time';
 
 main > p,
 header,
-.listing {
+.listing,
+.content p {
   padding-inline: max(9px, calc(16vw - 80px));
 }
 
@@ -26,6 +28,10 @@ main > p,
 main header,
 .listing {
   max-width: 34rem;
+}
+
+.content > * {
+  max-width: 40rem;
 }
 
 main > section {
