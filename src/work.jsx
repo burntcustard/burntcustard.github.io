@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from './_includes/components/html-page';
+import { existsSync } from 'node:fs';
 
 const Article = ({ date, excerpt, title, url, img }) => (
   <article>
     <a href={url}><h3>{title}</h3></a>
     {img && (
-      <img
-      src={`/assets/img/${img}.png`}
-      loading="lazy"
-      />
+      <div class="screen">
+        <img
+          src={img}
+          loading="lazy"
+        />
+      </div>
     )}
     <p>{excerpt}</p>
   </article>
@@ -26,12 +29,13 @@ const Work = () => {
 
       <section>
         {collections.work.map(({ url, data }) => {
-          console.log(data);
+          const imgPath = `/assets/img/${data.page.fileSlug}.png`;
+
           return (
             <Article
               excerpt={data.description}
               title={data.title}
-              img={data.page.fileSlug}
+              img={existsSync(`.${imgPath}`) ? imgPath : null}
               url={url}
               key={url}
             />
