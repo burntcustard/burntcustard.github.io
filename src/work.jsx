@@ -4,19 +4,26 @@ import HTMLPage from './_includes/components/html-page';
 import { existsSync } from 'node:fs';
 
 const Article = ({ date, excerpt, title, url, img }) => (
-  <article class="work-listing">
-    <a href={url}><h2>{title}</h2></a>
-    {img && (
-      <div class="screen">
-        <div class="screen__inner">
-          <img
-            src={img}
-            loading="lazy"
-          />
+  <article className="work-listing">
+    <div>
+      <a href={url}><h2>{title}</h2></a>
+      <p>{excerpt}</p>
+    </div>
+
+      <div className="screen">
+        <div className="screen__inner">
+          {img ? (
+            <img
+              src={img}
+              loading="lazy"
+              width="640px"
+              height="auto"
+            />
+          ) : (
+            <small>Screenshot coming soon</small>
+          )}
         </div>
       </div>
-    )}
-    <p>{excerpt}</p>
   </article>
 );
 
