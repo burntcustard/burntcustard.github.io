@@ -15,7 +15,9 @@
 @import '_nav__a--play';
 @import '_nav__a--work';
 @import '_p';
+@import '_screen';
 @import '_time';
+@import '_work-listing';
 
 main > p,
 header,
@@ -41,53 +43,4 @@ main > section {
 
 header > p:last-of-type {
   margin-block-end: 0;
-}
-
-.work-listing {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-inline: auto;
-  margin-block: 4rem;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-}
-
-.work-listing:nth-child(even) {
-  flex-direction: row-reverse;
-}
-
-@media (max-width: 500px) {
-  .work-listing.work-listing {
-    flex-direction: column;
-  }
-}
-
-.screen {
-  border: 2px solid var(--off-white);
-  max-width: 640px;
-  flex-basis: 0;
-  flex-grow: 1;
-}
-
-.screen::before {
-  content: '';
-  display: block;
-  height: 24px;
-  background: var(--off-white);
-  background-image:
-    radial-gradient(circle at 10px, var(--gray) 5px, #0000 0),
-    radial-gradient(circle at 25px, var(--gray) 5px, #0000 0),
-    radial-gradient(circle at 40px, var(--gray) 5px, #0000 0);
-}
-
-.screen__inner {
-  aspect-ratio: 16 / 9;
-  overflow-y: auto;
-  max-height: 100%;
-}
-
-.screen img {
-  width: 100%;
 }

@@ -1,0 +1,18 @@
+.work-listing {
+  margin-inline: auto;
+  margin-block: 4rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.work-listing:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+@media (min-width: 501px) {
+  .work-listing {
+    display: flex;
+  }
+}

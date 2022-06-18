@@ -1,0 +1,28 @@
+.screen {
+  border: 2px solid var(--off-white);
+  max-width: 640px;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.screen::before {
+  content: '';
+  display: block;
+  height: 24px;
+  background: var(--off-white);
+  background-image:
+    radial-gradient(circle at 10px, var(--gray) 5px, #0000 0),
+    radial-gradient(circle at 25px, var(--gray) 5px, #0000 0),
+    radial-gradient(circle at 40px, var(--gray) 5px, #0000 0);
+}
+
+.screen__inner {
+  aspect-ratio: 16 / 9;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.screen img {
+  display: block;
+  width: 100%;
+}
