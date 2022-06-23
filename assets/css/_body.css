@@ -3,6 +3,6 @@ body {
   color: var(--off-white);
   font-size: 1.125rem;
   font-family: 'Fira Code', monospace;
-  line-height: 1.4;
+  line-height: 1.5;
   min-height: 100vh;
 }
