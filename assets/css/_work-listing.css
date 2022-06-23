@@ -15,4 +15,8 @@
   .work-listing {
     display: flex;
   }
+
+  .work-listing > div {
+    width: 40%;
+  }
 }
