@@ -12,3 +12,7 @@ h2,
 h3 {
   margin: 0;
 }
+
+p {
+  margin-block: 1.2em;
+}

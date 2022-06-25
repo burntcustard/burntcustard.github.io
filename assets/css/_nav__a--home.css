@@ -19,6 +19,8 @@ a.home::after {
   right: .2em;
 }
 
+a.home:focus::before,
+a.home:focus::after,
 a.home:hover::before,
 a.home:hover::after {
   opacity: 1;

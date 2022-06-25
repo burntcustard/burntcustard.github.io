@@ -3,6 +3,7 @@
   max-width: 640px;
   flex-basis: 0;
   flex-grow: 1;
+  transition: box-shadow .5s;
 }
 
 .screen::before {
@@ -25,4 +26,9 @@
 .screen img {
   display: block;
   width: 100%;
+}
+
+.screen:focus,
+.screen:hover {
+  box-shadow: 0 4px 24px #000;
 }

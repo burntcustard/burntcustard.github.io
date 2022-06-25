@@ -6,8 +6,8 @@ import { existsSync } from 'node:fs';
 const Article = ({ date, excerpt, title, url, img }) => (
   <article className="work-listing">
     <div>
-      <a href={url}><h2>{title}</h2></a>
-      <p>{excerpt}</p>
+      <h2>{title}</h2>
+      <p dangerouslySetInnerHTML={{ __html: excerpt }}/>
     </div>
 
       <div className="screen">
