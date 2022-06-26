@@ -23,7 +23,7 @@ function Index() {
       element.style.transition = 'opacity 500ms';
 
       setTimeout(() => {
-        element.style.opacity = 1;
+        element.style.opacity = '';
         setTimeout(() => element.style.transition = '', 400);
       }, runningTotalDelay);
     });

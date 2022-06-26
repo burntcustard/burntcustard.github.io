@@ -9,6 +9,6 @@ nav div:nth-child(1) {
   margin-right: auto;
 }
 
-nav a[aria-current] {
+nav div a[aria-current] {
   color: var(--yellow);
 }
