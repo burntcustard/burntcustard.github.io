@@ -4,6 +4,7 @@
   flex-basis: 0;
   flex-grow: 1;
   transition: box-shadow .5s;
+  margin-block: 1em;
 }
 
 .screen::before {

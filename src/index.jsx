@@ -73,7 +73,7 @@ function Index() {
         </a>
       </p>
 
-      <script children={null} dangerouslySetInnerHTML={{ __html: script }}/>
+      <script dangerouslySetInnerHTML={{ __html: script }}/>
     </HTMLPage>
   )
 }
