@@ -6,3 +6,8 @@ time {
   color: var(--gray-dark);
   transition: background-color .3s;
 }
+
+main > header > time {
+  padding-top: 2px;
+  background-color: var(--off-white);
+}
