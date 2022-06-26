@@ -20,7 +20,6 @@ function applyFancyBorders() {
   mx && my && fancyBorderElements.forEach(element => setAngleToMouse(element, mx, my));
 }
 
-if (window.matchMedia('(pointer: fine)')) {
-  console.log('pointer: fine');
-  applyFancyBorders();
-}
+const mouseQuery = window.matchMedia('(pointer: fine)');
+
+if (mouseQuery.matches) applyFancyBorders();
