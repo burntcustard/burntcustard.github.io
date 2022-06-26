@@ -21,6 +21,8 @@ function Index() {
         <a href="mailto:burntcustard@gmail.com">Email</a>
         {' '}
         <a href="https://github.com/burntcustard">GitHub</a>
+        {' '}
+        <a href="https://codepen.io/burntcustard/">CodePen</a>
       </p>
     </HTMLPage>
   )
