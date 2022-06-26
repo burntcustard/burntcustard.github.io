@@ -1,17 +1,23 @@
-<!DOCTYPE html><html lang="en-gb"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>burnt.io</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link href="/assets/css/style.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Fira+Sans:wght@600&amp;display=swap" rel="stylesheet"/><script defer="" src="/assets/js/main.js"></script></head><body class="home"><header><nav><div><a href="/" class="home" aria-current="page">burnt.io</a></div><div><a href="/play/" class="play">Play</a><a href="/work/" class="work">Work</a><a href="/blog/" class="blog">Blog</a></div></nav></header><main><header><h1>burnt.io</h1></header><p>Hi! My name&#x27;s John, aka burntcustard. I’m a senior front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.</p><p><a href="https://twitter.com/burntcustard">Twitter</a> <a href="mailto:burntcustard@gmail.com">Email</a> <a href="https://github.com/burntcustard">GitHub</a> <a href="https://codepen.io/burntcustard/">CodePen</a></p><script>
+<!DOCTYPE html><html lang="en-gb"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>burnt.io</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link href="/assets/css/style.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Fira+Sans:wght@600&amp;display=swap" rel="stylesheet"/><script defer="" src="/assets/js/main.js"></script></head><body class="home"><header><nav><div><a href="/" class="home" aria-current="page">burnt.io</a></div><div><a href="/play/" class="play">Play</a><a href="/work/" class="work">Work</a><a href="/blog/" class="blog">Blog</a></div></nav></header><main><header><h1 data-fadein-delay="300">burnt.io</h1></header><p data-fadein-delay="500">Hi! My name&#x27;s John, aka burntcustard. I’m a senior front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.</p><p><a href="https://twitter.com/burntcustard" data-fadein-delay="500">Twitter</a> <a href="mailto:burntcustard@gmail.com" data-fadein-delay="300">Email</a> <a href="https://github.com/burntcustard" data-fadein-delay="300">GitHub</a> <a href="https://codepen.io/burntcustard/" data-fadein-delay="300">CodePen</a></p><script>
     let elements = [...document.querySelectorAll('h1, header + p, header + p + p a')];
 
     if (!localStorage.getItem('first')) {
       localStorage.setItem('first', true);
-      elements.push(document.querySelector('nav'));
+      const nav = document.querySelector('nav');
+      nav.dataset.fadeinDelay = 500;
+      elements.push(nav);
     }
 
-    elements.forEach((item, i) => {
-      item.style.opacity = 0;
-      item.style.transition = 'opacity 500ms';
+    let runningTotalDelay = 0;
+
+    elements.forEach((element, i) => {
+      runningTotalDelay += parseInt(element.dataset.fadeinDelay);
+      element.style.opacity = 0;
+      element.style.transition = 'opacity 500ms';
+
       setTimeout(() => {
-        item.style.opacity = 1;
-        setTimeout(() => item.style.transition = '', 400);
-      }, i * 400 + 200);
+        element.style.opacity = 1;
+        setTimeout(() => element.style.transition = '', 400);
+      }, runningTotalDelay);
     });
   </script></main></body></html>
