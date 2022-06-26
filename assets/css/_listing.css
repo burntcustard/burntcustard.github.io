@@ -14,6 +14,7 @@
 }
 
 .listing > a div {
+  position: relative;
   display: inline-flex;
   align-items: center;
   border: 2px solid var(--gray);
@@ -22,14 +23,23 @@
   color: var(--yellow);
   outline: 2px solid transparent;
   outline-offset: -2px;
-  transition: outline-color .2s;
+  transition: outline-color .3s;
   border-image-slice: 1;
   border-image-source: conic-gradient(
-    from var(--deg, 0deg),
+    from var(--rad),
     var(--off-white),
     #999,
     var(--off-white)
   );
+}
+
+.listing > a div::before {
+  position: absolute;
+  inset: 2px;
+  border: 2px solid var(--off-white);
+  content: '';
+  opacity: 0;
+  transition: opacity .2s;
 }
 
 .listing h2 {
@@ -46,19 +56,16 @@
   outline: none;
 }
 
-.listing > a:focus div,
 .listing > a:hover div {
   outline-color: var(--off-white);
 }
 
-.listing > a:focus time,
 .listing > a:hover time {
   background-color: var(--off-white);
 }
 
-.listing > a:focus-visible div {
-  outline: 2px solid var(--off-white);
-  outline-offset: -6px;
+.listing > a:focus-visible div::before {
+  opacity: 1;
 }
 
 .listing > a:focus svg,
