@@ -16,6 +16,10 @@
 @import '_time';
 @import '_work-listing';
 
+html {
+  min-height: 100vh;
+}
+
 main > p,
 header,
 .listing,
