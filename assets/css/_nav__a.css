@@ -18,7 +18,7 @@ nav a {
     var(--off-white)
   );
   height: 2rem;
-  transition: .3s all;
+  transition: color .3s, outline-color .3s, border-color .3s;
 }
 
 @media (min-width: 501px) {
