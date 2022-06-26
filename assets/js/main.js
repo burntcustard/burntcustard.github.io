@@ -1,4 +1,4 @@
-const fancyBorderElements = document.querySelectorAll('.listing > a, nav a');
+const fancyBorderElements = [...document.querySelectorAll('.listing > a, nav a')];
 
 function setAngleToMouse(element, mx, my) {
   const { x, y, width, height } = element.getBoundingClientRect();
