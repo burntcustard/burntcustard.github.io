@@ -26,7 +26,6 @@ nav a {
     font-size: 1.5rem;
     padding-inline: .75rem;
     padding-block: .25rem;
-    border: 2px solid var(--off-white);
   }
 
   nav a::before,
@@ -40,5 +39,6 @@ nav a {
 
 nav a:focus,
 nav a:hover {
+  color: var(--white);
   outline-color: var(--off-white);
 }

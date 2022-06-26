@@ -42,6 +42,7 @@ function Index() {
       <p>
         <a
           href="https://twitter.com/burntcustard"
+          rel="noreferrer"
           data-fadein-delay="500"
         >
           Twitter
@@ -49,6 +50,7 @@ function Index() {
         {' '}
         <a
           href="mailto:burntcustard@gmail.com"
+          rel="noreferrer"
           data-fadein-delay="300"
         >
           Email
@@ -56,6 +58,7 @@ function Index() {
         {' '}
         <a
           href="https://github.com/burntcustard"
+          rel="noreferrer"
           data-fadein-delay="300"
         >
           GitHub
@@ -63,6 +66,7 @@ function Index() {
         {' '}
         <a
           href="https://codepen.io/burntcustard/"
+          rel="noreferrer"
           data-fadein-delay="300"
         >
           CodePen

@@ -4,10 +4,6 @@ a {
   scroll-margin-block: 9px;
 }
 
-a:focus {
-  /* outline: none; */
-}
-
 h1,
 h2,
 h3 {

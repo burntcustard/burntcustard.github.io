@@ -3,11 +3,19 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from './_includes/components/html-page';
 import { existsSync } from 'node:fs';
 
-const Article = ({ date, excerpt, title, url, img }) => (
+const Article = ({ date, excerpt, site, source, title, img }) => (
   <article className="work-listing">
     <div>
       <h2>{title}</h2>
-      <p dangerouslySetInnerHTML={{ __html: excerpt }}/>
+      { excerpt && (
+        <p dangerouslySetInnerHTML={{ __html: excerpt }}/>
+      )}
+      { site && (
+        <p dangerouslySetInnerHTML={{ __html: site }}/>
+      )}
+      { source && (
+        <p dangerouslySetInnerHTML={{ __html: source }}/>
+      )}
     </div>
 
       <div className="screen">
@@ -47,6 +55,8 @@ const Work = () => {
               img={existsSync(`.${imgPath}`) ? imgPath : null}
               url={url}
               key={url}
+              site={data.site}
+              source={data.source}
             />
           );
         })}

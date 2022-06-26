@@ -21,6 +21,10 @@
   }
 }
 
-.work-listing br {
-  margin-block-end: .5em;
+.work-listing h2 {
+  margin-block-end: 1em;
+}
+
+.work-listing p {
+  margin-block: .5em;
 }
