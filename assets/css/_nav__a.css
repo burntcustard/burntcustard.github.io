@@ -3,12 +3,13 @@ nav a {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
   background: var(--gray-dark-transparent);
+  padding-inline: .25rem;
+  border: 2px solid var(--off-white);
   outline: 2px solid transparent;
   outline-offset: -2px;
-  border: 2px solid var(--off-white);
   border-image-slice: 1;
   border-image-source: conic-gradient(
     from var(--deg),
@@ -17,17 +18,24 @@ nav a {
     var(--off-white)
   );
   height: 2rem;
-  padding-inline: .75rem;
-  padding-block: .25rem;
   transition: .3s all;
 }
 
-nav a::before,
-nav a::after {
-  position: absolute;
-  display: block;
-  transition: .2s all;
-  content: '';
+@media (min-width: 501px) {
+  nav a {
+    font-size: 1.5rem;
+    padding-inline: .75rem;
+    padding-block: .25rem;
+    border: 2px solid var(--off-white);
+  }
+
+  nav a::before,
+  nav a::after {
+    position: absolute;
+    display: block;
+    transition: .2s all;
+    content: '';
+  }
 }
 
 nav a:focus,
