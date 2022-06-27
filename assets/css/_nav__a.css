@@ -12,7 +12,7 @@ nav a {
   outline-offset: -2px;
   border-image-slice: 1;
   border-image-source: conic-gradient(
-    from var(--rad),
+    from var(--deg),
     var(--off-white),
     #999,
     var(--off-white)
