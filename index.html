@@ -1,23 +1,21 @@
 <!DOCTYPE html><html lang="en-gb"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="theme-color" content="#ffffff"/><meta name="description" content="Personal website for John, aka burntcustard"/><title>burnt.io</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link href="/assets/css/style.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Fira+Sans:wght@600&amp;display=swap" rel="stylesheet"/><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/><link rel="manifest" href="/site.webmanifest"/><script defer="" src="/assets/js/main.js"></script></head><body class="home"><header><nav><div><a href="/" class="home" aria-current="page">burnt.io</a></div><div><a href="/play/" class="play">Play</a><a href="/work/" class="work">Work</a><a href="/blog/" class="blog">Blog</a></div></nav></header><main><header><h1 data-fadein-delay="300">burnt.io</h1></header><p data-fadein-delay="500">Hi! My name&#x27;s John, aka burntcustard. I’m a senior front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.</p><p><a href="https://twitter.com/burntcustard" rel="noreferrer" data-fadein-delay="500">Twitter</a> <a href="mailto:burntcustard@gmail.com" rel="noreferrer" data-fadein-delay="300">Email</a> <a href="https://github.com/burntcustard" rel="noreferrer" data-fadein-delay="300">GitHub</a> <a href="https://codepen.io/burntcustard/" rel="noreferrer" data-fadein-delay="300">CodePen</a></p><script>
-    let elements = [...document.querySelectorAll('h1, header + p, header + p + p a')];
-
     if (!localStorage.getItem('first')) {
       localStorage.setItem('first', true);
       const nav = document.querySelector('nav');
+      let elements = [...document.querySelectorAll('h1, header + p, header + p + p a')];
+      let runningTotalDelay = 0;
       nav.dataset.fadeinDelay = 500;
       elements.push(nav);
+
+      elements.forEach(element => {
+        runningTotalDelay += parseInt(element.dataset.fadeinDelay);
+        element.style.opacity = 0;
+        element.style.transition = 'opacity 500ms';
+
+        setTimeout(() => {
+          element.style.opacity = '';
+          setTimeout(() => element.style.transition = '', 400);
+        }, runningTotalDelay);
+      });
     }
-
-    let runningTotalDelay = 0;
-
-    elements.forEach((element, i) => {
-      runningTotalDelay += parseInt(element.dataset.fadeinDelay);
-      element.style.opacity = 0;
-      element.style.transition = 'opacity 500ms';
-
-      setTimeout(() => {
-        element.style.opacity = '';
-        setTimeout(() => element.style.transition = '', 400);
-      }, runningTotalDelay);
-    });
   </script></main></body></html>
