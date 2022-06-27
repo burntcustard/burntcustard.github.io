@@ -5,8 +5,9 @@ function applyFancyBorders() {
     const { x, y, width, height } = element.getBoundingClientRect();
     const dx = mx - (x + width / 2);
     const dy = my - (y + height / 2);
-    const angle = Math.atan2(dy, dx);
-    element.style.setProperty('--rad', `${angle + 1.57}rad`);
+    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+    // Set the --deg CSS var, rounded to int for inline-style neatness
+    element.style.setProperty('--deg', `${~~angle + 90}deg`);
   }
 
   window.addEventListener('mousemove', ({ clientX, clientY }) => {
