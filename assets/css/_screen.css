@@ -18,7 +18,7 @@
     radial-gradient(circle at 40px, var(--gray) 5px, #0000 0);
 }
 
-.screen__inner {
+.screen > div {
   aspect-ratio: 16 / 9;
   overflow-y: auto;
   max-height: 100%;

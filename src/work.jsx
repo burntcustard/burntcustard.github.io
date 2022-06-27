@@ -19,7 +19,7 @@ const Article = ({ date, excerpt, site, source, title, img }) => (
     </div>
 
       <div className="screen">
-        <div className="screen__inner">
+        <div>
           {img ? (
             <img
               src={img}
