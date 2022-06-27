@@ -6,27 +6,25 @@ function Index() {
   const { collections, data, pkg } = useContext(EleventyContext);
 
   const script = `
-    let elements = [...document.querySelectorAll('h1, header + p, header + p + p a')];
-
     if (!localStorage.getItem('first')) {
       localStorage.setItem('first', true);
       const nav = document.querySelector('nav');
+      let elements = [...document.querySelectorAll('h1, header + p, header + p + p a')];
+      let runningTotalDelay = 0;
       nav.dataset.fadeinDelay = 500;
       elements.push(nav);
+
+      elements.forEach(element => {
+        runningTotalDelay += parseInt(element.dataset.fadeinDelay);
+        element.style.opacity = 0;
+        element.style.transition = 'opacity 500ms';
+
+        setTimeout(() => {
+          element.style.opacity = '';
+          setTimeout(() => element.style.transition = '', 400);
+        }, runningTotalDelay);
+      });
     }
-
-    let runningTotalDelay = 0;
-
-    elements.forEach((element, i) => {
-      runningTotalDelay += parseInt(element.dataset.fadeinDelay);
-      element.style.opacity = 0;
-      element.style.transition = 'opacity 500ms';
-
-      setTimeout(() => {
-        element.style.opacity = '';
-        setTimeout(() => element.style.transition = '', 400);
-      }, runningTotalDelay);
-    });
   `;
 
   return (
