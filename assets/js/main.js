@@ -1,7 +1,7 @@
 function applyFancyBorders() {
   const fancyBorderElements = [...document.querySelectorAll('.listing > a, nav a')];
 
-  function setAngleToMouse(element, mx, my) {
+  function setDegToMouse(element, mx, my) {
     const { x, y, width, height } = element.getBoundingClientRect();
     const dx = mx - (x + width / 2);
     const dy = my - (y + height / 2);
@@ -11,14 +11,15 @@ function applyFancyBorders() {
   }
 
   window.addEventListener('mousemove', ({ clientX, clientY }) => {
-    sessionStorage.setItem('mx', clientX);
-    sessionStorage.setItem('my', clientY);
-    fancyBorderElements.forEach(element => setAngleToMouse(element, clientX, clientY));
+    sessionStorage.setItem('mPos', `${clientX} ${clientY}`);
+    fancyBorderElements.forEach(e => setDegToMouse(e, clientX, clientY));
   });
 
-  const mx = sessionStorage.getItem('mx');
-  const my = sessionStorage.getItem('my');
-  mx && my && fancyBorderElements.forEach(element => setAngleToMouse(element, mx, my));
+  const mPos = sessionStorage.getItem('mPos')?.split(' ');
+
+  if (mPos) {
+    fancyBorderElements.forEach(e => setDegToMouse(e, mPos[0], mPos[1]));
+  }
 }
 
 const mouseQuery = window.matchMedia('(pointer: fine)');
