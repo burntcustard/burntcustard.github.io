@@ -2,7 +2,7 @@ const Head = ({ title, description }) => (
   <head>
     <meta charSet="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="theme-color" content="#eeeeee"/>
+    <meta name="theme-color" content="#ffffff"/>
     {description && <meta name="description" content={description}/>}
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
