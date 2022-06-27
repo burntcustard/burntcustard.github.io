@@ -20,11 +20,6 @@ html {
   min-height: 100vh;
 }
 
-body.home {
-  /* Show scrollbar even w/o overflow to make nav less janky */
-  overflow-y: scroll;
-}
-
 main > p,
 header,
 .listing,

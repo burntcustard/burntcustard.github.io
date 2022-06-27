@@ -5,3 +5,11 @@ body {
   font-family: 'Fira Code', monospace;
   line-height: 1.5;
 }
+
+body.home,
+body.play,
+body.work,
+body.blog {
+  /* Show scrollbar even w/o overflow to make nav less janky */
+  overflow-y: scroll;
+}
