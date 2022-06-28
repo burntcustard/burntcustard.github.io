@@ -1,13 +1,14 @@
-a {
-  color: inherit;
-  text-decoration: none;
-  scroll-margin-block: 9px;
-}
-
+body,
 h1,
 h2,
 h3 {
   margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  scroll-margin-block: 9px;
 }
 
 p {

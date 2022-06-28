@@ -5,10 +5,6 @@ nav div {
   gap: 8px;
 }
 
-nav div:nth-child(1) {
+nav div:first-child {
   margin-inline-end: auto;
-}
-
-nav div a[aria-current] {
-  color: var(--yellow);
 }
