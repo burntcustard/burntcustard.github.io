@@ -4,7 +4,6 @@ nav a {
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
-  cursor: pointer;
   background: var(--gray-dark-transparent);
   padding-inline: .25rem;
   border: 2px solid var(--off-white);
