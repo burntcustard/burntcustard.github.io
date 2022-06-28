@@ -18,6 +18,21 @@ const Play = () => {
       url: '/canvasnake',
       description: 'Created for an AI module at university, Canvasnake has machine-learning-based computer-controlled snakes, and local (same keyboard) multiplayer.',
     },
+    {
+      title: 'Codeheadings',
+      url: '/codeheadings',
+      description: 'A long time ago, I wanted some fancy headings for my far-too-much-text-in-one-file JavaScript projects…',
+    },
+    {
+      title: 'Hex Guess 0x400',
+      url: 'https://js1024.fun/demos/2020/33',
+      description: 'A 1020 byte hex-code colour guessing game made for <a href="https://js1024.fun">JS1024</a>.',
+    },
+    {
+      title: 'The Short Dark',
+      url: 'https://reece-bennett.github.io/the-short-dark/',
+      description: 'A <a href="https://ldjam.com/">Ludum Dare</a> entry. A top-down demake of The Long Dark for Ludum Dare 50. Scavenge buildings for resources, run from wild animals, eat snacks, and don’t get too cold!',
+    },
   ];
 
   return (
