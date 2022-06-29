@@ -4,7 +4,7 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 const getPostType = (pageUrl) => {
   const splitUrl = pageUrl.split('/');
 
-  if (['blog', 'work'].includes(splitUrl[1])) {
+  if (['play', 'blog', 'work'].includes(splitUrl[1])) {
     return splitUrl[1].replace(/^./, s => s.toUpperCase());
   }
 }
