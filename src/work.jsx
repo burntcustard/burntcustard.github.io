@@ -3,7 +3,7 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from './_includes/components/html-page';
 import { existsSync } from 'node:fs';
 
-const Article = ({ date, excerpt, site, source, title, img }) => (
+const Article = ({ excerpt, site, source, title, img, index }) => (
   <article className="work-listing">
     <div>
       <h2>{title}</h2>
@@ -18,20 +18,21 @@ const Article = ({ date, excerpt, site, source, title, img }) => (
       )}
     </div>
 
-      <div className="screen">
-        <div>
-          {img ? (
-            <img
-              src={img}
-              loading="lazy"
-              width="640px"
-              height="auto"
-            />
-          ) : (
-            <small>Screenshot coming soon</small>
-          )}
-        </div>
+    <div className="screen">
+      <div>
+        {img ? (
+          <img
+            src={img}
+            loading={index ? "lazy" : null}
+            width="640px"
+            height="auto"
+            alt={`Screenshot of ${title} website`}
+          />
+        ) : (
+          <small>Screenshot coming soon</small>
+        )}
       </div>
+    </div>
   </article>
 );
 
@@ -45,7 +46,7 @@ const Work = () => {
       </header>
 
       <section>
-        {collections.work.map(({ url, data }) => {
+        {collections.work.map(({ url, data }, index) => {
           const imgPath = `/assets/img/${data.page.fileSlug}.png`;
 
           return (
@@ -57,6 +58,7 @@ const Work = () => {
               key={url}
               site={data.site}
               source={data.source}
+              index={index}
             />
           );
         })}
