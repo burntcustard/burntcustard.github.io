@@ -14,6 +14,11 @@ const Play = () => {
       description: 'A <a href="https://js13kgames.com/entries/20461-dioretsa">Js13kGames entry</a>. Named after the damocloid, (and Asteroids… backwards) 20461 Dioretsa is a local multiplayer Asteroids-like.',
     },
     {
+      title: 'js1024 Mirror Puzzle',
+      url: '/js1024-mirror-puzzle',
+      description: 'A 1023 byte puzzle game that uses your webcam as the image on the tiles. Made for <a href="https://js1024.fun">JS1024</a>.',
+    },
+    {
       title: 'Canvasnake',
       url: '/canvasnake',
       description: 'Created for an AI module at university, Canvasnake has machine-learning-based computer-controlled snakes, and local (same keyboard) multiplayer.',
