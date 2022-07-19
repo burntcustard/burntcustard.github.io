@@ -49,7 +49,7 @@ const Play = () => {
     <HTMLPage>
       <header>
         <h1>Play</h1>
-        <p>A collection of little games that I've created myself, or helped out with. Source code for most these is available on my <a href="https://github.com/burntcustard">GitHub profile</a>.</p>
+        <p>A collection of little games that I created myself, or helped out with. Source code for most these is available on <a href="https://github.com/burntcustard">GitHub</a>.</p>
       </header>
 
       <section>
