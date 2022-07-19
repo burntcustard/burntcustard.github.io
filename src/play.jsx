@@ -19,6 +19,11 @@ const Play = () => {
       description: 'A 1023 byte puzzle game that uses your webcam as the image on the tiles. Made for <a href="https://js1024.fun">JS1024</a>.',
     },
     {
+      title: 'js1024 Stacking Game',
+      url: '/js1024-stacking-game',
+      description: 'A 1024 byte box-stacking game. Click, tap, or press any key (except spacebar, that messes with scrolling) to freeze blocks in place and try to stack as many as you can! Made for <a href="https://js1024.fun">JS1024</a>.',
+    },
+    {
       title: 'Canvasnake',
       url: '/canvasnake',
       description: 'Created for an AI module at university, Canvasnake has machine-learning-based computer-controlled snakes, and local (same keyboard) multiplayer.',
