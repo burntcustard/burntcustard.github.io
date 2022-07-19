@@ -1,6 +1,6 @@
 ---
 title: Hello World
-description: A text post
+description: My first post!
 date: 2022-06-04
 ---
 
