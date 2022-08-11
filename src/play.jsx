@@ -26,7 +26,7 @@ const Play = () => {
     {
       title: 'SVG-hand-rewriter',
       url: '/svg-hand-rewriter',
-      description: 'A little tool created to make hand-re-writing of SVGs a little easier for myself.',
+      description: 'A little tool to make hand-rewriting of SVGs easier.',
     },
     {
       title: 'Canvasnake',
