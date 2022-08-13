@@ -2,14 +2,21 @@
   margin-block-start: 1.2em;
 }
 
-.content h2 a {
+.content > h2,
+.content > h3 {
+  margin-block-start: 2em;
+}
+
+.content h2 a,
+.content h3 a {
   text-decoration: underline;
   text-decoration-color: transparent;
   text-decoration-thickness: 2px;
   transition: text-decoration-color .2s;
 }
 
-.content h2 a::after {
+.content h2 a::after,
+.content h3 a::after {
   display: inline-flex;
   margin-inline: .2em;
   content: '#';
@@ -18,7 +25,9 @@
 }
 
 .content h2 a:focus-visible,
-.content h2 a:hover {
+.content h2 a:hover,
+.content h3 a:focus-visible,
+.content h3 a:hover {
   text-decoration-color: currentColor;
   --hash-opacity: .7;
 }
@@ -39,6 +48,17 @@
   background: var(--gray-dark);
   margin: -1px -2px;
   padding: 1px 2px;
+}
+
+.content pre {
+  display: flex;
+}
+
+.content pre code {
+  padding: 4px 8px;
+  margin: 0;
+  flex-grow: 1;
+  font-size: 1rem;
 }
 
 .cp_embed_wrapper {

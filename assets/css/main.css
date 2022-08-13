@@ -33,7 +33,7 @@ main > p,
 main header,
 .listing,
 .content > * {
-  max-width: 42rem;
+  max-width: 45rem;
 }
 
 .home p {
@@ -46,5 +46,5 @@ header > p:last-of-type {
 
 main,
 .content {
-  margin-block-start: 4rem;
+  margin-block: 4rem;
 }
