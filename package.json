@@ -26,6 +26,7 @@
     "@11ty/eleventy": "^1.0.1",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
+    "@orchidjs/eleventy-plugin-ids": "^0.1.1",
     "cssnano": "^5.1.10",
     "eleventy-plugin-react-ssr": "^1.0.2",
     "npm-run-all": "^4.1.5",

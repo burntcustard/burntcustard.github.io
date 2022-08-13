@@ -1,8 +1,10 @@
 const reactSSRPlugin = require('eleventy-plugin-react-ssr');
+const anchorsPlugin = require('@orchidjs/eleventy-plugin-ids');
 const codepenEmbed = require('@kevingimbel/eleventy-plugin-codepen');
 
 module.exports = (eleventyConfig) => {
   eleventyConfig.addPlugin(reactSSRPlugin);
+  eleventyConfig.addPlugin(anchorsPlugin);
   eleventyConfig.addPlugin(codepenEmbed);
 
   eleventyConfig.setBrowserSyncConfig({
