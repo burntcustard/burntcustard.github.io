@@ -1,0 +1,46 @@
+.content > * {
+  margin-block-start: 1.2em;
+}
+
+.content h2 a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  transition: text-decoration-color .2s;
+}
+
+.content h2 a::after {
+  display: inline-flex;
+  margin-inline: .2em;
+  content: '#';
+  opacity: var(--hash-opacity, 0);
+  transition: opacity .2s;
+}
+
+.content h2 a:focus-visible,
+.content h2 a:hover {
+  text-decoration-color: currentColor;
+  --hash-opacity: .7;
+}
+
+.content a[href^="http"] {
+  position: relative;
+  margin-inline-end: 1.2ch;
+}
+
+.content a[href^="http"]::after {
+  position: absolute;
+  left: calc(100% + .2ch);
+  content: '↗';
+  margin-top: -2px;
+}
+
+.content code {
+  background: var(--gray-dark);
+  margin: -1px -2px;
+  padding: 1px 2px;
+}
+
+.cp_embed_wrapper {
+  margin-block: 2rem;
+}

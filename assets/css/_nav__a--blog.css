@@ -17,12 +17,12 @@ a.blog::before {
   background:
     linear-gradient(
       to right,
-      var(--gray-dark),
-      var(--gray-dark) 6px,
+      var(--gray-darker),
+      var(--gray-darker) 6px,
       transparent 0,
       transparent calc(100% - 6px),
-      var(--gray-dark) 0,
-      var(--gray-dark)
+      var(--gray-darker) 0,
+      var(--gray-darker)
     ),
     linear-gradient(
       transparent,

@@ -2,7 +2,7 @@ body {
   --bg-color: #5551;
   --bg-inner: 22px;
   --bg-outer: 24px;
-  background: var(--gray-dark);
+  background: var(--gray-darker);
   background-image:
     repeating-linear-gradient(
       90deg,

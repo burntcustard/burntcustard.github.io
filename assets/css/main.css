@@ -1,5 +1,6 @@
 @import '_reset';
 @import '_colors';
+@import '_content';
 @import '_header';
 @import '_headings';
 @import '_inline-link';
@@ -24,7 +25,7 @@ main > p,
 header,
 .listing,
 .work-listing,
-.content p {
+.content > * {
   padding-inline: max(9px, calc(16vw - 80px));
 }
 

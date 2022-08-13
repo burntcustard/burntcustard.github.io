@@ -2,6 +2,7 @@ html {
   --white: #fff;
   --off-white: #eee;
   --gray: #ccc;
-  --gray-dark: #222;
+  --gray-dark: #444;
+  --gray-darker: #222;
   --yellow: #fc1;
 }

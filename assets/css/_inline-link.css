@@ -2,10 +2,10 @@ p a {
   --highlight-color: var(--off-white);
   color: var(--yellow);
   text-shadow:
-    0 1px 0 var(--gray-dark),
-    0 -1px 0 var(--gray-dark),
-    1px  0 var(--gray-dark),
-    -1px 0 0 var(--gray-dark);
+    0 1px 0 var(--gray-darker),
+    0 -1px 0 var(--gray-darker),
+    1px  0 var(--gray-darker),
+    -1px 0 0 var(--gray-darker);
   background-image:
     linear-gradient(
       transparent calc(100% - 4px),
