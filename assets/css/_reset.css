@@ -19,3 +19,7 @@ abbr {
   text-underline-offset: 2px;
   text-decoration-style: dashed;
 }
+
+code {
+  font-family: inherit;
+}
