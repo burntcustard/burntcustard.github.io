@@ -2,7 +2,11 @@
   margin-block-start: 1.2em;
 }
 
-.content > h2,
+.content > h2 {
+  scroll-margin-block-start: 3em;
+  margin-block-start: 3em;
+}
+
 .content > h3 {
   scroll-margin-block-start: 2em;
   margin-block-start: 2em;
@@ -31,11 +35,6 @@
 .content h3 a:hover {
   text-decoration-color: currentColor;
   --hash-opacity: .7;
-}
-
-.content a[href^="http"] {
-  position: relative;
-  margin-inline-end: 1.2ch;
 }
 
 .content a[href^="http"]::after {
