@@ -3,7 +3,8 @@
 <h2 id="accent-color"><a href="#accent-color"><code>accent-color</code></a></h2>
 <p>Starting off simple, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color">accent-color</a> sets the color for <abbr title="User Interface">UI</abbr> controls like checkboxes and range sliders. Safari added it in version 15.4 (March 2022), so there's now full browser support! There's a great <a href="https://web.dev/accent-color/">article on it by web.dev</a> if you want to know more.</p>
 <p data-height="256" data-theme-id="dark" data-slug-hash="gOeBwPy" data-default-tab="result" data-user="Captain Anonymous" data-embed-version="2" data-pen-title="Unknown Pen" data-preview="false" data-editable="false" class="codepen" style="height: 256px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">See the Pen <a href="https://codepen.io/Captain Anonymous/pen/gOeBwPy/">Unknown Pen</a> on <a href="https://codepen.io">CodePen</a>.</p>
-<h2 id="new-color-syntax"><a href="#new-color-syntax">New color syntax</a></h2>
+<h2 id="new-color-syntax"><a href="#new-color-syntax">New Color Syntax</a></h2>
+<p>Hex notation (<code>#ffffff</code> or <code>#fff</code>) is usually best for game jams because of it's conciseness, however the other syntaxes have had some improvements recently, and are more likely to be worth using, especially for programatically-generated colors.</p>
 <h3 id="rgb-and-hsl-with-alpha"><a href="#rgb-and-hsl-with-alpha"><code>rgb()</code> and <code>hsl()</code> with alpha</a></h3>
 <p>Both <code>rgb()</code> and <code>hsl()</code> now support an alpha channel without the <code>a</code>, and with spaces instead of commas:</p>
 <pre><code>/* old */
@@ -26,10 +27,10 @@ color:hsl(47 100%53%/.5); // 2B shorter!
 <pre><code>color: hwb(47deg 7% 0%);
 color:hwb(47 7%0%); // Minified
 </code></pre>
-<h2 id="flexbox-and-grid-improvements"><a href="#flexbox-and-grid-improvements">Flexbox &amp; grid improvements</a></h2>
-<h3 id="start-instead-of-flex-start"><a href="#start-instead-of-flex-start"><code>start</code> instead of <code>flex-start</code></a></h3>
+<h2 id="flexbox-and-grid-improvements"><a href="#flexbox-and-grid-improvements">Flexbox &amp; Grid Improvements</a></h2>
+<h3 id="start-instead-of-flex-start"><a href="#start-instead-of-flex-start"><code>start</code> Instead of <code>flex-start</code></a></h3>
 <p>Safari is the only browser that requires the <code>flex-</code> part of <code>align-items: flex-start</code> for flexbox containers. All other browsers are fine with just <code>align-items: start</code>. If you're really in need of those few bytes, and still want to support Safari, you might be able to get away with a <code>display: grid</code> container instead.</p>
-<h3 id="gap-property-for-flexbox"><a href="#gap-property-for-flexbox"><code>gap</code> property for flexbox</a></h3>
+<h3 id="gap-property-for-flexbox"><a href="#gap-property-for-flexbox"><code>gap</code> Property for Flexbox</a></h3>
 <p>It took Safari until last year to implement this one, but it's great. Gone are the days of negative margins on the parent and positive margins on the children, or weird margins between siblings. Just use a grid or flexbox layout plus <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap">gap</a>!</p>
 <pre><code>/* Ye old method */
 .parent {
@@ -95,4 +96,7 @@ color:hwb(47 7%0%); // Minified
   inset: 0;
 }
 </code></pre>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Please let me know if you learnt something! - Perhaps <a href="https://twitter.com/burntcustard">Via twitter</a> or on the js13kGames <a href="https://slack.js13kgames.com/">Slack channel</a></p>
+<p>If you're wondering what an entire game made with CSS (instead of for example a <code>&lt;canvas&gt;</code> element) looks like, you can check out my js13kGames entry from 2021, <a href="https://js13kgames.com/entries/3dc5s">3DC5S</a>. I also used some of the techniques mentioned here on my recent <a href="https://js1024.fun/">js1024</a> entries, <a href="https://github.com/burntcustard/js1024-mirror-puzzle">mirror-puzzle</a> and <a href="https://github.com/burntcustard/js1024-stacking-game">stacking-game</a>.</p>
 </div></main></body></html>
