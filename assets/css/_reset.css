@@ -14,3 +14,8 @@ a {
 p {
   margin-block: 1.2em;
 }
+
+abbr {
+  text-underline-offset: 2px;
+  text-decoration-style: dashed;
+}

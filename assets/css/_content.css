@@ -4,6 +4,7 @@
 
 .content > h2,
 .content > h3 {
+  scroll-margin-block-start: 2em;
   margin-block-start: 2em;
 }
 
@@ -38,10 +39,9 @@
 }
 
 .content a[href^="http"]::after {
-  position: absolute;
-  left: calc(100% + .2ch);
+  display: inline-block;
   content: '↗';
-  margin-top: -2px;
+  transform: translateY(-2px);
 }
 
 .content code {
