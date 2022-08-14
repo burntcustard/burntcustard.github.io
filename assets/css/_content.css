@@ -51,6 +51,7 @@
 
 .content pre {
   display: flex;
+  overflow-x: auto;
 }
 
 .content pre code {
