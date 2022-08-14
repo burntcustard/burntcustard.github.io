@@ -40,7 +40,7 @@
 .content a[href^="http"]::after {
   display: inline-block;
   content: '↗';
-  transform: translateY(-2px);
+  transform: translateY(-.125em);
 }
 
 .content code {
