@@ -51,7 +51,6 @@
 
 .content pre {
   display: flex;
-  overflow-x: auto;
 }
 
 .content pre code {
@@ -59,6 +58,7 @@
   margin: 0;
   flex-grow: 1;
   font-size: 1rem;
+  overflow-x: auto;
 }
 
 .cp_embed_wrapper {
