@@ -5,11 +5,13 @@
 .content > h2 {
   scroll-margin-block-start: 2.5em;
   margin-block-start: 2.5em;
+  margin-block-end: 1em;
 }
 
 .content > h3 {
   scroll-margin-block-start: 2em;
   margin-block-start: 2em;
+  margin-block-end: 1em;
 }
 
 .content h2 a,
