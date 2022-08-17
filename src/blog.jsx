@@ -27,4 +27,8 @@ const Blog = () => {
   );
 };
 
+Blog.data = {
+  description: 'John, aka burntcustard\'s blog',
+};
+
 export default Blog;
