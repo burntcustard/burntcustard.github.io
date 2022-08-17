@@ -8,11 +8,13 @@ module.exports = (eleventyConfig) => {
   eleventyConfig.addPlugin(codepenEmbed);
 
   eleventyConfig.setBrowserSyncConfig({
-    files: 'dist/assets/css/style.css',
+    files: [
+      'dist/assets/css/style.css',
+      'dist/assets/js/main.js',
+    ],
   });
 
   eleventyConfig.addPassthroughCopy('assets/img');
-  eleventyConfig.addPassthroughCopy('assets/js/main.js');
   eleventyConfig.addPassthroughCopy({'static': '/'});
 
   return {
