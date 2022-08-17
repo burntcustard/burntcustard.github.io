@@ -76,8 +76,4 @@ function Index() {
   )
 }
 
-Index.data = {
-  description: 'Personal website for John, aka burntcustard',
-};
-
 export default Index;
