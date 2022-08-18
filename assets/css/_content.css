@@ -24,7 +24,7 @@
 
 .content h2 a::after,
 .content h3 a::after {
-  display: inline-flex;
+  display: inline-block;
   margin-inline: .2em;
   content: '#';
   opacity: var(--hash-opacity, 0);
