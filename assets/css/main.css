@@ -26,7 +26,7 @@ header,
 .listing,
 .work-listing,
 .content > * {
-  padding-inline: max(9px, calc(16vw - 80px));
+  margin-inline: max(9px, calc(16vw - 80px));
 }
 
 main > p,
@@ -47,4 +47,10 @@ header > p:last-of-type {
 main,
 .content {
   margin-block: 4rem;
+}
+
+.codepen {
+  box-sizing: border-box;
+  border: 1px solid var(--gray);
+  padding: 1em;
 }
