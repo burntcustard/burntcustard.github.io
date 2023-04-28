@@ -3,7 +3,7 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from '../components/html-page';
 
 const Post = () => {
-  const { content, page, title, date } = useContext(EleventyContext);
+  const { content, title, date } = useContext(EleventyContext);
 
   return (
     <HTMLPage>
