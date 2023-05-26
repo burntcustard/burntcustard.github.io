@@ -13,8 +13,8 @@ p a {
       transparent 0
     ),
     linear-gradient(
-      transparent calc(100% - 2px),
-      var(--highlight-color) calc(100% - 1px) 100%
+      transparent calc(100% - 1px),
+      var(--highlight-color) 0 100%
     );
   background-repeat: no-repeat;
   background-size: 100% 100%, 0 100%;
