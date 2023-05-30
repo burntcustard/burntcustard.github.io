@@ -1,7 +1,7 @@
 module.exports = {
   "env": {
-      "browser": true,
-      "es2021": true,
+    "browser": true,
+    "es2021": true,
   },
   "settings": {
     "react": {
@@ -14,8 +14,8 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
   ],
   "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module",
+    "ecmaVersion": "latest",
+    "sourceType": "module",
   },
   "rules": {
     "react/react-in-jsx-scope": "off",

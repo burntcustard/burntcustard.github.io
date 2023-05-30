@@ -1,5 +1,5 @@
 function applyFancyBorders() {
-  const fancyBorderElements = document.querySelectorAll('.listing > a, nav a');
+  const fancyBorderElements = document.querySelectorAll('.listing div > a, nav a');
 
   function setDegToMouse(element, mx, my) {
     const { x, y, width, height } = element.getBoundingClientRect();
@@ -22,6 +22,4 @@ function applyFancyBorders() {
   }
 }
 
-const mouseQuery = window.matchMedia('(pointer: fine)');
-
-if (mouseQuery.matches) applyFancyBorders();
+if (window.matchMedia('(pointer: fine)').matches) applyFancyBorders();

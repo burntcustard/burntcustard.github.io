@@ -2,18 +2,22 @@
   margin-block: 4rem;
 }
 
-.listing > a {
+.listing div {
+  transition: transform .5s, opacity .5s;
+}
+
+.listing div > a {
   display: inline-grid;
   justify-items: start;
   pointer-events: none;
 }
 
-.listing > a > * {
+.listing div > a > * {
   pointer-events: all;
   transition: color .3s;
 }
 
-.listing > a div {
+.listing div > a div {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -33,7 +37,7 @@
   );
 }
 
-.listing > a div::before {
+.listing div > a div::before {
   position: absolute;
   inset: 2px;
   border: 2px solid var(--off-white);
@@ -52,24 +56,24 @@
   margin-inline-end: -4px;
 }
 
-.listing > a:focus {
+.listing div > a:focus {
   outline: none;
 }
 
-.listing > a:hover div {
+.listing div > a:hover div {
   outline-color: var(--off-white);
 }
 
-.listing > a:hover time {
+.listing div > a:hover time {
   background-color: var(--off-white);
 }
 
-.listing > a:focus-visible div::before {
+.listing div > a:focus-visible div::before {
   opacity: 1;
 }
 
-.listing > a:focus svg,
-.listing > a:hover svg {
+.listing div > a:focus svg,
+.listing div > a:hover svg {
   animation: .5s wiggle;
   animation-timing-function: ease-in-out;
 }

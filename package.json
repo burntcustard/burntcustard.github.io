@@ -8,14 +8,14 @@
     "css": "postcss assets/css/main.css --output dist/assets/css/style.css",
     "css:watch": "postcss assets/css/main.css --output dist/assets/css/style.css --watch --verbose",
     "js:mkdir": "make-dir dist/assets/js",
-    "js:minify": "terser --compress --mangle --toplevel --output dist/assets/js/main.js -- assets/js/*.js",
+    "js:minify": "terser --compress --mangle --toplevel --output dist/assets/js/main.js -- assets/js/main.js & terser --compress --mangle --toplevel --output dist/assets/js/end.js -- assets/js/end.js",
     "js:watch": "chokidar 'assets/js/*.js' --command 'npm-run-all js:mkdir js:minify' --initial",
     "js": "npm-run-all js:mkdir js:minify",
     "11ty": "eleventy --input=src --output=dist",
     "11ty:watch": "eleventy --input=src --output=dist --watch --serve --incremental",
     "build": "npm-run-all --parallel css js 11ty",
     "watch": "npm-run-all --parallel css:watch js:watch 11ty:watch",
-    "lint": "eslint src/**/*.jsx"
+    "lint": "eslint {assets,src}/**/*.{js,jsx}"
   },
   "repository": {
     "type": "git",
