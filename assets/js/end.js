@@ -8,12 +8,14 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         screen.style.transform = screen.style.opacity = '';
       }
     });
-  }, { threshold: .9, once: true });
+  }, { threshold: .5, once: true });
 
   articles.forEach((article, index) => {
     const div = article.querySelector('.screen') ?? article.querySelector('div');
     const isScreen = div.className === 'screen';
-    div.style.transform = `translateX(${(isScreen ? Math.pow(-1, index) : 1) * 200}px)`;
+    const isMobile = window.screen.width <= 500;
+    const translateDirection = isScreen ? (isMobile ? 0 : Math.pow(-1, index)) : 1;
+    div.style.transform = `translateX(${translateDirection * 200}px)`;
     div.style.opacity = '0';
   });
 
