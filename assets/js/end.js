@@ -5,8 +5,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const div = entry.target.querySelector('.screen') ?? entry.target.querySelector('div');
-        div.style.transition = '';
-        div.style.transform = div.style.opacity = '';
+        div.style.transition = div.style.transform = div.style.opacity = '';
       }
     });
   }, { threshold: .5, once: true });
