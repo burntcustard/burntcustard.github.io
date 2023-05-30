@@ -4,8 +4,9 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const screen = entry.target.querySelector('.screen') ?? entry.target.querySelector('div');
-        screen.style.transform = screen.style.opacity = '';
+        const div = entry.target.querySelector('.screen') ?? entry.target.querySelector('div');
+        div.style.transition = '';
+        div.style.transform = div.style.opacity = '';
       }
     });
   }, { threshold: .5, once: true });
@@ -17,6 +18,7 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const translateDirection = isScreen ? (isMobile ? 0 : Math.pow(-1, index)) : 1;
     div.style.transform = `translateX(${translateDirection * 200}px)`;
     div.style.opacity = '0';
+    div.style.transition = 'none';
   });
 
   articles.forEach((article, index) => {
