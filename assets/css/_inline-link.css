@@ -1,5 +1,6 @@
 p a {
   --highlight-color: var(--off-white);
+  position: relative;
   color: var(--yellow);
   text-shadow:
     0 1px 0 var(--gray-darker),
@@ -18,9 +19,17 @@ p a {
     );
   background-repeat: no-repeat;
   background-size: 100% 100%, 0 100%;
-  outline: 1px solid transparent;
-  outline-offset: -1px;
   transition: background-size .2s;
+}
+
+p a:before {
+  position: absolute;
+  inset-block: 1px;
+  inset-inline: 0;
+  content: '';
+  outline: 1px solid var(--highlight-color);
+  opacity: 0;
+  transition: opacity .2s;
 }
 
 p a:hover {
@@ -28,7 +37,11 @@ p a:hover {
 }
 
 p a:focus {
-  outline: 1px solid var(--highlight-color);
+  outline: none;
+}
+
+p a:focus:before {
+  opacity: 1;
 }
 
 p a:active {
