@@ -1,5 +1,5 @@
 ---
-title: Static Site Generation with 11ty & JSX
+title: Static Site Gen with 11ty & JSX
 description: Some notes on how this site was created
 date: 2022-06-09
 ---
