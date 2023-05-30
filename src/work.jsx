@@ -3,6 +3,28 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from './_includes/components/html-page';
 import { existsSync } from 'node:fs';
 
+const script = `
+  const articles = document.querySelectorAll('article');
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const screen = entry.target.querySelector('.screen');
+        screen.style.transform = '';
+        screen.style.opacity = '';
+      }
+    });
+  }, { threshold: 1.0, once: true });
+
+  articles.forEach((article, index) => {
+    const screen = article.querySelector('.screen');
+    screen.style.transform = 'translateX(' + (index % 2 * -2 + 1) * 200 + 'px)';
+    screen.style.opacity = '0';
+  });
+
+  setTimeout(() => articles.forEach(article => observer.observe(article)), 200);
+`;
+
 const Article = ({ excerpt, site, source, title, img, index }) => (
   <article className="work-listing">
     <div>
@@ -63,6 +85,8 @@ const Work = () => {
           );
         })}
       </section>
+
+      <script dangerouslySetInnerHTML={{ __html: script }}/>
     </HTMLPage>
   );
 };

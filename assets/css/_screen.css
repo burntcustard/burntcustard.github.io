@@ -3,8 +3,7 @@
   max-width: 640px;
   flex-basis: 0;
   flex-grow: 1;
-  transition: box-shadow .5s;
-  margin-block: 1em;
+  transition: box-shadow .5s, transform .5s, opacity .5s;
 }
 
 .screen::before {
