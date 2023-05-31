@@ -24,7 +24,7 @@ const Article = ({ excerpt, site, source, title, img, index }) => (
           <img
             src={img}
             loading={index ? "lazy" : null}
-            width="640px"
+            width="640"
             height="auto"
             alt={`Screenshot of ${title} website`}
           />
@@ -38,6 +38,9 @@ const Article = ({ excerpt, site, source, title, img, index }) => (
 
 const Work = () => {
   const { collections } = useContext(EleventyContext);
+  const work = collections.work.sort((a, b) => {
+    return (a.data.index ?? Infinity) - (b.data.index ?? Infinity);
+  });
 
   return (
     <HTMLPage>
@@ -46,7 +49,7 @@ const Work = () => {
       </header>
 
       <section>
-        {collections.work.map(({ url, data }, index) => {
+        {work.map(({ url, data }, index) => {
           const imgPath = `/assets/img/${data.page.fileSlug}.png`;
 
           return (
