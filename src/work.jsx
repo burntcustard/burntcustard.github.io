@@ -71,7 +71,7 @@ const Work = () => {
               site={data.site}
               source={data.source}
               quote={{text: data.quote, author: data.quoteAuthor, title: data.quoteTitle}}
-              index={data.index}
+              index={index}
             />
           );
         })}
