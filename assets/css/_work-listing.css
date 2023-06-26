@@ -4,7 +4,7 @@
   justify-content: center;
   display: grid;
   column-gap: 3rem;
-  row-gap: 1rem;
+  row-gap: 1.5rem;
 }
 
 .work-listing:nth-child(even) {
@@ -26,5 +26,6 @@
 }
 
 .work-listing p {
-  margin-block: .5em;
+  margin-block-start: .5em;
+  margin-block-end: 0;
 }

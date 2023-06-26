@@ -23,3 +23,9 @@ abbr {
 code {
   font-family: inherit;
 }
+
+::selection {
+  color: var(--off-whtie);
+  background: #0ff5;
+  text-shadow: none;
+}
