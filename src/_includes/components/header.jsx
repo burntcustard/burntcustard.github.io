@@ -1,4 +1,4 @@
-import { useContext, useRef, useEffect } from 'react';
+import { useContext } from 'react';
 import EleventyContext from 'eleventy-plugin-react-ssr/context';
 
 const isCurrentPostType = (page, url) => {

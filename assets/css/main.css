@@ -49,6 +49,10 @@ main,
   margin-block: 4rem;
 }
 
+section {
+  overflow-x: hidden;
+}
+
 .codepen {
   box-sizing: border-box;
   border: 1px solid var(--gray);

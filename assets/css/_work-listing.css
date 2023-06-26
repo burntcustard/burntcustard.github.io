@@ -1,10 +1,10 @@
 .work-listing {
-  margin-inline: auto;
-  margin-block: 4rem;
-  flex-wrap: wrap;
+  margin-block: 5rem;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  display: grid;
+  column-gap: 3rem;
+  row-gap: 1rem;
 }
 
 .work-listing:nth-child(even) {
@@ -16,8 +16,8 @@
     display: flex;
   }
 
-  .work-listing > div {
-    width: 40%;
+  .work-listing > div:first-child {
+    width: min(30rem, 40%);
   }
 }
 

@@ -1,8 +1,14 @@
 body {
   color: var(--off-white);
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-family: 'Fira Code', monospace;
   line-height: 1.5;
+}
+
+@media (min-width: 501px) {
+  body {
+    font-size: 1.125rem;
+  }
 }
 
 body.home,

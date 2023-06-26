@@ -20,6 +20,8 @@ const HTMLPage = ({ children }) => {
         <main>
           {children}
         </main>
+
+        <script src="/assets/js/end.js" media="(prefers-reduced-motion: no-preference)"/>
       </body>
     </html>
   );
