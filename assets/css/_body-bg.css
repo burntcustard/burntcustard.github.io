@@ -1,22 +1,23 @@
 body {
-  --bg-color: #5551;
-  --bg-inner: 22px;
-  --bg-outer: 24px;
+  --bg-line-color: #5552;
   background: var(--gray-darker);
+  background-size: 48px 27.5px;
   background-image:
     repeating-linear-gradient(
       90deg,
-      #0000 0 var(--bg-inner),
-      var(--bg-color) 0 var(--bg-outer)
+      var(--bg-line-color) 0 1px,
+      #0000 0 23px,
+      var(--bg-line-color) 0 24px,
+      #0000 0
     ),
     repeating-linear-gradient(
       30deg,
-      #0000 0 var(--bg-inner),
-      var(--bg-color) 0 var(--bg-outer)
+      var(--bg-line-color) 0 2px,
+      #0000 0 24px
     ),
     repeating-linear-gradient(
       -30deg,
-      #0000 0 var(--bg-inner),
-      var(--bg-color) 0 var(--bg-outer)
+      var(--bg-line-color) 0 2px,
+      #0000 0 24px
     );
 }
