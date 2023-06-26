@@ -13,6 +13,7 @@
 @import '_nav__a--home';
 @import '_nav__a--play';
 @import '_nav__a--work';
+@import '_quote';
 @import '_screen';
 @import '_time';
 @import '_work-listing';

@@ -11,7 +11,7 @@
   flex-direction: row-reverse;
 }
 
-@media (min-width: 501px) {
+@media (min-width: 720px) {
   .work-listing {
     display: flex;
   }
