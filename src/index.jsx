@@ -8,11 +8,19 @@ function Index() {
   return (
     <HTMLPage>
       <header>
-        <h1 data-fadein-delay="300">{pkg.name}</h1>
+        <h1>{pkg.name}</h1>
       </header>
 
-      <p data-fadein-delay="500">
-        Hi! My name&apos;s John, aka burntcustard. I&apos;m a senior front-end web developer at <a href="https://wearelighthouse.com/">Lighthouse London</a>, and a Computer Science (Games) graduate.
+      <p>
+        Hi! My name&apos;s John, aka burntcustard. I'm a <strong><abbr title="User Experience">UX</abbr></strong> and <strong>accessibility</strong> focused senior front-end web developer.
+      </p>
+
+      <p>
+        I spent 5 years as the UX Engineer at <a href="https://wearelighthouse.com/">Lighthouse London</a>.
+      </p>
+
+      <p>
+        <strong>I'm currently looking for new projects</strong> - full time and freelance. You can check out my previous <a href="/work">work</a>, see <a href="/john-evens-cv">my CV</a>, or send an email to <a href="mailto:john@burnt.io">john@burnt.io</a>.
       </p>
 
       <p>
@@ -21,13 +29,6 @@ function Index() {
           rel="noreferrer"
         >
           Twitter
-        </a>
-        {' '}
-        <a
-          href="mailto:burntcustard@gmail.com"
-          rel="noreferrer"
-        >
-          Email
         </a>
         {' '}
         <a
@@ -42,6 +43,13 @@ function Index() {
           rel="noreferrer"
         >
           CodePen
+        </a>
+        {' '}
+        <a
+          href="https://www.linkedin.com/in/john-evans-737958b0/"
+          rel="noreferrer"
+        >
+          LinkedIn
         </a>
       </p>
     </HTMLPage>
