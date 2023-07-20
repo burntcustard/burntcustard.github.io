@@ -20,7 +20,7 @@ function Index() {
       </p>
 
       <p>
-        <strong>I&apos;m currently looking for new projects</strong> - full time and freelance. You can see <a href="/john-evens-cv">my CV</a>, check out my previous <a href="/work">work</a>, or send an enquiry to <a href="mailto:john@burnt.io?subject=Enquiry">john@burnt.io</a>.
+        <strong>I&apos;m currently looking for new projects</strong> - full time and freelance. You can see <a href="/john-evans-cv">my CV</a>, check out my previous <a href="/work">work</a>, or send an enquiry to <a href="mailto:john@burnt.io?subject=Enquiry">john@burnt.io</a>.
       </p>
 
       <p>
