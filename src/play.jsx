@@ -14,6 +14,11 @@ const Play = () => {
       description: 'A <a href="https://js13kgames.com/entries/20461-dioretsa">Js13kGames entry</a>. Named after the damocloid, (and Asteroids… backwards) 20461 Dioretsa is a local multiplayer Asteroids-like.',
     },
     {
+      title: '🥇 js1024 Minesweeper',
+      url: '/js1024-minesweeper',
+      description: 'A recreation of Minesweeper in 1024 bytes. <a href="https://js1024.fun/results/2023">Winner of js1024 2023</a>.',
+    },
+    {
       title: '🥇 js1024 Mirror Puzzle',
       url: '/js1024-mirror-puzzle',
       description: 'A 1023 byte puzzle game that uses your webcam as the image on the tiles. <a href="https://js1024.fun/results/2022">Winner of js1024 2022</a>.',
