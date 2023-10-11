@@ -34,7 +34,7 @@ main > p,
 main header,
 .listing,
 .content > * {
-  max-width: 45rem;
+  max-width: 46rem;
 }
 
 .home p {

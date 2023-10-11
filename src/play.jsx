@@ -4,14 +4,9 @@ import Listing from './_includes/components/listing';
 const Play = () => {
   const items = [
     {
-      title: '3DC5S',
-      url: '/3dc5s',
-      description: `A <a href="https://js13kgames.com/entries/3dc5s">Js13kGames entry</a>. 3DC5S or 'Three Dimensional Cascading Style Sheets Space Station Simulator' is a game where the only objective is to build a cool looking space station, by unlocking modules, managing resources, and sticking blocks together.`,
-    },
-    {
-      title: '20461-dioretsa',
-      url: '/20461-dioretsa',
-      description: 'A <a href="https://js13kgames.com/entries/20461-dioretsa">Js13kGames entry</a>. Named after the damocloid, (and Asteroids… backwards) 20461 Dioretsa is a local multiplayer Asteroids-like.',
+      title: 'Tiny Yurts',
+      url: '/tiny-yurts',
+      description: 'SVG-based, <a href="https://dinopoloclub.com/games/mini-motorways/">Mini Motorways</a>-inspired game. <a href="https://js13kgames.com/entries/tiny-yurts">4th place Js13kGames 2023</a>.',
     },
     {
       title: '🥇 js1024 Minesweeper',
@@ -22,6 +17,16 @@ const Play = () => {
       title: '🥇 js1024 Mirror Puzzle',
       url: '/js1024-mirror-puzzle',
       description: 'A 1023 byte puzzle game that uses your webcam as the image on the tiles. <a href="https://js1024.fun/results/2022">Winner of js1024 2022</a>.',
+    },
+    {
+      title: '3DC5S',
+      url: '/3dc5s',
+      description: `A <a href="https://js13kgames.com/entries/3dc5s">Js13kGames entry</a>. 3DC5S or 'Three Dimensional Cascading Style Sheets Space Station Simulator' is a game where the only objective is to build a cool looking space station, by unlocking modules, managing resources, and sticking blocks together.`,
+    },
+    {
+      title: '20461-dioretsa',
+      url: '/20461-dioretsa',
+      description: 'A <a href="https://js13kgames.com/entries/20461-dioretsa">Js13kGames entry</a>. Named after the damocloid, (and Asteroids… backwards) 20461 Dioretsa is a local multiplayer Asteroids-like.',
     },
     {
       title: 'js1024 Stacking Game',
