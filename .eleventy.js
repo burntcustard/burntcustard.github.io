@@ -18,7 +18,7 @@ module.exports = (eleventyConfig) => {
 
   eleventyConfig.addShortcode("codepen", (url, config = '') => {
     const {
-      height = 256,
+      height = 320,
       theme = 'dark',
       tabs = 'result',
       preview = false,

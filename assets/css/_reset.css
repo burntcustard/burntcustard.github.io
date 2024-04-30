@@ -25,7 +25,6 @@ code {
 }
 
 ::selection {
-  color: var(--off-whtie);
-  background: #0ff5;
+  background: #0ff4;
   text-shadow: none;
 }
