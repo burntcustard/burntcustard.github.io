@@ -69,7 +69,7 @@ const Work = () => {
         <h1>My Work</h1>
 
         <p>
-          Websites I've worked on - some as a full-stack developer, and some as a <strong><abbr title="User Experience">UX</abbr></strong>, <strong><abbr title="Cascading Style Sheets">CSS</abbr></strong>, or <strong><abbr title="accessibility">a11y</abbr></strong> specialist within a larger team.
+          Websites I&apos;ve worked on - some as a full-stack developer, and some as a <strong><abbr title="User Experience">UX</abbr></strong>, <strong><abbr title="Cascading Style Sheets">CSS</abbr></strong>, or <strong><abbr title="accessibility">a11y</abbr></strong> specialist within a larger team.
         </p>
 
         <p>
