@@ -3,7 +3,7 @@ import EleventyContext from 'eleventy-plugin-react-ssr/context';
 import HTMLPage from './_includes/components/html-page';
 import { existsSync } from 'node:fs';
 
-const Article = ({ excerpt, site, source, title, img, quote, index }) => (
+const Article = ({ excerpt, site, source, title, img, video, quote, index }) => (
   <article className="work-listing">
     <div>
       <h2>{title}</h2>
@@ -29,7 +29,19 @@ const Article = ({ excerpt, site, source, title, img, quote, index }) => (
 
     <div className="screen">
       <div>
-        {img ? (
+        { video ? (
+          <video
+            src={video}
+            loading={index ? "lazy" : null}
+            width="640"
+            height="auto"
+            autoPlay={true}
+            playsInline={true}
+            disableRemotePlayback={true}
+            loop={true}
+            muted={true}
+          />
+        ) : img ? (
           <img
             src={img}
             loading={index ? "lazy" : null}
@@ -55,10 +67,19 @@ const Work = () => {
     <HTMLPage>
       <header>
         <h1>My Work</h1>
+
+        <p>
+          Websites I've worked on - some as a full-stack developer, and some as a <strong><abbr title="User Experience">UX</abbr></strong>, <strong><abbr title="Cascading Style Sheets">CSS</abbr></strong>, or <strong><abbr title="accessibility">a11y</abbr></strong> specialist within a larger team.
+        </p>
+
+        <p>
+          If you like what you see, please reach out to me at <a href="mailto:john@burnt.io">john@burnt.io</a>!
+        </p>
       </header>
 
       <section>
         {work.map(({ url, data }, index) => {
+          const videoPath = `/assets/video/${data.page.fileSlug}.mp4`;
           const imgPath = `/assets/img/${data.page.fileSlug}.png`;
 
           return (
@@ -66,6 +87,7 @@ const Work = () => {
               excerpt={data.description}
               title={data.title}
               img={existsSync(`.${imgPath}`) ? imgPath : null}
+              video={existsSync(`.${videoPath}`) ? videoPath : null}
               url={url}
               key={url}
               site={data.site}

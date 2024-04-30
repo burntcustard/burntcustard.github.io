@@ -1,16 +1,19 @@
 .screen {
+  position: relative;
+  background: var(--off-white);
   border: 2px solid var(--off-white);
   max-width: 640px;
   flex-basis: 0;
   flex-grow: 1;
-  transition: box-shadow .5s, transform .5s, opacity .5s;
+  transition: box-shadow .5s, transform .5s, opacity .5s, outline-color .2s;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .screen::before {
   content: '';
   display: block;
   height: 24px;
-  background: var(--off-white);
   background-image:
     radial-gradient(circle at 10px, var(--gray) 5px, #0000 0),
     radial-gradient(circle at 25px, var(--gray) 5px, #0000 0),
@@ -23,7 +26,8 @@
   max-height: 100%;
 }
 
-.screen img {
+.screen img,
+.screen video {
   display: block;
   width: 100%;
 }
@@ -31,4 +35,26 @@
 .screen:focus,
 .screen:hover {
   box-shadow: 0 4px 24px #000;
+}
+
+.screen > *:focus {
+  outline: none;
+}
+
+.screen:has(*:focus) {
+  outline-color: var(--white);
+}
+
+.screen:has(img):after {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  content: "↕";
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.screen:has(*:focus img):after {
+  opacity: 1;
 }

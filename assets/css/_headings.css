@@ -33,3 +33,7 @@ body.home h1 {
   font-size: clamp(3.5rem, 3.3rem + 1vw, 4.5rem);
   letter-spacing: 0;
 }
+
+h1 + p {
+  margin-block-start: 2rem;
+}

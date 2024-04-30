@@ -6,5 +6,5 @@ source: Source on <a href="https://github.com/wearelighthouse/ManyHands-tina/">G
 quote: John has a passion for accessibility and an innate talent for taking an idea from a designer and making it ten times better when it actually hits production.
 quoteAuthor: Tom Johnson
 quoteTitle: Co-founter, Lighthouse London
-index: 2
+index: 3
 ---

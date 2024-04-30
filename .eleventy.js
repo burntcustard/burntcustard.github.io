@@ -45,6 +45,7 @@ module.exports = (eleventyConfig) => {
   });
 
   eleventyConfig.addPassthroughCopy('assets/img');
+  eleventyConfig.addPassthroughCopy('assets/video');
   eleventyConfig.addPassthroughCopy({'static': '/'});
 
   return {
