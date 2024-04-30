@@ -2,7 +2,7 @@
 <p>There are only a handful of <a href="https://js13kgames.com/">js13kGames</a> entries each year that use CSS, but there have been tons of usful <small>(yes, for games!)</small> additions to the language over the last year or so. Hopefully me pointing some of them out can get more people interested!</p>
 <h2 id="accent-color"><a href="#accent-color"><code>accent-color</code></a></h2>
 <p>Starting off simple, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color">accent-color</a> sets the color for <abbr title="User Interface">UI</abbr> controls like checkboxes and range sliders. Safari added it in version 15.4 (March 2022), so there's now full browser support! There's a great <a href="https://web.dev/accent-color/">article on it by web.dev</a> if you want to know more.</p>
-<p data-height="256" data-theme-id="dark" data-slug-hash="gOeBwPy" data-default-tab="result" data-user="burntcustard" data-pen-title="Unknown Pen" data-preview="false" data-editable="false" class="codepen" style="height:256px">
+<p data-height="320" data-theme-id="dark" data-slug-hash="gOeBwPy" data-default-tab="result" data-user="burntcustard" data-preview="false" data-editable="false" class="codepen" style="height:320px">
       See the <a href="https://codepen.io/burntcustard/pen/gOeBwPy/">demo on CodePen</a>
     </p>
 <h2 id="new-color-syntax"><a href="#new-color-syntax">New Color Syntax</a></h2>
@@ -56,11 +56,11 @@ color:hwb(47 7%0%); // Minified
 <h2 id="backdrop-filter"><a href="#backdrop-filter"><code>backdrop-filter</code></a></h2>
 <p>Two words: <em>Frosted. Glass.</em></p>
 <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter">backdrop-filter</a> property applies a filter to an area <em>behind</em> an element. The most obvious example is <code>backdrop-filter: blur()</code> for iOS-style dialogs boxes, overlays, buttons, etc.</p>
-<p data-height="256" data-theme-id="dark" data-slug-hash="qBoMeQg" data-default-tab="result,css" data-user="burntcustard" data-pen-title="Unknown Pen" data-preview="false" data-editable="false" class="codepen" style="height:256px">
+<p data-height="320" data-theme-id="dark" data-slug-hash="qBoMeQg" data-default-tab="result,css" data-user="burntcustard" data-preview="false" data-editable="false" class="codepen" style="height:320px">
       See the <a href="https://codepen.io/burntcustard/pen/qBoMeQg/">demo on CodePen</a>
     </p>
 <p>You can use any of the CSS <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function">&lt;filter-functions&gt;</a> as values for backdrop-filter. Another helpful filter is <code>invert()</code>, as it can make <abbr title="User Interface">UI</abbr> elements like crosshairs stand out on any background.</p>
-<p data-height="256" data-theme-id="dark" data-slug-hash="wvmEVOo" data-default-tab="css,result" data-user="burntcustard" data-pen-title="Unknown Pen" data-preview="false" data-editable="false" class="codepen" style="height:256px">
+<p data-height="320" data-theme-id="dark" data-slug-hash="wvmEVOo" data-default-tab="css,result" data-user="burntcustard" data-preview="false" data-editable="false" class="codepen" style="height:320px">
       See the <a href="https://codepen.io/burntcustard/pen/wvmEVOo/">demo on CodePen</a>
     </p>
 <p>A rudimentary tilt-shift effect can be created by combining a mask with <code>backdrop-filter: blur()</code>.</p>
@@ -69,17 +69,17 @@ color:hwb(47 7%0%); // Minified
 <pre><code>-webkit-mask: linear-gradient(black 10%, transparent 40% 60%, black 90%);
 </code></pre>
 <p>The <code>.filter</code> element must have some sort of background for the mask to be applied - so here we give it <code>background: #0ff;</code></p>
-<p data-height="256" data-theme-id="dark" data-slug-hash="jOzerZg" data-default-tab="css,result" data-user="burntcustard" data-pen-title="Unknown Pen" data-preview="false" data-editable="false" class="codepen" style="height:256px">
+<p data-height="320" data-theme-id="dark" data-slug-hash="jOzerZg" data-default-tab="css,result" data-user="burntcustard" data-preview="false" data-editable="false" class="codepen" style="height:320px">
       See the <a href="https://codepen.io/burntcustard/pen/jOzerZg/">demo on CodePen</a>
     </p>
 <p>We can then swap out the background for a <code>backdrop-filter</code> - this one blurs slightly, and darkens and desatures with &lt; 1 values.</p>
 <pre><code>backdrop-filter: blur(5px) brightness(0.8) grayscale(0.2);
 </code></pre>
-<p data-height="256" data-theme-id="dark" data-slug-hash="WNzaxxL" data-default-tab="css,result" data-user="burntcustard" data-pen-title="Unknown Pen" data-preview="false" data-editable="false" class="codepen" style="height:256px">
+<p data-height="320" data-theme-id="dark" data-slug-hash="WNzaxxL" data-default-tab="css,result" data-user="burntcustard" data-preview="false" data-editable="false" class="codepen" style="height:320px">
       See the <a href="https://codepen.io/burntcustard/pen/WNzaxxL/">demo on CodePen</a>
     </p>
 <p>This CSS-based city uses the effect to <a href="https://en.wikipedia.org/wiki/Miniature_faking">miniture-ify</a> it:</p>
-<p data-height="450" data-theme-id="dark" data-slug-hash="GRxYZQW" data-default-tab="result" data-user="burntcustard" data-pen-title="Unknown Pen" data-preview="true" data-editable="false" class="codepen" style="height:450px">
+<p data-height="450" data-theme-id="dark" data-slug-hash="GRxYZQW" data-default-tab="result" data-user="burntcustard" data-preview="true" data-editable="false" class="codepen" style="height:450px">
       See the <a href="https://codepen.io/burntcustard/pen/GRxYZQW/">demo on CodePen</a>
     </p>
 <p><code>backdrop-filter</code> recently landed in Firefox 103, so it's now in all moderns browsers. The <code>-webkit-</code> prefix is still needed for Safari, but I'd recomend leaving that off for js13kGames, as losing the effect likely isn't a game-breaking bug.</p>
