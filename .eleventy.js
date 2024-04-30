@@ -21,7 +21,6 @@ module.exports = (eleventyConfig) => {
       height = 256,
       theme = 'dark',
       tabs = 'result',
-      title = 'Unknown Pen',
       preview = false,
       editable = false,
     } = Object.fromEntries(config.split(';').map(c => c.split(':')));
@@ -34,7 +33,6 @@ module.exports = (eleventyConfig) => {
       data-slug-hash="${slug}"
       data-default-tab="${tabs}"
       data-user="${user}"
-      data-pen-title="${title}"
       data-preview="${preview}"
       data-editable="${editable}"
       class="codepen"
