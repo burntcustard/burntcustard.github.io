@@ -73,7 +73,7 @@ const Work = () => {
         </p>
 
         <p>
-          If you like what you see, please reach out to me at <a href="mailto:john@burnt.io">john@burnt.io</a>!
+          If you like what you see, please reach out to me via <a href="mailto:john@burnt.io">john@burnt.io</a>
         </p>
       </header>
 
