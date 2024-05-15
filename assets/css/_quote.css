@@ -12,11 +12,11 @@ blockquote {
 }
 
 blockquote:before {
-  content: '“';
+  content: open-quote;
 }
 
 blockquote:after {
-  content: '”';
+  content: close-quote;
 }
 
 figcaption div {
