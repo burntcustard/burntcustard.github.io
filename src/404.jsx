@@ -1,6 +1,6 @@
 import HTMLPage from './_includes/components/html-page';
 
-function Index() {
+function notFound() {
   return (
     <HTMLPage>
       <header>
@@ -14,4 +14,8 @@ function Index() {
   )
 }
 
-export default Index;
+notFound.data = {
+  permalink: "404.html",
+};
+
+export default notFound;
