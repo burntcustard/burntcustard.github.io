@@ -25,7 +25,8 @@ h3 {
   font-size: 1.25rem;
 }
 
-body.home h1 {
+body.home h1,
+body.404 {
   font-family: 'Fira Code', monospace;
   font-weight: 700;
   color: var(--yellow);
