@@ -46,7 +46,7 @@ function Index() {
         </a>
         {' '}
         <a
-          href="https://www.linkedin.com/in/john-evans-737958b0/"
+          href="https://www.linkedin.com/in/burntcustard/"
           rel="noreferrer"
         >
           LinkedIn
