@@ -30,24 +30,33 @@ const Article = ({ excerpt, site, source, title, img, video, quote, index }) => 
     <div className="screen">
       <div>
         { video ? (
-          <video
-            src={video}
-            loading={index ? "lazy" : null}
-            width="640"
-            height="auto"
-            autoPlay={true}
-            playsInline={true}
-            disableRemotePlayback={true}
-            loop={true}
-            muted={true}
-          />
+          <div style={{ display: 'contents' }}>
+            <span
+              className="label"
+              id={`video-${index}-label`}
+            >
+              {`Video scrolling through the ${title} website`}
+            </span>
+            <video
+              src={video}
+              loading={index ? "lazy" : null}
+              width="640"
+              height="auto"
+              autoPlay={true}
+              playsInline={true}
+              disableRemotePlayback={true}
+              loop={true}
+              muted={true}
+              aria-labelledby={`video-${index}-label`}
+            />
+          </div>
         ) : img ? (
           <img
             src={img}
             loading={index ? "lazy" : null}
             width="640"
             height="auto"
-            alt={`Screenshot of ${title} website`}
+            alt={`Screenshot of the ${title} website`}
           />
         ) : (
           <small>Screenshot coming soon</small>
