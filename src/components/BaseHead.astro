@@ -22,7 +22,7 @@ const { title, description } = Astro.props;
 
   {/* Fonts */}
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/>
-  <style>
+  <style is:inline>
     @font-face {
       font-family: 'Fira Code';
       font-weight: 300 700;
@@ -34,6 +34,11 @@ const { title, description } = Astro.props;
       font-weight: 700;
       font-display: swap;
       src: url(https://fonts.gstatic.com/s/firasans/v17/va9B4kDNxMZdWfMOD5VnLK3eRhf6.woff2) format('woff2');
+    }
+
+    /* Prevent links flashing the browser-default blue before global.css loads. */
+    a {
+      color: inherit;
     }
   </style>
 
