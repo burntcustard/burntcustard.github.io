@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHtml from '../components/BaseHtml.astro';
+import { SITE_TITLE } from '../consts';
+import '../styles/content.css';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, pubDate, updatedDate } = Astro.props;
+---
+
+<BaseHtml title={`${SITE_TITLE} - ${title}`}>
+	<header>
+		<h1>{title}</h1>
+		{pubDate && (
+			<time>{pubDate.toLocaleDateString()}</time>
+		)}
+		{updatedDate && pubDate !== updatedDate && (
+			<span>Updated <time>{updatedDate.toLocaleDateString()}</time></span>
+		)}
+	</header>
+
+	<div class="content">
+		<slot />
+	</div>
+</BaseHtml>

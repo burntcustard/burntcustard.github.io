@@ -1,0 +1,38 @@
+---
+import HeaderLink from './HeaderLink.astro';
+---
+
+<style>
+  header {
+    margin-block: 9px;
+  }
+
+  nav,
+  nav div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  nav > div:first-child {
+    margin-inline-end: auto;
+  }
+
+  body {
+    /* Show scrollbar even w/o overflow to make nav less janky */
+    overflow-y: scroll;
+  }
+</style>
+
+<header>
+  <nav>
+    <div>
+      <HeaderLink href="/">burnt.io</HeaderLink>
+    </div>
+    <div>
+      <HeaderLink href="/play">Play</HeaderLink>
+      <HeaderLink href="/work">Work</HeaderLink>
+      <HeaderLink href="/blog">Blog</HeaderLink>
+    </div>
+  </nav>
+</header>

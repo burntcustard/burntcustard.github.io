@@ -1,0 +1,134 @@
+@import 'reset';
+@import 'body';
+@import 'colors';
+@import 'headings';
+@import 'inline-link';
+@import 'screen';
+@import 'time';
+
+html {
+  min-height: 100vh;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Keep the cross-document transition focused on the brand link. */
+body > header a[href='/'] {
+  view-transition-name: site-brand;
+}
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(site-brand),
+::view-transition-new(site-brand) {
+  animation: none;
+}
+
+/* Fade the brand only when arriving at or leaving the homepage. The active,
+   hidden home link identifies the homepage; the head script identifies a
+   homepage that was just left. */
+html:has(body > header a[href='/'][aria-current])::view-transition-old(site-brand),
+html[data-previous-page-was-home='true']::view-transition-old(site-brand) {
+  animation: 150ms ease-in both brand-fade-out;
+}
+
+html:has(body > header a[href='/'][aria-current])::view-transition-new(site-brand),
+html[data-previous-page-was-home='true']::view-transition-new(site-brand) {
+  animation: 200ms ease-out both brand-fade-in;
+}
+
+@keyframes brand-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes brand-fade-in {
+  from { opacity: 0; }
+}
+
+/* Content that slides in. The site navigation is a direct child of <body>,
+   so it is deliberately excluded. */
+main > header,
+main > h1,
+main > p,
+.content > *,
+article.listing > div,
+article.work {
+  transition: translate .5s, opacity .5s;
+}
+
+/* The head script adds this attribute before the body can paint. It prevents
+   content flashing before slide-in.ts applies each element's start position.
+   Without JavaScript (or with reduced motion), the attribute is absent and
+   content remains visible. */
+html[data-slide-in='pending'] main > header,
+html[data-slide-in='pending'] main > h1,
+html[data-slide-in='pending'] main > p,
+html[data-slide-in='pending'] .content > *,
+html[data-slide-in='pending'] article.listing > div,
+html[data-slide-in='pending'] article.work {
+  opacity: 0;
+  transition: none;
+}
+
+main > p,
+header,
+article,
+main > h1,
+.content > * {
+  margin-inline: max(9px, calc(16vw - 80px));
+}
+
+main > p,
+main header,
+article.listing,
+main > h1,
+.content > * {
+  max-width: 46rem;
+}
+
+main > h1 ~ p:last-of-type {
+  margin-block-end: 0;
+}
+
+main,
+.content {
+  margin-block: 4rem;
+}
+
+section {
+  overflow-x: hidden;
+}
+
+figure {
+  margin: 0;
+  margin-block-start: 1.5rem;
+  font-size: 1rem;
+  font-family: sans-serif;
+}
+
+blockquote {
+  margin: 0;
+  color: var(--gray);
+  font-style: italic;
+}
+
+blockquote:before {
+  content: open-quote;
+}
+
+blockquote:after {
+  content: close-quote;
+}
+
+figcaption div {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: .05em;
+  margin-block-start: .5rem;
+}
+
+figcaption cite {
+  font-style: normal;
+}

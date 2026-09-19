@@ -1,0 +1,106 @@
+---
+interface Props {
+	description?: string;
+	title: string;
+  img?: string;
+  video?: string;
+  site?: string;
+  source?: string;
+  quote?: {
+    text?: string;
+    author?: string;
+    title?: string;
+  }
+  index?: number;
+}
+
+const { description, title, img, video, site, source, quote, index } = Astro.props;
+---
+
+<style>
+  article {
+    margin-block: 6rem;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    column-gap: 4rem;
+    row-gap: 1.5rem;
+
+    &:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    h2 {
+      margin-block-end: 1em;
+    }
+
+    p {
+      margin-block-start: .5em;
+      margin-block-end: 0;
+    }
+  }
+
+  @media (min-width: 720px) {
+    article {
+      display: flex;
+
+      & > div:first-child {
+        width: min(30.5rem, 40%);
+      }
+    }
+  }
+</style>
+
+<article class="work">
+  <div>
+    <h2>{title}</h2>
+    { description && <p set:html={description}/> }
+    { site && <p set:html={site}/> }
+    { source && <p set:html={source}/> }
+    { quote && quote.text && (
+      <figure>
+        <blockquote>{quote.text}</blockquote>
+        <figcaption>
+          <div>{quote.author}</div>
+          <cite>{quote.title}</cite>
+        </figcaption>
+      </figure>
+    )}
+  </div>
+
+  <div class="screen">
+    <div>
+      { video ? (
+        <div style={{ display: 'contents' }}>
+          <span
+            class="label"
+            id={`video-${index}-label`}
+          >
+            {`Video scrolling through the ${title} website`}
+          </span>
+          <video
+            src={video}
+            width="640"
+            height="auto"
+            autoplay={true}
+            playsinline={true}
+            disableRemotePlayback={true}
+            loop={true}
+            muted={true}
+            aria-labelledby={`video-${index}-label`}
+          />
+        </div>
+      ) : img ? (
+        <img
+          src={img}
+          loading={index === 0 ? "eager" : "lazy"}
+          width="640"
+          height="auto"
+          alt={`Screenshot of the ${title} website`}
+        />
+      ) : (
+        <small>Screenshot coming soon</small>
+      )}
+    </div>
+  </div>
+</article>

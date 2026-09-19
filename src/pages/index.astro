@@ -1,0 +1,43 @@
+---
+import BaseHtml from '../components/BaseHtml.astro';
+import BigHeading from '../components/BigHeading.astro';
+import { SITE_TITLE, SOCIALS } from '../consts';
+---
+
+<style>
+	p {
+		max-width: 38rem;
+	}
+</style>
+
+<BaseHtml>
+	<header>
+		<BigHeading>{SITE_TITLE}</BigHeading>
+	</header>
+
+	<p>
+		Hi! My name's John, aka burntcustard. I'm a <strong><abbr title="User Experience">UX</abbr></strong> and <strong>accessibility</strong> focused senior front-end web developer.
+	</p>
+
+	<p>
+		I'm currently part of the team at <a href="https://www.freshegg.co.uk/">Fresh Egg</a>, and was previously the lead UX Engineer at <a href="https://wearelighthouse.com/">Lighthouse London</a>.
+	</p>
+
+	<p>
+		If you like the look of <a href="/john-evans-cv">my CV</a>, <a href="/work">work projects</a>, or <a href="/play">games I've made</a>, then get in touch with me at <a href="mailto:john@burnt.io?subject=Enquiry">john@burnt.io</a>.
+	</p>
+
+	<p style={{ textWrap: 'balance' }}>
+		{Object.entries(SOCIALS).map(([name, url], index) => (
+			<>
+				{index ? ' ' : ''}
+				<a
+					href={url}
+					rel="noreferrer"
+				>
+					{name}
+				</a>
+			</>
+		))}
+	</p>
+</BaseHtml>

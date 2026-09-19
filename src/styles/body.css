@@ -1,0 +1,33 @@
+body {
+  color: var(--off-white);
+  font-size: 1.0625rem;
+  font-family: 'Fira Code', monospace;
+  line-height: 1.5;
+  --bg-line-color: #5552;
+  background: var(--gray-darker);
+  background-size: 48px 27.5px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--bg-line-color) 0 1px,
+      #0000 0 23px,
+      var(--bg-line-color) 0 24px,
+      #0000 0
+    ),
+    repeating-linear-gradient(
+      30deg,
+      var(--bg-line-color) 0 2px,
+      #0000 0 24px
+    ),
+    repeating-linear-gradient(
+      -30deg,
+      var(--bg-line-color) 0 2px,
+      #0000 0 24px
+    );
+}
+
+@media (min-width: 501px) {
+  body {
+    font-size: 1.125rem;
+  }
+}

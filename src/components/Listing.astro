@@ -1,0 +1,123 @@
+---
+interface Props {
+	excerpt?: string;
+	title: string;
+  date?: Date;
+  href: string;
+}
+
+const { date, excerpt, title, href } = Astro.props;
+---
+
+<style>
+  article {
+    margin-block: 4rem;
+  }
+
+  article div {
+    transition: translate .5s, opacity .5s;
+  }
+
+  article div > a {
+    display: inline-grid;
+    justify-items: start;
+    pointer-events: none;
+  }
+
+  article div > a > * {
+    pointer-events: all;
+    transition: color .3s;
+  }
+
+  article div > a div {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid var(--gray);
+    padding-inline: .5rem;
+    padding-block: .25rem;
+    color: var(--yellow);
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    transition: outline-color .3s;
+    border-image-slice: 1;
+    border-image-source: conic-gradient(
+      from var(--deg),
+      var(--off-white),
+      #999,
+      var(--off-white)
+    );
+  }
+
+  article div > a div::before {
+    position: absolute;
+    inset: 2px;
+    border: 2px solid var(--off-white);
+    content: '';
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  article h2 {
+    padding: 0;
+  }
+
+  article svg {
+    flex-shrink: 0;
+    margin-inline-start: 2px;
+    margin-inline-end: -4px;
+  }
+
+  article div > a:focus {
+    outline: none;
+  }
+
+  article div > a:hover div {
+    outline-color: var(--off-white);
+  }
+
+  article div > a:hover time {
+    background-color: var(--off-white);
+  }
+
+  article div > a:focus-visible div::before {
+    opacity: 1;
+  }
+
+  article div > a:focus svg,
+  article div > a:hover svg {
+    animation: .5s wiggle;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes wiggle {
+    25% { transform: rotate(-6deg); }
+    75% { transform: rotate(6deg); }
+  }
+</style>
+
+<article class="listing">
+  <div>
+    <a href={href} data-astro-prefetch>
+      <div>
+        <h2>{title}</h2>
+        <svg
+          width="30px"
+          height="30px"
+          viewBox="0 0 10 10"
+          aria-hidden="true"
+        >
+          <path fill="none" stroke="currentColor" d="M2 5l6 0M5 2l3 3 l-3 3"/>
+        </svg>
+      </div>
+
+      {date && (
+        <time datetime={date.toISOString()}>
+          {date.toLocaleDateString()}
+        </time>
+      )}
+    </a>
+
+    {excerpt && <p set:html={excerpt} />}
+  </div>
+</article>

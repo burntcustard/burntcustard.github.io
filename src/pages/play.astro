@@ -1,0 +1,25 @@
+---
+import { SITE_TITLE } from '../consts';
+import { playItems } from '../data/play';
+import BaseHtml from '../components/BaseHtml.astro';
+import Listing from '../components/Listing.astro';
+---
+
+<BaseHtml
+	title={`${SITE_TITLE} - Play`}
+	description="John, aka burntcustard\'s games, tools, and experiments"
+>
+	<h1>Play</h1>
+
+	<p>A collection of little games, tools, and experiments that I created myself, or helped out with. Source code for most these is available on <a href="https://github.com/burntcustard">GitHub</a>.</p>
+
+	<section>
+		{playItems.map(item => (
+			<Listing
+				excerpt={item.description}
+				title={item.title}
+				href={item.href}
+			/>
+		))}
+	</section>
+</BaseHtml>

@@ -1,0 +1,50 @@
+---
+import { existsSync } from 'fs';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE } from '../../consts';
+import BaseHtml from '../../components/BaseHtml.astro';
+import Article from '../../components/Article.astro';
+
+const work = (await getCollection('work')).sort(
+  (a, b) => (a.data.index ?? Infinity) - (b.data.index ?? Infinity)
+);
+---
+
+<BaseHtml
+  description="John, aka burntcustard\'s work projects"
+  title={`${SITE_TITLE} - Work`}
+>
+  <h1>Work</h1>
+
+  <p>
+    Websites I&apos;ve worked on - some as a full-stack developer, and some as a <strong><abbr title="User Experience">UX</abbr></strong>, <strong><abbr title="Cascading Style Sheets">CSS</abbr></strong>, or <strong><abbr title="accessibility">a11y</abbr></strong> specialist within a larger team.
+  </p>
+
+  <p>
+    If you like what you see, please reach out to me via <a href="mailto:john@burnt.io">john@burnt.io</a>
+  </p>
+
+  <section>
+    {work.map((work) => {
+      const videoPath = `/video/${work.id}.mp4`;
+      const imgPath = `/img/${work.id}.png`;
+
+      return (
+        <Article
+          description={work.data.description}
+          title={work.data.title}
+          img={existsSync(`./public${imgPath}`) ? imgPath : undefined}
+          video={existsSync(`./public${videoPath}`) ? videoPath : undefined}
+          site={work.data.site}
+          source={work.data.source}
+          quote={{
+            text: work.data.quote,
+            author: work.data.quoteAuthor,
+            title: work.data.quoteTitle,
+          }}
+          index={work.data.index}
+        />
+      );
+    })}
+  </section>
+</BaseHtml>

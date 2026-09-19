@@ -1,3 +1,16 @@
-<h1><a href="https://burnt.io/">burnt.io</a></h1>
+# burnt.io
 
-Personal site built with [11ty](https://www.11ty.dev/) and [eleventy-plugin-react-ssr](https://www.npmjs.com/package/eleventy-plugin-react-ssr).
+Personal website built with [astro](https://astro.build/).
+
+## Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |

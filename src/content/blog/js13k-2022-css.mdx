@@ -1,0 +1,152 @@
+---
+title: CSS for js13k in 2022
+excerpt: There have been tons of usful additions to CSS over the last year or so - some of them are super helpful for js13kGames!
+pubDate: 2022-08-13
+---
+
+import Codepen from '../../components/Codepen.astro';
+
+There are only a handful of [js13kGames](https://js13kgames.com/) entries each year that use CSS, but there have been tons of usful <small>(yes, for games!)</small> additions to the language over the last year or so. Hopefully me pointing some of them out can get more people interested!
+
+## [`accent-color`](#accent-color)
+
+Starting off simple, [accent-color](https://developer.mozilla.org/en-US/docs/Web/CSS/accent-color) sets the color for <abbr title="User Interface">UI</abbr> controls like checkboxes and range sliders. Safari added it in version 15.4 (March 2022), so there's now full browser support! There's a great [article on it by web.dev](https://web.dev/accent-color/) if you want to know more.
+
+<Codepen penTitle="accent-color demo" slugHash="gOeBwPy" />
+
+## [New Color Syntax](#new-color-syntax)
+
+Hex notation (`#ffffff` or `#fff`) is usually best for game jams because of it's conciseness, however the other syntaxes have had some improvements recently, and are more likely to be worth using, especially for programatically-generated colors.
+
+### [`rgb()` and `hsl()` with alpha](#rgb-and-hsl-with-alpha)
+Both `rgb()` and `hsl()` now support an alpha channel without the `a`, and with spaces instead of commas:
+```
+/* old */
+color: rgba(255, 204, 17, 0.5);
+color: hsla(47deg, 100%, 53%, 0.5);
+/* new */
+color: rgb(255 204 17 / 0.5);
+color: hsl(47deg 100% 53% / 0.5);
+```
+If you're hand-minifying, the newer syntax saves a few bytes, half because of the removal of `a`, and half because percentage values don't require the space after them.
+```
+/* old */
+color:rgba(255,204,17,.5);
+color:hsla(47,100%,53%,.5);
+/* new */
+color:rgb(255 204 17/.5); // 1B shorter!
+color:hsl(47 100%53%/.5); // 2B shorter!
+```
+
+### [Hue Whiteness Blackness](#hue-whiteness-blackness)
+[hwb()](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hwb) is a newly implemented (full support since April 2022) color syntax, where `H` is hue, `W` is whiteness, `B` is blackness. It's nice to pick colors with, and minifies well. Worth mentioning that it _does not support_ the old comma-based syntax.
+```
+color: hwb(47deg 7% 0%);
+color:hwb(47 7%0%); // Minified
+```
+
+## [Flexbox & Grid Improvements](#flexbox-and-grid-improvements)
+
+### [`start` Instead of `flex-start`](#start-instead-of-flex-start)
+Safari is the only browser that requires the `flex-` part of `align-items: flex-start` for flexbox containers. All other browsers are fine with just `align-items: start`. If you're really in need of those few bytes, and still want to support Safari, you might be able to get away with a `display: grid` container instead.
+
+### [`gap` Property for Flexbox](#gap-property-for-flexbox)
+It took Safari until last year to implement this one, but it's great. Gone are the days of negative margins on the parent and positive margins on the children, or weird margins between siblings. Just use a grid or flexbox layout plus [gap](https://developer.mozilla.org/en-US/docs/Web/CSS/gap)!
+```
+/* Ye old method */
+.parent {
+  margin: -1rem;
+}
+.child {
+  margin: 1rem;
+}
+
+/* Another old one */
+.child ~ .child {
+  margin-left: 2rem;
+}
+
+/* New */
+.parent {
+  display: grid;
+  gap: 2rem;
+}
+```
+
+## [`backdrop-filter`](#backdrop-filter)
+
+Two words: _Frosted. Glass._
+
+The [backdrop-filter](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter) property applies a filter to an area _behind_ an element. The most obvious example is `backdrop-filter: blur()` for iOS-style dialogs boxes, overlays, buttons, etc.
+
+<Codepen slugHash="qBoMeQg" penTitle="Frosted glas demo" defaultTabs="result,css" />
+
+You can use any of the CSS [\<filter-functions\>](https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function) as values for backdrop-filter. Another helpful filter is `invert()`, as it can make <abbr title="User Interface">UI</abbr> elements like crosshairs stand out on any background.
+
+<Codepen penTitle="backdrop-filter demo crosshair" slugHash="wvmEVOo" defaultTabs="css,result"/>
+
+A rudimentary tilt-shift effect can be created by combining a mask with `backdrop-filter: blur()`.
+
+First, the mask-image. We're going to use the [mask shorthand](https://developer.mozilla.org/en-US/docs/Web/CSS/mask), and it needs the `-webkit-` prefix as browsers are being slow at removing it. But even Firefox supports `-webkit-mask`.
+
+This mask starts at the top as black (any color _should_ work, checking if `red` can save a couple of bytes is on my todo list…) to apply the full filter effect, then fades to transparent so that towards the center the view the filter isn't applied
+
+```
+-webkit-mask: linear-gradient(black 10%, transparent 40% 60%, black 90%);
+```
+
+The `.filter` element must have some sort of background for the mask to be applied - so here we give it `background: #0ff;`
+
+<Codepen penTitle="CSS mask and backdrop-filter example (sans filter)" slugHash="jOzerZg" defaultTabs="css,result"/>
+
+We can then swap out the background for a `backdrop-filter` - this one blurs slightly, and darkens and desatures with < 1 values.
+
+```
+backdrop-filter: blur(5px) brightness(0.8) grayscale(0.2);
+```
+
+<Codepen penTitle="CSS mask and backdrop-filter example" slugHash="WNzaxxL" defaultTabs="css,result"/>
+
+This CSS-based city uses the effect to [miniture-ify](https://en.wikipedia.org/wiki/Miniature_faking) it:
+
+<Codepen penTitle="Tilt shift CSS city" slugHash="GRxYZQW" height={450}/>
+
+`backdrop-filter` recently landed in Firefox 103, so it's now in all moderns browsers. The `-webkit-` prefix is still needed for Safari, but I'd recomend leaving that off for js13kGames, as losing the effect likely isn't a game-breaking bug.
+
+## [`HTMLElemet.inert`](#htmlelementinert)
+
+Okay this one isn't CSS, it's HTML, but it can replace CSS. The HTMLElement [inert](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/inert) property marks an element as __non-interactable__. It's better than `pointer-events: none` because not only is it shorter, but it also disables keyboard access, without having to `tabIndex="-1"` any interative children.
+```
+/* old */
+<div class="ui" style="pointer-events: none">
+  <div class="popup-modal></div>
+</div>
+
+/* new */
+<div class="ui" inert>
+  <div class="popup-modal></div>
+</div>
+```
+Firefox will be getting `inert` next month in version 105, and all other moderns browsers [already support it](https://caniuse.com/mdn-api_htmlelement_inert).
+
+## [`inset`](#inset)
+
+The [inset](https://developer.mozilla.org/en-US/docs/Web/CSS/inset) CSS property is the new (since 2020) `top, right, button, left` shorthand.
+
+```
+.old {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.new {
+  inset: 0;
+}
+```
+
+## Final Thoughts
+
+Maybe let me know if you've learnt something or have been inspired to use CSS in your game! Via [twitter](https://twitter.com/burntcustard) or the [js13kGames Slack](https://slack.js13kgames.com/)
+
+If you're wondering what an entire game made with CSS (instead of for example a `<canvas>` element) looks like, you can check out my js13kGames entry from 2021, [3DC5S](https://js13kgames.com/entries/3dc5s). I also used some of the techniques mentioned here on my recent [js1024](https://js1024.fun/) entries, [mirror-puzzle](https://github.com/burntcustard/js1024-mirror-puzzle) and [stacking-game](https://github.com/burntcustard/js1024-stacking-game).

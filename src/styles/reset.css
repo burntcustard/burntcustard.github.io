@@ -1,0 +1,30 @@
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  scroll-margin-block: 9px;
+}
+
+p {
+  margin-block: 1.25em;
+}
+
+abbr {
+  text-underline-offset: 2px;
+  text-decoration-style: dashed;
+}
+
+code {
+  font-family: inherit;
+}
+
+::selection {
+  background: #0ff4;
+  text-shadow: none;
+}
