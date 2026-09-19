@@ -32,6 +32,6 @@ if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   delete document.documentElement.dataset.slideIn;
 
   targets.forEach((target, index) => {
-    setTimeout(() => observer.observe(target), 300 + 150 * Math.min(index, 4))
+    setTimeout(() => observer.observe(target), 300 + 150 * Math.min(index, 8))
   });
 }
