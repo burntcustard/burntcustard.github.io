@@ -15,6 +15,11 @@ export const playItems = [
     description: 'A 1023 byte puzzle game that uses your webcam as the image on the tiles. <a href="https://js1024.fun/results/2022">Winner of js1024 2022</a>.',
   },
   {
+    title: 'js1024 Eye Tubes',
+    href: '/js1024-eye-tubes',
+    description: 'A 1024 byte tube-filling game made for <a href="https://js1024.fun">JS1024</a>.',
+  },
+  {
     title: '3DC5S',
     href: '/3dc5s',
     description: `A <a href="https://js13kgames.com/entries/3dc5s">Js13kGames entry</a>. 3DC5S or 'Three Dimensional Cascading Style Sheets Space Station Simulator' is a game where the only objective is to build a cool looking space station, by unlocking modules, managing resources, and sticking blocks together.`,
@@ -22,7 +27,7 @@ export const playItems = [
   {
     title: '20461-dioretsa',
     href: '/20461-dioretsa',
-    description: 'A <a href="https://js13kgames.com/entries/20461-dioretsa">Js13kGames entry</a>. Named after the damocloid, (and Asteroids… backwards) 20461 Dioretsa is a local multiplayer Asteroids-like.',
+    description: 'A <a href="https://js13kgames.com/entries/20461-dioretsa">Js13kGames entry</a>. Named after the damocloid (and Asteroids… backwards), 20461 Dioretsa is a local multiplayer Asteroids-like.',
   },
   {
     title: 'js1024 Stacking Game',
@@ -43,6 +48,11 @@ export const playItems = [
     title: 'Codeheadings',
     href: '/codeheadings',
     description: 'A long time ago, I wanted some fancy headings for my far-too-much-text-in-one-file JavaScript projects…',
+  },
+  {
+    title: 'js1024 Jumpy Sheep',
+    href: '/js1024-jumpy-sheep',
+    description: 'A 1024 byte sheep-jumping game made for <a href="https://js1024.fun">JS1024</a>, inspired by the 2009 Android game <a href="https://www.mobygames.com/game/230742/abduction/" rel="nofollow">Abduction!</a>',
   },
   {
     title: 'Hex Guess 0x400',
